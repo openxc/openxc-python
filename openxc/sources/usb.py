@@ -5,7 +5,7 @@ import usb.core
 
 from .base import DataSource
 
-log = logging.getLogger(__name__)
+LOG = logging.getLogger(__name__)
 
 class UsbDataSource(DataSource):
     DEFAULT_VENDOR_ID = 0x1bc4
@@ -22,12 +22,11 @@ class UsbDataSource(DataSource):
         self.device = usb.core.find(idVendor=self.vendor_id)
 
         if not self.device:
-            log.warn("Couldn't find a USB device from vendor 0x%x",
+            LOG.warn("Couldn't find a USB device from vendor 0x%x",
                     self.vendor_id)
-            return
-
-        self.in_endpoint, self.out_endpoint = self.connect_endpoints(self
-                .device)
+        else:
+            self.in_endpoint, self.out_endpoint = self._connect_endpoints(
+                    self.device)
 
     def _connect_endpoints(self, device):
         device.set_configuration()
@@ -48,17 +47,27 @@ class UsbDataSource(DataSource):
                         usb.util.ENDPOINT_IN)
 
         if not out_endpoint or not in_endpoint:
-            log.warn("Couldn't find proper endpoints on the USB device")
+            LOG.warn("Couldn't find proper endpoints on the USB device")
 
         return out_endpoint, in_endpoint
 
     def read(self, num_bytes=None, timeout=None):
         num_bytes = num_bytes or self.DEFAULT_READ_REQUEST_SIZE
         timeout = timeout or self.DEFAULT_READ_TIMEOUT
-        return self.in_endpoint.read(num_bytes, timeout).tostring()
+        if self.out_endpoint is None:
+            LOG.warn("Can't read from USB, INT endpoint is %x",
+                self.in_endpoint)
+            return None
+        else:
+            return self.in_endpoint.read(num_bytes, timeout).tostring()
 
-    def _write(self, message):
-        return self.out_endpoint.write(message)
+    def write_bytes(self, data):
+        if self.out_endpoint is None:
+            LOG.warn("Can't write \"%s\" to USB, OUT endpoint is %x", data,
+                    self.out_endpoint)
+            return 0
+        else:
+            return self.out_endpoint.write(data)
 
     def version(self):
         raw_version = self.device.ctrl_transfer(0xC0,
