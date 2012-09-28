@@ -1,0 +1,17 @@
+OpenXC Python Library
+====================
+
+* Avoid a singleton, but need to start a vehicle service before it can be used
+* No need to serialize to fit into AIDL, which simplifies things
+
+```
+vehicle = Vehicle(data_source=None)
+vehicle.get(VehicleSpeed)
+vehicle.listen(VehicleSpeed, receiver)
+
+class VehicleMeasurement(object): pass
+```
+
+```
+| UsbDataSource -> | String -> | JsonSource -> JSON -> | dict -> | Vehicle -> VehicleMeasurement subclass | -> | sinks (including JSONsink for trace)
+```
