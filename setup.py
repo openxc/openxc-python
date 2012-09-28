@@ -1,3 +1,4 @@
+import sys
 from setuptools import setup, find_packages
 
 from openxc.version import get_version
@@ -9,6 +10,13 @@ except ImportError:
     pass
 
 long_description = open('README.mkd').read()
+
+install_reqs = ['pyusb']
+
+if sys.version_info < (3, 0):
+    install_reqs.append('pyserial')
+else:
+    install_reqs.append('pyserial-py3k')
 
 setup(name='openxc',
     version=get_version(),
@@ -28,4 +36,5 @@ setup(name='openxc',
     packages=find_packages(),
     test_suite='nose.collector',
     tests_require=['nose'],
+    install_requires=install_reqs,
 )

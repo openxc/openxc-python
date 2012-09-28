@@ -1,0 +1,2 @@
+class Measurement(object):
+    pass
