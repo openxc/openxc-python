@@ -10,7 +10,13 @@ class DataSource(object):
 
     def start(self):
         self.thread = threading.Thread(target=self.run)
+        self.thread.daemon = True
         self.thread.start()
+        try:
+            while self.thread.is_alive():
+                self.thread.join(5)
+        except (KeyboardInterrupt, SystemExit):
+            return
 
     def run(self):
         message_buffer = b""
