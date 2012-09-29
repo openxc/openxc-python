@@ -5,9 +5,6 @@ from openxc.formats.json import JsonFormatter
 
 class DataSource(object):
     def __init__(self, callback):
-        self.messages_received = 0
-        self.good_messages = 0
-        self.total_bytes_received = 0
         self.callback = callback
 
     def start(self):
@@ -19,19 +16,10 @@ class DataSource(object):
         while True:
             message_buffer += self.read()
             while True:
-                message, message_buffer, received = self._parse_message(
+                message, message_buffer = self._parse_message(
                         message_buffer)
-                if received and message is None and self.messages_received == 0:
-                    # assume the first message will be caught mid-stream and
-                    # thus will be corrupted
-                    self.messages_received -= 1
-                else:
-                    self.good_messages += 1
-                    self.total_bytes_received += len(message)
+                if message is not None:
                     self.callback(message)
-
-                if received:
-                    self.messages_received += 1
 
     def read(self, num_bytes=None, timeout=None):
         raise NotImplementedError("Don't use DataSource directly")
@@ -66,10 +54,8 @@ class DataSource(object):
         remainder of the buffer.
         """
         parsed_message = None
-        received = False
         remainder = message_buffer
         if "\n" in message_buffer:
-            received = True
             message, _, remainder = message_buffer.partition("\n")
             try:
                 parsed_message = JsonFormatter.deserialize(message)
@@ -77,4 +63,4 @@ class DataSource(object):
                     raise ValueError()
             except ValueError:
                 pass
-        return parsed_message, remainder, received
+        return parsed_message, remainder

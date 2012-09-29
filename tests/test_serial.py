@@ -9,4 +9,7 @@ class SerialDataSourceTests(unittest.TestCase):
         super(SerialDataSourceTests, self).setUp()
 
     def test_create(self):
-        s = SerialDataSource()
+        def callback(message):
+            pass
+
+        s = SerialDataSource(callback)

@@ -37,4 +37,9 @@ setup(name='openxc',
     test_suite='nose.collector',
     tests_require=['nose'],
     install_requires=install_reqs,
+    entry_points={
+        'console_scripts': [
+            'openxc-dashboard = openxc.tools.dashboard:main',
+        ]
+    },
 )

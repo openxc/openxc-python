@@ -11,8 +11,8 @@ class SerialDataSource(DataSource):
     DEFAULT_PORT = "/dev/ttyUSB0"
     DEFAULT_BAUDRATE = 115200
 
-    def __init__(self, port=None, baudrate=None):
-        super(SerialDataSource, self).__init__()
+    def __init__(self, callback, port=None, baudrate=None):
+        super(SerialDataSource, self).__init__(callback)
         self.port = port or self.DEFAULT_PORT
         self.baudrate = baudrate or self.DEFAULT_BAUDRATE
         try:

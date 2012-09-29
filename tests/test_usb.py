@@ -9,4 +9,7 @@ class UsbDataSourceTests(unittest.TestCase):
         super(UsbDataSourceTests, self).setUp()
 
     def test_create(self):
-        s = UsbDataSource()
+        def callback(message):
+            pass
+
+        s = UsbDataSource(callback)

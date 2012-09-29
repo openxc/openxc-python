@@ -15,11 +15,14 @@ class UsbDataSource(DataSource):
     DEFAULT_READ_REQUEST_SIZE = 512
     DEFAULT_READ_TIMEOUT = 1000000
 
-    def __init__(self, vendor_id=None):
-        super(UsbDataSource, self).__init__()
+    def __init__(self, callback, vendor_id=None):
+        super(UsbDataSource, self).__init__(callback)
+        if vendor_id is not None and not isinstance(vendor_id, int):
+            vendor_id = int(vendor_id, 0)
         self.vendor_id = vendor_id or self.DEFAULT_VENDOR_ID
 
         self.device = usb.core.find(idVendor=self.vendor_id)
+        self.out_endpoint = self.in_endpoint = None
 
         if not self.device:
             LOG.warn("Couldn't find a USB device from vendor 0x%x",
@@ -49,15 +52,14 @@ class UsbDataSource(DataSource):
         if not out_endpoint or not in_endpoint:
             LOG.warn("Couldn't find proper endpoints on the USB device")
 
-        return out_endpoint, in_endpoint
+        return in_endpoint, out_endpoint
 
     def read(self, num_bytes=None, timeout=None):
         num_bytes = num_bytes or self.DEFAULT_READ_REQUEST_SIZE
         timeout = timeout or self.DEFAULT_READ_TIMEOUT
         if self.out_endpoint is None:
-            LOG.warn("Can't read from USB, INT endpoint is %x",
-                self.in_endpoint)
-            return None
+            LOG.warn("Can't read from USB, IN endpoint is %s", self.in_endpoint)
+            return ""
         else:
             return self.in_endpoint.read(num_bytes, timeout).tostring()
 
