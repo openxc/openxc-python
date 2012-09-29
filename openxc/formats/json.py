@@ -5,7 +5,7 @@ import json
 class JsonFormatter(object):
     @classmethod
     def deserialize(cls, message):
-        return json.loads(message)
+        return json.loads(message.decode("utf-8"))
 
     @classmethod
     def serialize(cls, name, value):

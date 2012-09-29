@@ -147,7 +147,6 @@ class Dashboard(object):
         self.window = window
         self.elements = elements
         self.started_time = datetime.now()
-        self.total_bytes_received = 0
         self.messages_received = 0
 
         curses.use_default_colors()
@@ -157,12 +156,16 @@ class Dashboard(object):
 
     def receive(self, message):
         self.messages_received += 1
-        if self.total_bytes_received == 0:
+        if self.source.bytes_received == 0:
             self.started_time = datetime.now()
-        self.total_bytes_received += len(message)
         self._redraw(message)
 
     def _redraw(self, message):
+        for element in self.elements:
+            if element.name == message.get('name', None):
+                element.update(message)
+                break
+
         self.window.erase()
         max_rows = self.window.getmaxyx()[0] - 4
         for row, element in enumerate(self.elements):
@@ -174,10 +177,10 @@ class Dashboard(object):
                 curses.A_REVERSE)
         self.window.addstr(max_rows + 1, 0,
                 "Total received: %s" %
-                sizeof_fmt(self.total_bytes_received),
+                sizeof_fmt(self.source.bytes_received),
                 curses.A_REVERSE)
         self.window.addstr(max_rows + 2, 0, "Data Rate: %s" %
-            sizeof_fmt(self.total_bytes_received /
+            sizeof_fmt(self.source.bytes_received /
                 (total_seconds(datetime.now() - self.started_time)
                     + 0.1)),
              curses.A_REVERSE)
@@ -250,6 +253,7 @@ def initialize_elements():
 def run_dashboard(window, source_class, source_kwargs):
     dashboard = Dashboard(window, initialize_elements())
     source = source_class(dashboard.receive, **source_kwargs)
+    dashboard.source = source
     source.start()
 
 
