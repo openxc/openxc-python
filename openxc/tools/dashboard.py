@@ -8,6 +8,12 @@ from datetime import datetime
 from openxc.sources.usb import UsbDataSource
 from openxc.sources.serial import SerialDataSource
 
+try:
+    unicode
+except NameError:
+    # Python 3
+    basestring = unicode = str
+
 # timedelta.total_seconds() is only in 2.7, so we backport it here for 2.6
 def total_seconds(delta):
     return (delta.microseconds + (delta.seconds
@@ -52,14 +58,15 @@ class DataPoint(object):
 
         self.messages_received += 1
         self.current_data = message.get('value', None)
-        if type(self.current_data) == int:
+        if not isinstance(self.current_data, bool) and isinstance(
+                self.current_data, int):
             self.current_data = float(self.current_data)
-        if type(self.current_data) != self.type:
+        if not isinstance(self.current_data, self.type):
             self.bad_data = True
         else:
-            if type(self.current_data) is bool:
+            if isinstance(self.current_data, bool):
                 return
-            elif type(self.current_data) is str:
+            elif isinstance(self.current_data, unicode):
                 if self.current_data in self.vocab:
                     #Save the event in the proper spot.
                     if (len(message) > 2) and (self.events_active is True):
@@ -214,10 +221,10 @@ def initialize_elements():
 
     elements.append(DataPoint('steering_wheel_angle', float, -600, 600))
     elements.append(DataPoint('engine_speed', float, 0, 8000))
-    elements.append(DataPoint('transmission_gear_position', str,
+    elements.append(DataPoint('transmission_gear_position', unicode,
         vocab=['first', 'second', 'third', 'fourth', 'fifth', 'sixth',
             'seventh', 'eighth', 'neutral', 'reverse', 'park']))
-    elements.append(DataPoint('ignition_status', str,
+    elements.append(DataPoint('ignition_status', unicode,
         vocab=['off', 'accessory', 'run', 'start']))
     elements.append(DataPoint('brake_pedal_status', bool))
     elements.append(DataPoint('parking_brake_status', bool))
@@ -229,7 +236,7 @@ def initialize_elements():
     elements.append(DataPoint('longitudinal_acceleration', float, -100, 100))
     elements.append(DataPoint('fuel_consumed_since_restart', float, 0, 300))
     elements.append(DataPoint('fine_odometer_since_restart', float, 0, 300))
-    elements.append(DataPoint('door_status', str,
+    elements.append(DataPoint('door_status', unicode,
         vocab=['driver', 'rear_left', 'rear_right', 'passenger'], events=True))
     elements.append(DataPoint('windshield_wiper_status', bool))
     elements.append(DataPoint('odometer', float, 0, 100000))
@@ -241,7 +248,7 @@ def initialize_elements():
     elements.append(DataPoint('air_conditioning_status', bool))
     elements.append(DataPoint('charging_status', bool))
     elements.append(DataPoint('range', float, 0, 500))
-    elements.append(DataPoint('gear_lever_position', str,
+    elements.append(DataPoint('gear_lever_position', unicode,
         vocab=['first', 'second', 'third', 'fourth', 'fifth', 'sixth',
             'seventh', 'neutral', 'reverse', 'park', 'drive', 'low', 'sport']))
     elements.append(DataPoint('battery_level', float, 0, 100))
