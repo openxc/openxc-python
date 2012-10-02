@@ -4,6 +4,7 @@ import time
 from openxc.formats.json import JsonFormatter
 from openxc.sources.usb import UsbDataSource
 from openxc.sources.serial import SerialDataSource
+from .args import device_options
 
 def receive(message):
     message['timestamp'] = time.time()
@@ -12,20 +13,7 @@ def receive(message):
 
 def parse_options():
     parser = argparse.ArgumentParser(description="Receive and print OpenXC "
-        "messages over USB")
-    parser.add_argument("--usb-vendor",
-            action="store",
-            dest="usb_vendor")
-    parser.add_argument("--serial", "-s",
-            action="store_true",
-            dest="serial",
-            default=False)
-    parser.add_argument("--serial-port",
-            action="store",
-            dest="serial_port")
-    parser.add_argument("--serial-baudrate",
-            action="store",
-            dest="baudrate")
+        "messages over USB", parents=[device_options()])
     parser.add_argument("--corrupted",
             action="store_true",
             dest="show_corrupted",
