@@ -19,11 +19,15 @@ class SerialDataSource(DataSource):
             self.device = serial.Serial(self.port, self.baudrate)
         except serial.SerialException as e:
             log.warn("Unable to open serial device", e)
+            self.device = None
         else:
             log.debug("Opened serial device at %s", self.port)
 
     def read(self):
-        return self.device.readline()
+        if self.device:
+            return self.device.readline()
+        return ""
 
     def _write(self, message):
-        return self.device.write(message )
+        if self.device:
+            return self.device.write(message )
