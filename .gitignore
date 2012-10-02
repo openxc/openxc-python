@@ -6,3 +6,4 @@ dist/
 MANIFEST
 *.egg-info/
 *.egg/
+*.egg
