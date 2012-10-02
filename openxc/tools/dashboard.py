@@ -5,9 +5,7 @@ import curses
 import curses.wrapper
 from datetime import datetime
 
-from openxc.sources.usb import UsbDataSource
-from openxc.sources.serial import SerialDataSource
-from .common import device_options, configure_logging
+from .common import device_options, configure_logging, select_device
 
 try:
     unicode
@@ -194,6 +192,7 @@ class Dashboard(object):
              curses.A_REVERSE)
         self.window.refresh()
 
+
 def parse_options():
     parser = argparse.ArgumentParser(description="Receive and print OpenXC "
         "messages over USB", parents=[device_options()])
@@ -254,14 +253,5 @@ def run_dashboard(window, source_class, source_kwargs):
 def main():
     configure_logging()
     arguments = parse_options()
-
-    if arguments.use_serial:
-        source_class = SerialDataSource
-        source_kwargs = dict(port=arguments.serial_port,
-                baudrate=arguments.baudrate)
-    else:
-        source_class = UsbDataSource
-        source_kwargs = dict(vendor_id=arguments.usb_vendor)
-
-
+    source_class, source_kwargs = select_device(arguments)
     curses.wrapper(run_dashboard, source_class, source_kwargs)

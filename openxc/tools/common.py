@@ -1,6 +1,9 @@
 import argparse
 import logging
 
+from openxc.sources.usb import UsbDataSource
+from openxc.sources.serial import SerialDataSource
+
 def device_options():
     parser = argparse.ArgumentParser(add_help=False)
     device_group = parser.add_mutually_exclusive_group()
@@ -23,3 +26,16 @@ def device_options():
 def configure_logging(level=logging.WARN):
     logging.getLogger("openxc").addHandler(logging.StreamHandler())
     logging.getLogger("openxc").setLevel(level)
+
+def select_device(arguments):
+    if arguments.use_serial:
+        source_class = SerialDataSource
+        source_kwargs = dict(port=arguments.serial_port,
+                baudrate=arguments.baudrate)
+    elif arguments.trace_file:
+        return None, None
+    else:
+        source_class = UsbDataSource
+        source_kwargs = dict(vendor_id=arguments.usb_vendor)
+
+    return source_class, source_kwargs

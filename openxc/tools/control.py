@@ -3,9 +3,7 @@ import time
 import sys
 
 from openxc.formats.json import JsonFormatter
-from openxc.sources.usb import UsbDataSource
-from openxc.sources.serial import SerialDataSource
-from .common import device_options, configure_logging
+from .common import device_options, configure_logging, select_device
 
 def receive(message):
     message['timestamp'] = time.time()
@@ -63,18 +61,12 @@ def write(controller, name, value):
     bytes_written = controller.write(name, value)
     print("Done.")
 
+
 def main():
     configure_logging()
     arguments = parse_options()
 
-    if arguments.use_serial:
-        controller_class = SerialDataSource
-        controller_kwargs = dict(port=arguments.serial_port,
-                baudrate=arguments.baudrate)
-    else:
-        controller_class = UsbDataSource
-        controller_kwargs = dict(vendor_id=arguments.usb_vendor)
-
+    controller_class, controller_kwargs = select_device(arguments)
     controller = controller_class(receive, **controller_kwargs)
 
     if arguments.command == "version":
