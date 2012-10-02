@@ -40,6 +40,7 @@ setup(name='openxc',
     entry_points={
         'console_scripts': [
             'openxc-dashboard = openxc.tools.dashboard:main',
+            'openxc-dump = openxc.tools.dump:main',
         ]
     },
 )
