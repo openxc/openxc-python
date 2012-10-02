@@ -11,3 +11,30 @@ OpenXC Python Library
     class VehicleMeasurement(object): pass
 
     | UsbDataSource -> | String -> | JsonSource -> JSON -> | dict -> | Vehicle -> VehicleMeasurement subclass | -> | sinks (including JSONsink for trace)
+
+### Dependencies
+
+This library uses `pyusb`, which depends on a native USB backend to also be
+installed on your system - `libusb-1.0` is the recommended library.
+
+**Mac OS X**
+
+First install [homebrew][], then run:
+
+{% highlight sh %}
+$ brew install libusb
+{% endhighlight %}
+
+**Ubuntu**
+
+{% highlight sh %}
+$ sudo apt-get install libusb-1.0-0
+{% endhighlight %}
+
+**Arch Linux**
+
+{% highlight sh %}
+$ sudo pacman -S libusbx
+{% endhighlight %}
+
+[homebrew]: http://mxcl.github.com/homebrew/
