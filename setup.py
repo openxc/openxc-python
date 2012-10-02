@@ -41,6 +41,7 @@ setup(name='openxc',
         'console_scripts': [
             'openxc-dashboard = openxc.tools.dashboard:main',
             'openxc-dump = openxc.tools.dump:main',
+            'openxc-control = openxc.tools.control:main',
         ]
     },
 )
