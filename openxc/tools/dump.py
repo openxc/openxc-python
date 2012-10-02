@@ -25,7 +25,7 @@ def parse_options():
 def main():
     arguments = parse_options()
 
-    if arguments.serial:
+    if arguments.use_serial:
         source_class = SerialDataSource
         source_kwargs = dict(port=arguments.serial_port,
                 baudrate=arguments.baudrate)

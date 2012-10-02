@@ -254,7 +254,7 @@ def run_dashboard(window, source_class, source_kwargs):
 def main():
     arguments = parse_options()
 
-    if arguments.serial:
+    if arguments.use_serial:
         source_class = SerialDataSource
         source_kwargs = dict(port=arguments.serial_port,
                 baudrate=arguments.baudrate)
