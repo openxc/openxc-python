@@ -77,3 +77,5 @@ class DataSource(object):
             except ValueError:
                 pass
         return parsed_message, remainder, len(message)
+
+class DataSourceError(Exception): pass

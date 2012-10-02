@@ -5,7 +5,7 @@ import sys
 from openxc.formats.json import JsonFormatter
 from openxc.sources.usb import UsbDataSource
 from openxc.sources.serial import SerialDataSource
-from .args import device_options
+from .common import device_options, configure_logging
 
 def receive(message):
     message['timestamp'] = time.time()
@@ -64,6 +64,7 @@ def write(controller, name, value):
     print("Done.")
 
 def main():
+    configure_logging()
     arguments = parse_options()
 
     if arguments.use_serial:

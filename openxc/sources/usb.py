@@ -3,7 +3,7 @@ from __future__ import absolute_import
 import logging
 import usb.core
 
-from .base import DataSource
+from .base import DataSource, DataSourceError
 
 LOG = logging.getLogger(__name__)
 
@@ -25,8 +25,8 @@ class UsbDataSource(DataSource):
         self.out_endpoint = self.in_endpoint = None
 
         if not self.device:
-            LOG.warn("Couldn't find a USB device from vendor 0x%x",
-                    self.vendor_id)
+            raise DataSourceError("Couldn't find a USB device from vendor 0x%x"
+                    % self.vendor_id)
         else:
             self.in_endpoint, self.out_endpoint = self._connect_endpoints(
                     self.device)
@@ -48,6 +48,9 @@ class UsbDataSource(DataSource):
                         lambda e: \
                         usb.util.endpoint_direction(e.bEndpointAddress) == \
                         usb.util.ENDPOINT_IN)
+
+        if not in_endpoint:
+            raise DataSourceError("Couldn't find IN endpoint on the USB device")
 
         if not out_endpoint or not in_endpoint:
             LOG.warn("Couldn't find proper endpoints on the USB device")

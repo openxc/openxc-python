@@ -7,7 +7,7 @@ from datetime import datetime
 
 from openxc.sources.usb import UsbDataSource
 from openxc.sources.serial import SerialDataSource
-from .args import device_options
+from .common import device_options, configure_logging
 
 try:
     unicode
@@ -252,6 +252,7 @@ def run_dashboard(window, source_class, source_kwargs):
 
 
 def main():
+    configure_logging()
     arguments = parse_options()
 
     if arguments.use_serial:
