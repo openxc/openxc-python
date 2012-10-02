@@ -37,13 +37,20 @@ class DataSource(object):
     def write_bytes(self, data):
         raise NotImplementedError("Don't use DataSource directly")
 
+    def version(self):
+        raise NotImplementedError("%s cannot be used with control commands" %
+                type(self).__name__)
+
+    def reset(self):
+        raise NotImplementedError("%s cannot be used with control commands" %
+                type(self).__name__)
+
     def write(self, name, value):
         value = self._massage_write_value(value)
         message = JsonFormatter.serialize({'name': name, 'value': value})
         bytes_written = self.write_bytes(message + "\x00")
         assert bytes_written == len(message) + 1
         return bytes_written
-
 
     @classmethod
     def _massage_write_value(cls, value):

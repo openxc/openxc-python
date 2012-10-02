@@ -1,9 +1,10 @@
 *.pyc
 *.swp
 *.swo
+*.egg
+*.egg-info/
 build/
 dist/
 MANIFEST
-*.egg-info/
-*.egg/
-*.egg
+.DS_Store
+.tox

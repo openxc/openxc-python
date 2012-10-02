@@ -1,4 +1,10 @@
 import logging
-from logging import NullHandler
+
+try:
+    from logging import NullHandler
+except ImportError:
+    class NullHandler(logging.Handler):
+        def emit(self, record):
+            pass
 
 logging.getLogger("openxc").addHandler(NullHandler())

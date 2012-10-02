@@ -3,6 +3,7 @@ import unittest
 
 import openxc.measurements
 from openxc.sources.usb import UsbDataSource
+from openxc.sources.base import DataSourceError
 
 class UsbDataSourceTests(unittest.TestCase):
     def setUp(self):
@@ -12,4 +13,7 @@ class UsbDataSourceTests(unittest.TestCase):
         def callback(message):
             pass
 
-        s = UsbDataSource(callback)
+        try:
+            s = UsbDataSource(callback)
+        except DataSourceError as e:
+            pass

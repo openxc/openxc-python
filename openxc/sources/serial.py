@@ -3,9 +3,9 @@ from __future__ import absolute_import
 import logging
 import serial
 
-from .base import DataSource
+from .base import DataSource, DataSourceError
 
-log = logging.getLogger(__name__)
+LOG = logging.getLogger(__name__)
 
 class SerialDataSource(DataSource):
     DEFAULT_PORT = "/dev/ttyUSB0"
@@ -13,21 +13,18 @@ class SerialDataSource(DataSource):
 
     def __init__(self, callback, port=None, baudrate=None):
         super(SerialDataSource, self).__init__(callback)
-        self.port = port or self.DEFAULT_PORT
-        self.baudrate = baudrate or self.DEFAULT_BAUDRATE
+        port = port or self.DEFAULT_PORT
+        baudrate = baudrate or self.DEFAULT_BAUDRATE
         try:
-            self.device = serial.Serial(self.port, self.baudrate)
+            self.device = serial.Serial(port, baudrate)
         except serial.SerialException as e:
-            log.warn("Unable to open serial device", e)
-            self.device = None
+            raise DataSourceError("Unable to open serial device at port "
+                    "%s: %s" % (port, e))
         else:
-            log.debug("Opened serial device at %s", self.port)
+            LOG.debug("Opened serial device at %s", port)
 
     def read(self):
-        if self.device:
-            return self.device.readline()
-        return ""
+        return self.device.readline()
 
     def _write(self, message):
-        if self.device:
-            return self.device.write(message )
+        return self.device.write(message )

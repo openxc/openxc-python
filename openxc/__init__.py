@@ -1,1 +1,1 @@
-import logconfig
+import openxc.logconfig

@@ -3,6 +3,7 @@ import unittest
 
 import openxc.measurements
 from openxc.sources.serial import SerialDataSource
+from openxc.sources.base import DataSourceError
 
 class SerialDataSourceTests(unittest.TestCase):
     def setUp(self):
@@ -12,4 +13,7 @@ class SerialDataSourceTests(unittest.TestCase):
         def callback(message):
             pass
 
-        s = SerialDataSource(callback)
+        try:
+            s = SerialDataSource(callback)
+        except DataSourceError as e:
+            pass
