@@ -42,6 +42,7 @@ setup(name='openxc',
             'openxc-dashboard = openxc.tools.dashboard:main',
             'openxc-dump = openxc.tools.dump:main',
             'openxc-control = openxc.tools.control:main',
+            'openxc-gps = openxc.tools.gps:main',
         ]
     },
 )
