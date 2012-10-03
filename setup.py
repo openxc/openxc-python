@@ -43,6 +43,7 @@ setup(name='openxc',
             'openxc-dump = openxc.tools.dump:main',
             'openxc-control = openxc.tools.control:main',
             'openxc-gps = openxc.tools.gps:main',
+            'openxc-trace-split = openxc.tools.tracesplit:main',
         ]
     },
 )

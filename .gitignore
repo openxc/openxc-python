@@ -9,3 +9,4 @@ MANIFEST
 .DS_Store
 .tox
 openxc-*/
+*.json
