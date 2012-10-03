@@ -11,8 +11,10 @@ class TraceDataSource(DataSource):
     DEFAULT_PORT = "/dev/ttyUSB0"
     DEFAULT_BAUDRATE = 115200
 
-    def __init__(self, callback, filename=None):
+    def __init__(self, callback, filename=None, realtime=True, loop=True):
         super(TraceDataSource, self).__init__(callback)
+        self.realtime = realtime
+        self.loop = loop
         self.filename = filename
         self.reopen_file()
 
@@ -57,12 +59,15 @@ class TraceDataSource(DataSource):
                 self.bytes_received += byte_count
                 if not self._validate(message):
                     continue
-                if 'timestamp' in message:
+                if self.realtime and 'timestamp' in message:
                     self.wait(starting_time, message['timestamp'])
                 self.callback(message)
 
             self.trace_file.close()
             self.trace_file = None
+
+            if not self.loop:
+                break
 
     def _validate(self, message):
         for key in ['name', 'value']:
