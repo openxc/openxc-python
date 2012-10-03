@@ -8,3 +8,4 @@ dist/
 MANIFEST
 .DS_Store
 .tox
+openxc-*/
