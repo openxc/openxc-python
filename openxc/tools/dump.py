@@ -1,3 +1,9 @@
+"""
+This module contains the methods for the ``openxc-dump`` command line program.
+
+`main` is executed when ``openxc-dump`` is run, and all other callables in this
+module are internal only.
+"""
 from __future__ import absolute_import
 
 import logging
@@ -12,9 +18,11 @@ def receive(message):
     # TODO update docs on trace file format
     print(JsonFormatter.serialize(message))
 
+
 def parse_options():
-    parser = argparse.ArgumentParser(description="Receive and print OpenXC "
-        "messages over USB", parents=[device_options()])
+    parser = argparse.ArgumentParser(
+            description="View a raw OpenXC data stream",
+            parents=[device_options()])
     parser.add_argument("--corrupted",
             action="store_true",
             dest="show_corrupted",
