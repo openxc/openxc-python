@@ -1,6 +1,6 @@
-=====================================
+========================================
 ``openxc-control`` options and arguments
-=====================================
+========================================
 
 :program:`openxc-control` is a command-line tool that can send control messages
 to an attached CAN translator.

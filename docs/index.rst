@@ -81,12 +81,6 @@ visit the main `OpenXC site`_.
 .. _`latest documentation`: http://TODO/readthedocs
 .. _`OpenXC site`: http://openxcplatform.com
 
-.. toctree::
-    :hidden:
-
-    api
-    tools
-
 Vehicle API
 -----------
 

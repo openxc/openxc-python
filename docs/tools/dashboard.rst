@@ -1,6 +1,6 @@
-=====================================
+==========================================
 ``openxc-dashboard`` options and arguments
-=====================================
+==========================================
 
 :program:`openxc-dashboard` is a command-line tool that displays the current
 values of all OpenXC messages simultaneously. The dashboard uses ``curses`` to
@@ -30,9 +30,9 @@ The dashboard also displays some overall summary data:
 * Total amount of data received over the source interface
 * Average data rate since the program started
 
---------
+----------
 Screenshot
---------
+----------
 
 This is a screenshot of the dashboard showing all possible columns of data.
 
