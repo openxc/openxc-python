@@ -4,7 +4,7 @@ from openxc.formats.json import JsonFormatter
 
 
 class DataSource(object):
-    def __init__(self, callback):
+    def __init__(self, callback=None):
         self.callback = callback
         self.bytes_received = 0
 
@@ -27,7 +27,8 @@ class DataSource(object):
                         message_buffer)
                 if message is not None:
                     self.bytes_received += byte_count
-                    self.callback(message)
+                    if callback is not None:
+                        self.callback(message)
                 else:
                     break
 

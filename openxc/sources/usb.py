@@ -15,7 +15,7 @@ class UsbDataSource(DataSource):
     DEFAULT_READ_REQUEST_SIZE = 512
     DEFAULT_READ_TIMEOUT = 1000000
 
-    def __init__(self, callback, vendor_id=None):
+    def __init__(self, callback=None, vendor_id=None):
         super(UsbDataSource, self).__init__(callback)
         if vendor_id is not None and not isinstance(vendor_id, int):
             vendor_id = int(vendor_id, 0)
