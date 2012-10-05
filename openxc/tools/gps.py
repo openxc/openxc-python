@@ -1,3 +1,9 @@
+"""
+This module contains the methods for the ``openxc-gps`` command line program.
+
+`main` is executed when ``openxc-gps`` is run, and all other callables in this
+module are internal only.
+"""
 from __future__ import absolute_import
 
 import argparse
@@ -15,9 +21,6 @@ class GPXTranscoder(object):
         number.text = "1"
         self.segment = ET.SubElement(track, "trkseg")
         self.latitude = self.longitude = None
-
-    def add(self, latitude, longitude):
-        pass
 
     def output(self):
         return ET.tostring(ET.ElementTree(self.root).getroot())
@@ -39,7 +42,8 @@ def parse_options():
     parser = argparse.ArgumentParser(description=
             "Create a GPS trace in various formats from OpenXC input data",
             parents=[device_options()])
-    parser.add_argument("--format", type=str, choices=['gpx'], default='gpx')
+    parser.add_argument("-f", "--format", type=str, choices=['gpx'],
+            default='gpx')
     arguments = parser.parse_args()
     return arguments
 
