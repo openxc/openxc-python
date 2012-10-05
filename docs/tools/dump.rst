@@ -56,4 +56,4 @@ A quick overview of all possible command line options can be found via
     Dump unparseable messages (assumed to be corrupted) in addition to valid
     messages.
 
-.. include:: _common_cmdoptions.rst
+.. include:: ../_shared/common_cmdoptions.rst

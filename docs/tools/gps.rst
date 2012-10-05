@@ -37,4 +37,4 @@ A quick overview of all possible command line options can be found via
     Selected the desired outupt format. Currently only "gpx" is supported, so
     this is the default choice.
 
-.. include:: _common_cmdoptions.rst
+.. include:: ../_shared/common_cmdoptions.rst

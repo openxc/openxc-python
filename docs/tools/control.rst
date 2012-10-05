@@ -81,4 +81,4 @@ A quick overview of all possible command line options can be found via
     The path to a file of OpenXC JSON messages to write to the CAN translator.
     The messages should be separated by newlines
 
-.. include:: _common_cmdoptions.rst
+.. include:: ../_shared/common_cmdoptions.rst
