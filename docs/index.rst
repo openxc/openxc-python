@@ -99,8 +99,13 @@ Tools
 
     tools/*
 
-Getting Help
+Contributing
 ============
+
+Development of `openxc-python` happens at `GitHub`_. Be sure to see our `contribution document`_ for details.
+
+.. _`GitHub`: https://github.com/openxc/openxc-python
+.. _`contribution document`: https://github.com/openxc/openxc-python/blob/master/CONTRIBUTING.mkd
 
 Mailing list
 ------------
@@ -115,17 +120,3 @@ Bug tracker
 
 If you have any suggestions, bug reports or annoyances please report them
 to our issue tracker at http://github.com/openxc/openxc-python/issues/
-
-Contributing
-============
-
-Development of `openxc-python` happens at `GitHub`_. Be sure to see our `contribution document`_ for details.
-
-.. _`GitHub`: https://github.com/openxc/openxc-python
-.. _`contribution document`: https://github.com/openxc/openxc-android/blob/master/CONTRIBUTING.mkd
-
-License
-=======
-
-Copyright (c) 2012-2013 Ford Motor Company
-Licensed under the BSD license.
