@@ -1,4 +1,4 @@
-Welcome to OpenXC for Python's documentation!
+OpenXC for Python
 =============================================
 
 About
