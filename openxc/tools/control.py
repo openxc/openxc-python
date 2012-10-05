@@ -57,15 +57,13 @@ def parse_options():
     parser.add_argument("command", type=str,
             choices=['version', 'reset', 'write'])
     write_group = parser.add_mutually_exclusive_group()
-    write_group.add_argument("--name",
-            action="store",
-            dest="write_name")
-    parser.add_argument("--value",
-            action="store",
-            dest="write_value")
-    write_group.add_argument("-f", "--file",
-            action="store",
-            dest="write_input_file")
+    write_group.add_argument("--name", action="store", dest="write_name",
+            help="name for message write request")
+    parser.add_argument("--value", action="store", dest="write_value",
+            help="value for message write request")
+    write_group.add_argument("-f", "--file", action="store",
+            dest="write_input_file",
+            help="path to a file with a list of message requests")
 
     return parser.parse_args()
 

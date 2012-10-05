@@ -77,7 +77,8 @@ def parse_options():
             "OpenXC trace files by day, hour or trips")
     parser.add_argument("files", action="store", nargs='+', default=False)
     parser.add_argument("-s", "--split", action="store",
-            choices=['day', 'hour', 'trip'], default='trip')
+            choices=['day', 'hour', 'trip'], default="trip",
+            help="select the time unit to split the combined trace files")
 
     arguments = parser.parse_args()
     return arguments

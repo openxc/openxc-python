@@ -26,7 +26,7 @@ def parse_options():
     parser.add_argument("--corrupted",
             action="store_true",
             dest="show_corrupted",
-            default=False)
+            default=False, help="don't suppress corrupted messages from output")
 
     arguments = parser.parse_args()
     return arguments

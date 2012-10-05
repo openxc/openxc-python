@@ -43,7 +43,7 @@ def parse_options():
             "Create a GPS trace in various formats from OpenXC input data",
             parents=[device_options()])
     parser.add_argument("-f", "--format", type=str, choices=['gpx'],
-            default='gpx')
+            default='gpx', help="select the output format of the GPS trace")
     arguments = parser.parse_args()
     return arguments
 
