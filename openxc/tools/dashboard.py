@@ -1,3 +1,9 @@
+""" This module contains the methods for the ``openxc-dashboard`` command line
+program.
+
+`main` is executed when ``openxc-dashboard`` is run, and all other callables in
+this module are internal only.
+"""
 from __future__ import absolute_import
 
 import argparse
@@ -13,10 +19,12 @@ except NameError:
     # Python 3
     basestring = unicode = str
 
+
 # timedelta.total_seconds() is only in 2.7, so we backport it here for 2.6
 def total_seconds(delta):
     return (delta.microseconds + (delta.seconds
         + delta.days * 24 * 3600) * 10**6) / 10**6
+
 
 # Thanks, SO: http://stackoverflow.com/questions/1094841/reusable-library-to-get-human-readable-version-of-file-size
 def sizeof_fmt(num):
@@ -24,6 +32,7 @@ def sizeof_fmt(num):
         if num < 1024.0:
             return "%3.1f%s" % (num, unit)
         num /= 1024.0
+
 
 class DataPoint(object):
     def __init__(self, name, value_type, min_value=0, max_value=0, vocab=None,
@@ -193,11 +202,6 @@ class Dashboard(object):
         self.window.refresh()
 
 
-def parse_options():
-    parser = argparse.ArgumentParser(description="Receive and print OpenXC "
-        "messages over USB", parents=[device_options()])
-    arguments = parser.parse_args()
-    return arguments
 
 
 # TODO generate this list automatically from the measurement classes...when
@@ -248,6 +252,14 @@ def run_dashboard(window, source_class, source_kwargs):
     source = source_class(dashboard.receive, **source_kwargs)
     dashboard.source = source
     source.start()
+
+
+def parse_options():
+    parser = argparse.ArgumentParser(
+            description="View a real-time dashboard of all OpenXC measurements",
+            parents=[device_options()])
+    arguments = parser.parse_args()
+    return arguments
 
 
 def main():
