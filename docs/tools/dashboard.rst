@@ -30,10 +30,6 @@ The dashboard also displays some overall summary data:
 * Total amount of data received over the source interface
 * Average data rate since the program started
 
-----------
-Screenshot
-----------
-
 This is a screenshot of the dashboard showing all possible columns of data.
 
 .. image:: /_static/dashboard.png

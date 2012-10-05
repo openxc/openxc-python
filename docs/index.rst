@@ -49,7 +49,7 @@ USB Backend
 -------------
 
 If you intend to use the library to connect to a CAN translator via USB, you
-must also install a native USB backend - `libusb-1.0` is the reccomend library.
+must also install a native USB backend - `libusb-1.0` is the recommended library.
 
 - **Mac OS X**
 
