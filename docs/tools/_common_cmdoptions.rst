@@ -1,3 +1,10 @@
+------------------------
+Common interface options
+------------------------
+
+These command-line options are common to all of the tools that connect to a CAN
+translator.
+
 .. cmdoption:: --usb
 
     Use a CAN translator connected via USB as the data source. USB is the
