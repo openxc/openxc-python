@@ -86,4 +86,6 @@ class DataSource(object):
                 pass
         return parsed_message, remainder, len(message)
 
-class DataSourceError(Exception): pass
+
+class DataSourceError(Exception):
+    pass
