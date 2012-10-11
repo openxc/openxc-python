@@ -25,7 +25,7 @@ class GPXTranscoder(object):
     def output(self):
         return ET.tostring(ET.ElementTree(self.root).getroot())
 
-    def receive(self, message):
+    def receive(self, message, **kwargs):
         if message['name'] == 'latitude':
             self.latitude = message['value']
         elif message['name'] == 'longitude':

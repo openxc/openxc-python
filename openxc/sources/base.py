@@ -28,7 +28,8 @@ class DataSource(object):
                 if message is not None:
                     self.bytes_received += byte_count
                     if self.callback is not None:
-                        self.callback(message)
+                        self.callback(message,
+                                data_remaining=len(message_buffer) > 0)
                 else:
                     break
 

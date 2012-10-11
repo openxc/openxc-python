@@ -37,7 +37,7 @@ class BaseSplitter(object):
 
         return self.buckets
 
-    def receive(self, message):
+    def receive(self, message, **kwargs):
         self.records.append(message)
 
 
