@@ -9,7 +9,7 @@ try:
 except ImportError:
     pass
 
-long_description = open('README.mkd').read()
+long_description = open('README.rst').read()
 
 install_reqs = ['pyusb']
 
