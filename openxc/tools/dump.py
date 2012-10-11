@@ -6,9 +6,7 @@ module are internal only.
 """
 from __future__ import absolute_import
 
-import logging
 import argparse
-import time
 
 from openxc.formats.json import JsonFormatter
 from .common import device_options, configure_logging, select_device
