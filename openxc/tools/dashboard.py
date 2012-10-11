@@ -158,11 +158,14 @@ class DataPoint(object):
 
 
 class Dashboard(object):
+    REDRAW_RATE = 15
+
     def __init__(self, window, elements):
         self.window = window
         self.elements = elements
         self.started_time = datetime.now()
         self.messages_received = 0
+        self.redraw_clock = 0
 
         curses.use_default_colors()
         curses.init_pair(1, curses.COLOR_RED, -1)
@@ -173,13 +176,17 @@ class Dashboard(object):
         self.messages_received += 1
         if self.source.bytes_received == 0:
             self.started_time = datetime.now()
-        self._redraw(message)
 
-    def _redraw(self, message):
         element = self.elements.get(message.get('name', None), None)
         if element is not None:
             element.update(message)
 
+        if self.redraw_clock == self.REDRAW_RATE:
+            self._redraw()
+            self.redraw_clock = 0
+        self.redraw_clock += 1
+
+    def _redraw(self):
         self.window.erase()
         max_rows = self.window.getmaxyx()[0] - 4
         for row, element in enumerate(self.elements.values()):
