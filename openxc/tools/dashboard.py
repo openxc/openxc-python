@@ -176,14 +176,13 @@ class Dashboard(object):
         self._redraw(message)
 
     def _redraw(self, message):
-        for element in self.elements:
-            if element.name == message.get('name', None):
-                element.update(message)
-                break
+        element = self.elements.get(message.get('name', None), None)
+        if element is not None:
+            element.update(message)
 
         self.window.erase()
         max_rows = self.window.getmaxyx()[0] - 4
-        for row, element in enumerate(self.elements):
+        for row, element in enumerate(self.elements.values()):
             if row > max_rows:
                 break
             element.print_to_window(self.window, row, self.started_time)
@@ -244,7 +243,7 @@ def initialize_elements():
     elements.append(DataPoint('battery_level', float, 0, 100))
     elements.append(DataPoint('cabin_temperature', float, -50, 150))
 
-    return elements
+    return {element.name: element for element in elements}
 
 
 def run_dashboard(window, source_class, source_kwargs):
