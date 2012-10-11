@@ -19,6 +19,8 @@ class DataSource(object):
             return
 
     def run(self):
+        # TODO this probably belongs in subclass since not every source will be
+        # parsing bytestreams
         message_buffer = b""
         while True:
             message_buffer += self.read()

@@ -8,5 +8,5 @@ class MeasurementTests(unittest.TestCase):
     def setUp(self):
         super(MeasurementTests, self).setUp()
 
-    def test_blank(self):
-        m = Measurement()
+    def test_basic(self):
+        measurement = Measurement("name", "value")
