@@ -60,7 +60,7 @@ class UsbDataSource(DataSource):
     def read(self, num_bytes=None, timeout=None):
         num_bytes = num_bytes or self.DEFAULT_READ_REQUEST_SIZE
         timeout = timeout or self.DEFAULT_READ_TIMEOUT
-        if self.out_endpoint is None:
+        if self.in_endpoint is None:
             LOG.warn("Can't read from USB, IN endpoint is %s", self.in_endpoint)
             return ""
         else:
