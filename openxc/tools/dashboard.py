@@ -186,21 +186,19 @@ class Dashboard(object):
             if row > max_rows:
                 break
             element.print_to_window(self.window, row, self.started_time)
-        self.window.addstr(max_rows, 0,
+        self.window.addstr(max_rows + 1, 0,
                 "Message count: %d" % self.messages_received,
                 curses.A_REVERSE)
-        self.window.addstr(max_rows + 1, 0,
+        self.window.addstr(max_rows + 2, 0,
                 "Total received: %s" %
                 sizeof_fmt(self.source.bytes_received),
                 curses.A_REVERSE)
-        self.window.addstr(max_rows + 2, 0, "Data Rate: %s" %
+        self.window.addstr(max_rows + 3, 0, "Data Rate: %s" %
             sizeof_fmt(self.source.bytes_received /
                 (total_seconds(datetime.now() - self.started_time)
                     + 0.1)),
              curses.A_REVERSE)
         self.window.refresh()
-
-
 
 
 # TODO generate this list automatically from the measurement classes...when
