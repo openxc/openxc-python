@@ -5,21 +5,38 @@ from openxc.sources.base import DataSource
 from openxc.measurements import Measurement, UnrecognizedMeasurementError
 from openxc.vehicle import Vehicle
 
+
 class VehicleTests(unittest.TestCase):
     def setUp(self):
         super(VehicleTests, self).setUp()
         self.vehicle = Vehicle()
+        self.messages_received = []
+
+    def _listener(self, message):
+        self.messages_received.append(message)
 
     def test_get(self):
         measurement = self.vehicle.get(TestMeasurement)
         ok_(measurement is None)
 
     def test_add_listener(self):
-        def listener():
-            pass
+        source = TestDataSource()
+        self.vehicle.add_source(source)
 
-        self.vehicle.listen(Measurement, listener)
+        self.vehicle.listen(TestMeasurement, self._listener)
+        data = {'name': TestMeasurement.name, 'value': 100}
+        source.inject(data)
+        ok_(len(self.messages_received) > 0)
 
+    def test_remove_listener(self):
+        source = TestDataSource()
+        self.vehicle.add_source(source)
+
+        self.vehicle.listen(TestMeasurement, self._listener)
+        self.vehicle.unlisten(TestMeasurement, self._listener)
+        data = {'name': TestMeasurement.name, 'value': 100}
+        source.inject(data)
+        eq_(len(self.messages_received), 0)
 
     def test_get_one(self):
         source = TestDataSource()

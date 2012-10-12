@@ -1,6 +1,7 @@
 from collections import defaultdict
 
-from .measurements import Measurement, UnrecognizedMeasurementError
+import openxc.measurements as measurements
+from .measurements import Measurement
 
 class Vehicle(object):
 
@@ -12,15 +13,14 @@ class Vehicle(object):
         self.listeners = defaultdict(set)
 
     def get(self, measurement_class):
-        try:
-            measurement_id = getattr(measurement_class, 'name')
-        except AttributeError:
-            raise UnrecognizedMeasurementError()
-        else:
-            return self._construct_measurement(measurement_id)
+        name = measurements.name_from_class(measurement_class)
+        return self._construct_measurement(name)
 
     def listen(self, measurement_class, listener):
-        self.listeners[measurement_class].add(listener)
+        self.listeners[measurement_class.name].add(listener)
+
+    def unlisten(self, measurement_class, listener):
+        self.listeners[measurement_class.name].remove(listener)
 
     def _receive(self, message):
         name = message['name']

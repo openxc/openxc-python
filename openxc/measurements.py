@@ -17,3 +17,14 @@ class VehicleSpeed(Measurement):
 
 class UnrecognizedMeasurementError(Exception):
     pass
+
+"""For a given measurement class, return the generic name. If the class does not
+have a valid generic name, raises an UnrecognizedMeasurementError.
+"""
+def name_from_class(measurement_class):
+    try:
+        measurement_id = getattr(measurement_class, 'name')
+    except AttributeError:
+        raise UnrecognizedMeasurementError()
+    else:
+        return measurement_id
