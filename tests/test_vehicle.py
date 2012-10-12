@@ -27,11 +27,11 @@ class VehicleTests(unittest.TestCase):
         measurement = self.vehicle.get(TestMeasurement)
         ok_(measurement is None)
 
-        data = {'name': TestMeasurement.NAME, 'value': 100}
+        data = {'name': TestMeasurement.name, 'value': 100}
         source.inject(data)
         measurement = self.vehicle.get(TestMeasurement)
         ok_(measurement is not None)
-        eq_(measurement.NAME, data['name'])
+        eq_(measurement.name, data['name'])
         eq_(measurement.value, data['value'])
 
     def test_bad_measurement_type(self):
@@ -40,11 +40,12 @@ class VehicleTests(unittest.TestCase):
         except UnrecognizedMeasurementError:
             pass
         else:
-            self.fail()
+            self.fail("Expected an %s" %
+                    str(UnrecognizedMeasurementError.__name__))
 
 
 class TestMeasurement(Measurement):
-    NAME = "test"
+    name = "test"
 
 
 class TestDataSource(DataSource):

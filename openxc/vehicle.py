@@ -13,7 +13,7 @@ class Vehicle(object):
 
     def get(self, measurement_class):
         try:
-            measurement_id = getattr(measurement_class, 'NAME')
+            measurement_id = getattr(measurement_class, 'name')
         except AttributeError:
             raise UnrecognizedMeasurementError()
         else:

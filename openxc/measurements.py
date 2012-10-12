@@ -12,10 +12,8 @@ class Measurement(object):
 
 
 class VehicleSpeed(Measurement):
-    NAME = "vehicle_speed"
+    name = "vehicle_speed"
 
 
 class UnrecognizedMeasurementError(Exception):
     pass
-
-{{
