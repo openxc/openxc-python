@@ -12,11 +12,6 @@ class DataSource(object):
         self.thread = threading.Thread(target=self.run)
         self.thread.daemon = True
         self.thread.start()
-        try:
-            while self.thread.is_alive():
-                self.thread.join(5)
-        except (KeyboardInterrupt, SystemExit):
-            return
 
     def run(self):
         # TODO this probably belongs in subclass since not every source will be

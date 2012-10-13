@@ -1,4 +1,9 @@
+import numbers
+
 class Measurement(object):
+    DATA_TYPE = numbers.Number
+    _measurement_map = {}
+
     def __init__(self, name, value, event=None):
         self.name = name
         self.value = value
@@ -6,25 +11,159 @@ class Measurement(object):
 
     @classmethod
     def from_dict(cls, data):
-        #TODO
-        #measurement_class = class_for_name(
-        return cls(data['name'], data['value'], data.get('event', None))
+        measurement_class = cls._class_from_name(data['name'])
+        return measurement_class(data['name'], data['value'],
+                data.get('event', None))
+
+    @classmethod
+    def _class_from_name(cls, measurement_name):
+        return cls._measurement_map[measurement_name]
+
+    @classmethod
+    def name_from_class(cls, measurement_class):
+        """For a given measurement class, return the generic name. If the class
+        does not have a valid generic name, raises an
+        UnrecognizedMeasurementError.
+        """
+        try:
+            name = getattr(measurement_class, 'name')
+        except AttributeError:
+            raise UnrecognizedMeasurementError()
+        else:
+            cls._measurement_map[name] = measurement_class
+            return name
 
 
-class VehicleSpeed(Measurement):
+class NumericMeasurement(Measurement):
+    valid_range = None
+
+    def within_range(self):
+        return (self.value >= self.valid_range[0] and
+                self.value <= self.valid_range[1])
+
+    @classmethod
+    def min(cls):
+        return cls.valid_range[0]
+
+    @classmethod
+    def max(cls):
+        return cls.valid_range[1]
+
+    @classmethod
+    def spread(cls):
+        return cls.valid_range[1] - cls.valid_range[0]
+
+class StatefulMeasurement(Measurement):
+    DATA_TYPE = unicode
+    states = None
+
+class BooleanMeasurement(Measurement):
+    DATA_TYPE = bool
+
+class EventedMeasurement(StatefulMeasurement):
+    DATA_TYPE = unicode
+
+    def valid_state(self):
+        return self.value in self.states
+
+
+class PercentageMeasurement(NumericMeasurement):
+    valid_range = (0, 100)
+
+
+class AcceleratorPedalPosition(PercentageMeasurement):
+    name = "accelerator_pedal_position"
+
+class FuelLevel(PercentageMeasurement):
+    name = "fuel_level"
+
+
+class VehicleSpeed(NumericMeasurement):
     name = "vehicle_speed"
+    valid_range = (0, 321)
+
+class EngineSpeed(NumericMeasurement):
+    name = "engine_speed"
+    valid_range = (0, 8000)
+
+class FineOdometer(NumericMeasurement):
+    name = "fine_odometer_since_restart"
+    valid_range = (0, 1000)
+
+class FuelConsumed(NumericMeasurement):
+    name = "fuel_consumed_since_restart"
+    valid_range = (0, 100)
+
+class Latitude(NumericMeasurement):
+    name = "latitude"
+    valid_range = (-90, 90)
+
+class Longitude(NumericMeasurement):
+    name = "longitude"
+    valid_range = (-180, 180)
+
+class Odometer(NumericMeasurement):
+    name = "odometer"
+    valid_range = (0, 1000000)
+
+class SteeringWheelAngle(NumericMeasurement):
+    name = "steering_wheel_angle"
+    valid_range = (-600, 600)
+
+class TorqueAtTransmission(NumericMeasurement):
+    name = "torque_at_transmission"
+    valid_range = (-800, 1500)
+
+class LateralAcceleration(NumericMeasurement):
+    name = "lateral_acceleration"
+    valid_range = (-5, 5)
+
+class LongitudinalAcceleration(NumericMeasurement):
+    name = "lognitudinal_acceleration"
+    valid_range = (-5, 5)
+
+
+class BrakePedalStatus(BooleanMeasurement):
+    name = "brake_pedal_status"
+
+class HeadlampStatus(BooleanMeasurement):
+    name = "headlamp_status"
+
+class HighBeamStatus(BooleanMeasurement):
+    name = "high_beam_status"
+
+class ParkingBrakeStatus(BooleanMeasurement):
+    name = "parking_brake_status"
+
+class WindshieldWiperStatus(BooleanMeasurement):
+    name = "windshield_wiper_status"
+
+
+class IgnitionStatus(StatefulMeasurement):
+    name = "ignition_status"
+    states = ['off', 'accessory', 'run', 'start']
+
+class TransmissionGearPosition(StatefulMeasurement):
+    name = "transmission_gear_position"
+    states = ['first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh',
+            'eighth', 'neutral', 'reverse', 'park']
+
+class GearLevelPosition(StatefulMeasurement):
+    name = "gear_lever_position"
+    states = ['first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh',
+            'neutral', 'reverse', 'park', 'drive', 'low', 'sport']
+
+class TurnSignalStatus(StatefulMeasurement):
+    name = "turn_signal_status"
+
+
+class ButtonEvent(EventedMeasurement):
+    name = "button_event"
+
+class DoorStatus(EventedMeasurement):
+    name = "door_status"
+    states = ['driver', 'rear_left', 'rear_right', 'passenger']
 
 
 class UnrecognizedMeasurementError(Exception):
     pass
-
-"""For a given measurement class, return the generic name. If the class does not
-have a valid generic name, raises an UnrecognizedMeasurementError.
-"""
-def name_from_class(measurement_class):
-    try:
-        measurement_id = getattr(measurement_class, 'name')
-    except AttributeError:
-        raise UnrecognizedMeasurementError()
-    else:
-        return measurement_id

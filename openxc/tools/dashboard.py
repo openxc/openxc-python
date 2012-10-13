@@ -12,6 +12,35 @@ import curses.wrapper
 from datetime import datetime
 
 from .common import device_options, configure_logging, select_device
+from openxc.vehicle import Vehicle
+from openxc.measurements import EventedMeasurement, NumericMeasurement, \
+        Measurement
+import openxc.measurements as measurements
+
+DASHBOARD_MEASUREMENTS  = [measurements.AcceleratorPedalPosition,
+                measurements.FuelLevel,
+                measurements.VehicleSpeed,
+                measurements.EngineSpeed,
+                measurements.FineOdometer,
+                measurements.FuelConsumed,
+                measurements.Latitude,
+                measurements.Longitude,
+                measurements.Odometer,
+                measurements.SteeringWheelAngle,
+                measurements.TorqueAtTransmission,
+                measurements.LateralAcceleration,
+                measurements.LongitudinalAcceleration,
+                measurements.BrakePedalStatus,
+                measurements.HeadlampStatus,
+                measurements.HighBeamStatus,
+                measurements.ParkingBrakeStatus,
+                measurements.WindshieldWiperStatus,
+                measurements.IgnitionStatus,
+                measurements.TransmissionGearPosition,
+                measurements.GearLevelPosition,
+                measurements.TurnSignalStatus,
+                measurements.ButtonEvent,
+                measurements.DoorStatus]
 
 try:
     unicode
@@ -35,66 +64,37 @@ def sizeof_fmt(num):
 
 
 class DataPoint(object):
-    def __init__(self, name, value_type, min_value=0, max_value=0, vocab=None,
-            events=False, messages_received=0):
-        self.name = name
-        self.type = value_type
-        self.min_value = min_value
-        self.max_value = max_value
-        self.range = max_value - min_value
-        if self.range <= 0:
-            self.range = 1
+    def __init__(self, measurement_type):
         self.event = ''
-        self.bad_data = False
-        self.bad_data_tally = 0
+        self.bad_data = 0
         self.current_data = None
-        self.events_active = events
-        self.events = []
-        self.messages_received = messages_received
+        self.events_active = False
+        self.events = {}
+        self.messages_received = 0
+        self.measurement_type = measurement_type
 
-        # Vocab is a list of acceptable strings for CurrentValue
-        self.vocab = vocab or []
-
-        if self.events_active is True:
-            for _ in range(len(self.vocab)):
-                self.events.append("")
-
-    def update(self, message):
-        if self.bad_data:
-            self.bad_data_tally += 1
-            self.bad_data = False
-
+    def update(self, measurement):
         self.messages_received += 1
-        self.current_data = message.get('value', None)
-        if not isinstance(self.current_data, bool) and isinstance(
-                self.current_data, int):
-            self.current_data = float(self.current_data)
-        if not isinstance(self.current_data, self.type):
-            self.bad_data = True
+        self.current_data = measurement.value
+        if not isinstance(self.current_data, self.measurement_type.DATA_TYPE):
+            self.bad_data += 1
         else:
-            if isinstance(self.current_data, bool):
-                return
-            elif isinstance(self.current_data, unicode):
-                if self.current_data in self.vocab:
-                    #Save the event in the proper spot.
-                    if (len(message) > 2) and (self.events_active is True):
-                        self.events[self.vocab.index(self.current_data)
-                                ] = message.get('event', None)
+            if isinstance(measurement, EventedMeasurement):
+                if measurement.valid_state():
+                    self.events[measurement.value] = measurement.event
                 else:
-                    self.bad_data = True
-            else:
-                if self.current_data < self.min_value:
-                    self.bad_data = True
-                elif self.current_data > self.max_value:
-                    self.bad_data = True
+                    self.bad_data += 1
+            elif (isinstance(measurement, NumericMeasurement) and not
+                    measurement.within_range()):
+                self.bad_data += 1
 
     def print_to_window(self, window, row, started_time):
         width = window.getmaxyx()[1]
-        window.addstr(row, 0, self.name)
+        window.addstr(row, 0, self.measurement_type.name)
         if self.current_data is not None:
-            if self.type == float and not self.bad_data:
-                percent = self.current_data - self.min_value
-                percent /= self.range
+            if self.measurement_type.DATA_TYPE == float and self.bad_data == 0:
+                percent = self.current_data - self.measurement_type.min()
+                percent /= self.measurement_type.spread()
                 count = 0
                 graph = "*"
                 percent -= .1
@@ -114,32 +114,24 @@ class DataPoint(object):
                 value = str(self.current_data)
             else:
                 result = ""
-                for item, value in enumerate(self.vocab):
-                    if value == "driver":
-                        keyword = "dr"
-                    elif value == "passenger":
-                        keyword = "ps"
-                    elif value == "rear_right":
-                        keyword = "rr"
-                    elif value == "rear_left":
-                        keyword = "rl"
-                    result += "%s: %s " % (keyword, str(self.events[item]))
+                for item, value in enumerate(self.measurement_type.states):
+                    result += "%s: %s " % (value, str(self.events[item]))
                 value = result
 
-            if self.bad_data:
+            if self.bad_data > 0:
                 value += " (invalid)"
                 value_color = curses.color_pair(1)
             else:
                 value_color = curses.color_pair(0)
             window.addstr(row, 45, value, value_color)
 
-        if self.bad_data_tally > 0:
+        if self.bad_data > 0:
             bad_data_color = curses.color_pair(1)
         else:
             bad_data_color = curses.color_pair(2)
 
         if width > 90:
-            window.addstr(row, 80, "Errors: " + str(self.bad_data_tally),
+            window.addstr(row, 80, "Errors: %d" % self.bad_data,
                     bad_data_color)
 
         if self.messages_received > 0:
@@ -158,9 +150,13 @@ class DataPoint(object):
 
 
 class Dashboard(object):
-    def __init__(self, window, elements):
+    def __init__(self, window):
         self.window = window
-        self.elements = elements
+        self.elements = {}
+        for measurement_type in DASHBOARD_MEASUREMENTS:
+            self.elements[Measurement.name_from_class(
+                    measurement_type)] = DataPoint(measurement_type)
+
         self.started_time = datetime.now()
         self.messages_received = 0
 
@@ -169,16 +165,13 @@ class Dashboard(object):
         curses.init_pair(2, curses.COLOR_GREEN, -1)
         curses.init_pair(3, curses.COLOR_YELLOW, -1)
 
-    def receive(self, message, data_remaining=0, **kwargs):
-        self.messages_received += 1
-        if self.source.bytes_received == 0:
+    def receive(self, measurement, data_remaining=False, **kwargs):
+        if self.messages_received == 0:
             self.started_time = datetime.now()
+        self.messages_received += 1
 
-        element = self.elements.get(message.get('name', None), None)
-        if element is not None:
-            element.update(message)
-
-        if data_remaining == 0:
+        self.elements[measurement.name].update(measurement)
+        if not data_remaining:
             self._redraw()
 
     def _redraw(self):
@@ -203,54 +196,15 @@ class Dashboard(object):
         self.window.refresh()
 
 
-# TODO generate this list automatically from the measurement classes...when
-# those exist.
-def initialize_elements():
-    elements = []
-
-    elements.append(DataPoint('steering_wheel_angle', float, -600, 600))
-    elements.append(DataPoint('engine_speed', float, 0, 8000))
-    elements.append(DataPoint('transmission_gear_position', unicode,
-        vocab=['first', 'second', 'third', 'fourth', 'fifth', 'sixth',
-            'seventh', 'eighth', 'neutral', 'reverse', 'park']))
-    elements.append(DataPoint('ignition_status', unicode,
-        vocab=['off', 'accessory', 'run', 'start']))
-    elements.append(DataPoint('brake_pedal_status', bool))
-    elements.append(DataPoint('parking_brake_status', bool))
-    elements.append(DataPoint('headlamp_status', bool))
-    elements.append(DataPoint('accelerator_pedal_position', float, 0, 100))
-    elements.append(DataPoint('torque_at_transmission', float, -800, 1500))
-    elements.append(DataPoint('vehicle_speed', float, 0, 120))
-    elements.append(DataPoint('lateral_acceleration', float, -100, 100))
-    elements.append(DataPoint('longitudinal_acceleration', float, -100, 100))
-    elements.append(DataPoint('fuel_consumed_since_restart', float, 0, 300))
-    elements.append(DataPoint('fine_odometer_since_restart', float, 0, 300))
-    elements.append(DataPoint('door_status', unicode,
-        vocab=['driver', 'rear_left', 'rear_right', 'passenger'], events=True))
-    elements.append(DataPoint('windshield_wiper_status', bool))
-    elements.append(DataPoint('odometer', float, 0, 100000))
-    elements.append(DataPoint('high_beam_status', bool))
-    elements.append(DataPoint('fuel_level', float, 0, 300))
-    elements.append(DataPoint('latitude', float, -90, 90))
-    elements.append(DataPoint('longitude', float, -180, 180))
-    elements.append(DataPoint('heater_status', bool))
-    elements.append(DataPoint('air_conditioning_status', bool))
-    elements.append(DataPoint('charging_status', bool))
-    elements.append(DataPoint('range', float, 0, 500))
-    elements.append(DataPoint('gear_lever_position', unicode,
-        vocab=['first', 'second', 'third', 'fourth', 'fifth', 'sixth',
-            'seventh', 'neutral', 'reverse', 'park', 'drive', 'low', 'sport']))
-    elements.append(DataPoint('battery_level', float, 0, 100))
-    elements.append(DataPoint('cabin_temperature', float, -50, 150))
-
-    return {element.name: element for element in elements}
-
-
 def run_dashboard(window, source_class, source_kwargs):
-    dashboard = Dashboard(window, initialize_elements())
-    source = source_class(dashboard.receive, **source_kwargs)
-    dashboard.source = source
-    source.start()
+    dashboard = Dashboard(window)
+    dashboard.source = source_class(**source_kwargs)
+    vehicle = Vehicle(dashboard.source)
+    vehicle.add_sink(dashboard)
+
+    while True:
+        import time
+        time.sleep(5)
 
 
 def parse_options():
