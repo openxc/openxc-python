@@ -9,6 +9,7 @@ from __future__ import absolute_import
 import argparse
 import curses
 import curses.wrapper
+import numbers
 from datetime import datetime
 
 from .common import device_options, configure_logging, select_device
@@ -68,7 +69,6 @@ class DataPoint(object):
         self.event = ''
         self.bad_data = 0
         self.current_data = None
-        self.events_active = False
         self.events = {}
         self.messages_received = 0
         self.measurement_type = measurement_type
@@ -92,25 +92,15 @@ class DataPoint(object):
         width = window.getmaxyx()[1]
         window.addstr(row, 0, self.measurement_type.name)
         if self.current_data is not None:
-            if self.measurement_type.DATA_TYPE == float and self.bad_data == 0:
-                percent = self.current_data - self.measurement_type.min()
-                percent /= self.measurement_type.spread()
-                count = 0
-                graph = "*"
-                percent -= .1
-                while percent > 0:
-                    graph += "-"
-                    count += 1
-                    percent -= .1
-                graph += "|"
-                count += 1
-                while count < 10:
-                    graph += "-"
-                    count += 1
-                graph += "* "
+            if (self.measurement_type.DATA_TYPE == numbers.Number and
+                    self.bad_data == 0):
+                percent = ((self.current_data - self.measurement_type.min()) /
+                        float(self.measurement_type.spread())) * 100
+                chunks = int((percent - .1) * .1)
+                graph = "*%s|%s*" % ("-" * chunks, "-" * (10 - chunks))
                 window.addstr(row, 30, graph)
 
-            if self.events_active is False:
+            if len(self.events) == 0:
                 value = str(self.current_data)
             else:
                 result = ""

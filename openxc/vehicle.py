@@ -48,6 +48,8 @@ class Vehicle(object):
             source.callback = self._receive
             source.start()
 
+    # TODO define the API for sinks....they can't get full measurements unless
+    # they've been previously cached with Measurement.name_from_class
     def add_sink(self, sink):
         if sink is not None:
             self.sinks.add(sink)
