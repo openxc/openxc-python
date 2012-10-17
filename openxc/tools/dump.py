@@ -38,3 +38,7 @@ def main():
     source_class, source_kwargs = select_device(arguments)
     source = source_class(receive, **source_kwargs)
     source.start()
+
+    while True:
+        import time
+        time.sleep(5)
