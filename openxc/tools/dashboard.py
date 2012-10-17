@@ -105,7 +105,8 @@ class DataPoint(object):
             else:
                 result = ""
                 for item, value in enumerate(self.measurement_type.states):
-                    result += "%s: %s " % (value, str(self.events[item]))
+                    # TODO missing keys here?
+                    result += "%s: %s " % (value, self.events.get(item, "?"))
                 value = result
 
             if self.bad_data > 0:
