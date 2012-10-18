@@ -18,6 +18,13 @@ from openxc.measurements import EventedMeasurement, NumericMeasurement, \
         Measurement
 import openxc.measurements as measurements
 
+try:
+    unicode
+except NameError:
+    # Python 3
+    basestring = unicode = str
+
+
 DASHBOARD_MEASUREMENTS  = [measurements.AcceleratorPedalPosition,
                 measurements.FuelLevel,
                 measurements.VehicleSpeed,
@@ -42,12 +49,6 @@ DASHBOARD_MEASUREMENTS  = [measurements.AcceleratorPedalPosition,
                 measurements.TurnSignalStatus,
                 measurements.ButtonEvent,
                 measurements.DoorStatus]
-
-try:
-    unicode
-except NameError:
-    # Python 3
-    basestring = unicode = str
 
 
 # timedelta.total_seconds() is only in 2.7, so we backport it here for 2.6
