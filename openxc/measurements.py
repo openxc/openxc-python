@@ -1,5 +1,6 @@
 import numbers
 
+import openxc.units as units
 from .utils import Range, AgingData
 
 try:
@@ -12,11 +13,12 @@ except NameError:
 class Measurement(AgingData):
     DATA_TYPE = numbers.Number
     _measurement_map = {}
+    unit = units.Undefined
 
     def __init__(self, name, value, event=None):
         super(Measurement, self).__init__()
         self.name = name
-        self.value = value
+        self.value = self.unit(value)
         self.event = event
 
     @classmethod
@@ -44,15 +46,20 @@ class Measurement(AgingData):
             return name
 
 
-class NumericMeasurement(Measurement):
+class NamedMeasurement(Measurement):
+    def __init__(self, value, event=None):
+        super(NamedMeasurement, self).__init__(self.name, value, event)
+
+
+class NumericMeasurement(NamedMeasurement):
     valid_range = None
 
 
-class StatefulMeasurement(Measurement):
+class StatefulMeasurement(NamedMeasurement):
     DATA_TYPE = unicode
     states = None
 
-class BooleanMeasurement(Measurement):
+class BooleanMeasurement(NamedMeasurement):
     DATA_TYPE = bool
 
 class EventedMeasurement(StatefulMeasurement):
@@ -64,6 +71,7 @@ class EventedMeasurement(StatefulMeasurement):
 
 class PercentageMeasurement(NumericMeasurement):
     valid_range = Range(0, 100)
+    unit = units.Percentage
 
 
 class AcceleratorPedalPosition(PercentageMeasurement):
@@ -76,46 +84,57 @@ class FuelLevel(PercentageMeasurement):
 class VehicleSpeed(NumericMeasurement):
     name = "vehicle_speed"
     valid_range = Range(0, 321)
+    unit = units.KilometersPerHour
 
 class EngineSpeed(NumericMeasurement):
     name = "engine_speed"
     valid_range = Range(0, 8000)
+    unit = units.RotationsPerMinute
 
 class FineOdometer(NumericMeasurement):
     name = "fine_odometer_since_restart"
     valid_range = Range(0, 1000)
+    unit = units.Kilometer
 
 class FuelConsumed(NumericMeasurement):
     name = "fuel_consumed_since_restart"
     valid_range = Range(0, 100)
+    unit = units.Litre
 
 class Latitude(NumericMeasurement):
     name = "latitude"
     valid_range = Range(-90, 90)
+    unit = units.Degree
 
 class Longitude(NumericMeasurement):
     name = "longitude"
     valid_range = Range(-180, 180)
+    unit = units.Degree
 
 class Odometer(NumericMeasurement):
     name = "odometer"
     valid_range = Range(0, 1000000)
+    unit = units.Kilometer
 
 class SteeringWheelAngle(NumericMeasurement):
     name = "steering_wheel_angle"
     valid_range = Range(-600, 600)
+    unit = units.Degree
 
 class TorqueAtTransmission(NumericMeasurement):
     name = "torque_at_transmission"
     valid_range = Range(-800, 1500)
+    unit = units.NewtonMeter
 
 class LateralAcceleration(NumericMeasurement):
     name = "lateral_acceleration"
     valid_range = Range(-5, 5)
+    unit = units.MetersPerSecondSquared
 
 class LongitudinalAcceleration(NumericMeasurement):
     name = "lognitudinal_acceleration"
     valid_range = Range(-5, 5)
+    unit = units.MetersPerSecondSquared
 
 
 class BrakePedalStatus(BooleanMeasurement):

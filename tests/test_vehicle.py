@@ -49,7 +49,7 @@ class VehicleTests(unittest.TestCase):
         measurement = self.vehicle.get(TestMeasurement)
         ok_(measurement is not None)
         eq_(measurement.name, data['name'])
-        eq_(measurement.value, data['value'])
+        eq_(measurement.value, measurement.unit(data['value']))
 
     def test_bad_measurement_type(self):
         try:
