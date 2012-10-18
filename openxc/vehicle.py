@@ -1,6 +1,5 @@
-from collections import defaultdict
-
 from .measurements import Measurement
+from .sinks.base import MeasurementNotifierSink
 
 class Vehicle(object):
 
@@ -8,34 +7,27 @@ class Vehicle(object):
         self.sources = set()
         self.sinks = set()
         self.measurements = {}
-        self.listeners = defaultdict(set)
         self.add_source(source)
+
+        self.notifier = MeasurementNotifierSink()
+        self.sinks.add(self.notifier)
 
     def get(self, measurement_class):
         name = Measurement.name_from_class(measurement_class)
         return self._construct_measurement(name)
 
     def listen(self, measurement_class, listener):
-        self.listeners[Measurement.name_from_class(measurement_class)
-                ].add(listener)
+        self.notifier.register(measurement_class, listener)
 
     def unlisten(self, measurement_class, listener):
-        self.listeners[Measurement.name_from_class(measurement_class)
-                ].remove(listener)
+        self.notifier.unregister(measurement_class, listener)
 
     def _receive(self, message, **kwargs):
         name = message['name']
         self.measurements[name] = message
 
-        # TODO this should be a sink
-        measurement = self._construct_measurement(name)
-        if measurement is not None:
-            if name in self.listeners:
-                for listener in self.listeners[name]:
-                    listener(measurement)
-
-            for sink in self.sinks:
-                sink.receive(measurement, **kwargs)
+        for sink in self.sinks:
+            sink.receive(message, **kwargs)
 
     def _construct_measurement(self, measurement_id):
         raw_measurement = self.measurements.get(measurement_id, None)
@@ -48,8 +40,6 @@ class Vehicle(object):
             source.callback = self._receive
             source.start()
 
-    # TODO define the API for sinks....they can't get full measurements unless
-    # they've been previously cached with Measurement.name_from_class
     def add_sink(self, sink):
         if sink is not None:
             self.sinks.add(sink)
