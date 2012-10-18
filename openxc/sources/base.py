@@ -3,15 +3,13 @@ import threading
 from openxc.formats.json import JsonFormatter
 
 
-class DataSource(object):
+class DataSource(threading.Thread):
     def __init__(self, callback=None):
-        self.callback = callback
-        self.bytes_received = 0
+        super(DataSource, self).__init__()
 
-    def start(self):
-        self.thread = threading.Thread(target=self.run)
-        self.thread.daemon = True
-        self.thread.start()
+        self.callback = callback
+        self.daemon = True
+        self.bytes_received = 0
 
     def run(self):
         # TODO this probably belongs in subclass since not every source will be
@@ -22,13 +20,13 @@ class DataSource(object):
             while True:
                 message, message_buffer, byte_count = self._parse_message(
                         message_buffer)
-                if message is not None:
-                    self.bytes_received += byte_count
-                    if self.callback is not None:
-                        self.callback(message,
-                                data_remaining=len(message_buffer) > 0)
-                else:
+                if message is None:
                     break
+
+                self.bytes_received += byte_count
+                if self.callback is not None:
+                    self.callback(message,
+                            data_remaining=len(message_buffer) > 0)
 
     def read(self, num_bytes=None, timeout=None):
         raise NotImplementedError("Don't use DataSource directly")
