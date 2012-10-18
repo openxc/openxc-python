@@ -1,6 +1,6 @@
 import numbers
 
-from .utils import Range
+from .utils import Range, AgingData
 
 try:
     unicode
@@ -9,11 +9,12 @@ except NameError:
     basestring = unicode = str
 
 
-class Measurement(object):
+class Measurement(AgingData):
     DATA_TYPE = numbers.Number
     _measurement_map = {}
 
     def __init__(self, name, value, event=None):
+        super(Measurement, self).__init__()
         self.name = name
         self.value = value
         self.event = event

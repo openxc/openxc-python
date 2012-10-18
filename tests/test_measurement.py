@@ -10,3 +10,8 @@ class MeasurementTests(unittest.TestCase):
 
     def test_basic(self):
         measurement = Measurement("name", "value")
+
+    def test_has_age(self):
+        measurement = Measurement("name", "value")
+        age = measurement.age
+        ok_(measurement.age > age)
