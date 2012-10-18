@@ -1,5 +1,7 @@
 import numbers
 
+from .utils import Range
+
 try:
     unicode
 except NameError:
@@ -44,21 +46,6 @@ class Measurement(object):
 class NumericMeasurement(Measurement):
     valid_range = None
 
-    def within_range(self):
-        return (self.value >= self.valid_range[0] and
-                self.value <= self.valid_range[1])
-
-    @classmethod
-    def min(cls):
-        return cls.valid_range[0]
-
-    @classmethod
-    def max(cls):
-        return cls.valid_range[1]
-
-    @classmethod
-    def spread(cls):
-        return cls.valid_range[1] - cls.valid_range[0]
 
 class StatefulMeasurement(Measurement):
     DATA_TYPE = unicode
@@ -75,7 +62,7 @@ class EventedMeasurement(StatefulMeasurement):
 
 
 class PercentageMeasurement(NumericMeasurement):
-    valid_range = (0, 100)
+    valid_range = Range(0, 100)
 
 
 class AcceleratorPedalPosition(PercentageMeasurement):
@@ -87,47 +74,47 @@ class FuelLevel(PercentageMeasurement):
 
 class VehicleSpeed(NumericMeasurement):
     name = "vehicle_speed"
-    valid_range = (0, 321)
+    valid_range = Range(0, 321)
 
 class EngineSpeed(NumericMeasurement):
     name = "engine_speed"
-    valid_range = (0, 8000)
+    valid_range = Range(0, 8000)
 
 class FineOdometer(NumericMeasurement):
     name = "fine_odometer_since_restart"
-    valid_range = (0, 1000)
+    valid_range = Range(0, 1000)
 
 class FuelConsumed(NumericMeasurement):
     name = "fuel_consumed_since_restart"
-    valid_range = (0, 100)
+    valid_range = Range(0, 100)
 
 class Latitude(NumericMeasurement):
     name = "latitude"
-    valid_range = (-90, 90)
+    valid_range = Range(-90, 90)
 
 class Longitude(NumericMeasurement):
     name = "longitude"
-    valid_range = (-180, 180)
+    valid_range = Range(-180, 180)
 
 class Odometer(NumericMeasurement):
     name = "odometer"
-    valid_range = (0, 1000000)
+    valid_range = Range(0, 1000000)
 
 class SteeringWheelAngle(NumericMeasurement):
     name = "steering_wheel_angle"
-    valid_range = (-600, 600)
+    valid_range = Range(-600, 600)
 
 class TorqueAtTransmission(NumericMeasurement):
     name = "torque_at_transmission"
-    valid_range = (-800, 1500)
+    valid_range = Range(-800, 1500)
 
 class LateralAcceleration(NumericMeasurement):
     name = "lateral_acceleration"
-    valid_range = (-5, 5)
+    valid_range = Range(-5, 5)
 
 class LongitudinalAcceleration(NumericMeasurement):
     name = "lognitudinal_acceleration"
-    valid_range = (-5, 5)
+    valid_range = Range(-5, 5)
 
 
 class BrakePedalStatus(BooleanMeasurement):
