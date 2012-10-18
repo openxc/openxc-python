@@ -1,5 +1,12 @@
 import numbers
 
+try:
+    unicode
+except NameError:
+    # Python 3
+    basestring = unicode = str
+
+
 class Measurement(object):
     DATA_TYPE = numbers.Number
     _measurement_map = {}
