@@ -3,26 +3,16 @@ import datetime
 import time
 
 from openxc.formats import JsonFormatter
-from .base import DataSink
-
-try:
-    from Queue import Queue
-except ImportError:
-    # Python 3
-    from queue import Queue
+from .queued import QueuedSink
 
 
-class FileRecorderSink(DataSink):
+class FileRecorderSink(QueuedSink):
     FILENAME_DATE_FORMAT = "%Y-%m-%d-%H"
     FILENAME_FORMAT = "%s.json"
 
     def __init__(self):
         super(FileRecorderSink, self).__init__()
-        self.queue = Queue()
         self.recorder = self.Recorder(self.queue)
-
-    def receive(self, message, **kwargs):
-        self.queue.put(message)
 
     class Recorder(Thread):
         def __init__(self, queue):
