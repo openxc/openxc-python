@@ -1,9 +1,6 @@
-from nose.tools import eq_, ok_
 import unittest
 
-import openxc.measurements
-from openxc.sources.usb import UsbDataSource
-from openxc.sources.base import DataSourceError
+from openxc.sources import UsbDataSource, DataSourceError
 
 class UsbDataSourceTests(unittest.TestCase):
     def setUp(self):
@@ -14,6 +11,6 @@ class UsbDataSourceTests(unittest.TestCase):
             pass
 
         try:
-            s = UsbDataSource(callback)
+            UsbDataSource(callback)
         except DataSourceError as e:
             pass

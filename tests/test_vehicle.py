@@ -2,7 +2,7 @@ from nose.tools import eq_, ok_
 import unittest
 import time
 
-from openxc.sources.base import DataSource
+from openxc.sources import DataSource
 from openxc.measurements import Measurement, NamedMeasurement, \
         UnrecognizedMeasurementError
 from openxc.vehicle import Vehicle

@@ -2,8 +2,8 @@ from nose.tools import eq_, ok_
 import unittest
 
 import openxc.measurements
-from openxc.sources.serial import SerialDataSource
-from openxc.sources.base import DataSourceError
+from openxc.sources import SerialDataSource
+from openxc.sources import DataSourceError
 
 class SerialDataSourceTests(unittest.TestCase):
     def setUp(self):

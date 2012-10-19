@@ -1,7 +1,5 @@
-from .sources.usb import UsbDataSource
-from .sources.serial import SerialDataSource
-from .controllers.usb import UsbControllerMixin
-from .controllers.serial import SerialControllerMixin
+from .sources import UsbDataSource, SerialDataSource
+from .controllers import UsbControllerMixin, SerialControllerMixin
 
 class UsbVehicleInterface(UsbDataSource, UsbControllerMixin):
     pass

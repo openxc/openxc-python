@@ -1,5 +1,5 @@
 from .measurements import Measurement
-from .sinks.base import MeasurementNotifierSink
+from .sinks import MeasurementNotifierSink
 
 class Vehicle(object):
 
