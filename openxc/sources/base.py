@@ -16,7 +16,7 @@ class DataSource(threading.Thread):
 class BytestreamDataSource(DataSource):
 
     def __init__(self, callback=None):
-        super(BytestreamDataSource, self).__init__()
+        super(BytestreamDataSource, self).__init__(callback)
         self.bytes_received = 0
 
     def run(self):
