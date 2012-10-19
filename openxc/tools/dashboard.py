@@ -77,7 +77,7 @@ class DataPoint(object):
     def update(self, measurement):
         self.messages_received += 1
         self.current_data = measurement.value
-        if not isinstance(self.current_data, self.measurement_type.DATA_TYPE):
+        if not isinstance(self.current_data.num, self.measurement_type.DATA_TYPE):
             self.bad_data += 1
         else:
             if isinstance(measurement, EventedMeasurement):
@@ -95,8 +95,9 @@ class DataPoint(object):
         if self.current_data is not None:
             if (self.measurement_type.DATA_TYPE == numbers.Number and
                     self.bad_data == 0):
-                percent = ((self.current_data - self.measurement_type.min()) /
-                        float(self.measurement_type.spread())) * 100
+                percent = ((self.current_data.num -
+                    self.measurement_type.valid_range.min) /
+                        float(self.measurement_type.valid_range.spread)) * 100
                 chunks = int((percent - .1) * .1)
                 graph = "*%s|%s*" % ("-" * chunks, "-" * (10 - chunks))
                 window.addstr(row, 30, graph)
@@ -142,12 +143,13 @@ class DataPoint(object):
 
 
 class Dashboard(object):
-    def __init__(self, window):
+    def __init__(self, window, vehicle):
         self.window = window
         self.elements = {}
         for measurement_type in DASHBOARD_MEASUREMENTS:
             self.elements[Measurement.name_from_class(
                     measurement_type)] = DataPoint(measurement_type)
+            vehicle.listen(measurement_type, self.receive)
 
         self.started_time = datetime.now()
         self.messages_received = 0
@@ -189,10 +191,10 @@ class Dashboard(object):
 
 
 def run_dashboard(window, source_class, source_kwargs):
-    dashboard = Dashboard(window)
+    vehicle = Vehicle()
+    dashboard = Dashboard(window, vehicle)
     dashboard.source = source_class(**source_kwargs)
-    vehicle = Vehicle(dashboard.source)
-    vehicle.add_sink(dashboard)
+    vehicle.add_source(dashboard.source)
 
     while True:
         import time

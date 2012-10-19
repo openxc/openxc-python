@@ -6,14 +6,20 @@ from openxc.formats.json import JsonFormatter
 class DataSource(threading.Thread):
     def __init__(self, callback=None):
         super(DataSource, self).__init__()
-
         self.callback = callback
         self.daemon = True
+
+    def read(self, num_bytes=None, timeout=None):
+        raise NotImplementedError("Don't use DataSource directly")
+
+
+class BytestreamDataSource(DataSource):
+
+    def __init__(self, callback=None):
+        super(BytestreamDataSource, self).__init__()
         self.bytes_received = 0
 
     def run(self):
-        # TODO this probably belongs in subclass since not every source will be
-        # parsing bytestreams
         message_buffer = b""
         while True:
             message_buffer += self.read()
@@ -27,40 +33,6 @@ class DataSource(threading.Thread):
                 if self.callback is not None:
                     self.callback(message,
                             data_remaining=len(message_buffer) > 0)
-
-    def read(self, num_bytes=None, timeout=None):
-        raise NotImplementedError("Don't use DataSource directly")
-
-    def write_bytes(self, data):
-        raise NotImplementedError("Don't use DataSource directly")
-
-    def version(self):
-        raise NotImplementedError("%s cannot be used with control commands" %
-                type(self).__name__)
-
-    def reset(self):
-        raise NotImplementedError("%s cannot be used with control commands" %
-                type(self).__name__)
-
-    def write(self, name, value):
-        value = self._massage_write_value(value)
-        message = JsonFormatter.serialize({'name': name, 'value': value})
-        bytes_written = self.write_bytes(message + "\x00")
-        assert bytes_written == len(message) + 1
-        return bytes_written
-
-    @classmethod
-    def _massage_write_value(cls, value):
-        if value == "true":
-            value = True
-        elif value == "false":
-            value = False
-        else:
-            try:
-                value = float(value)
-            except ValueError:
-                pass
-        return value
 
     def _parse_message(self, message_buffer):
         """If a message can be pasred from the given buffer, return it and
@@ -81,7 +53,6 @@ class DataSource(threading.Thread):
             except ValueError:
                 pass
         return parsed_message, remainder, len(message)
-
 
 class DataSourceError(Exception):
     pass

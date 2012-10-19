@@ -3,11 +3,12 @@ from __future__ import absolute_import
 import logging
 import serial
 
-from .base import DataSource, DataSourceError
+from .base import BytestreamDataSource, DataSourceError
 
 LOG = logging.getLogger(__name__)
 
-class SerialDataSource(DataSource):
+
+class SerialDataSource(BytestreamDataSource):
     DEFAULT_PORT = "/dev/ttyUSB0"
     DEFAULT_BAUDRATE = 115200
 
@@ -25,6 +26,3 @@ class SerialDataSource(DataSource):
 
     def read(self):
         return self.device.readline()
-
-    def _write(self, message):
-        return self.device.write(message )

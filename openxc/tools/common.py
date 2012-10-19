@@ -2,8 +2,7 @@ import argparse
 import logging
 
 from openxc.sources.trace import TraceDataSource
-from openxc.sources.usb import UsbDataSource
-from openxc.sources.serial import SerialDataSource
+from openxc.interface import SerialVehicleInterface, UsbVehicleInterface
 
 
 def device_options():
@@ -38,14 +37,14 @@ def configure_logging(level=logging.WARN):
 
 def select_device(arguments):
     if arguments.use_serial:
-        source_class = SerialDataSource
+        source_class = SerialVehicleInterface
         source_kwargs = dict(port=arguments.serial_port,
                 baudrate=arguments.baudrate)
     elif arguments.trace_file:
         source_class = TraceDataSource
         source_kwargs = dict(filename=arguments.trace_file)
     else:
-        source_class = UsbDataSource
+        source_class = UsbVehicleInterface
         source_kwargs = dict(vendor_id=arguments.usb_vendor)
 
     return source_class, source_kwargs

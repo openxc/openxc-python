@@ -15,7 +15,7 @@ class Measurement(AgingData):
     _measurement_map = {}
     unit = units.Undefined
 
-    def __init__(self, name, value, event=None, override_unit=False):
+    def __init__(self, name, value, event=None, override_unit=False, **kwargs):
         super(Measurement, self).__init__()
         self.name = name
         if override_unit:
@@ -37,8 +37,8 @@ class Measurement(AgingData):
     @classmethod
     def from_dict(cls, data):
         measurement_class = cls._class_from_name(data['name'])
-        return measurement_class(data['name'], data['value'],
-                data.get('event', None), override_unit=True)
+        return measurement_class(data['value'], event=data.get('event', None),
+                override_unit=True)
 
     @classmethod
     def _class_from_name(cls, measurement_name):
@@ -68,19 +68,23 @@ class NamedMeasurement(Measurement):
 class NumericMeasurement(NamedMeasurement):
     valid_range = None
 
+    def within_range(self):
+        return self.valid_range.within_range(self.value.num)
+
 
 class StatefulMeasurement(NamedMeasurement):
     DATA_TYPE = unicode
     states = None
+
+    def valid_state(self):
+        # the type of 'num' here is actually a string
+        return self.value.num in self.states
 
 class BooleanMeasurement(NamedMeasurement):
     DATA_TYPE = bool
 
 class EventedMeasurement(StatefulMeasurement):
     DATA_TYPE = unicode
-
-    def valid_state(self):
-        return self.value in self.states
 
 
 class PercentageMeasurement(NumericMeasurement):

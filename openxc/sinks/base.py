@@ -11,7 +11,7 @@ except ImportError:
 
 
 class DataSink(object):
-    def receive(self, message):
+    def receive(self, message, **kwargs):
         raise NotImplementedError("Don't use DataSink directly")
 
 
@@ -30,7 +30,7 @@ class MeasurementNotifierSink(DataSink):
         self.listeners[Measurement.name_from_class(measurement_class)
                 ].remove(listener)
 
-    def receive(self, message):
+    def receive(self, message, **kwargs):
         measurement = Measurement.from_dict(message)
         if measurement is not None:
             if measurement.name in self.listeners:

@@ -2,7 +2,8 @@ from nose.tools import eq_, ok_
 import unittest
 
 from openxc.sources.base import DataSource
-from openxc.measurements import Measurement, UnrecognizedMeasurementError
+from openxc.measurements import Measurement, NamedMeasurement, \
+        UnrecognizedMeasurementError
 from openxc.vehicle import Vehicle
 
 
@@ -61,7 +62,7 @@ class VehicleTests(unittest.TestCase):
                     str(UnrecognizedMeasurementError.__name__))
 
 
-class TestMeasurement(Measurement):
+class TestMeasurement(NamedMeasurement):
     name = "test"
 
 
