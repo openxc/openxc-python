@@ -3,11 +3,14 @@ from .sinks.base import MeasurementNotifierSink
 
 class Vehicle(object):
 
-    def __init__(self, source=None):
+    def __init__(self, interface=None):
         self.sources = set()
         self.sinks = set()
         self.measurements = {}
-        self.add_source(source)
+
+        if interface is not None:
+            self.add_source(interface)
+            self.controller = interface
 
         self.notifier = MeasurementNotifierSink()
         self.sinks.add(self.notifier)
