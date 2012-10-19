@@ -31,7 +31,7 @@ class MeasurementNotifierSink(DataSink):
                 ].remove(callback)
 
     def receive(self, message, **kwargs):
-        self.queue.put(Measurement.from_dict(message))
+        self.queue.put((Measurement.from_dict(message), kwargs))
 
     def _propagate(self, measurement, **kwargs):
         for callback in self.callbacks[measurement.name]:
@@ -47,6 +47,6 @@ class MeasurementNotifierSink(DataSink):
 
         def run(self):
             while True:
-                measurement = self.queue.get()
-                self.callback(measurement)
+                measurement, kwargs = self.queue.get()
+                self.callback(measurement, **kwargs)
                 self.queue.task_done()

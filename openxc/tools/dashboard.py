@@ -168,6 +168,7 @@ class Dashboard(object):
         if not data_remaining:
             self._redraw()
 
+
     def _redraw(self):
         self.window.erase()
         max_rows = self.window.getmaxyx()[0] - 4
