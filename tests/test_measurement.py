@@ -1,5 +1,6 @@
 from nose.tools import eq_, ok_
 import unittest
+import time
 
 from openxc.measurements import Measurement, VehicleSpeed
 
@@ -13,6 +14,7 @@ class MeasurementTests(unittest.TestCase):
     def test_has_age(self):
         measurement = Measurement("name", "value", override_unit=True)
         age = measurement.age
+        time.sleep(0.01)
         ok_(measurement.age > age)
 
     def test_unit(self):
