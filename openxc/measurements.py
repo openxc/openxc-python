@@ -15,17 +15,30 @@ class Measurement(AgingData):
     _measurement_map = {}
     unit = units.Undefined
 
-    def __init__(self, name, value, event=None):
+    def __init__(self, name, value, event=None, override_unit=False):
         super(Measurement, self).__init__()
         self.name = name
-        self.value = self.unit(value)
+        if override_unit:
+            value = self.unit(value)
+        self.value = value
         self.event = event
+
+    @property
+    def value(self):
+        return self._value
+
+    @value.setter
+    def value(self, new_value):
+        if new_value.unit != self.unit:
+            raise AttributeError("%s must be in %s" % (self.__class__,
+                self.unit))
+        self._value = new_value
 
     @classmethod
     def from_dict(cls, data):
         measurement_class = cls._class_from_name(data['name'])
         return measurement_class(data['name'], data['value'],
-                data.get('event', None))
+                data.get('event', None), override_unit=True)
 
     @classmethod
     def _class_from_name(cls, measurement_name):
@@ -47,8 +60,9 @@ class Measurement(AgingData):
 
 
 class NamedMeasurement(Measurement):
-    def __init__(self, value, event=None):
-        super(NamedMeasurement, self).__init__(self.name, value, event)
+    def __init__(self, value, event=None, **kwargs):
+        super(NamedMeasurement, self).__init__(self.name, value, event,
+                **kwargs)
 
 
 class NumericMeasurement(NamedMeasurement):
