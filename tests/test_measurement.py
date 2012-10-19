@@ -14,7 +14,7 @@ class MeasurementTests(unittest.TestCase):
     def test_has_age(self):
         measurement = Measurement("name", "value", override_unit=True)
         age = measurement.age
-        time.sleep(0.01)
+        time.sleep(0.001)
         ok_(measurement.age > age)
 
     def test_unit(self):

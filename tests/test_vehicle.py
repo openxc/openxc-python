@@ -1,5 +1,6 @@
 from nose.tools import eq_, ok_
 import unittest
+import time
 
 from openxc.sources.base import DataSource
 from openxc.measurements import Measurement, NamedMeasurement, \
@@ -13,7 +14,7 @@ class VehicleTests(unittest.TestCase):
         self.vehicle = Vehicle()
         self.messages_received = []
 
-    def _listener(self, message):
+    def _callback(self, message):
         self.messages_received.append(message)
 
     def test_get(self):
@@ -24,7 +25,7 @@ class VehicleTests(unittest.TestCase):
         source = TestDataSource()
         self.vehicle.add_source(source)
 
-        self.vehicle.listen(TestMeasurement, self._listener)
+        self.vehicle.listen(TestMeasurement, self._callback)
         data = {'name': TestMeasurement.name, 'value': 100}
         source.inject(data)
         ok_(len(self.messages_received) > 0)
@@ -33,8 +34,8 @@ class VehicleTests(unittest.TestCase):
         source = TestDataSource()
         self.vehicle.add_source(source)
 
-        self.vehicle.listen(TestMeasurement, self._listener)
-        self.vehicle.unlisten(TestMeasurement, self._listener)
+        self.vehicle.listen(TestMeasurement, self._callback)
+        self.vehicle.unlisten(TestMeasurement, self._callback)
         data = {'name': TestMeasurement.name, 'value': 100}
         source.inject(data)
         eq_(len(self.messages_received), 0)
@@ -69,6 +70,7 @@ class TestMeasurement(NamedMeasurement):
 class TestDataSource(DataSource):
     def inject(self, message):
         self.callback(message)
+        time.sleep(0.001)
 
     def run(self):
         pass

@@ -19,28 +19,23 @@ class MeasurementNotifierSink(DataSink):
     def __init__(self):
         super(MeasurementNotifierSink, self).__init__()
         self.queue = Queue()
-        self.listeners = defaultdict(set)
+        self.callbacks = defaultdict(set)
         self.notifier = self.Notifier(self.queue, self._propagate)
 
-    def register(self, measurement_class, listener):
-        self.listeners[Measurement.name_from_class(measurement_class)
-                ].add(listener)
+    def register(self, measurement_class, callback):
+        self.callbacks[Measurement.name_from_class(measurement_class)
+                ].add(callback)
 
-    def unregister(self, measurement_class, listener):
-        self.listeners[Measurement.name_from_class(measurement_class)
-                ].remove(listener)
+    def unregister(self, measurement_class, callback):
+        self.callbacks[Measurement.name_from_class(measurement_class)
+                ].remove(callback)
 
     def receive(self, message, **kwargs):
-        measurement = Measurement.from_dict(message)
-        if measurement is not None:
-            if measurement.name in self.listeners:
-                for listener in self.listeners[measurement.name]:
-                    listener(measurement)
+        self.queue.put(Measurement.from_dict(message))
 
-    def _propagate(self, measurement):
-        for listener in self.listeners:
-            listener.receive(measurement)
-
+    def _propagate(self, measurement, **kwargs):
+        for callback in self.callbacks[measurement.name]:
+            callback(measurement, **kwargs)
 
     class Notifier(Thread):
         def __init__(self, queue, callback):
@@ -48,6 +43,7 @@ class MeasurementNotifierSink(DataSink):
             self.daemon = True
             self.queue = queue
             self.callback = callback
+            self.start()
 
         def run(self):
             while True:

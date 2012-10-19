@@ -19,11 +19,11 @@ class Vehicle(object):
         name = Measurement.name_from_class(measurement_class)
         return self._construct_measurement(name)
 
-    def listen(self, measurement_class, listener):
-        self.notifier.register(measurement_class, listener)
+    def listen(self, measurement_class, callback):
+        self.notifier.register(measurement_class, callback)
 
-    def unlisten(self, measurement_class, listener):
-        self.notifier.unregister(measurement_class, listener)
+    def unlisten(self, measurement_class, callback):
+        self.notifier.unregister(measurement_class, callback)
 
     def _receive(self, message, **kwargs):
         name = message['name']
