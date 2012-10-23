@@ -1,3 +1,4 @@
+"""Vehicle data measurement types pre-defined in OpenXC."""
 import numbers
 
 import openxc.units as units
@@ -11,11 +12,27 @@ except NameError:
 
 
 class Measurement(AgingData):
+    """The Measurement is the base type of all values read from an OpenXC
+    vehicle interface. All values encapsulated in a Measurement have an
+    associated scalar unit (e.g. meters, degrees, etc) to avoid crashing a rover
+    into Mars.
+    """
     DATA_TYPE = numbers.Number
     _measurement_map = {}
     unit = units.Undefined
 
     def __init__(self, name, value, event=None, override_unit=False, **kwargs):
+        """Construct a new Measurement with the given name and value.
+
+        Args:
+            name (str):  The Measurement's generic name in OpenXC.
+            value (str, float, or bool): The Measurement's value.
+
+        Kwargs:
+           event (str, bool): An optional event for compound Measurements.
+           override_unit (bool): The value will be coerced to the correct units
+               if it is a plain number.
+        """
         super(Measurement, self).__init__()
         self.name = name
         if override_unit:
@@ -29,26 +46,47 @@ class Measurement(AgingData):
 
     @value.setter
     def value(self, new_value):
+        """Set the value of this measurement.
+
+        Raises:
+            AttributeError: if the new value isn't of the correct units.
+        """
         if new_value.unit != self.unit:
-            raise AttributeError("%s must be in %s" % (self.__class__,
-                self.unit))
+            raise AttributeError("%s must be in %s" % (
+                self.__class__, self.unit))
         self._value = new_value
 
     @classmethod
     def from_dict(cls, data):
+        """Create a new Measurement subclass instance using the given dict.
+
+        If Measurement.name_from_class was previously called with this data's
+        associated Measurement sub-class in Python, the returned object will be
+        an instance of that sub-class. If the measurement name in ``data`` is
+        unrecognized, the returned object will be of the generic ``Measurement``
+        type.
+
+        Args:
+            data (dict): the data for the new measurement, including at least a
+                name and value.
+        """
         measurement_class = cls._class_from_name(data['name'])
         return measurement_class(data['value'], event=data.get('event', None),
                 override_unit=True)
 
     @classmethod
-    def _class_from_name(cls, measurement_name):
-        return cls._measurement_map[measurement_name]
-
-    @classmethod
     def name_from_class(cls, measurement_class):
-        """For a given measurement class, return the generic name. If the class
-        does not have a valid generic name, raises an
-        UnrecognizedMeasurementError.
+        """For a given measurement class, return its generic name.
+
+        The given class is expected to have a ``name`` attribute, otherwise this
+        function will raise an execption. The point of using this method instead
+        of just trying to grab that attribute in the application is to cache
+        measurement name to class mappings for future use.
+
+        Returns: the generic OpenXC name for a measurement class.
+        Raises:
+            UnrecognizedMeasurementError: if the class does not have a valid
+                generic name
         """
         try:
             name = getattr(measurement_class, 'name')
@@ -58,14 +96,24 @@ class Measurement(AgingData):
             cls._measurement_map[name] = measurement_class
             return name
 
+    @classmethod
+    def _class_from_name(cls, measurement_name):
+        return cls._measurement_map.get(measurement_name, Measurement)
+
 
 class NamedMeasurement(Measurement):
+    """A NamedMeasurement has a class-level ``name`` variable and thus the
+    ``name`` argument is not required in its constructor.
+    """
     def __init__(self, value, event=None, **kwargs):
         super(NamedMeasurement, self).__init__(self.name, value, event,
                 **kwargs)
 
 
 class NumericMeasurement(NamedMeasurement):
+    """A NumericMeasurement must have a numeric value and thus a valid range of
+    acceptable values.
+    """
     valid_range = None
 
     def within_range(self):
@@ -73,15 +121,26 @@ class NumericMeasurement(NamedMeasurement):
 
 
 class StatefulMeasurement(NamedMeasurement):
+    """Must have a class-level ``states`` member that defines a set of valid
+    string states for this measurement's value.
+    """
     DATA_TYPE = unicode
     states = None
 
     def valid_state(self):
+        """Determine if the current state is valid, given the class' ``state``
+        member.
+
+        Returns:
+            True if the value is a valid state.
+        """
         # the type of 'num' here is actually a string
         return self.value.num in self.states
 
+
 class BooleanMeasurement(NamedMeasurement):
     DATA_TYPE = bool
+
 
 class EventedMeasurement(StatefulMeasurement):
     DATA_TYPE = unicode

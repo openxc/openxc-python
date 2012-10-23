@@ -1,3 +1,4 @@
+"""Define the scalar units used by vehicle measurements."""
 from __future__ import absolute_import
 
 import sys
@@ -54,4 +55,3 @@ Degree = unit('deg')
 NewtonMeter = named_unit("Nm", ["N", "m"], [])
 MetersPerSecondSquared = unit('m') / (pow(unit('s'), 2))
 Undefined = unit('undef')
-

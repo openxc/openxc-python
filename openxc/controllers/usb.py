@@ -1,3 +1,4 @@
+"""Controller implementation for an OpenXC USB device."""
 from __future__ import absolute_import
 
 import logging
@@ -7,10 +8,23 @@ from .base import Controller, ControllerError
 
 LOG = logging.getLogger(__name__)
 
+
 class UsbControllerMixin(Controller):
-    def __init__(self, device):
+    """An implementation of a Controller type that connects to an OpenXC USB
+    device.
+
+    This class acts as a mixin, and expects ``self.device`` to be an instance
+    of ``usb.Device``.
+
+    TODO bah, this is kind of weird. refactor the relationship between
+    sources/controllers.
+    """
+    def __init__(self):
+        """Open a connection to the OUT endpoint on the USB device at
+        ``self.device``.
+        """
         super(UsbControllerMixin, self).__init__()
-        self.out_endpoint = self._connect_out_endpoint(device)
+        self.out_endpoint = self._connect_out_endpoint(self.device)
 
     def write_bytes(self, data):
         if self.out_endpoint is None:

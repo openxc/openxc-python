@@ -1,3 +1,4 @@
+"""Abstract base interface for vehicle data sources."""
 import threading
 
 from openxc.formats.json import JsonFormatter

@@ -81,14 +81,14 @@ visit the main `OpenXC site`_.
 .. _`latest documentation`: https://readthedocs.org/projects/openxc-python-libraryhttps://readthedocs.org/projects/openxc-python-library
 .. _`OpenXC site`: http://openxcplatform.com
 
-Vehicle API
+Vehicle API Usage
 -----------
 
 .. toctree::
-    :maxdepth: 1
+    :maxdepth: 2
     :glob:
 
-    api/*
+    usage/*
 
 Tools
 ------
@@ -98,6 +98,16 @@ Tools
     :glob:
 
     tools/*
+
+Vehicle API Reference
+-----------
+
+.. toctree::
+    :maxdepth: 1
+    :glob:
+
+    api/*
+
 
 Contributing
 ============
