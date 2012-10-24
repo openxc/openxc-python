@@ -78,7 +78,7 @@ The `latest documentation`_ with user guides, tutorials and API reference
 is hosted at Read The Docs. For general documentation on the OpenXC platform,
 visit the main `OpenXC site`_.
 
-.. _`latest documentation`: http://TODO/readthedocs
+.. _`latest documentation`: https://readthedocs.org/projects/openxc-python-libraryhttps://readthedocs.org/projects/openxc-python-library
 .. _`OpenXC site`: http://openxcplatform.com
 
 Vehicle API
