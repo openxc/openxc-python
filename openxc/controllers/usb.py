@@ -42,9 +42,11 @@ class UsbControllerMixin(Controller):
     def reset(self):
         self.device.ctrl_transfer(0x40, self.RESET_CONTROL_COMMAND, 0, 0)
 
-    def _connect_out_endpoint(self, device):
-        """This method assumes that the USB device configuration has already
-        been set."""
+    @staticmethod
+    def _connect_out_endpoint(device):
+        """Open a reference to the USB device's only OUT endpoint. This method
+        assumes that the USB device configuration has already been set.
+        """
         config = device.get_active_configuration()
         interface_number = config[(0, 0)].bInterfaceNumber
         interface = usb.util.find_descriptor(config,
@@ -59,5 +61,4 @@ class UsbControllerMixin(Controller):
         if not out_endpoint:
             raise ControllerError(
                     "Couldn't find OUT endpoint on the USB device")
-
         return out_endpoint
