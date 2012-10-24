@@ -1,3 +1,4 @@
+=============================================
 OpenXC for Python
 =============================================
 
@@ -82,7 +83,7 @@ visit the main `OpenXC site`_.
 .. _`OpenXC site`: http://openxcplatform.com
 
 Vehicle API Usage
------------
+-----------------
 
 .. toctree::
     :maxdepth: 2
@@ -100,7 +101,7 @@ Tools
     tools/*
 
 Vehicle API Reference
------------
+---------------------
 
 .. toctree::
     :maxdepth: 1

@@ -83,7 +83,9 @@ class Measurement(AgingData):
         of just trying to grab that attribute in the application is to cache
         measurement name to class mappings for future use.
 
-        Returns: the generic OpenXC name for a measurement class.
+        Returns:
+            the generic OpenXC name for a measurement class.
+
         Raises:
             UnrecognizedMeasurementError: if the class does not have a valid
                 generic name
