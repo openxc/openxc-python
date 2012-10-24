@@ -1,2 +1,3 @@
-include *.mkd
+include README.rst
+include CONTRIBUTING.rst
 include LICENSE
