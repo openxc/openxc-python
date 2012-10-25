@@ -3,11 +3,11 @@ from __future__ import absolute_import
 import logging
 import time
 
-from .base import DataSource, DataSourceError
+from .base import DataSourceError, BytestreamDataSource
 
 LOG = logging.getLogger(__name__)
 
-class TraceDataSource(DataSource):
+class TraceDataSource(BytestreamDataSource):
     DEFAULT_PORT = "/dev/ttyUSB0"
     DEFAULT_BAUDRATE = 115200
 
