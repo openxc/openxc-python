@@ -10,10 +10,17 @@ LOG = logging.getLogger(__name__)
 
 
 class UploaderSink(QueuedSink):
+    """Uploads all incoming vehicle data to a remote web application via HTTP.
+    
+    TODO document service side format
+    """
     UPLOAD_BATCH_SIZE = 25
     HTTP_TIMEOUT = 5000
 
     def __init__(self, url):
+        """Args:
+            url (str) - the URL to send an HTTP POST request with vehicle data
+        """
         super(UploaderSink, self).__init__()
         self.recorder = self.Uploader(self.queue, url)
 
@@ -38,11 +45,9 @@ class UploaderSink(QueuedSink):
                 LOG.debug("Uploaded %d records (status %d)", len(records),
                         response.status_code)
 
-
-
         def run(self):
             while True:
-                message = self.queue.get()
+                message, _ = self.queue.get()
 
                 message['timestamp'] = time.time()
                 self.records.append(message)
