@@ -37,6 +37,9 @@ setup(name='openxc',
     test_suite='nose.collector',
     tests_require=['nose'],
     install_requires=install_reqs,
+    dependency_links = [
+        "http://pypi.python.org/packages/source/p/pyserial/pyserial-2.6.tar.gz#egg=pyserial-py3k"
+    ],
     entry_points={
         'console_scripts': [
             'openxc-dashboard = openxc.tools.dashboard:main',

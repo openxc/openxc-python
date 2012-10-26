@@ -14,7 +14,6 @@ from .common import device_options, configure_logging, select_device
 
 def receive(message, **kwargs):
     message['timestamp'] = time.time()
-    # TODO update docs on trace file format
     print(JsonFormatter.serialize(message))
 
 
