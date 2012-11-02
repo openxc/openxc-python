@@ -76,18 +76,15 @@ class DataPoint(object):
 
     def update(self, measurement):
         self.messages_received += 1
-        self.current_data = measurement.value
-        if not isinstance(self.current_data.num, self.measurement_type.DATA_TYPE):
-            self.bad_data += 1
-        else:
-            if isinstance(measurement, EventedMeasurement):
-                if measurement.valid_state():
-                    self.events[measurement.value] = measurement.event
-                else:
-                    self.bad_data += 1
-            elif (isinstance(measurement, NumericMeasurement) and not
-                    measurement.within_range()):
+        self.current_data = measurement
+        if isinstance(measurement, EventedMeasurement):
+            if measurement.valid_state():
+                self.events[measurement.value] = measurement.event
+            else:
                 self.bad_data += 1
+        elif (isinstance(measurement, NumericMeasurement) and not
+                measurement.within_range()):
+            self.bad_data += 1
 
     def print_to_window(self, window, row, started_time):
         width = window.getmaxyx()[1]
@@ -95,7 +92,8 @@ class DataPoint(object):
         if self.current_data is not None:
             if (self.measurement_type.DATA_TYPE == numbers.Number and
                     self.bad_data == 0):
-                percent = ((self.current_data.num -
+                # TODO leaking the unit class member here
+                percent = ((self.current_data.value.num -
                     self.measurement_type.valid_range.min) /
                         float(self.measurement_type.valid_range.spread)) * 100
                 chunks = int((percent - .1) * .1)
