@@ -141,8 +141,7 @@ class StatefulMeasurement(NamedMeasurement):
         Returns:
             True if the value is a valid state.
         """
-        # the type of 'num' here is actually a string
-        return self.value.num in self.states
+        return self.value in self.states
 
 
 class BooleanMeasurement(NamedMeasurement):
