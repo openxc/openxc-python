@@ -22,6 +22,19 @@ class Controller(object):
         assert bytes_written == len(message) + 1
         return bytes_written
 
+    def write_raw(self, message_id, data):
+        """Format the given CAN ID and data into a JSON message
+        and write it out to the controller interface as bytes, ending with a
+        \0 character.
+
+        TODO this could write to a separate USB endpoint that is expecting
+        raw-style JSON messages.
+        """
+        message = JsonFormatter.serialize({'id': message_id, 'data': data})
+        bytes_written = self.write_bytes(message + "\x00")
+        assert bytes_written == len(message) + 1
+        return bytes_written
+
     def write_bytes(self, data):
         """Write the bytes in ``data`` out to the controller interface."""
         raise NotImplementedError("Don't use Controller directly")

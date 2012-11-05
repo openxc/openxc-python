@@ -45,9 +45,13 @@ def write_file(controller, filename):
                     corrupt_entries)
 
 
-def write(controller, name, value):
+def write(controller, name, value, raw):
     print("Sending command %s: %s" % (name, value))
-    controller.write(name, value)
+    if raw:
+        method = controller.write_raw
+    else:
+        method = controller.write
+    method(name, value)
     print("Done.")
 
 
@@ -55,12 +59,16 @@ def parse_options():
     parser = argparse.ArgumentParser(description="Send control messages to an "
             "attached OpenXC CAN translator", parents=[device_options()])
     parser.add_argument("command", type=str,
-            choices=['version', 'reset', 'write'])
+            choices=['version', 'reset', 'write', 'writeraw'])
     write_group = parser.add_mutually_exclusive_group()
     write_group.add_argument("--name", action="store", dest="write_name",
             help="name for message write request")
+    write_group.add_argument("--id", action="store", dest="write_id",
+            help="ID for raw message write request")
     parser.add_argument("--value", action="store", dest="write_value",
             help="value for message write request")
+    parser.add_argument("--data", action="store", dest="write_data",
+            help="data for raw message write request")
     write_group.add_argument("-f", "--file", action="store",
             dest="write_input_file",
             help="path to a file with a list of message requests")
@@ -79,14 +87,29 @@ def main():
         version(controller)
     elif arguments.command == "reset":
         reset(controller)
-    elif arguments.command == "write":
-        if arguments.write_name:
-            if not arguments.write_value:
-                sys.exit("'write' requires a name and value or filename")
-            write(controller, arguments.write_name, arguments.write_value)
-        elif not arguments.write_input_file:
-            sys.exit("'write' requires a name and value or filename")
-        else:
+    elif arguments.command.startswith("write"):
+        name = value = None
+        if arguments.command == "write":
+            raw = False
+            if arguments.write_name:
+                if not arguments.write_value:
+                    sys.exit("%s requires a name and value" % arguments.command)
+                name = arguments.write_name
+                value = arguments.write_value
+        elif arguments.command == "writeraw":
+            raw = True
+            if arguments.write_id:
+                if not arguments.write_data:
+                    sys.exit("%s requires an id and data" % arguments.command)
+                name = arguments.write_id
+                value = arguments.write_data
+
+        if name and value:
+            write(controller, name, value, raw)
+        elif arguments.write_input_file:
             write_file(controller, arguments.write_input_file)
+        else:
+            sys.exit("%s requires a name and value or filename" %
+                    arguments.command)
     else:
         print("Unrecognized command \"%s\"" % arguments.command)
