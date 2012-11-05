@@ -19,12 +19,15 @@ class UsbControllerMixin(Controller):
     TODO bah, this is kind of weird. refactor the relationship between
     sources/controllers.
     """
-    def __init__(self):
+
+    @property
+    def out_endpoint(self):
         """Open a connection to the OUT endpoint on the USB device at
         ``self.device``.
         """
-        super(UsbControllerMixin, self).__init__()
-        self.out_endpoint = self._connect_out_endpoint(self.device)
+        if not getattr(self, '_out_endpoint', None):
+            self._out_endpoint = self._connect_out_endpoint(self.device)
+        return self._out_endpoint
 
     def write_bytes(self, data):
         if self.out_endpoint is None:
