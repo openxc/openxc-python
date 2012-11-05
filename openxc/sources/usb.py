@@ -50,7 +50,7 @@ class UsbDataSource(BytestreamDataSource):
             LOG.warn("Can't read from USB, IN endpoint is %s", self.in_endpoint)
             return ""
         else:
-            return self.in_endpoint.read(self.DFEAULT_READ_REQUEST_SIZE,
+            return self.in_endpoint.read(self.DEFAULT_READ_REQUEST_SIZE,
                     timeout).tostring()
 
     @staticmethod
