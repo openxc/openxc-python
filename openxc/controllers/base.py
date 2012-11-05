@@ -1,6 +1,8 @@
 """Contains the abstract interface for sending commands back to a vehicle
 interface.
 """
+import numbers
+
 from openxc.formats.json import JsonFormatter
 
 
@@ -30,6 +32,17 @@ class Controller(object):
         TODO this could write to a separate USB endpoint that is expecting
         raw-style JSON messages.
         """
+        if not isinstance(message_id, numbers.Number):
+            try:
+                message_id = int(message_id, 0)
+            except ValueError:
+                raise ValueError("ID and data must be numerical")
+        if not isinstance(data, numbers.Number):
+            try:
+                data = int(data, 0)
+            except ValueError:
+                raise ValueError("ID and data must be numerical")
+
         message = JsonFormatter.serialize({'id': message_id, 'data': data})
         bytes_written = self.write_bytes(message + "\x00")
         assert bytes_written == len(message) + 1
