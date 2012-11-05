@@ -35,7 +35,9 @@ class UsbControllerMixin(Controller):
                     self.out_endpoint)
             return 0
         else:
-            return self.out_endpoint.write(data)
+            # See upstream issue in pyusb on why we have to manually encode
+            # here: https://github.com/walac/pyusb/issues/8
+            return self.out_endpoint.write(data.encode("utf8"))
 
     def version(self):
         raw_version = self.device.ctrl_transfer(0xC0,
