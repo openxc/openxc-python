@@ -36,12 +36,7 @@ class Controller(object):
             try:
                 message_id = int(message_id, 0)
             except ValueError:
-                raise ValueError("ID and data must be numerical")
-        if not isinstance(data, numbers.Number):
-            try:
-                data = int(data, 0)
-            except ValueError:
-                raise ValueError("ID and data must be numerical")
+                raise ValueError("ID must be numerical")
 
         message = JsonFormatter.serialize({'id': message_id, 'data': data})
         bytes_written = self.write_bytes(message + "\x00")
