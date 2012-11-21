@@ -34,15 +34,15 @@ class Measurement(AgingData):
                if it is a plain number.
 
         Raises:
-            MeasurementError if the value is not the correct units, e.g. if
-            it's a string and we're expecting a numerical value
+            UnrecognizedMeasurementError if the value is not the correct units,
+            e.g. if it's a string and we're expecting a numerical value
         """
         super(Measurement, self).__init__()
         self.name = name
         if self.unit != units.Undefined and override_unit:
             if type(value) == unicode:
-                raise MeasurementError("%s value cannot be a string" %
-                        self.__class__)
+                raise UnrecognizedMeasurementError("%s value cannot be a string"
+                        % self.__class__)
             value = self.unit(value)
         self.value = value
         self.event = event
