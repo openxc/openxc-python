@@ -47,6 +47,7 @@ class BytestreamDataSource(DataSource):
     def __init__(self, callback=None):
         super(BytestreamDataSource, self).__init__(callback)
         self.bytes_received = 0
+        self.corrupted_messages = 0
 
     def run(self):
         """Continuously read data from the source and attempt to parse a valid
@@ -62,6 +63,7 @@ class BytestreamDataSource(DataSource):
                 if message is None:
                     break
                 if 'name' not in message or 'value' not in message:
+                    self.corrupted_messages += 1
                     break
 
                 self.bytes_received += byte_count

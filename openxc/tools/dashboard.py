@@ -175,8 +175,8 @@ class Dashboard(object):
                 break
             element.print_to_window(self.window, row, self.started_time)
         self.window.addstr(max_rows + 1, 0,
-                "Message count: %d" % self.messages_received,
-                curses.A_REVERSE)
+                "Message count: %d (%d corrupted)" % (self.messages_received,
+                    self.source.corrupted_messages), curses.A_REVERSE)
         self.window.addstr(max_rows + 2, 0,
                 "Total received: %s" %
                 sizeof_fmt(self.source.bytes_received),
