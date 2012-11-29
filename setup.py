@@ -11,7 +11,7 @@ except ImportError:
 
 long_description = open('README.rst').read()
 
-install_reqs = ['pyusb', 'units >= 0.5', 'requests == 0.14.1']
+install_reqs = ['pyusb', 'units >= 0.5', 'requests == 0.14.1', 'argparse',]
 
 if sys.version_info < (3, 0):
     install_reqs.append('pyserial')
