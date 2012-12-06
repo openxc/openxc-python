@@ -45,6 +45,6 @@ def select_device(arguments):
         source_kwargs = dict(filename=arguments.trace_file)
     else:
         source_class = UsbVehicleInterface
-        source_kwargs = dict(vendor_id=arguments.usb_vendor)
+        source_kwargs = dict(vendor_id=arguments.usb_vendor, product_id=arguments.usb_product)
 
     return source_class, source_kwargs
