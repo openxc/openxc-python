@@ -60,7 +60,7 @@ def parse_options():
     write_group.add_argument("--name", action="store", dest="write_name",
             help="name for message write request")
     parser.add_argument("--value", action="store", dest="write_value",
-            help="value for message write request")
+            help="option value for message write request")
     parser.add_argument("--event", action="store", dest="write_event",
             help="optional event for message write request")
     write_group.add_argument("-f", "--file", action="store",
@@ -83,13 +83,11 @@ def main():
         reset(controller)
     elif arguments.command == "write":
         if arguments.write_name:
-            if not arguments.write_value:
-                sys.exit("'write' requires a name and value or filename")
             write(controller, arguments.write_name, arguments.write_value,
                     arguments.write_event)
-        elif not arguments.write_input_file:
-            sys.exit("'write' requires a name and value or filename")
-        else:
+        elif arguments.write_input_file:
             write_file(controller, arguments.write_input_file)
+        else:
+            sys.exit("'write' requires at least a name or filename")
     else:
         print("Unrecognized command \"%s\"" % arguments.command)
