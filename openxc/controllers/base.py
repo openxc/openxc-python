@@ -41,7 +41,6 @@ class Controller(object):
         """Convert string values from command-line arguments into first-order
         Python boolean and float objects, if applicable.
         """
-        firs
         if value == "true":
             value = True
         elif value == "false":
