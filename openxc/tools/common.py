@@ -19,6 +19,10 @@ def device_options():
             action="store",
             dest="usb_vendor",
             help="USB vendor ID for the CAN translator")
+    parser.add_argument("--usb-product",
+            action="store",
+            dest="usb_product",
+            help="USB product ID for the CAN translator")
     parser.add_argument("--serial-port",
             action="store",
             dest="serial_port",
