@@ -38,16 +38,16 @@ def write_file(controller, filename):
             else:
                 message_count += 1
                 controller.write(parsed_message['name'],
-                        parsed_message['value'])
+                        parsed_message['value'], parsed_message['event'])
         print("%d lines sent" % message_count)
         if corrupt_entries > 0:
             print("%d invalid lines in the data file were not sent" %
                     corrupt_entries)
 
 
-def write(controller, name, value):
-    print("Sending command %s: %s" % (name, value))
-    controller.write(name, value)
+def write(controller, name, value, event):
+    print("Sending command %s: %s %s" % (name, value, event))
+    controller.write(name, value, event)
     print("Done.")
 
 
@@ -61,6 +61,8 @@ def parse_options():
             help="name for message write request")
     parser.add_argument("--value", action="store", dest="write_value",
             help="value for message write request")
+    parser.add_argument("--event", action="store", dest="write_event",
+            help="optional event for message write request")
     write_group.add_argument("-f", "--file", action="store",
             dest="write_input_file",
             help="path to a file with a list of message requests")
@@ -83,7 +85,8 @@ def main():
         if arguments.write_name:
             if not arguments.write_value:
                 sys.exit("'write' requires a name and value or filename")
-            write(controller, arguments.write_name, arguments.write_value)
+            write(controller, arguments.write_name, arguments.write_value,
+                    arguments.write_event)
         elif not arguments.write_input_file:
             sys.exit("'write' requires a name and value or filename")
         else:
