@@ -45,7 +45,7 @@ def write_file(controller, filename):
                     corrupt_entries)
 
 
-def write(controller, name, value, raw):
+def write(controller, name, value, event, raw):
     print("Sending command %s: %s %s" % (name, value, event))
     if raw:
         method = controller.write_raw

@@ -28,7 +28,7 @@ class Controller(object):
         assert bytes_written == len(message) + 1
         return bytes_written
 
-    def write_raw(self, message_id, data):
+    def write_raw(self, message_id, data, *args):
         """Format the given CAN ID and data into a JSON message
         and write it out to the controller interface as bytes, ending with a
         \0 character.
