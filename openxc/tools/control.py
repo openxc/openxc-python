@@ -38,7 +38,7 @@ def write_file(controller, filename):
             else:
                 message_count += 1
                 controller.write(parsed_message['name'],
-                        parsed_message['value'])
+                        parsed_message['value'], parsed_message['event'])
         print("%d lines sent" % message_count)
         if corrupt_entries > 0:
             print("%d invalid lines in the data file were not sent" %
@@ -46,12 +46,12 @@ def write_file(controller, filename):
 
 
 def write(controller, name, value, raw):
-    print("Sending command %s: %s" % (name, value))
+    print("Sending command %s: %s %s" % (name, value, event))
     if raw:
         method = controller.write_raw
     else:
         method = controller.write
-    method(name, value)
+    method(name, value, event)
     print("Done.")
 
 
@@ -66,7 +66,9 @@ def parse_options():
     write_group.add_argument("--id", action="store", dest="write_id",
             help="ID for raw message write request")
     parser.add_argument("--value", action="store", dest="write_value",
-            help="value for message write request")
+            help="optional value for message write request")
+    parser.add_argument("--event", action="store", dest="write_event",
+            help="optional event for message write request")
     parser.add_argument("--data", action="store", dest="write_data",
             help="data for raw message write request")
     write_group.add_argument("-f", "--file", action="store",
@@ -92,10 +94,9 @@ def main():
         if arguments.command == "write":
             raw = False
             if arguments.write_name:
-                if not arguments.write_value:
-                    sys.exit("%s requires a name and value" % arguments.command)
                 name = arguments.write_name
                 value = arguments.write_value
+                event = arguments.write_event
         elif arguments.command == "writeraw":
             raw = True
             if arguments.write_id:
@@ -103,13 +104,13 @@ def main():
                     sys.exit("%s requires an id and data" % arguments.command)
                 name = arguments.write_id
                 value = arguments.write_data
+                event = None
 
-        if name and value:
-            write(controller, name, value, raw)
+        if name:
+            write(controller, name, value, event, raw)
         elif arguments.write_input_file:
             write_file(controller, arguments.write_input_file)
         else:
-            sys.exit("%s requires a name and value or filename" %
-                    arguments.command)
+            sys.exit("%s requires a name or filename" % arguments.command)
     else:
         print("Unrecognized command \"%s\"" % arguments.command)

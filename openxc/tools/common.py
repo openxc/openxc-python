@@ -19,6 +19,10 @@ def device_options():
             action="store",
             dest="usb_vendor",
             help="USB vendor ID for the CAN translator")
+    parser.add_argument("--usb-product",
+            action="store",
+            dest="usb_product",
+            help="USB product ID for the CAN translator")
     parser.add_argument("--serial-port",
             action="store",
             dest="serial_port",
@@ -45,6 +49,6 @@ def select_device(arguments):
         source_kwargs = dict(filename=arguments.trace_file)
     else:
         source_class = UsbVehicleInterface
-        source_kwargs = dict(vendor_id=arguments.usb_vendor)
+        source_kwargs = dict(vendor_id=arguments.usb_vendor, product_id=arguments.usb_product)
 
     return source_class, source_kwargs

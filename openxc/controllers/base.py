@@ -13,13 +13,17 @@ class Controller(object):
     ``reset`` methods.
     """
 
-    def write(self, name, value):
+    def write(self, name, value, event):
         """Format the given signal name and value into an OpenXC write request
         and write it out to the controller interface as bytes, ending with a
         \0 character.
         """
-        value = self._massage_write_value(value)
-        message = JsonFormatter.serialize({'name': name, 'value': value})
+        data = {'name': name}
+        if value is not None:
+            data['value'] = self._massage_write_value(value)
+        if event is not None:
+            data['event'] = self._massage_write_value(event);
+        message = JsonFormatter.serialize(data)
         bytes_written = self.write_bytes(message + "\x00")
         assert bytes_written == len(message) + 1
         return bytes_written

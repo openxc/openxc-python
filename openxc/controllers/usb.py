@@ -22,10 +22,7 @@ class UsbControllerMixin(Controller):
 
     @property
     def out_endpoint(self):
-        """Open a connection to the OUT endpoint on the USB device at
-        ``self.device``.
-        """
-        if not getattr(self, '_out_endpoint', None):
+        if getattr(self, '_out_endpoint', None) is None:
             self._out_endpoint = self._connect_out_endpoint(self.device)
         return self._out_endpoint
 

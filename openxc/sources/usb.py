@@ -12,17 +12,22 @@ LOG = logging.getLogger(__name__)
 class UsbDataSource(BytestreamDataSource):
     """A source to receive data from an OpenXC vehicle interface via USB."""
     DEFAULT_VENDOR_ID = 0x1bc4
+    DEFAULT_PRODUCT_ID = 0x0001
     DEFAULT_READ_REQUEST_SIZE = 512
     DEFAULT_READ_TIMEOUT = 1000000
 
     VERSION_CONTROL_COMMAND = 0x80
     RESET_CONTROL_COMMAND = 0x81
 
-    def __init__(self, callback=None, vendor_id=None):
+    def __init__(self, callback=None, vendor_id=None, product_id=None):
         """Initialize a connection to the USB device's IN endpoint.
 
         Kwargs:
             vendor_id (str or int) - optionally override the USB device vendor
+                ID we will attempt to connect to, if not using the OpenXC
+                hardware.
+
+            product_id (str or int) - optionally override the USB device product
                 ID we will attempt to connect to, if not using the OpenXC
                 hardware.
 
@@ -35,12 +40,16 @@ class UsbDataSource(BytestreamDataSource):
             vendor_id = int(vendor_id, 0)
         self.vendor_id = vendor_id or self.DEFAULT_VENDOR_ID
 
-        self.device = usb.core.find(idVendor=self.vendor_id)
+        if product_id is not None and not isinstance(product_id, int):
+            product_id = int(product_id, 0)
+        self.product_id = product_id or self.DEFAULT_PRODUCT_ID
+
+        self.device = usb.core.find(idVendor=self.vendor_id, idProduct=self.product_id)
         self.in_endpoint = None
 
         if not self.device:
-            raise DataSourceError("Couldn't find a USB device from vendor 0x%x"
-                    % self.vendor_id)
+            raise DataSourceError("Couldn't find a USB product 0x%x from vendor 0x%x"
+                    % self.product_id, self.vendor_id)
         self.device.set_configuration()
         self.in_endpoint = self._connect_in_endpoint(self.device)
 

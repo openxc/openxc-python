@@ -4,7 +4,7 @@
 from threading import Thread
 from collections import defaultdict
 
-from openxc.measurements import Measurement
+from openxc.measurements import Measurement, UnrecognizedMeasurementError
 from .queued import QueuedSink
 
 
@@ -51,6 +51,10 @@ class MeasurementNotifierSink(QueuedSink):
         def run(self):
             while True:
                 message, kwargs = self.queue.get()
-                measurement = Measurement.from_dict(message)
-                self.callback(measurement, **kwargs)
-                self.queue.task_done()
+                try:
+                    measurement = Measurement.from_dict(message)
+                    self.callback(measurement, **kwargs)
+                    self.queue.task_done()
+                except UnrecognizedMeasurementError as e:
+                    # TODO add some logging
+                    pass

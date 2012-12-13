@@ -32,13 +32,23 @@ class Measurement(AgingData):
            event (str, bool): An optional event for compound Measurements.
            override_unit (bool): The value will be coerced to the correct units
                if it is a plain number.
+
+        Raises:
+            UnrecognizedMeasurementError if the value is not the correct units,
+            e.g. if it's a string and we're expecting a numerical value
         """
         super(Measurement, self).__init__()
         self.name = name
-        if override_unit:
+        if self.unit != units.Undefined and override_unit:
+            if type(value) == unicode:
+                raise UnrecognizedMeasurementError("%s value cannot be a string"
+                        % self.__class__)
             value = self.unit(value)
         self.value = value
         self.event = event
+
+    def __repr__(self):
+        return str(self.value)
 
     @property
     def value(self):
@@ -51,7 +61,7 @@ class Measurement(AgingData):
         Raises:
             AttributeError: if the new value isn't of the correct units.
         """
-        if new_value.unit != self.unit:
+        if self.unit != units.Undefined and new_value.unit != self.unit:
             raise AttributeError("%s must be in %s" % (
                 self.__class__, self.unit))
         self._value = new_value
@@ -71,7 +81,10 @@ class Measurement(AgingData):
                 name and value.
         """
         measurement_class = cls._class_from_name(data['name'])
-        return measurement_class(data['value'], event=data.get('event', None),
+        args = [data['value']]
+        if measurement_class == Measurement:
+            args.insert(0, data['name'])
+        return measurement_class(*args, event=data.get('event', None),
                 override_unit=True)
 
     @classmethod
@@ -86,7 +99,7 @@ class Measurement(AgingData):
         Returns:
             the generic OpenXC name for a measurement class.
 
-        Raises:
+        Raise:
             UnrecognizedMeasurementError: if the class does not have a valid
                 generic name
         """
@@ -107,9 +120,8 @@ class NamedMeasurement(Measurement):
     """A NamedMeasurement has a class-level ``name`` variable and thus the
     ``name`` argument is not required in its constructor.
     """
-    def __init__(self, value, event=None, **kwargs):
-        super(NamedMeasurement, self).__init__(self.name, value, event,
-                **kwargs)
+    def __init__(self, value, **kwargs):
+        super(NamedMeasurement, self).__init__(self.name, value, **kwargs)
 
 
 class NumericMeasurement(NamedMeasurement):
@@ -136,8 +148,7 @@ class StatefulMeasurement(NamedMeasurement):
         Returns:
             True if the value is a valid state.
         """
-        # the type of 'num' here is actually a string
-        return self.value.num in self.states
+        return self.value in self.states
 
 
 class BooleanMeasurement(NamedMeasurement):
