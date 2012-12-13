@@ -49,7 +49,7 @@ class UsbDataSource(BytestreamDataSource):
 
         if not self.device:
             raise DataSourceError("Couldn't find a USB product 0x%x from vendor 0x%x"
-                    % self.product_id, self.vendor_id)
+                    % (self.product_id, self.vendor_id))
         self.device.set_configuration()
         self.in_endpoint = self._connect_in_endpoint(self.device)
 
