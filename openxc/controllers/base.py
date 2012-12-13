@@ -16,8 +16,9 @@ class Controller(object):
         and write it out to the controller interface as bytes, ending with a
         \0 character.
         """
-        value = self._massage_write_value(value)
-        data = {'name': name, 'value': value}
+        data = {'name': name}
+        if value is not None:
+            data['value'] = self._massage_write_value(value)
         if event is not None:
             data['event'] = self._massage_write_value(event);
         message = JsonFormatter.serialize(data)
