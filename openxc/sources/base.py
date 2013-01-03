@@ -62,7 +62,8 @@ class BytestreamDataSource(DataSource):
                         message_buffer)
                 if message is None:
                     break
-                if 'name' not in message or 'value' not in message:
+                if not (('name' in message and 'value' in message) or (
+                        'id' in message and 'data' in message)):
                     self.corrupted_messages += 1
                     break
 
