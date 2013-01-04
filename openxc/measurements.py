@@ -183,7 +183,7 @@ class EngineSpeed(NumericMeasurement):
 
 class FineOdometer(NumericMeasurement):
     name = "fine_odometer_since_restart"
-    valid_range = Range(0, 1000)
+    valid_range = Range(0, 1000000)
     unit = units.Kilometer
 
 class FuelConsumed(NumericMeasurement):
