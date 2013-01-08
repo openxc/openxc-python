@@ -7,7 +7,7 @@ openxc - Python Library for the OpenXC Platform
 :Version: 0.9 (DEVEL)
 :Web: http://openxcplatform.com
 :Download: http://pypi.python.org/pypi/openxc/
-:Documentation: https://readthedocs.org/projects/openxc-python-library
+:Documentation: http://openxcplatform.com/openxc-python
 :Source: http://github.com/openxc/openxc-python/
 :Keywords: vehicle, openxc, python
 
