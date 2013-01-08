@@ -1,0 +1,149 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Utils &mdash; OpenXC for Python 0.9.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/rtd.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.9.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="OpenXC for Python 0.9.0 documentation" href="../index.html" />
+    <link rel="next" title="Vehicle functions" href="vehicle.html" />
+    <link rel="prev" title="Units" href="units.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="vehicle.html" title="Vehicle functions"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="units.html" title="Units"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">OpenXC for Python 0.9.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-openxc.utils">
+<span id="utils"></span><h1>Utils<a class="headerlink" href="#module-openxc.utils" title="Permalink to this headline">¶</a></h1>
+<p>Data containers and other utilities.</p>
+<dl class="class">
+<dt id="openxc.utils.AgingData">
+<em class="property">class </em><tt class="descclassname">openxc.utils.</tt><tt class="descname">AgingData</tt><a class="headerlink" href="#openxc.utils.AgingData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mixin to associate a class with a time of birth.</p>
+<dl class="attribute">
+<dt id="openxc.utils.AgingData.age">
+<tt class="descname">age</tt><a class="headerlink" href="#openxc.utils.AgingData.age" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the age of the data in seconds.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="openxc.utils.Range">
+<em class="property">class </em><tt class="descclassname">openxc.utils.</tt><tt class="descname">Range</tt><big>(</big><em>minimum</em>, <em>maximum</em><big>)</big><a class="headerlink" href="#openxc.utils.Range" title="Permalink to this definition">¶</a></dt>
+<dd><p>Encapsulates a ranged defined by a min and max numerical value.</p>
+<dl class="attribute">
+<dt id="openxc.utils.Range.spread">
+<tt class="descname">spread</tt><a class="headerlink" href="#openxc.utils.Range.spread" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the spread between this Range&#8217;s min and max.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="openxc.utils.Range.within_range">
+<tt class="descname">within_range</tt><big>(</big><em>value</em><big>)</big><a class="headerlink" href="#openxc.utils.Range.within_range" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns True if the value is between this Range, inclusive.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="units.html"
+                        title="previous chapter">Units</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="vehicle.html"
+                        title="next chapter">Vehicle functions</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/api/utils.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="vehicle.html" title="Vehicle functions"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="units.html" title="Units"
+             >previous</a> |</li>
+        <li><a href="../index.html">OpenXC for Python 0.9.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2012, Christopher Peplin.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

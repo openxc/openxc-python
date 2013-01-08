@@ -1,0 +1,219 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Controllers &mdash; OpenXC for Python 0.9.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/rtd.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.9.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="OpenXC for Python 0.9.0 documentation" href="../index.html" />
+    <link rel="next" title="Data Formats" href="formats.html" />
+    <link rel="prev" title="openxc-trace-split options and arguments" href="../tools/tracesplit.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="formats.html" title="Data Formats"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../tools/tracesplit.html" title="openxc-trace-split options and arguments"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">OpenXC for Python 0.9.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-openxc.controllers.base">
+<span id="controllers"></span><h1>Controllers<a class="headerlink" href="#module-openxc.controllers.base" title="Permalink to this headline">¶</a></h1>
+<p>Contains the abstract interface for sending commands back to a vehicle
+interface.</p>
+<dl class="class">
+<dt id="openxc.controllers.base.Controller">
+<em class="property">class </em><tt class="descclassname">openxc.controllers.base.</tt><tt class="descname">Controller</tt><a class="headerlink" href="#openxc.controllers.base.Controller" title="Permalink to this definition">¶</a></dt>
+<dd><p>A Controller is a physical vehicle interface that accepts commands to be
+send back to the vehicle. This class is abstract, and implemtnations of the
+interface must define at least the <tt class="docutils literal"><span class="pre">write_bytes</span></tt>, <tt class="docutils literal"><span class="pre">version</span></tt>, or
+<tt class="docutils literal"><span class="pre">reset</span></tt> methods.</p>
+<dl class="method">
+<dt id="openxc.controllers.base.Controller.reset">
+<tt class="descname">reset</tt><big>(</big><big>)</big><a class="headerlink" href="#openxc.controllers.base.Controller.reset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reset the vehicle interface.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="openxc.controllers.base.Controller.version">
+<tt class="descname">version</tt><big>(</big><big>)</big><a class="headerlink" href="#openxc.controllers.base.Controller.version" title="Permalink to this definition">¶</a></dt>
+<dd><p>Request and return the version of the vehicle interface.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="openxc.controllers.base.Controller.write">
+<tt class="descname">write</tt><big>(</big><em>name</em>, <em>value</em>, <em>event</em><big>)</big><a class="headerlink" href="#openxc.controllers.base.Controller.write" title="Permalink to this definition">¶</a></dt>
+<dd><p>Format the given signal name and value into an OpenXC write request
+and write it out to the controller interface as bytes, ending with a
+character.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="openxc.controllers.base.Controller.write_bytes">
+<tt class="descname">write_bytes</tt><big>(</big><em>data</em><big>)</big><a class="headerlink" href="#openxc.controllers.base.Controller.write_bytes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write the bytes in <tt class="docutils literal"><span class="pre">data</span></tt> out to the controller interface.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="openxc.controllers.base.Controller.write_raw">
+<tt class="descname">write_raw</tt><big>(</big><em>message_id</em>, <em>data</em>, <em>*args</em><big>)</big><a class="headerlink" href="#openxc.controllers.base.Controller.write_raw" title="Permalink to this definition">¶</a></dt>
+<dd><p>Format the given CAN ID and data into a JSON message
+and write it out to the controller interface as bytes, ending with a
+character.</p>
+<p>TODO this could write to a separate USB endpoint that is expecting
+raw-style JSON messages.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="exception">
+<dt id="openxc.controllers.base.ControllerError">
+<em class="property">exception </em><tt class="descclassname">openxc.controllers.base.</tt><tt class="descname">ControllerError</tt><a class="headerlink" href="#openxc.controllers.base.ControllerError" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<span class="target" id="module-openxc.controllers.serial"></span><p>Controller implementation for a virtual serial device.</p>
+<dl class="class">
+<dt id="openxc.controllers.serial.SerialControllerMixin">
+<em class="property">class </em><tt class="descclassname">openxc.controllers.serial.</tt><tt class="descname">SerialControllerMixin</tt><a class="headerlink" href="#openxc.controllers.serial.SerialControllerMixin" title="Permalink to this definition">¶</a></dt>
+<dd><p>An implementation of a Controller type that connects to a virtual serial
+device.</p>
+<p>This class acts as a mixin, and expects <tt class="docutils literal"><span class="pre">self.device</span></tt> to be an instance
+of <tt class="docutils literal"><span class="pre">serial.Serial</span></tt>.</p>
+<p>TODO bah, this is kind of weird. refactor the relatinoship between
+sources/controllers.</p>
+<dl class="method">
+<dt id="openxc.controllers.serial.SerialControllerMixin.write_bytes">
+<tt class="descname">write_bytes</tt><big>(</big><em>data</em><big>)</big><a class="headerlink" href="#openxc.controllers.serial.SerialControllerMixin.write_bytes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-openxc.controllers.usb"></span><p>Controller implementation for an OpenXC USB device.</p>
+<dl class="class">
+<dt id="openxc.controllers.usb.UsbControllerMixin">
+<em class="property">class </em><tt class="descclassname">openxc.controllers.usb.</tt><tt class="descname">UsbControllerMixin</tt><a class="headerlink" href="#openxc.controllers.usb.UsbControllerMixin" title="Permalink to this definition">¶</a></dt>
+<dd><p>An implementation of a Controller type that connects to an OpenXC USB
+device.</p>
+<p>This class acts as a mixin, and expects <tt class="docutils literal"><span class="pre">self.device</span></tt> to be an instance
+of <tt class="docutils literal"><span class="pre">usb.Device</span></tt>.</p>
+<p>TODO bah, this is kind of weird. refactor the relationship between
+sources/controllers.</p>
+<dl class="attribute">
+<dt id="openxc.controllers.usb.UsbControllerMixin.out_endpoint">
+<tt class="descname">out_endpoint</tt><a class="headerlink" href="#openxc.controllers.usb.UsbControllerMixin.out_endpoint" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="openxc.controllers.usb.UsbControllerMixin.reset">
+<tt class="descname">reset</tt><big>(</big><big>)</big><a class="headerlink" href="#openxc.controllers.usb.UsbControllerMixin.reset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="openxc.controllers.usb.UsbControllerMixin.version">
+<tt class="descname">version</tt><big>(</big><big>)</big><a class="headerlink" href="#openxc.controllers.usb.UsbControllerMixin.version" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="openxc.controllers.usb.UsbControllerMixin.write_bytes">
+<tt class="descname">write_bytes</tt><big>(</big><em>data</em><big>)</big><a class="headerlink" href="#openxc.controllers.usb.UsbControllerMixin.write_bytes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../tools/tracesplit.html"
+                        title="previous chapter"><tt class="docutils literal"><span class="pre">openxc-trace-split</span></tt> options and arguments</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="formats.html"
+                        title="next chapter">Data Formats</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/api/controllers.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="formats.html" title="Data Formats"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../tools/tracesplit.html" title="openxc-trace-split options and arguments"
+             >previous</a> |</li>
+        <li><a href="../index.html">OpenXC for Python 0.9.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2012, Christopher Peplin.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

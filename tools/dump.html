@@ -1,0 +1,222 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>openxc-dump options and arguments &mdash; OpenXC for Python 0.9.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/rtd.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.9.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="OpenXC for Python 0.9.0 documentation" href="../index.html" />
+    <link rel="next" title="openxc-gps options and arguments" href="gps.html" />
+    <link rel="prev" title="openxc-dashboard options and arguments" href="dashboard.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="gps.html" title="openxc-gps options and arguments"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="dashboard.html" title="openxc-dashboard options and arguments"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">OpenXC for Python 0.9.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="openxc-dump-options-and-arguments">
+<h1><tt class="docutils literal"><span class="pre">openxc-dump</span></tt> options and arguments<a class="headerlink" href="#openxc-dump-options-and-arguments" title="Permalink to this headline">¶</a></h1>
+<p><strong class="program">openxc-dump</strong> is a command-line tool to view the raw data stream from
+an attached CAN translator or trace file. It attempts to read OpenXC messages
+from the interface specified at the command line (USB, serial or a trace file)
+and prints each message received to <tt class="docutils literal"><span class="pre">stdout</span></tt>.</p>
+<div class="section" id="basic-use">
+<h2>Basic use<a class="headerlink" href="#basic-use" title="Permalink to this headline">¶</a></h2>
+<p>View everything:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>openxc-dump
+</pre></div>
+</div>
+<p>View only a particular message:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>openxc-dump | grep steering_wheel_angle
+</pre></div>
+</div>
+<p>Use a custom USB device:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>openxc-dump --usb-vendor 4424
+</pre></div>
+</div>
+<p>Use a a CAN translator connected via serial instead of USB:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>openxc-dump --serial --serial-device /dev/ttyUSB1
+</pre></div>
+</div>
+<p>The <tt class="docutils literal"><span class="pre">serial-device</span></tt> option is only required if the virtual COM port is
+different than the default <tt class="docutils literal"><span class="pre">/dev/ttyUSB0</span></tt>.</p>
+<p>Play back a trace file in real-time:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>openxc-dump --trace monday-trace.json
+</pre></div>
+</div>
+</div>
+<div class="section" id="command-line-options">
+<h2>Command-line options<a class="headerlink" href="#command-line-options" title="Permalink to this headline">¶</a></h2>
+<p>A quick overview of all possible command line options can be found via
+<tt class="docutils literal"><span class="pre">--help</span></tt>.</p>
+<dl class="cmdoption">
+<dt id="cmdoption--corrupted">
+<tt class="descname">--corrupted</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption--corrupted" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dump unparseable messages (assumed to be corrupted) in addition to valid
+messages.</p>
+</dd></dl>
+
+<div class="section" id="common-interface-options">
+<h3>Common interface options<a class="headerlink" href="#common-interface-options" title="Permalink to this headline">¶</a></h3>
+<p>These command-line options are common to all of the tools that connect to a CAN
+translator.</p>
+<dl class="cmdoption">
+<dt id="cmdoption--usb">
+<tt class="descname">--usb</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption--usb" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use a CAN translator connected via USB as the data source. USB is the
+default data source. This option is mutually exclusive with <tt class="docutils literal"><span class="pre">--serial</span></tt>
+and <tt class="docutils literal"><span class="pre">--trace</span></tt>.</p>
+</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption--serial">
+<tt class="descname">--serial</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption--serial" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use a CAN translator connected via a USB-to-serial adapter as the data
+source. This option is mutually exclusive with <tt class="docutils literal"><span class="pre">--usb</span></tt> and <tt class="docutils literal"><span class="pre">--trace</span></tt>.</p>
+</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption--trace">
+<tt class="descname">--trace</tt><tt class="descclassname"> &lt;tracefile&gt;</tt><a class="headerlink" href="#cmdoption--trace" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use a previously recorded OpenXC trace file as the data source. This option
+is mutually exclusive with <tt class="docutils literal"><span class="pre">--usb</span></tt> and <tt class="docutils literal"><span class="pre">--serial</span></tt>.</p>
+</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption--usb-vendor">
+<tt class="descname">--usb-vendor</tt><tt class="descclassname"> &lt;vendor_id&gt;</tt><a class="headerlink" href="#cmdoption--usb-vendor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specify the USB vendor ID of the attached CAN translator to use. Defaults to
+the Ford Motor Company vendor ID, <tt class="docutils literal"><span class="pre">0x1bc4</span></tt>.</p>
+<p>If the data source is not set to USB, this option has no effect.</p>
+</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption--serial-port">
+<tt class="descname">--serial-port</tt><tt class="descclassname"> &lt;port&gt;</tt><a class="headerlink" href="#cmdoption--serial-port" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specify the path to the virtual COM port of the CAN translator. Defaults to
+<tt class="docutils literal"><span class="pre">/dev/ttyUSB0</span></tt>.</p>
+<p>If the data source is not set to serial, this option has no effect.</p>
+</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption--serial-baudrate">
+<tt class="descname">--serial-baudrate</tt><tt class="descclassname"> &lt;baudrate&gt;</tt><a class="headerlink" href="#cmdoption--serial-baudrate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specify the baudrate to use with the serial-based CAN translator. Defaults
+to 115200.</p>
+<p>If the data source is not set to serial, this option has no effect.</p>
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#"><tt class="docutils literal"><span class="pre">openxc-dump</span></tt> options and arguments</a><ul>
+<li><a class="reference internal" href="#basic-use">Basic use</a></li>
+<li><a class="reference internal" href="#command-line-options">Command-line options</a><ul>
+<li><a class="reference internal" href="#common-interface-options">Common interface options</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="dashboard.html"
+                        title="previous chapter"><tt class="docutils literal docutils literal docutils literal"><span class="pre">openxc-dashboard</span></tt> options and arguments</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="gps.html"
+                        title="next chapter"><tt class="docutils literal"><span class="pre">openxc-gps</span></tt> options and arguments</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/tools/dump.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="gps.html" title="openxc-gps options and arguments"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="dashboard.html" title="openxc-dashboard options and arguments"
+             >previous</a> |</li>
+        <li><a href="../index.html">OpenXC for Python 0.9.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2012, Christopher Peplin.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,146 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Common interface options &mdash; OpenXC for Python 0.9.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/rtd.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.9.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="OpenXC for Python 0.9.0 documentation" href="../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../index.html">OpenXC for Python 0.9.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="common-interface-options">
+<h1>Common interface options<a class="headerlink" href="#common-interface-options" title="Permalink to this headline">¶</a></h1>
+<p>These command-line options are common to all of the tools that connect to a CAN
+translator.</p>
+<dl class="cmdoption">
+<dt id="cmdoption--usb">
+<tt class="descname">--usb</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption--usb" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use a CAN translator connected via USB as the data source. USB is the
+default data source. This option is mutually exclusive with <tt class="docutils literal"><span class="pre">--serial</span></tt>
+and <tt class="docutils literal"><span class="pre">--trace</span></tt>.</p>
+</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption--serial">
+<tt class="descname">--serial</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption--serial" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use a CAN translator connected via a USB-to-serial adapter as the data
+source. This option is mutually exclusive with <tt class="docutils literal"><span class="pre">--usb</span></tt> and <tt class="docutils literal"><span class="pre">--trace</span></tt>.</p>
+</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption--trace">
+<tt class="descname">--trace</tt><tt class="descclassname"> &lt;tracefile&gt;</tt><a class="headerlink" href="#cmdoption--trace" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use a previously recorded OpenXC trace file as the data source. This option
+is mutually exclusive with <tt class="docutils literal"><span class="pre">--usb</span></tt> and <tt class="docutils literal"><span class="pre">--serial</span></tt>.</p>
+</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption--usb-vendor">
+<tt class="descname">--usb-vendor</tt><tt class="descclassname"> &lt;vendor_id&gt;</tt><a class="headerlink" href="#cmdoption--usb-vendor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specify the USB vendor ID of the attached CAN translator to use. Defaults to
+the Ford Motor Company vendor ID, <tt class="docutils literal"><span class="pre">0x1bc4</span></tt>.</p>
+<p>If the data source is not set to USB, this option has no effect.</p>
+</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption--serial-port">
+<tt class="descname">--serial-port</tt><tt class="descclassname"> &lt;port&gt;</tt><a class="headerlink" href="#cmdoption--serial-port" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specify the path to the virtual COM port of the CAN translator. Defaults to
+<tt class="docutils literal"><span class="pre">/dev/ttyUSB0</span></tt>.</p>
+<p>If the data source is not set to serial, this option has no effect.</p>
+</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption--serial-baudrate">
+<tt class="descname">--serial-baudrate</tt><tt class="descclassname"> &lt;baudrate&gt;</tt><a class="headerlink" href="#cmdoption--serial-baudrate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specify the baudrate to use with the serial-based CAN translator. Defaults
+to 115200.</p>
+<p>If the data source is not set to serial, this option has no effect.</p>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/_shared/common_cmdoptions.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../index.html">OpenXC for Python 0.9.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2012, Christopher Peplin.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

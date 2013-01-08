@@ -1,0 +1,663 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Measurements &mdash; OpenXC for Python 0.9.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/rtd.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.9.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="OpenXC for Python 0.9.0 documentation" href="../index.html" />
+    <link rel="next" title="Data Sinks" href="sinks.html" />
+    <link rel="prev" title="Data Formats" href="formats.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="sinks.html" title="Data Sinks"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="formats.html" title="Data Formats"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">OpenXC for Python 0.9.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-openxc.measurements">
+<span id="measurements"></span><h1>Measurements<a class="headerlink" href="#module-openxc.measurements" title="Permalink to this headline">¶</a></h1>
+<p>Vehicle data measurement types pre-defined in OpenXC.</p>
+<dl class="class">
+<dt id="openxc.measurements.AcceleratorPedalPosition">
+<em class="property">class </em><tt class="descclassname">openxc.measurements.</tt><tt class="descname">AcceleratorPedalPosition</tt><big>(</big><em>value</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#openxc.measurements.AcceleratorPedalPosition" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="openxc.measurements.AcceleratorPedalPosition.name">
+<tt class="descname">name</tt><em class="property"> = 'accelerator_pedal_position'</em><a class="headerlink" href="#openxc.measurements.AcceleratorPedalPosition.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="openxc.measurements.BooleanMeasurement">
+<em class="property">class </em><tt class="descclassname">openxc.measurements.</tt><tt class="descname">BooleanMeasurement</tt><big>(</big><em>value</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#openxc.measurements.BooleanMeasurement" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="openxc.measurements.BooleanMeasurement.DATA_TYPE">
+<tt class="descname">DATA_TYPE</tt><a class="headerlink" href="#openxc.measurements.BooleanMeasurement.DATA_TYPE" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <tt class="xref py py-class docutils literal"><span class="pre">bool</span></tt></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="openxc.measurements.BrakePedalStatus">
+<em class="property">class </em><tt class="descclassname">openxc.measurements.</tt><tt class="descname">BrakePedalStatus</tt><big>(</big><em>value</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#openxc.measurements.BrakePedalStatus" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="openxc.measurements.BrakePedalStatus.name">
+<tt class="descname">name</tt><em class="property"> = 'brake_pedal_status'</em><a class="headerlink" href="#openxc.measurements.BrakePedalStatus.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="openxc.measurements.ButtonEvent">
+<em class="property">class </em><tt class="descclassname">openxc.measurements.</tt><tt class="descname">ButtonEvent</tt><big>(</big><em>value</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#openxc.measurements.ButtonEvent" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="openxc.measurements.ButtonEvent.name">
+<tt class="descname">name</tt><em class="property"> = 'button_event'</em><a class="headerlink" href="#openxc.measurements.ButtonEvent.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="openxc.measurements.DoorStatus">
+<em class="property">class </em><tt class="descclassname">openxc.measurements.</tt><tt class="descname">DoorStatus</tt><big>(</big><em>value</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#openxc.measurements.DoorStatus" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="openxc.measurements.DoorStatus.name">
+<tt class="descname">name</tt><em class="property"> = 'door_status'</em><a class="headerlink" href="#openxc.measurements.DoorStatus.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="openxc.measurements.DoorStatus.states">
+<tt class="descname">states</tt><em class="property"> = ['driver', 'rear_left', 'rear_right', 'passenger']</em><a class="headerlink" href="#openxc.measurements.DoorStatus.states" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="openxc.measurements.EngineSpeed">
+<em class="property">class </em><tt class="descclassname">openxc.measurements.</tt><tt class="descname">EngineSpeed</tt><big>(</big><em>value</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#openxc.measurements.EngineSpeed" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="openxc.measurements.EngineSpeed.name">
+<tt class="descname">name</tt><em class="property"> = 'engine_speed'</em><a class="headerlink" href="#openxc.measurements.EngineSpeed.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="openxc.measurements.EngineSpeed.unit">
+<tt class="descname">unit</tt><em class="property"> = ComposedUnit([LeafUnit('rotations', False)], [LeafUnit('m', True)], 1)</em><a class="headerlink" href="#openxc.measurements.EngineSpeed.unit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="openxc.measurements.EngineSpeed.valid_range">
+<tt class="descname">valid_range</tt><em class="property"> = &lt;openxc.utils.Range object at 0x7fc2f7ac9550&gt;</em><a class="headerlink" href="#openxc.measurements.EngineSpeed.valid_range" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="openxc.measurements.EventedMeasurement">
+<em class="property">class </em><tt class="descclassname">openxc.measurements.</tt><tt class="descname">EventedMeasurement</tt><big>(</big><em>value</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#openxc.measurements.EventedMeasurement" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="openxc.measurements.EventedMeasurement.DATA_TYPE">
+<tt class="descname">DATA_TYPE</tt><a class="headerlink" href="#openxc.measurements.EventedMeasurement.DATA_TYPE" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <tt class="xref py py-class docutils literal"><span class="pre">str</span></tt></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="openxc.measurements.FineOdometer">
+<em class="property">class </em><tt class="descclassname">openxc.measurements.</tt><tt class="descname">FineOdometer</tt><big>(</big><em>value</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#openxc.measurements.FineOdometer" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="openxc.measurements.FineOdometer.name">
+<tt class="descname">name</tt><em class="property"> = 'fine_odometer_since_restart'</em><a class="headerlink" href="#openxc.measurements.FineOdometer.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="openxc.measurements.FineOdometer.unit">
+<tt class="descname">unit</tt><em class="property"> = LeafUnit('m', True)</em><a class="headerlink" href="#openxc.measurements.FineOdometer.unit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="openxc.measurements.FineOdometer.valid_range">
+<tt class="descname">valid_range</tt><em class="property"> = &lt;openxc.utils.Range object at 0x7fc2f7ac95d0&gt;</em><a class="headerlink" href="#openxc.measurements.FineOdometer.valid_range" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="openxc.measurements.FuelConsumed">
+<em class="property">class </em><tt class="descclassname">openxc.measurements.</tt><tt class="descname">FuelConsumed</tt><big>(</big><em>value</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#openxc.measurements.FuelConsumed" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="openxc.measurements.FuelConsumed.name">
+<tt class="descname">name</tt><em class="property"> = 'fuel_consumed_since_restart'</em><a class="headerlink" href="#openxc.measurements.FuelConsumed.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="openxc.measurements.FuelConsumed.unit">
+<tt class="descname">unit</tt><em class="property"> = NamedComposedUnit('L', ComposedUnit([LeafUnit('m', True), LeafUnit('m', True), LeafUnit('m', True)], [], 0.0010000000000000002), True)</em><a class="headerlink" href="#openxc.measurements.FuelConsumed.unit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="openxc.measurements.FuelConsumed.valid_range">
+<tt class="descname">valid_range</tt><em class="property"> = &lt;openxc.utils.Range object at 0x7fc2f7ac9650&gt;</em><a class="headerlink" href="#openxc.measurements.FuelConsumed.valid_range" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="openxc.measurements.FuelLevel">
+<em class="property">class </em><tt class="descclassname">openxc.measurements.</tt><tt class="descname">FuelLevel</tt><big>(</big><em>value</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#openxc.measurements.FuelLevel" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="openxc.measurements.FuelLevel.name">
+<tt class="descname">name</tt><em class="property"> = 'fuel_level'</em><a class="headerlink" href="#openxc.measurements.FuelLevel.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="openxc.measurements.GearLevelPosition">
+<em class="property">class </em><tt class="descclassname">openxc.measurements.</tt><tt class="descname">GearLevelPosition</tt><big>(</big><em>value</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#openxc.measurements.GearLevelPosition" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="openxc.measurements.GearLevelPosition.name">
+<tt class="descname">name</tt><em class="property"> = 'gear_lever_position'</em><a class="headerlink" href="#openxc.measurements.GearLevelPosition.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="openxc.measurements.GearLevelPosition.states">
+<tt class="descname">states</tt><em class="property"> = ['first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'neutral', 'reverse', 'park', 'drive', 'low', 'sport']</em><a class="headerlink" href="#openxc.measurements.GearLevelPosition.states" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="openxc.measurements.HeadlampStatus">
+<em class="property">class </em><tt class="descclassname">openxc.measurements.</tt><tt class="descname">HeadlampStatus</tt><big>(</big><em>value</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#openxc.measurements.HeadlampStatus" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="openxc.measurements.HeadlampStatus.name">
+<tt class="descname">name</tt><em class="property"> = 'headlamp_status'</em><a class="headerlink" href="#openxc.measurements.HeadlampStatus.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="openxc.measurements.HighBeamStatus">
+<em class="property">class </em><tt class="descclassname">openxc.measurements.</tt><tt class="descname">HighBeamStatus</tt><big>(</big><em>value</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#openxc.measurements.HighBeamStatus" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="openxc.measurements.HighBeamStatus.name">
+<tt class="descname">name</tt><em class="property"> = 'high_beam_status'</em><a class="headerlink" href="#openxc.measurements.HighBeamStatus.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="openxc.measurements.IgnitionStatus">
+<em class="property">class </em><tt class="descclassname">openxc.measurements.</tt><tt class="descname">IgnitionStatus</tt><big>(</big><em>value</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#openxc.measurements.IgnitionStatus" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="openxc.measurements.IgnitionStatus.name">
+<tt class="descname">name</tt><em class="property"> = 'ignition_status'</em><a class="headerlink" href="#openxc.measurements.IgnitionStatus.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="openxc.measurements.IgnitionStatus.states">
+<tt class="descname">states</tt><em class="property"> = ['off', 'accessory', 'run', 'start']</em><a class="headerlink" href="#openxc.measurements.IgnitionStatus.states" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="openxc.measurements.LateralAcceleration">
+<em class="property">class </em><tt class="descclassname">openxc.measurements.</tt><tt class="descname">LateralAcceleration</tt><big>(</big><em>value</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#openxc.measurements.LateralAcceleration" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="openxc.measurements.LateralAcceleration.name">
+<tt class="descname">name</tt><em class="property"> = 'lateral_acceleration'</em><a class="headerlink" href="#openxc.measurements.LateralAcceleration.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="openxc.measurements.LateralAcceleration.unit">
+<tt class="descname">unit</tt><em class="property"> = ComposedUnit([LeafUnit('m', True)], [LeafUnit('s', True), LeafUnit('s', True)], 1.0)</em><a class="headerlink" href="#openxc.measurements.LateralAcceleration.unit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="openxc.measurements.LateralAcceleration.valid_range">
+<tt class="descname">valid_range</tt><em class="property"> = &lt;openxc.utils.Range object at 0x7fc2f7ac9950&gt;</em><a class="headerlink" href="#openxc.measurements.LateralAcceleration.valid_range" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="openxc.measurements.Latitude">
+<em class="property">class </em><tt class="descclassname">openxc.measurements.</tt><tt class="descname">Latitude</tt><big>(</big><em>value</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#openxc.measurements.Latitude" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="openxc.measurements.Latitude.name">
+<tt class="descname">name</tt><em class="property"> = 'latitude'</em><a class="headerlink" href="#openxc.measurements.Latitude.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="openxc.measurements.Latitude.unit">
+<tt class="descname">unit</tt><em class="property"> = LeafUnit('deg', False)</em><a class="headerlink" href="#openxc.measurements.Latitude.unit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="openxc.measurements.Latitude.valid_range">
+<tt class="descname">valid_range</tt><em class="property"> = &lt;openxc.utils.Range object at 0x7fc2f7ac96d0&gt;</em><a class="headerlink" href="#openxc.measurements.Latitude.valid_range" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="openxc.measurements.Longitude">
+<em class="property">class </em><tt class="descclassname">openxc.measurements.</tt><tt class="descname">Longitude</tt><big>(</big><em>value</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#openxc.measurements.Longitude" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="openxc.measurements.Longitude.name">
+<tt class="descname">name</tt><em class="property"> = 'longitude'</em><a class="headerlink" href="#openxc.measurements.Longitude.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="openxc.measurements.Longitude.unit">
+<tt class="descname">unit</tt><em class="property"> = LeafUnit('deg', False)</em><a class="headerlink" href="#openxc.measurements.Longitude.unit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="openxc.measurements.Longitude.valid_range">
+<tt class="descname">valid_range</tt><em class="property"> = &lt;openxc.utils.Range object at 0x7fc2f7ac9750&gt;</em><a class="headerlink" href="#openxc.measurements.Longitude.valid_range" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="openxc.measurements.LongitudinalAcceleration">
+<em class="property">class </em><tt class="descclassname">openxc.measurements.</tt><tt class="descname">LongitudinalAcceleration</tt><big>(</big><em>value</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#openxc.measurements.LongitudinalAcceleration" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="openxc.measurements.LongitudinalAcceleration.name">
+<tt class="descname">name</tt><em class="property"> = 'lognitudinal_acceleration'</em><a class="headerlink" href="#openxc.measurements.LongitudinalAcceleration.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="openxc.measurements.LongitudinalAcceleration.unit">
+<tt class="descname">unit</tt><em class="property"> = ComposedUnit([LeafUnit('m', True)], [LeafUnit('s', True), LeafUnit('s', True)], 1.0)</em><a class="headerlink" href="#openxc.measurements.LongitudinalAcceleration.unit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="openxc.measurements.LongitudinalAcceleration.valid_range">
+<tt class="descname">valid_range</tt><em class="property"> = &lt;openxc.utils.Range object at 0x7fc2f7ac99d0&gt;</em><a class="headerlink" href="#openxc.measurements.LongitudinalAcceleration.valid_range" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="openxc.measurements.Measurement">
+<em class="property">class </em><tt class="descclassname">openxc.measurements.</tt><tt class="descname">Measurement</tt><big>(</big><em>name</em>, <em>value</em>, <em>event=None</em>, <em>override_unit=False</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#openxc.measurements.Measurement" title="Permalink to this definition">¶</a></dt>
+<dd><p>The Measurement is the base type of all values read from an OpenXC
+vehicle interface. All values encapsulated in a Measurement have an
+associated scalar unit (e.g. meters, degrees, etc) to avoid crashing a rover
+into Mars.</p>
+<p>Construct a new Measurement with the given name and value.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>name (str):  The Measurement&#8217;s generic name in OpenXC.
+value (str, float, or bool): The Measurement&#8217;s value.</dd>
+<dt>Kwargs:</dt>
+<dd><p class="first">event (str, bool): An optional event for compound Measurements.
+override_unit (bool): The value will be coerced to the correct units</p>
+<blockquote class="last">
+<div>if it is a plain number.</div></blockquote>
+</dd>
+<dt>Raises:</dt>
+<dd>UnrecognizedMeasurementError if the value is not the correct units,
+e.g. if it&#8217;s a string and we&#8217;re expecting a numerical value</dd>
+</dl>
+<dl class="attribute">
+<dt id="openxc.measurements.Measurement.DATA_TYPE">
+<tt class="descname">DATA_TYPE</tt><a class="headerlink" href="#openxc.measurements.Measurement.DATA_TYPE" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <tt class="xref py py-class docutils literal"><span class="pre">Number</span></tt></p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="openxc.measurements.Measurement.from_dict">
+<em class="property">classmethod </em><tt class="descname">from_dict</tt><big>(</big><em>data</em><big>)</big><a class="headerlink" href="#openxc.measurements.Measurement.from_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new Measurement subclass instance using the given dict.</p>
+<p>If Measurement.name_from_class was previously called with this data&#8217;s
+associated Measurement sub-class in Python, the returned object will be
+an instance of that sub-class. If the measurement name in <tt class="docutils literal"><span class="pre">data</span></tt> is
+unrecognized, the returned object will be of the generic <tt class="docutils literal"><span class="pre">Measurement</span></tt>
+type.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><dl class="first last docutils">
+<dt>data (dict): the data for the new measurement, including at least a</dt>
+<dd>name and value.</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="openxc.measurements.Measurement.name_from_class">
+<em class="property">classmethod </em><tt class="descname">name_from_class</tt><big>(</big><em>measurement_class</em><big>)</big><a class="headerlink" href="#openxc.measurements.Measurement.name_from_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>For a given measurement class, return its generic name.</p>
+<p>The given class is expected to have a <tt class="docutils literal"><span class="pre">name</span></tt> attribute, otherwise this
+function will raise an execption. The point of using this method instead
+of just trying to grab that attribute in the application is to cache
+measurement name to class mappings for future use.</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>the generic OpenXC name for a measurement class.</dd>
+<dt>Raise:</dt>
+<dd><dl class="first last docutils">
+<dt>UnrecognizedMeasurementError: if the class does not have a valid</dt>
+<dd>generic name</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="openxc.measurements.Measurement.unit">
+<tt class="descname">unit</tt><em class="property"> = LeafUnit('undef', False)</em><a class="headerlink" href="#openxc.measurements.Measurement.unit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="openxc.measurements.Measurement.value">
+<tt class="descname">value</tt><a class="headerlink" href="#openxc.measurements.Measurement.value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="openxc.measurements.NamedMeasurement">
+<em class="property">class </em><tt class="descclassname">openxc.measurements.</tt><tt class="descname">NamedMeasurement</tt><big>(</big><em>value</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#openxc.measurements.NamedMeasurement" title="Permalink to this definition">¶</a></dt>
+<dd><p>A NamedMeasurement has a class-level <tt class="docutils literal"><span class="pre">name</span></tt> variable and thus the
+<tt class="docutils literal"><span class="pre">name</span></tt> argument is not required in its constructor.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="openxc.measurements.NumericMeasurement">
+<em class="property">class </em><tt class="descclassname">openxc.measurements.</tt><tt class="descname">NumericMeasurement</tt><big>(</big><em>value</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#openxc.measurements.NumericMeasurement" title="Permalink to this definition">¶</a></dt>
+<dd><p>A NumericMeasurement must have a numeric value and thus a valid range of
+acceptable values.</p>
+<dl class="attribute">
+<dt id="openxc.measurements.NumericMeasurement.valid_range">
+<tt class="descname">valid_range</tt><em class="property"> = None</em><a class="headerlink" href="#openxc.measurements.NumericMeasurement.valid_range" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="openxc.measurements.NumericMeasurement.within_range">
+<tt class="descname">within_range</tt><big>(</big><big>)</big><a class="headerlink" href="#openxc.measurements.NumericMeasurement.within_range" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="openxc.measurements.Odometer">
+<em class="property">class </em><tt class="descclassname">openxc.measurements.</tt><tt class="descname">Odometer</tt><big>(</big><em>value</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#openxc.measurements.Odometer" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="openxc.measurements.Odometer.name">
+<tt class="descname">name</tt><em class="property"> = 'odometer'</em><a class="headerlink" href="#openxc.measurements.Odometer.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="openxc.measurements.Odometer.unit">
+<tt class="descname">unit</tt><em class="property"> = LeafUnit('m', True)</em><a class="headerlink" href="#openxc.measurements.Odometer.unit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="openxc.measurements.Odometer.valid_range">
+<tt class="descname">valid_range</tt><em class="property"> = &lt;openxc.utils.Range object at 0x7fc2f7ac97d0&gt;</em><a class="headerlink" href="#openxc.measurements.Odometer.valid_range" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="openxc.measurements.ParkingBrakeStatus">
+<em class="property">class </em><tt class="descclassname">openxc.measurements.</tt><tt class="descname">ParkingBrakeStatus</tt><big>(</big><em>value</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#openxc.measurements.ParkingBrakeStatus" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="openxc.measurements.ParkingBrakeStatus.name">
+<tt class="descname">name</tt><em class="property"> = 'parking_brake_status'</em><a class="headerlink" href="#openxc.measurements.ParkingBrakeStatus.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="openxc.measurements.PercentageMeasurement">
+<em class="property">class </em><tt class="descclassname">openxc.measurements.</tt><tt class="descname">PercentageMeasurement</tt><big>(</big><em>value</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#openxc.measurements.PercentageMeasurement" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="openxc.measurements.PercentageMeasurement.unit">
+<tt class="descname">unit</tt><em class="property"> = LeafUnit('%', False)</em><a class="headerlink" href="#openxc.measurements.PercentageMeasurement.unit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="openxc.measurements.PercentageMeasurement.valid_range">
+<tt class="descname">valid_range</tt><em class="property"> = &lt;openxc.utils.Range object at 0x7fc2f7ac93d0&gt;</em><a class="headerlink" href="#openxc.measurements.PercentageMeasurement.valid_range" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="openxc.measurements.StatefulMeasurement">
+<em class="property">class </em><tt class="descclassname">openxc.measurements.</tt><tt class="descname">StatefulMeasurement</tt><big>(</big><em>value</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#openxc.measurements.StatefulMeasurement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Must have a class-level <tt class="docutils literal"><span class="pre">states</span></tt> member that defines a set of valid
+string states for this measurement&#8217;s value.</p>
+<dl class="attribute">
+<dt id="openxc.measurements.StatefulMeasurement.DATA_TYPE">
+<tt class="descname">DATA_TYPE</tt><a class="headerlink" href="#openxc.measurements.StatefulMeasurement.DATA_TYPE" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <tt class="xref py py-class docutils literal"><span class="pre">str</span></tt></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="openxc.measurements.StatefulMeasurement.states">
+<tt class="descname">states</tt><em class="property"> = None</em><a class="headerlink" href="#openxc.measurements.StatefulMeasurement.states" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="openxc.measurements.StatefulMeasurement.valid_state">
+<tt class="descname">valid_state</tt><big>(</big><big>)</big><a class="headerlink" href="#openxc.measurements.StatefulMeasurement.valid_state" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determine if the current state is valid, given the class&#8217; <tt class="docutils literal"><span class="pre">state</span></tt>
+member.</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>True if the value is a valid state.</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="openxc.measurements.SteeringWheelAngle">
+<em class="property">class </em><tt class="descclassname">openxc.measurements.</tt><tt class="descname">SteeringWheelAngle</tt><big>(</big><em>value</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#openxc.measurements.SteeringWheelAngle" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="openxc.measurements.SteeringWheelAngle.name">
+<tt class="descname">name</tt><em class="property"> = 'steering_wheel_angle'</em><a class="headerlink" href="#openxc.measurements.SteeringWheelAngle.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="openxc.measurements.SteeringWheelAngle.unit">
+<tt class="descname">unit</tt><em class="property"> = LeafUnit('deg', False)</em><a class="headerlink" href="#openxc.measurements.SteeringWheelAngle.unit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="openxc.measurements.SteeringWheelAngle.valid_range">
+<tt class="descname">valid_range</tt><em class="property"> = &lt;openxc.utils.Range object at 0x7fc2f7ac9850&gt;</em><a class="headerlink" href="#openxc.measurements.SteeringWheelAngle.valid_range" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="openxc.measurements.TorqueAtTransmission">
+<em class="property">class </em><tt class="descclassname">openxc.measurements.</tt><tt class="descname">TorqueAtTransmission</tt><big>(</big><em>value</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#openxc.measurements.TorqueAtTransmission" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="openxc.measurements.TorqueAtTransmission.name">
+<tt class="descname">name</tt><em class="property"> = 'torque_at_transmission'</em><a class="headerlink" href="#openxc.measurements.TorqueAtTransmission.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="openxc.measurements.TorqueAtTransmission.unit">
+<tt class="descname">unit</tt><em class="property"> = NamedComposedUnit('Nm', ComposedUnit([NamedComposedUnit('N', ComposedUnit([LeafUnit('m', True), NamedComposedUnit('kg', ComposedUnit([LeafUnit('g', True)], [], 1000), False)], [LeafUnit('s', True), LeafUnit('s', True)], 1), True), LeafUnit('m', True)], [], 1), True)</em><a class="headerlink" href="#openxc.measurements.TorqueAtTransmission.unit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="openxc.measurements.TorqueAtTransmission.valid_range">
+<tt class="descname">valid_range</tt><em class="property"> = &lt;openxc.utils.Range object at 0x7fc2f7ac98d0&gt;</em><a class="headerlink" href="#openxc.measurements.TorqueAtTransmission.valid_range" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="openxc.measurements.TransmissionGearPosition">
+<em class="property">class </em><tt class="descclassname">openxc.measurements.</tt><tt class="descname">TransmissionGearPosition</tt><big>(</big><em>value</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#openxc.measurements.TransmissionGearPosition" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="openxc.measurements.TransmissionGearPosition.name">
+<tt class="descname">name</tt><em class="property"> = 'transmission_gear_position'</em><a class="headerlink" href="#openxc.measurements.TransmissionGearPosition.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="openxc.measurements.TransmissionGearPosition.states">
+<tt class="descname">states</tt><em class="property"> = ['first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth', 'neutral', 'reverse', 'park']</em><a class="headerlink" href="#openxc.measurements.TransmissionGearPosition.states" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="openxc.measurements.TurnSignalStatus">
+<em class="property">class </em><tt class="descclassname">openxc.measurements.</tt><tt class="descname">TurnSignalStatus</tt><big>(</big><em>value</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#openxc.measurements.TurnSignalStatus" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="openxc.measurements.TurnSignalStatus.name">
+<tt class="descname">name</tt><em class="property"> = 'turn_signal_status'</em><a class="headerlink" href="#openxc.measurements.TurnSignalStatus.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="exception">
+<dt id="openxc.measurements.UnrecognizedMeasurementError">
+<em class="property">exception </em><tt class="descclassname">openxc.measurements.</tt><tt class="descname">UnrecognizedMeasurementError</tt><a class="headerlink" href="#openxc.measurements.UnrecognizedMeasurementError" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="openxc.measurements.VehicleSpeed">
+<em class="property">class </em><tt class="descclassname">openxc.measurements.</tt><tt class="descname">VehicleSpeed</tt><big>(</big><em>value</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#openxc.measurements.VehicleSpeed" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="openxc.measurements.VehicleSpeed.name">
+<tt class="descname">name</tt><em class="property"> = 'vehicle_speed'</em><a class="headerlink" href="#openxc.measurements.VehicleSpeed.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="openxc.measurements.VehicleSpeed.unit">
+<tt class="descname">unit</tt><em class="property"> = ComposedUnit([NamedComposedUnit('km', ComposedUnit([LeafUnit('m', True)], [], 1000), False)], [NamedComposedUnit('h', ComposedUnit([NamedComposedUnit('min', ComposedUnit([LeafUnit('s', True)], [], 60.0), False)], [], 60.0), False)], 1)</em><a class="headerlink" href="#openxc.measurements.VehicleSpeed.unit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="openxc.measurements.VehicleSpeed.valid_range">
+<tt class="descname">valid_range</tt><em class="property"> = &lt;openxc.utils.Range object at 0x7fc2f7ac94d0&gt;</em><a class="headerlink" href="#openxc.measurements.VehicleSpeed.valid_range" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="openxc.measurements.WindshieldWiperStatus">
+<em class="property">class </em><tt class="descclassname">openxc.measurements.</tt><tt class="descname">WindshieldWiperStatus</tt><big>(</big><em>value</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#openxc.measurements.WindshieldWiperStatus" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="openxc.measurements.WindshieldWiperStatus.name">
+<tt class="descname">name</tt><em class="property"> = 'windshield_wiper_status'</em><a class="headerlink" href="#openxc.measurements.WindshieldWiperStatus.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="formats.html"
+                        title="previous chapter">Data Formats</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="sinks.html"
+                        title="next chapter">Data Sinks</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/api/measurements.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="sinks.html" title="Data Sinks"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="formats.html" title="Data Formats"
+             >previous</a> |</li>
+        <li><a href="../index.html">OpenXC for Python 0.9.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2012, Christopher Peplin.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>
