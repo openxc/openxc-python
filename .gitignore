@@ -1,0 +1,5 @@
+*.egg*
+*.json
+docs
+fabfile.py
+.tox
