@@ -62,9 +62,9 @@
 <em class="property">class </em><tt class="descclassname">openxc.sinks.base.</tt><tt class="descname">DataSink</tt><a class="headerlink" href="#openxc.sinks.base.DataSink" title="Permalink to this definition">¶</a></dt>
 <dd><p>A base interface for all data sinks. At the minimum, a data sink must
 have a <a class="reference internal" href="#openxc.sinks.base.DataSink.receive" title="openxc.sinks.base.DataSink.receive"><tt class="xref py py-func docutils literal"><span class="pre">receive()</span></tt></a> method.</p>
-<dl class="method">
+<dl class="function">
 <dt id="openxc.sinks.base.DataSink.receive">
-<tt class="descname">receive</tt><big>(</big><em>message</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#openxc.sinks.base.DataSink.receive" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">receive</tt><big>(</big><em>self</em>, <em>message</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#openxc.sinks.base.DataSink.receive" title="Permalink to this definition">¶</a></dt>
 <dd><p>Handle an incoming vehicle data message.</p>
 <dl class="docutils">
 <dt>Args:</dt>
@@ -93,23 +93,23 @@ type have been received.</p>
 <dl class="class">
 <dt id="openxc.sinks.notifier.MeasurementNotifierSink.Notifier">
 <em class="property">class </em><tt class="descname">Notifier</tt><big>(</big><em>queue</em>, <em>callback</em><big>)</big><a class="headerlink" href="#openxc.sinks.notifier.MeasurementNotifierSink.Notifier" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="method">
+<dd><dl class="function">
 <dt id="openxc.sinks.notifier.MeasurementNotifierSink.Notifier.run">
-<tt class="descname">run</tt><big>(</big><big>)</big><a class="headerlink" href="#openxc.sinks.notifier.MeasurementNotifierSink.Notifier.run" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">run</tt><big>(</big><em>self</em><big>)</big><a class="headerlink" href="#openxc.sinks.notifier.MeasurementNotifierSink.Notifier.run" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
-<dl class="method">
+<dl class="function">
 <dt id="openxc.sinks.notifier.MeasurementNotifierSink.register">
-<tt class="descclassname">MeasurementNotifierSink.</tt><tt class="descname">register</tt><big>(</big><em>measurement_class</em>, <em>callback</em><big>)</big><a class="headerlink" href="#openxc.sinks.notifier.MeasurementNotifierSink.register" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">MeasurementNotifierSink.</tt><tt class="descname">register</tt><big>(</big><em>self</em>, <em>measurement_class</em>, <em>callback</em><big>)</big><a class="headerlink" href="#openxc.sinks.notifier.MeasurementNotifierSink.register" title="Permalink to this definition">¶</a></dt>
 <dd><p>Call the <tt class="docutils literal"><span class="pre">callback</span></tt> with any new values of <tt class="docutils literal"><span class="pre">measurement_class</span></tt>
 received.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="function">
 <dt id="openxc.sinks.notifier.MeasurementNotifierSink.unregister">
-<tt class="descclassname">MeasurementNotifierSink.</tt><tt class="descname">unregister</tt><big>(</big><em>measurement_class</em>, <em>callback</em><big>)</big><a class="headerlink" href="#openxc.sinks.notifier.MeasurementNotifierSink.unregister" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">MeasurementNotifierSink.</tt><tt class="descname">unregister</tt><big>(</big><em>self</em>, <em>measurement_class</em>, <em>callback</em><big>)</big><a class="headerlink" href="#openxc.sinks.notifier.MeasurementNotifierSink.unregister" title="Permalink to this definition">¶</a></dt>
 <dd><p>Stop notifying <tt class="docutils literal"><span class="pre">callback</span></tt> of new values of <tt class="docutils literal"><span class="pre">measurement_class</span></tt>.</p>
 <p>If the callback wasn&#8217;t previously registered, this method will have no
 effect.</p>
@@ -125,9 +125,9 @@ messages.</p>
 <dd><p>Store every message received and any kwargs from the originating data
 source as a tuple in a queue.</p>
 <p>The queue can be reference in subclasses via the <cite>queue</cite> attribute.</p>
-<dl class="method">
+<dl class="function">
 <dt id="openxc.sinks.queued.QueuedSink.receive">
-<tt class="descname">receive</tt><big>(</big><em>message</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#openxc.sinks.queued.QueuedSink.receive" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">receive</tt><big>(</big><em>self</em>, <em>message</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#openxc.sinks.queued.QueuedSink.receive" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add the <cite>message</cite> and <cite>kwargs</cite> to the queue.</p>
 </dd></dl>
 
@@ -152,9 +152,9 @@ sources.</p>
 <dl class="class">
 <dt id="openxc.sinks.recorder.FileRecorderSink.Recorder">
 <em class="property">class </em><tt class="descname">Recorder</tt><big>(</big><em>queue</em><big>)</big><a class="headerlink" href="#openxc.sinks.recorder.FileRecorderSink.Recorder" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="method">
+<dd><dl class="function">
 <dt id="openxc.sinks.recorder.FileRecorderSink.Recorder.run">
-<tt class="descname">run</tt><big>(</big><big>)</big><a class="headerlink" href="#openxc.sinks.recorder.FileRecorderSink.Recorder.run" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">run</tt><big>(</big><em>self</em><big>)</big><a class="headerlink" href="#openxc.sinks.recorder.FileRecorderSink.Recorder.run" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -181,9 +181,9 @@ url (str) - the URL to send an HTTP POST request with vehicle data</p>
 <dl class="class">
 <dt id="openxc.sinks.uploader.UploaderSink.Uploader">
 <em class="property">class </em><tt class="descname">Uploader</tt><big>(</big><em>queue</em>, <em>url</em><big>)</big><a class="headerlink" href="#openxc.sinks.uploader.UploaderSink.Uploader" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="method">
+<dd><dl class="function">
 <dt id="openxc.sinks.uploader.UploaderSink.Uploader.run">
-<tt class="descname">run</tt><big>(</big><big>)</big><a class="headerlink" href="#openxc.sinks.uploader.UploaderSink.Uploader.run" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">run</tt><big>(</big><em>self</em><big>)</big><a class="headerlink" href="#openxc.sinks.uploader.UploaderSink.Uploader.run" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>

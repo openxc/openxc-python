@@ -63,9 +63,9 @@
 <dd><p>A source that receives data is a series of bytes, with discrete messages
 separated by a newline character.</p>
 <p>Subclasses of this class need only to implement the <tt class="docutils literal"><span class="pre">_read</span></tt> method.</p>
-<dl class="method">
+<dl class="function">
 <dt id="openxc.sources.base.BytestreamDataSource.run">
-<tt class="descname">run</tt><big>(</big><big>)</big><a class="headerlink" href="#openxc.sources.base.BytestreamDataSource.run" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">run</tt><big>(</big><em>self</em><big>)</big><a class="headerlink" href="#openxc.sources.base.BytestreamDataSource.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>Continuously read data from the source and attempt to parse a valid
 message from the buffer of bytes. When a message is parsed, passes it
 off to the callback if one is set.</p>
@@ -198,9 +198,9 @@ vehicle).</div></blockquote>
 </dl>
 </dd>
 </dl>
-<dl class="method">
+<dl class="function">
 <dt id="openxc.sources.trace.TraceDataSource.run">
-<tt class="descname">run</tt><big>(</big><big>)</big><a class="headerlink" href="#openxc.sources.trace.TraceDataSource.run" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">run</tt><big>(</big><em>self</em><big>)</big><a class="headerlink" href="#openxc.sources.trace.TraceDataSource.run" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>

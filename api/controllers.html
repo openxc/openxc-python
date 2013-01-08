@@ -65,35 +65,35 @@ interface.</p>
 send back to the vehicle. This class is abstract, and implemtnations of the
 interface must define at least the <tt class="docutils literal"><span class="pre">write_bytes</span></tt>, <tt class="docutils literal"><span class="pre">version</span></tt>, or
 <tt class="docutils literal"><span class="pre">reset</span></tt> methods.</p>
-<dl class="method">
+<dl class="function">
 <dt id="openxc.controllers.base.Controller.reset">
-<tt class="descname">reset</tt><big>(</big><big>)</big><a class="headerlink" href="#openxc.controllers.base.Controller.reset" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">reset</tt><big>(</big><em>self</em><big>)</big><a class="headerlink" href="#openxc.controllers.base.Controller.reset" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reset the vehicle interface.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="function">
 <dt id="openxc.controllers.base.Controller.version">
-<tt class="descname">version</tt><big>(</big><big>)</big><a class="headerlink" href="#openxc.controllers.base.Controller.version" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">version</tt><big>(</big><em>self</em><big>)</big><a class="headerlink" href="#openxc.controllers.base.Controller.version" title="Permalink to this definition">¶</a></dt>
 <dd><p>Request and return the version of the vehicle interface.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="function">
 <dt id="openxc.controllers.base.Controller.write">
-<tt class="descname">write</tt><big>(</big><em>name</em>, <em>value</em>, <em>event</em><big>)</big><a class="headerlink" href="#openxc.controllers.base.Controller.write" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">write</tt><big>(</big><em>self</em>, <em>name</em>, <em>value</em>, <em>event</em><big>)</big><a class="headerlink" href="#openxc.controllers.base.Controller.write" title="Permalink to this definition">¶</a></dt>
 <dd><p>Format the given signal name and value into an OpenXC write request
 and write it out to the controller interface as bytes, ending with a
 character.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="function">
 <dt id="openxc.controllers.base.Controller.write_bytes">
-<tt class="descname">write_bytes</tt><big>(</big><em>data</em><big>)</big><a class="headerlink" href="#openxc.controllers.base.Controller.write_bytes" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">write_bytes</tt><big>(</big><em>self</em>, <em>data</em><big>)</big><a class="headerlink" href="#openxc.controllers.base.Controller.write_bytes" title="Permalink to this definition">¶</a></dt>
 <dd><p>Write the bytes in <tt class="docutils literal"><span class="pre">data</span></tt> out to the controller interface.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="function">
 <dt id="openxc.controllers.base.Controller.write_raw">
-<tt class="descname">write_raw</tt><big>(</big><em>message_id</em>, <em>data</em>, <em>*args</em><big>)</big><a class="headerlink" href="#openxc.controllers.base.Controller.write_raw" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">write_raw</tt><big>(</big><em>self</em>, <em>message_id</em>, <em>data</em>, <em>*args</em><big>)</big><a class="headerlink" href="#openxc.controllers.base.Controller.write_raw" title="Permalink to this definition">¶</a></dt>
 <dd><p>Format the given CAN ID and data into a JSON message
 and write it out to the controller interface as bytes, ending with a
 character.</p>
@@ -118,9 +118,9 @@ device.</p>
 of <tt class="docutils literal"><span class="pre">serial.Serial</span></tt>.</p>
 <p>TODO bah, this is kind of weird. refactor the relatinoship between
 sources/controllers.</p>
-<dl class="method">
+<dl class="function">
 <dt id="openxc.controllers.serial.SerialControllerMixin.write_bytes">
-<tt class="descname">write_bytes</tt><big>(</big><em>data</em><big>)</big><a class="headerlink" href="#openxc.controllers.serial.SerialControllerMixin.write_bytes" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">write_bytes</tt><big>(</big><em>self</em>, <em>data</em><big>)</big><a class="headerlink" href="#openxc.controllers.serial.SerialControllerMixin.write_bytes" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -140,19 +140,19 @@ sources/controllers.</p>
 <tt class="descname">out_endpoint</tt><a class="headerlink" href="#openxc.controllers.usb.UsbControllerMixin.out_endpoint" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="function">
 <dt id="openxc.controllers.usb.UsbControllerMixin.reset">
-<tt class="descname">reset</tt><big>(</big><big>)</big><a class="headerlink" href="#openxc.controllers.usb.UsbControllerMixin.reset" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">reset</tt><big>(</big><em>self</em><big>)</big><a class="headerlink" href="#openxc.controllers.usb.UsbControllerMixin.reset" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="function">
 <dt id="openxc.controllers.usb.UsbControllerMixin.version">
-<tt class="descname">version</tt><big>(</big><big>)</big><a class="headerlink" href="#openxc.controllers.usb.UsbControllerMixin.version" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">version</tt><big>(</big><em>self</em><big>)</big><a class="headerlink" href="#openxc.controllers.usb.UsbControllerMixin.version" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="function">
 <dt id="openxc.controllers.usb.UsbControllerMixin.write_bytes">
-<tt class="descname">write_bytes</tt><big>(</big><em>data</em><big>)</big><a class="headerlink" href="#openxc.controllers.usb.UsbControllerMixin.write_bytes" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">write_bytes</tt><big>(</big><em>self</em>, <em>data</em><big>)</big><a class="headerlink" href="#openxc.controllers.usb.UsbControllerMixin.write_bytes" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
