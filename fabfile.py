@@ -1,7 +1,7 @@
 from __future__ import with_statement
 
 import os
-from fabric.api import abort, local, task, lcd
+from fabric.api import abort, local, task, lcd, puts
 
 
 @task(default=True)
