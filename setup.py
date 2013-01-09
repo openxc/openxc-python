@@ -24,7 +24,7 @@ setup(name='openxc',
     long_description=long_description,
     author='Christopher Peplin',
     author_email='cpeplin@ford.com',
-    license='MSD',
+    license='BSD',
     classifiers = [
         'Development Status :: 4 - Beta',
         'License :: OSI Approved :: BSD License',
