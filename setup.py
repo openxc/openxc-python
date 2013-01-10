@@ -15,8 +15,6 @@ install_reqs = ['pyusb', 'units >= 0.5', 'requests==0.14.1', 'argparse',]
 
 if sys.version_info < (3, 0):
     install_reqs.append('pyserial')
-else:
-    install_reqs.append('pyserial-py3k')
 
 setup(name='openxc',
     version=get_version(),
@@ -37,9 +35,6 @@ setup(name='openxc',
     test_suite='nose.collector',
     tests_require=['nose'],
     install_requires=install_reqs,
-    dependency_links = [
-        "http://pypi.python.org/packages/source/p/pyserial/pyserial-2.6.tar.gz#egg=pyserial-py3k"
-    ],
     entry_points={
         'console_scripts': [
             'openxc-dashboard = openxc.tools.dashboard:main',

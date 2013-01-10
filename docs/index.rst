@@ -13,13 +13,17 @@ Installation
 You can install OpenXC either via the Python Package Index (PyPI) or from
 source.
 
-To install using `pip`,::
+To install using `pip`:
 
-    $ pip install -U openxc
+.. code-block:: sh
 
-To install using `easy_install`,::
+    $ [sudo] pip install -U openxc
 
-    $ easy_install -U openxc
+To install using `easy_install`:
+
+.. code-block:: sh
+
+    $ [sudo] easy_install -U openxc
 
 Downloading and installing from source
 --------------------------------------
@@ -27,7 +31,9 @@ Downloading and installing from source
 Download the latest version of the OpenXC Python library from
 http://pypi.python.org/pypi/openxc/
 
-You can install it by doing the following,::
+You can install it by doing the following
+
+.. code-block:: sh
 
     $ tar xvfz openxc-0.0.0.tar.gz
     $ cd openxc-0.0.0
@@ -40,11 +46,27 @@ using a virtualenv.
 Using the development version
 -----------------------------
 
-You can clone the repository by doing the following::
+You can clone the repository by doing the following
+
+.. code-block:: sh
 
     $ git clone https://github.com/openxc/openxc-python
     $ cd openxc-python
     $ python setup.py develop
+
+Serial Backend
+--------------
+
+If you intend to use the library with Python 3 and you want to connect to a CAN
+translator via a USB-Serial or other UART connection, you must install the
+`pyserial` Python library manually. There is an [outstanding
+bug](https://github.com/openxc/openxc-python/issues/1) in the `pyserial` library
+that blocks installation as a dependency in Python 3. It works fine if you
+install it manually:
+
+.. code-block:: sh
+
+    $ [sudo] pip install pyserial
 
 USB Backend
 -------------
