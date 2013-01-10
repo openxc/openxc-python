@@ -5,6 +5,4 @@ python:
   - "3.2"
 before_install:
     - pip install pyserial
-    - sudo apt-get update -qq
-    - sudo apt-get install libusb-1.0-0
 script: python setup.py test
