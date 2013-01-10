@@ -6,3 +6,8 @@ python:
 before_install:
     - pip install pyserial
 script: python setup.py test
+env:
+  global:
+    secure: "fRUiPvsTwXvIGzVKoIWXJLWLeX8EhabNurKTwnfGZUD4oDQHbI/FPSARTvJ9\na3qZnR1JwrPi4YuwqzwRu9zQSBOFOpfoy6e3lU38QcTAAgWfrhuDpIApn2mN\nmAXOfc6HIW5mqeSzMs0tGFNk33lqiUaEFry+QmZ5w4jXTkM0LRQ="
+notifications:
+  hipchat: <%= ENV['HIPCHAT_TOKEN'] %>@Ford
