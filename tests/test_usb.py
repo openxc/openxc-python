@@ -9,8 +9,3 @@ class UsbDataSourceTests(unittest.TestCase):
     def test_create(self):
         def callback(message):
             pass
-
-        try:
-            UsbDataSource(callback)
-        except DataSourceError as e:
-            pass
