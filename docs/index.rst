@@ -11,7 +11,7 @@ Installation
 ============
 
 You can install OpenXC either via the Python Package Index (PyPI) or from
-source.
+source. You will also need to install a :ref:`USB backend <usb>`.
 
 To install using `pip`:
 
@@ -67,6 +67,9 @@ install it manually:
 .. code-block:: sh
 
     $ [sudo] pip install pyserial
+
+
+.. _usb:
 
 USB Backend
 -------------
