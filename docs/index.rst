@@ -107,15 +107,6 @@ visit the main `OpenXC site`_.
 .. _`latest documentation`: http://openxcplatform.com/openxc-python
 .. _`OpenXC site`: http://openxcplatform.com
 
-Vehicle API Usage
------------------
-
-.. toctree::
-    :maxdepth: 2
-    :glob:
-
-    usage/*
-
 Tools
 ------
 
