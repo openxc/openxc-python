@@ -8,7 +8,6 @@ from __future__ import absolute_import
 
 import argparse
 import curses
-import curses.wrapper
 import numbers
 from datetime import datetime
 
