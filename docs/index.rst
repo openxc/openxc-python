@@ -13,13 +13,13 @@ Installation
 You can install OpenXC either via the Python Package Index (PyPI) or from
 source. You will also need to install a :ref:`USB backend <usb>`.
 
-To install using `pip`:
+To install using ``pip``:
 
 .. code-block:: sh
 
     $ [sudo] pip install -U openxc
 
-To install using `easy_install`:
+To install using ``easy_install``:
 
 .. code-block:: sh
 
@@ -59,8 +59,8 @@ Serial Backend
 
 If you intend to use the library with Python 3 and you want to connect to a CAN
 translator via a USB-Serial or other UART connection, you must install the
-`pyserial` Python library manually. There is an [outstanding
-bug](https://github.com/openxc/openxc-python/issues/1) in the `pyserial` library
+``pyserial`` Python library manually. There is an [outstanding
+bug](https://github.com/openxc/openxc-python/issues/1) in the ``pyserial`` library
 that blocks installation as a dependency in Python 3. It works fine if you
 install it manually:
 
@@ -75,7 +75,7 @@ USB Backend
 -------------
 
 If you intend to use the library to connect to a CAN translator via USB, you
-must also install a native USB backend - `libusb-1.0` is the recommended library.
+must also install a native USB backend - ``libusb-1.0`` is the recommended library.
 
 - **Mac OS X**
 
@@ -87,13 +87,13 @@ must also install a native USB backend - `libusb-1.0` is the recommended library
 
 - **Ubuntu**
 
-    `libusb` is available in the main repository::
+    ``libusb`` is available in the main repository::
 
         $ sudo apt-get install libusb-1.0-0
 
 - **Arch Linux**
 
-    Install `libusb` using `pacman`::
+    Install ``libusb`` using ``pacman``::
 
         $ sudo pacman -S libusbx
 
@@ -129,7 +129,7 @@ Vehicle API Reference
 Contributing
 ============
 
-Development of `openxc-python` happens at `GitHub`_. Be sure to see our `contribution document`_ for details.
+Development of ``openxc-python`` happens at `GitHub`_. Be sure to see our `contribution document`_ for details.
 
 .. _`GitHub`: https://github.com/openxc/openxc-python
 .. _`contribution document`: https://github.com/openxc/openxc-python/blob/master/CONTRIBUTING.mkd
