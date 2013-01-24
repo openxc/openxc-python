@@ -97,6 +97,10 @@ must also install a native USB backend - ``libusb-1.0`` is the recommended libra
 
         $ sudo pacman -S libusbx
 
+- **Cygwin in Windows**
+
+    Install ``libusb-win32`` from the Cygwin ``setup.exe``.
+
 Documentation
 =============
 
