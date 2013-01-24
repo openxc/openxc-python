@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Vehicle functions &mdash; OpenXC for Python 0.9.0 documentation</title>
+    <title>Vehicle functions &mdash; OpenXC for Python 0.9.1 documentation</title>
     
     <link rel="stylesheet" href="../_static/rtd.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.9.0',
+        VERSION:     '0.9.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="OpenXC for Python 0.9.0 documentation" href="../index.html" />
+    <link rel="top" title="OpenXC for Python 0.9.1 documentation" href="../index.html" />
     <link rel="prev" title="Utils" href="utils.html" /> 
   </head>
   <body>
@@ -41,7 +41,7 @@
         <li class="right" >
           <a href="utils.html" title="Utils"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">OpenXC for Python 0.9.0 documentation</a> &raquo;</li> 
+        <li><a href="../index.html">OpenXC for Python 0.9.1 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -71,9 +71,9 @@ using the <tt class="docutils literal"><span class="pre">get</span></tt> method 
 to register a <tt class="docutils literal"><span class="pre">DataSink</span></tt> with a Vehicle.</p>
 <p>Construct a new Vehicle instance, optionally providing an vehicle
 interface from <tt class="docutils literal"><span class="pre">openxc.interface</span></tt> to user for I/O.</p>
-<dl class="function">
+<dl class="method">
 <dt id="openxc.vehicle.Vehicle.add_sink">
-<tt class="descname">add_sink</tt><big>(</big><em>self</em>, <em>sink</em><big>)</big><a class="headerlink" href="#openxc.vehicle.Vehicle.add_sink" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">add_sink</tt><big>(</big><em>sink</em><big>)</big><a class="headerlink" href="#openxc.vehicle.Vehicle.add_sink" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add a vehicle data sink to the instance. <tt class="docutils literal"><span class="pre">sink</span></tt> should be a
 sub-class of <tt class="docutils literal"><span class="pre">DataSink</span></tt> or at least have a <tt class="docutils literal"><span class="pre">receive(message,</span>
 <span class="pre">**kwargs)</span></tt> method.</p>
@@ -81,25 +81,25 @@ sub-class of <tt class="docutils literal"><span class="pre">DataSink</span></tt>
 method).</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="method">
 <dt id="openxc.vehicle.Vehicle.add_source">
-<tt class="descname">add_source</tt><big>(</big><em>self</em>, <em>source</em><big>)</big><a class="headerlink" href="#openxc.vehicle.Vehicle.add_source" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">add_source</tt><big>(</big><em>source</em><big>)</big><a class="headerlink" href="#openxc.vehicle.Vehicle.add_source" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add a vehicle data source to the instance.</p>
 <p>The Vehicle instance will be set as the callback of the source, and the
 source will be started if it is startable. (i.e. it has a <tt class="docutils literal"><span class="pre">start()</span></tt>
 method).</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="method">
 <dt id="openxc.vehicle.Vehicle.get">
-<tt class="descname">get</tt><big>(</big><em>self</em>, <em>measurement_class</em><big>)</big><a class="headerlink" href="#openxc.vehicle.Vehicle.get" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">get</tt><big>(</big><em>measurement_class</em><big>)</big><a class="headerlink" href="#openxc.vehicle.Vehicle.get" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the latest measurement for the given class or None if nothing
 has been received from the vehicle.</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="method">
 <dt id="openxc.vehicle.Vehicle.listen">
-<tt class="descname">listen</tt><big>(</big><em>self</em>, <em>measurement_class</em>, <em>callback</em><big>)</big><a class="headerlink" href="#openxc.vehicle.Vehicle.listen" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">listen</tt><big>(</big><em>measurement_class</em>, <em>callback</em><big>)</big><a class="headerlink" href="#openxc.vehicle.Vehicle.listen" title="Permalink to this definition">¶</a></dt>
 <dd><p>Register the callback function to be called whenever a new
 measurement of the given class is received from the vehicle data
 sources.</p>
@@ -107,9 +107,9 @@ sources.</p>
 type, this method will have no effect.</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="method">
 <dt id="openxc.vehicle.Vehicle.unlisten">
-<tt class="descname">unlisten</tt><big>(</big><em>self</em>, <em>measurement_class</em>, <em>callback</em><big>)</big><a class="headerlink" href="#openxc.vehicle.Vehicle.unlisten" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">unlisten</tt><big>(</big><em>measurement_class</em>, <em>callback</em><big>)</big><a class="headerlink" href="#openxc.vehicle.Vehicle.unlisten" title="Permalink to this definition">¶</a></dt>
 <dd><p>Stop notifying the given callback of new values of the measurement
 type.</p>
 <p>If the callback was not previously registered as a listener, this method
@@ -163,7 +163,7 @@ will have no effect.</p>
         <li class="right" >
           <a href="utils.html" title="Utils"
              >previous</a> |</li>
-        <li><a href="../index.html">OpenXC for Python 0.9.0 documentation</a> &raquo;</li> 
+        <li><a href="../index.html">OpenXC for Python 0.9.1 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

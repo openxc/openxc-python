@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Data Sources &mdash; OpenXC for Python 0.9.0 documentation</title>
+    <title>Data Sources &mdash; OpenXC for Python 0.9.1 documentation</title>
     
     <link rel="stylesheet" href="../_static/rtd.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.9.0',
+        VERSION:     '0.9.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="OpenXC for Python 0.9.0 documentation" href="../index.html" />
+    <link rel="top" title="OpenXC for Python 0.9.1 documentation" href="../index.html" />
     <link rel="next" title="Units" href="units.html" />
     <link rel="prev" title="Data Sinks" href="sinks.html" /> 
   </head>
@@ -45,7 +45,7 @@
         <li class="right" >
           <a href="sinks.html" title="Data Sinks"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">OpenXC for Python 0.9.0 documentation</a> &raquo;</li> 
+        <li><a href="../index.html">OpenXC for Python 0.9.1 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -63,9 +63,9 @@
 <dd><p>A source that receives data is a series of bytes, with discrete messages
 separated by a newline character.</p>
 <p>Subclasses of this class need only to implement the <tt class="docutils literal"><span class="pre">_read</span></tt> method.</p>
-<dl class="function">
+<dl class="method">
 <dt id="openxc.sources.base.BytestreamDataSource.run">
-<tt class="descname">run</tt><big>(</big><em>self</em><big>)</big><a class="headerlink" href="#openxc.sources.base.BytestreamDataSource.run" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">run</tt><big>(</big><big>)</big><a class="headerlink" href="#openxc.sources.base.BytestreamDataSource.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>Continuously read data from the source and attempt to parse a valid
 message from the buffer of bytes. When a message is parsed, passes it
 off to the callback if one is set.</p>
@@ -198,9 +198,9 @@ vehicle).</div></blockquote>
 </dl>
 </dd>
 </dl>
-<dl class="function">
+<dl class="method">
 <dt id="openxc.sources.trace.TraceDataSource.run">
-<tt class="descname">run</tt><big>(</big><em>self</em><big>)</big><a class="headerlink" href="#openxc.sources.trace.TraceDataSource.run" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">run</tt><big>(</big><big>)</big><a class="headerlink" href="#openxc.sources.trace.TraceDataSource.run" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -256,7 +256,7 @@ vehicle).</div></blockquote>
         <li class="right" >
           <a href="sinks.html" title="Data Sinks"
              >previous</a> |</li>
-        <li><a href="../index.html">OpenXC for Python 0.9.0 documentation</a> &raquo;</li> 
+        <li><a href="../index.html">OpenXC for Python 0.9.1 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

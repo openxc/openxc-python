@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>OpenXC for Python &mdash; OpenXC for Python 0.9.0 documentation</title>
+    <title>OpenXC for Python &mdash; OpenXC for Python 0.9.1 documentation</title>
     
     <link rel="stylesheet" href="_static/rtd.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.9.0',
+        VERSION:     '0.9.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="OpenXC for Python 0.9.0 documentation" href="#" />
+    <link rel="top" title="OpenXC for Python 0.9.1 documentation" href="#" />
     <link rel="next" title="openxc-control options and arguments" href="tools/control.html" /> 
   </head>
   <body>
@@ -41,7 +41,7 @@
         <li class="right" >
           <a href="tools/control.html" title="openxc-control options and arguments"
              accesskey="N">next</a> |</li>
-        <li><a href="#">OpenXC for Python 0.9.0 documentation</a> &raquo;</li> 
+        <li><a href="#">OpenXC for Python 0.9.1 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -63,13 +63,13 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Version:</th><td class="field-body">0.9 (DEVEL)</td>
+<tr class="field-odd field"><th class="field-name">Version:</th><td class="field-body">0.9.1 (DEVEL)</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Web:</th><td class="field-body"><a class="reference external" href="http://openxcplatform.com">http://openxcplatform.com</a></td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Download:</th><td class="field-body"><a class="reference external" href="http://pypi.python.org/pypi/openxc/">http://pypi.python.org/pypi/openxc/</a></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Documentation:</th><td class="field-body"><a class="reference external" href="https://readthedocs.org/projects/openxc-python-library">https://readthedocs.org/projects/openxc-python-library</a></td>
+<tr class="field-even field"><th class="field-name">Documentation:</th><td class="field-body"><a class="reference external" href="http://openxcplatform.com/openxc-python">http://openxcplatform.com/openxc-python</a></td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Source:</th><td class="field-body"><a class="reference external" href="http://github.com/openxc/openxc-python/">http://github.com/openxc/openxc-python/</a></td>
 </tr>
@@ -93,38 +93,54 @@ manipulating previously recorded vehicle data.</p>
 <div class="section" id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
 <p>You can install OpenXC either via the Python Package Index (PyPI) or from
-source.</p>
-<p>To install using <cite>pip</cite>,:</p>
-<div class="highlight-python"><pre>$ pip install -U openxc</pre>
+source. You will also need to install a <a class="reference internal" href="#usb"><em>USB backend</em></a>.</p>
+<p>To install using <tt class="docutils literal"><span class="pre">pip</span></tt>:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span><span class="o">[</span>sudo<span class="o">]</span> pip install -U openxc
+</pre></div>
 </div>
-<p>To install using <cite>easy_install</cite>,:</p>
-<div class="highlight-python"><pre>$ easy_install -U openxc</pre>
+<p>To install using <tt class="docutils literal"><span class="pre">easy_install</span></tt>:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span><span class="o">[</span>sudo<span class="o">]</span> easy_install -U openxc
+</pre></div>
 </div>
 <div class="section" id="downloading-and-installing-from-source">
 <h3>Downloading and installing from source<a class="headerlink" href="#downloading-and-installing-from-source" title="Permalink to this headline">¶</a></h3>
 <p>Download the latest version of the OpenXC Python library from
 <a class="reference external" href="http://pypi.python.org/pypi/openxc/">http://pypi.python.org/pypi/openxc/</a></p>
-<p>You can install it by doing the following,:</p>
-<div class="highlight-python"><pre>$ tar xvfz openxc-0.0.0.tar.gz
-$ cd openxc-0.0.0
-$ python setup.py build
-# python setup.py install</pre>
+<p>You can install it by doing the following</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>tar xvfz openxc-0.0.0.tar.gz
+<span class="nv">$ </span><span class="nb">cd </span>openxc-0.0.0
+<span class="nv">$ </span>python setup.py build
+<span class="c"># python setup.py install</span>
+</pre></div>
 </div>
 <p>The last command must be executed as a privileged user if you are not currently
 using a virtualenv.</p>
 </div>
 <div class="section" id="using-the-development-version">
 <h3>Using the development version<a class="headerlink" href="#using-the-development-version" title="Permalink to this headline">¶</a></h3>
-<p>You can clone the repository by doing the following:</p>
-<div class="highlight-python"><pre>$ git clone https://github.com/openxc/openxc-python
-$ cd openxc-python
-$ python setup.py develop</pre>
+<p>You can clone the repository by doing the following</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>git clone https://github.com/openxc/openxc-python
+<span class="nv">$ </span><span class="nb">cd </span>openxc-python
+<span class="nv">$ </span>python setup.py develop
+</pre></div>
+</div>
+</div>
+<div class="section" id="serial-backend">
+<h3>Serial Backend<a class="headerlink" href="#serial-backend" title="Permalink to this headline">¶</a></h3>
+<p>If you intend to use the library with Python 3 and you want to connect to a CAN
+translator via a USB-Serial or other UART connection, you must install the
+<tt class="docutils literal"><span class="pre">pyserial</span></tt> Python library manually. There is an [outstanding
+bug](<a class="reference external" href="https://github.com/openxc/openxc-python/issues/1">https://github.com/openxc/openxc-python/issues/1</a>) in the <tt class="docutils literal"><span class="pre">pyserial</span></tt> library
+that blocks installation as a dependency in Python 3. It works fine if you
+install it manually:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span><span class="o">[</span>sudo<span class="o">]</span> pip install pyserial
+</pre></div>
 </div>
 </div>
 <div class="section" id="usb-backend">
-<h3>USB Backend<a class="headerlink" href="#usb-backend" title="Permalink to this headline">¶</a></h3>
+<span id="usb"></span><h3>USB Backend<a class="headerlink" href="#usb-backend" title="Permalink to this headline">¶</a></h3>
 <p>If you intend to use the library to connect to a CAN translator via USB, you
-must also install a native USB backend - <cite>libusb-1.0</cite> is the recommended library.</p>
+must also install a native USB backend - <tt class="docutils literal"><span class="pre">libusb-1.0</span></tt> is the recommended library.</p>
 <ul>
 <li><p class="first"><strong>Mac OS X</strong></p>
 <blockquote>
@@ -137,14 +153,14 @@ must also install a native USB backend - <cite>libusb-1.0</cite> is the recommen
 <ul>
 <li><p class="first"><strong>Ubuntu</strong></p>
 <blockquote>
-<div><p><cite>libusb</cite> is available in the main repository:</p>
+<div><p><tt class="docutils literal"><span class="pre">libusb</span></tt> is available in the main repository:</p>
 <div class="highlight-python"><pre>$ sudo apt-get install libusb-1.0-0</pre>
 </div>
 </div></blockquote>
 </li>
 <li><p class="first"><strong>Arch Linux</strong></p>
 <blockquote>
-<div><p>Install <cite>libusb</cite> using <cite>pacman</cite>:</p>
+<div><p>Install <tt class="docutils literal"><span class="pre">libusb</span></tt> using <tt class="docutils literal"><span class="pre">pacman</span></tt>:</p>
 <div class="highlight-python"><pre>$ sudo pacman -S libusbx</pre>
 </div>
 </div></blockquote>
@@ -154,16 +170,9 @@ must also install a native USB backend - <cite>libusb-1.0</cite> is the recommen
 </div>
 <div class="section" id="documentation">
 <h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h2>
-<p>The <a class="reference external" href="https://readthedocs.org/projects/openxc-python-libraryhttps://readthedocs.org/projects/openxc-python-library">latest documentation</a> with user guides, tutorials and API reference
+<p>The <a class="reference external" href="http://openxcplatform.com/openxc-python">latest documentation</a> with user guides, tutorials and API reference
 is hosted at Read The Docs. For general documentation on the OpenXC platform,
 visit the main <a class="reference external" href="http://openxcplatform.com">OpenXC site</a>.</p>
-<div class="section" id="vehicle-api-usage">
-<h3>Vehicle API Usage<a class="headerlink" href="#vehicle-api-usage" title="Permalink to this headline">¶</a></h3>
-<div class="toctree-wrapper compound">
-<ul class="simple">
-</ul>
-</div>
-</div>
 <div class="section" id="tools">
 <h3>Tools<a class="headerlink" href="#tools" title="Permalink to this headline">¶</a></h3>
 <div class="toctree-wrapper compound">
@@ -181,6 +190,7 @@ visit the main <a class="reference external" href="http://openxcplatform.com">Op
 <li class="toctree-l1"><a class="reference internal" href="tools/dump.html"><tt class="docutils literal"><span class="pre">openxc-dump</span></tt> options and arguments</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="tools/dump.html#basic-use">Basic use</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tools/dump.html#command-line-options">Command-line options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tools/dump.html#traces">Traces</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="tools/gps.html"><tt class="docutils literal"><span class="pre">openxc-gps</span></tt> options and arguments</a><ul>
@@ -214,7 +224,7 @@ visit the main <a class="reference external" href="http://openxcplatform.com">Op
 </div>
 <div class="section" id="contributing">
 <h2>Contributing<a class="headerlink" href="#contributing" title="Permalink to this headline">¶</a></h2>
-<p>Development of <cite>openxc-python</cite> happens at <a class="reference external" href="https://github.com/openxc/openxc-python">GitHub</a>. Be sure to see our <a class="reference external" href="https://github.com/openxc/openxc-python/blob/master/CONTRIBUTING.mkd">contribution document</a> for details.</p>
+<p>Development of <tt class="docutils literal"><span class="pre">openxc-python</span></tt> happens at <a class="reference external" href="https://github.com/openxc/openxc-python">GitHub</a>. Be sure to see our <a class="reference external" href="https://github.com/openxc/openxc-python/blob/master/CONTRIBUTING.mkd">contribution document</a> for details.</p>
 <div class="section" id="mailing-list">
 <h3>Mailing list<a class="headerlink" href="#mailing-list" title="Permalink to this headline">¶</a></h3>
 <p>For discussions about the usage, development, and future of OpenXC, please join
@@ -245,13 +255,11 @@ to our issue tracker at <a class="reference external" href="http://github.com/op
 <li><a class="reference internal" href="#installation">Installation</a><ul>
 <li><a class="reference internal" href="#downloading-and-installing-from-source">Downloading and installing from source</a></li>
 <li><a class="reference internal" href="#using-the-development-version">Using the development version</a></li>
+<li><a class="reference internal" href="#serial-backend">Serial Backend</a></li>
 <li><a class="reference internal" href="#usb-backend">USB Backend</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#documentation">Documentation</a><ul>
-<li><a class="reference internal" href="#vehicle-api-usage">Vehicle API Usage</a><ul>
-</ul>
-</li>
 <li><a class="reference internal" href="#tools">Tools</a><ul>
 </ul>
 </li>
@@ -306,7 +314,7 @@ to our issue tracker at <a class="reference external" href="http://github.com/op
         <li class="right" >
           <a href="tools/control.html" title="openxc-control options and arguments"
              >next</a> |</li>
-        <li><a href="#">OpenXC for Python 0.9.0 documentation</a> &raquo;</li> 
+        <li><a href="#">OpenXC for Python 0.9.1 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

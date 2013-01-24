@@ -1,0 +1,1 @@
+import openxc.logconfig

@@ -57,3 +57,14 @@ A quick overview of all possible command line options can be found via
     messages.
 
 .. include:: ../_shared/common_cmdoptions.rst
+
+Traces
+=======
+
+You can record a trace of JSON messages from the CAN reader with
+``openxc-dump``. Simply redirect the output to a file, and you've got your
+trace. This can be used directly by the openxc-android library, for example.
+
+.. code-block:: bash
+
+    $ openxc-dump > vehicle-data.trace
