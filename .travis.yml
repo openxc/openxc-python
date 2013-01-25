@@ -10,4 +10,5 @@ env:
   global:
     secure: "fRUiPvsTwXvIGzVKoIWXJLWLeX8EhabNurKTwnfGZUD4oDQHbI/FPSARTvJ9\na3qZnR1JwrPi4YuwqzwRu9zQSBOFOpfoy6e3lU38QcTAAgWfrhuDpIApn2mN\nmAXOfc6HIW5mqeSzMs0tGFNk33lqiUaEFry+QmZ5w4jXTkM0LRQ="
 notifications:
-  hipchat: <%= ENV['HIPCHAT_TOKEN'] %>@Ford
+  hipchat:
+    - secure: "Qi99dMt+44DuIdcvkgps4V/SFbot5Sew7Jz1wkDKSzbTPDZsV2cPyRCdqKMD\nOmb1/2Q9Zyud1RYEUNvNWLpP2WspeM7bfO5ZboM3qh+wh16/pOECM4+RMAeQ\nsOAoBFMwqlzK9lgG3CgBhL+VpsWltf/Kd5/E4bft4g6E16vQQjQ="
