@@ -10,3 +10,4 @@ MANIFEST
 .tox
 openxc-*/
 *.json
+env
