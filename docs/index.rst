@@ -19,11 +19,61 @@ To install using ``pip``:
 
     $ [sudo] pip install -U openxc
 
-To install using ``easy_install``:
+If you are using Cygwin, install the ``python`` and ``python-setuptools``
+packages and then you can run:
 
 .. code-block:: sh
 
     $ [sudo] easy_install -U openxc
+
+.. _usb:
+
+USB Backend
+-------------
+
+If you intend to use the library to connect to a CAN translator via USB, you
+must also install a native USB backend - ``libusb-1.0`` is the recommended library.
+
+- **Mac OS X**
+
+    First install Homebrew_, then run::
+
+        $ brew install libusb
+
+.. _Homebrew: http://mxcl.github.com/homebrew/
+
+- **Ubuntu**
+
+    ``libusb`` is available in the main repository::
+
+        $ sudo apt-get install libusb-1.0-0
+
+- **Arch Linux**
+
+    Install ``libusb`` using ``pacman``::
+
+        $ sudo pacman -S libusbx
+
+- **Cygwin in Windows**
+
+    Install ``libusb-win32`` from the Cygwin ``setup.exe`` and the USB driver
+    from the `cantranslator repository`_.
+
+.. _`cantranslator repository`: https://github.com/openxc/cantranslator/tree/master/conf/windows-driver
+
+Serial Backend
+--------------
+
+If you intend to use the library with Python 3 and you want to connect to a CAN
+translator via a USB-Serial or other UART connection, you must install the
+``pyserial`` Python library manually. There is an [outstanding
+bug](https://github.com/openxc/openxc-python/issues/1) in the ``pyserial`` library
+that blocks installation as a dependency in Python 3. It works fine if you
+install it manually:
+
+.. code-block:: sh
+
+    $ [sudo] pip install pyserial
 
 Downloading and installing from source
 --------------------------------------
@@ -54,52 +104,6 @@ You can clone the repository by doing the following
     $ cd openxc-python
     $ python setup.py develop
 
-Serial Backend
---------------
-
-If you intend to use the library with Python 3 and you want to connect to a CAN
-translator via a USB-Serial or other UART connection, you must install the
-``pyserial`` Python library manually. There is an [outstanding
-bug](https://github.com/openxc/openxc-python/issues/1) in the ``pyserial`` library
-that blocks installation as a dependency in Python 3. It works fine if you
-install it manually:
-
-.. code-block:: sh
-
-    $ [sudo] pip install pyserial
-
-
-.. _usb:
-
-USB Backend
--------------
-
-If you intend to use the library to connect to a CAN translator via USB, you
-must also install a native USB backend - ``libusb-1.0`` is the recommended library.
-
-- **Mac OS X**
-
-    First install homebrew_, then run::
-
-        $ brew install libusb
-
-.. _homebrew: http://mxcl.github.com/homebrew/
-
-- **Ubuntu**
-
-    ``libusb`` is available in the main repository::
-
-        $ sudo apt-get install libusb-1.0-0
-
-- **Arch Linux**
-
-    Install ``libusb`` using ``pacman``::
-
-        $ sudo pacman -S libusbx
-
-- **Cygwin in Windows**
-
-    Install ``libusb-win32`` from the Cygwin ``setup.exe``.
 
 Documentation
 =============
