@@ -44,14 +44,20 @@ class UsbDataSource(BytestreamDataSource):
             product_id = int(product_id, 0)
         self.product_id = product_id or self.DEFAULT_PRODUCT_ID
 
-        self.device = usb.core.find(idVendor=self.vendor_id, idProduct=self.product_id)
-        self.in_endpoint = None
+        devices = usb.core.find(find_all=True, idVendor=self.vendor_id,
+                idProduct=self.product_id)
+        for device in devices:
+            self.device = device
+            try:
+                self.device.set_configuration()
+            except usb.core.USBError as e:
+                LOG.warn("Skipping USB device: %s", e)
+            else:
+                self.in_endpoint = self._connect_in_endpoint(self.device)
+                return
 
-        if not self.device:
-            raise DataSourceError("Couldn't find a USB product 0x%x from vendor 0x%x"
-                    % (self.product_id, self.vendor_id))
-        self.device.set_configuration()
-        self.in_endpoint = self._connect_in_endpoint(self.device)
+        raise DataSourceError("Couldn't find a USB product 0x%x from vendor 0x%x"
+                % (self.product_id, self.vendor_id))
 
     def _read(self, timeout=None):
         timeout = timeout or self.DEFAULT_READ_TIMEOUT
