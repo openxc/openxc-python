@@ -222,7 +222,7 @@ class LateralAcceleration(NumericMeasurement):
     unit = units.MetersPerSecondSquared
 
 class LongitudinalAcceleration(NumericMeasurement):
-    name = "lognitudinal_acceleration"
+    name = "longitudinal_acceleration"
     valid_range = Range(-5, 5)
     unit = units.MetersPerSecondSquared
 
