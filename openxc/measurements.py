@@ -263,6 +263,7 @@ class TurnSignalStatus(StatefulMeasurement):
 
 class ButtonEvent(EventedMeasurement):
     name = "button_event"
+    states = ['up', 'down', 'left', 'right', 'ok']
 
 class DoorStatus(EventedMeasurement):
     name = "door_status"
