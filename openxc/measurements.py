@@ -148,7 +148,7 @@ class StatefulMeasurement(NamedMeasurement):
         Returns:
             True if the value is a valid state.
         """
-        return self.value in self.states
+        return self.states is not None and self.value in self.states
 
 
 class BooleanMeasurement(NamedMeasurement):
