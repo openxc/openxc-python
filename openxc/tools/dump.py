@@ -21,10 +21,6 @@ def parse_options():
     parser = argparse.ArgumentParser(
             description="View a raw OpenXC data stream",
             parents=[device_options()])
-    parser.add_argument("--corrupted",
-            action="store_true",
-            dest="show_corrupted",
-            default=False, help="don't suppress corrupted messages from output")
 
     arguments = parser.parse_args()
     return arguments
