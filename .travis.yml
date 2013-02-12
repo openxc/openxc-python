@@ -6,9 +6,6 @@ python:
 before_install:
     - pip install pyserial
 script: python setup.py test
-env:
-  global:
-    secure: "fRUiPvsTwXvIGzVKoIWXJLWLeX8EhabNurKTwnfGZUD4oDQHbI/FPSARTvJ9\na3qZnR1JwrPi4YuwqzwRu9zQSBOFOpfoy6e3lU38QcTAAgWfrhuDpIApn2mN\nmAXOfc6HIW5mqeSzMs0tGFNk33lqiUaEFry+QmZ5w4jXTkM0LRQ="
 notifications:
   hipchat:
-    - secure: "BZngXh3bG4z7up90AGULP2uzNskfunXdT+E5MA59QLjdFBI/oDMxnudwuNyW\nCwfDdeDqEy6wd8+593AiFj1M1TWPEVvJyGApCMquovSHy13pyzgyJhSxPAaP\nv6vGB/96ChWycNmWy8nL35N4E+tNIp7LgNpAxhX/LebfHNkSkDo=
+    - secure: "BZngXh3bG4z7up90AGULP2uzNskfunXdT+E5MA59QLjdFBI/oDMxnudwuNyW\nCwfDdeDqEy6wd8+593AiFj1M1TWPEVvJyGApCMquovSHy13pyzgyJhSxPAaP\nv6vGB/96ChWycNmWy8nL35N4E+tNIp7LgNpAxhX/LebfHNkSkDo="
