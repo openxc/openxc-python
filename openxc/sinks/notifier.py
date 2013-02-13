@@ -38,7 +38,10 @@ class MeasurementNotifierSink(QueuedSink):
 
     def _propagate(self, measurement, **kwargs):
         for callback in self.callbacks[measurement.name]:
-            callback(measurement, **kwargs)
+            try:
+                callback(measurement, **kwargs)
+            except TypeError:
+                callback(measurement)
 
     class Notifier(Thread):
         def __init__(self, queue, callback):
