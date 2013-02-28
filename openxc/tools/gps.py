@@ -60,4 +60,4 @@ def main():
     source.start()
     source.join()
 
-    print(transcoder.output())
+    print(transcoder.output().decode("utf-8"))
