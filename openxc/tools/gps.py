@@ -40,8 +40,9 @@ class GPXTranscoder(object):
 
 def parse_options():
     parser = argparse.ArgumentParser(description=
-            "Create a GPS trace in various formats from OpenXC input data",
-            parents=[device_options()])
+            "Create a GPS trace in various formats from OpenXC input data")
+    parser.add_argument("trace_file", metavar ='TRACEFILE',
+            help="trace file to pull GPX log from")
     parser.add_argument("-f", "--format", type=str, choices=['gpx'],
             default='gpx', help="select the output format of the GPS trace")
     arguments = parser.parse_args()
@@ -52,14 +53,11 @@ def main():
     configure_logging()
     arguments = parse_options()
 
-    source_class, source_kwargs = select_device(arguments)
-    if source_class == TraceDataSource:
-        source_kwargs['loop'] = False
-        source_kwargs['realtime'] = False
-
     transcoder = GPXTranscoder()
 
-    source = source_class(transcoder.receive, **source_kwargs)
+    source = TraceDataSource(transcoder.receive, filename=arguments.trace_file,
+            loop=False, realtime=False)
     source.start()
+    source.join()
 
     print(transcoder.output())
