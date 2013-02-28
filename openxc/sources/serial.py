@@ -2,7 +2,11 @@
 from __future__ import absolute_import
 
 import logging
-import serial
+
+try:
+    import serial
+except ImportError:
+    LOG.debug("serial library not installed, can't use serial interface")
 
 from .base import BytestreamDataSource, DataSourceError
 
