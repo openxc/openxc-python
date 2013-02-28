@@ -11,3 +11,4 @@ MANIFEST
 openxc-*/
 *.json
 env
+*.gpx
