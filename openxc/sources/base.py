@@ -80,6 +80,8 @@ class BytestreamDataSource(DataSource):
         Returns the message if one could be parsed, otherwise None, and the
         remainder of the buffer.
         """
+        if not isinstance(message_buffer, bytes):
+            message_buffer = message_buffer.encode("utf-8")
         parsed_message = None
         remainder = message_buffer
         message = ""
