@@ -11,10 +11,7 @@ except ImportError:
 
 long_description = open('README.rst').read()
 
-install_reqs = ['pyusb', 'units >= 0.5', 'requests==0.14.1', 'argparse',]
-
-if sys.version_info < (3, 0):
-    install_reqs.append('pyserial')
+install_reqs = ['pyusb', 'units >= 0.5', 'argparse',]
 
 setup(name='openxc',
     version=get_version(),
@@ -35,6 +32,10 @@ setup(name='openxc',
     test_suite='nose.collector',
     tests_require=['nose'],
     install_requires=install_reqs,
+    extras_require = {
+        'HTTP':  ["requests==1.1.0"],
+        'serial': ["pyserial"],
+    },
     entry_points={
         'console_scripts': [
             'openxc-dashboard = openxc.tools.dashboard:main',
