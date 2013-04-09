@@ -41,7 +41,7 @@ class TraceDataSource(BytestreamDataSource):
                 line = self._read()
                 message, _, byte_count = self._parse_message(line)
                 if message is None:
-                    break
+                    continue
 
                 self.bytes_received += byte_count
                 if not self._validate(message):
