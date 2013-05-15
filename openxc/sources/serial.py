@@ -18,7 +18,7 @@ class SerialDataSource(BytestreamDataSource):
     with a USB to Serial or Bluetooth adapter.
     """
     DEFAULT_PORT = "/dev/ttyUSB0"
-    DEFAULT_BAUDRATE = 115200
+    DEFAULT_BAUDRATE = 230400
 
     def __init__(self, callback=None, port=None, baudrate=None):
         """Initialize a connection to the serial device.
