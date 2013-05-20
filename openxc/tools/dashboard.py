@@ -167,7 +167,8 @@ class Dashboard(object):
     def _redraw(self):
         self.window.erase()
         max_rows = self.window.getmaxyx()[0] - 4
-        for row, element in enumerate(self.elements.values()):
+        for row, element in enumerate(sorted(self.elements.values(),
+                key=lambda elt: elt.measurement_type.name)):
             if row > max_rows:
                 break
             element.print_to_window(self.window, row, self.started_time)
