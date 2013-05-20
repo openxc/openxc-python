@@ -247,11 +247,6 @@ class TransmissionGearPosition(StatefulMeasurement):
     states = ['first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh',
             'eighth', 'neutral', 'reverse', 'park']
 
-class GearLevelPosition(StatefulMeasurement):
-    name = "gear_lever_position"
-    states = ['first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh',
-            'neutral', 'reverse', 'park', 'drive', 'low', 'sport']
-
 class TurnSignalStatus(StatefulMeasurement):
     name = "turn_signal_status"
 

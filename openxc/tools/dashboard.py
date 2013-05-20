@@ -43,7 +43,6 @@ DASHBOARD_MEASUREMENTS  = [measurements.AcceleratorPedalPosition,
                 measurements.WindshieldWiperStatus,
                 measurements.IgnitionStatus,
                 measurements.TransmissionGearPosition,
-                measurements.GearLevelPosition,
                 measurements.TurnSignalStatus,
                 measurements.ButtonEvent,
                 measurements.DoorStatus]
