@@ -3,3 +3,4 @@
 docs
 fabfile.py
 .tox
+env
