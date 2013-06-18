@@ -30,7 +30,7 @@ def write_file(controller, filename):
         message_count = 0
         for line in output_file:
             try:
-                parsed_message = JsonFormatter.deserialize(line)
+                parsed_message = JsonFormatter.deserialize(line.encode("utf-8"))
                 if not isinstance(parsed_message, dict):
                     raise ValueError()
             except ValueError:
