@@ -38,14 +38,15 @@ def write_file(controller, filename):
             else:
                 message_count += 1
                 controller.write(parsed_message['name'],
-                        parsed_message['value'], parsed_message['event'])
+                        parsed_message['value'],
+                        parsed_message.get('event', None))
         print("%d lines sent" % message_count)
         if corrupt_entries > 0:
             print("%d invalid lines in the data file were not sent" %
                     corrupt_entries)
 
 
-def write(controller, name, value, event, raw):
+def write(controller, name, value, event=None, raw=False):
     print("Sending command %s: %s %s" % (name, value, event))
     if raw:
         method = controller.write_raw
