@@ -6,7 +6,7 @@ problems with ``__init__.py`` (which is loaded by setup.py during installation,
 which in turn needs access to this version information.)
 """
 
-VERSION = (0, 9, 3)
+VERSION = (0, 9, 4)
 
 __version__ = '.'.join(map(str, VERSION))
 
