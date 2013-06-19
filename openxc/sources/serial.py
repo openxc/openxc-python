@@ -11,6 +11,7 @@ try:
     import serial
 except ImportError:
     LOG.debug("serial library not installed, can't use serial interface")
+    serial = None
 
 
 class SerialDataSource(BytestreamDataSource):
@@ -33,6 +34,10 @@ class SerialDataSource(BytestreamDataSource):
         super(SerialDataSource, self).__init__(callback)
         port = port or self.DEFAULT_PORT
         baudrate = baudrate or self.DEFAULT_BAUDRATE
+
+        if serial is None:
+            raise DataSourceError("pyserial library is not available")
+
         try:
             self.device = serial.Serial(port, baudrate, rtscts=True)
         except serial.SerialException as e:
