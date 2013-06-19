@@ -1,5 +1,7 @@
 # OpenXC Python Library Changelog
 
+## v0.9.3-dev
+
 ## v0.9.2
 
 * Fix openxc-dashboard in Python 3.3.
