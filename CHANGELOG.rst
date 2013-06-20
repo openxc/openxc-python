@@ -1,8 +1,11 @@
-# OpenXC Python Library Changelog
+OpenXC Python Library Changelog
+===============================
 
-## v0.9.4-dev
+v0.9.4-dev
+----------
 
-## v0.9.3
+v0.9.3
+------
 
 * Fix openxc-dashboard in Python 3.3.
 * Increase robustness to invalid messages.
@@ -11,15 +14,18 @@
 * Match defaut serial baud rate to v4.0 release of OpenXC VI
 * Other small bug fixes and improvements.
 
-## v0.9.2
+v0.9.2
+------
 
 Botched this release.
 
-## v0.9.1
+v0.9.1
+------
 
 * Make pyserial an optional dependency to work around an issue with that package
   in Python 3
 
-## v0.9
+v0.9
+----
 
 * Initial release
