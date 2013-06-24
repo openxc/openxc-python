@@ -140,7 +140,7 @@ Contributing
 Development of ``openxc-python`` happens at `GitHub`_. Be sure to see our `contribution document`_ for details.
 
 .. _`GitHub`: https://github.com/openxc/openxc-python
-.. _`contribution document`: https://github.com/openxc/openxc-python/blob/master/CONTRIBUTING.mkd
+.. _`contribution document`: https://github.com/openxc/openxc-python/blob/master/CONTRIBUTING.rst
 
 Mailing list
 ------------
