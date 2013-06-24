@@ -9,6 +9,7 @@ from __future__ import absolute_import
 
 import argparse
 import sys
+import time
 
 from openxc.formats.json import JsonFormatter
 from .common import device_options, configure_logging, select_device
@@ -24,10 +25,11 @@ def reset(controller):
     version(controller)
 
 
-def write_file(controller, filename):
+def write_file(controller, filename, raw=False):
     with open(filename, "r") as output_file:
         corrupt_entries = 0
         message_count = 0
+        start_time = time.time()
         for line in output_file:
             try:
                 parsed_message = JsonFormatter.deserialize(line.encode("utf-8"))
@@ -36,10 +38,19 @@ def write_file(controller, filename):
             except ValueError:
                 corrupt_entries += 1
             else:
+                # TODO at the moment it's taking longer to write all of
+                # individual CAN messages than the time that actually
+                # elapsed in receiving the trace - need to implement
+                # batching to speed this up. right now this will never sleep
+                # because it's always behind.
+                if 'timestamp' in parsed_message:
+                    time.sleep(max(.0002, (
+                        parsed_message['timestamp'] + start_time)
+                        - time.time()))
+
                 message_count += 1
-                controller.write(parsed_message['name'],
-                        parsed_message['value'],
-                        parsed_message.get('event', None))
+                controller.write(raw=raw,
+                        **parsed_message)
         print("%d lines sent" % message_count)
         if corrupt_entries > 0:
             print("%d invalid lines in the data file were not sent" %
@@ -110,7 +121,7 @@ def main():
         if name:
             write(controller, name, value, event, raw)
         elif arguments.write_input_file:
-            write_file(controller, arguments.write_input_file)
+            write_file(controller, arguments.write_input_file, raw=raw)
         else:
             sys.exit("%s requires a name or filename" % arguments.command)
     else:

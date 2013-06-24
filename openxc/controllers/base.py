@@ -13,7 +13,15 @@ class Controller(object):
     ``reset`` methods.
     """
 
-    def write(self, name, value, event):
+    def write(self, raw=False, **kwargs):
+        if raw:
+            result = self.write_raw(kwargs['message_id'], kwargs['data'])
+        else:
+            result = self.write_translated(kwargs['name'], kwargs['value'],
+                    kwargs['event'])
+        return result
+
+    def write_translated(self, name, value, event):
         """Format the given signal name and value into an OpenXC write request
         and write it out to the controller interface as bytes, ending with a
         \0 character.
@@ -28,7 +36,7 @@ class Controller(object):
         assert bytes_written == len(message) + 1
         return bytes_written
 
-    def write_raw(self, message_id, data, *args):
+    def write_raw(self, message_id, data):
         """Format the given CAN ID and data into a JSON message
         and write it out to the controller interface as bytes, ending with a
         \0 character.
