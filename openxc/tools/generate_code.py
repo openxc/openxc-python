@@ -16,6 +16,7 @@ import logging
 from openxc.generator.coder import CodeGenerator
 from openxc.generator.message_sets import JsonMessageSet
 from openxc.utils import fatal_error, load_json_from_search_path
+from .common import configure_logging
 
 LOG = logging.getLogger(__name__)
 
@@ -51,6 +52,7 @@ def parse_options():
 
 
 def main():
+    configure_logging()
     arguments = parse_options()
 
     search_paths = arguments.search_paths or []
