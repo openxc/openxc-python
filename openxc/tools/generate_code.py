@@ -13,9 +13,9 @@ import sys
 import argparse
 import logging
 
-from .generator.coder import CodeGenerator
-from .utils import fatal_error, load_json_from_search_path
-from .generator.message_sets import JsonMessageSet
+from openxc.generator.coder import CodeGenerator
+from openxc.generator.message_sets import JsonMessageSet
+from openxc.utils import fatal_error, load_json_from_search_path
 
 LOG = logging.getLogger(__name__)
 
