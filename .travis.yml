@@ -5,7 +5,6 @@ python:
   - "3.2"
 before_install:
     - pip install pyserial
-    - pip install requests
 script: python setup.py test
 notifications:
   hipchat:
