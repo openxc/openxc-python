@@ -56,7 +56,7 @@ def main():
     arguments = parse_options()
 
     search_paths = arguments.search_paths or []
-    search_paths.append(DEFAULT_SEARCH_PATH)
+    search_paths.insert(0, DEFAULT_SEARCH_PATH)
 
     message_sets = arguments.message_sets or []
     if arguments.super_set is not None:
