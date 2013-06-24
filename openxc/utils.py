@@ -81,9 +81,11 @@ def merge(a, b):
 def find_file(filename, search_paths):
     for search_path in search_paths:
         if filename[0] != '/':
-            filename = "%s/%s" % (search_path, filename)
-        if os.path.exists(filename):
-            return filename
+            full_path = "%s/%s" % (search_path, filename)
+        else:
+            full_path = filename
+        if os.path.exists(full_path):
+            return full_path
     fatal_error("Unable to find '%s' in search paths (%s)" % (
             filename, search_paths))
 
