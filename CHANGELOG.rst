@@ -4,6 +4,9 @@ OpenXC Python Library Changelog
 v0.9.4-dev
 ----------
 
+* Move vehicle interface code generation utilites from cantranslator repository
+  to this Python library
+
 v0.9.3
 ------
 
