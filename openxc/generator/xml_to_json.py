@@ -46,7 +46,8 @@ class Network(object):
                 LOG.warning("Unable to find message ID 0x%x in %s" % (message_id,
                   database_name))
             else:
-                self.messages[message_id] = Message(node, message['signals'])
+                self.messages[message_id] = XMLBackedMessage.from_xml_node(
+                    node, message['signals'])
 
     def to_dict(self):
         return {'messages': dict(("0x%x" % message.id,
@@ -66,7 +67,7 @@ class XMLBackedMessage(Message):
         for signal_name in mapped_signals.keys():
             mapped_signal_node = node.find("Signal[Name=\"%s\"]" % signal_name)
             if mapped_signal_node is not None:
-                mapped_signal = Signal.from_xml_node(mapped_signal_node)
+                mapped_signal = XMLBackedSignal.from_xml_node(mapped_signal_node)
                 mapped_signal.generic_name = signal_name
                 message.signals[signal_name] = mapped_signal
 
