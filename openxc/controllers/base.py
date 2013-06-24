@@ -15,7 +15,7 @@ class Controller(object):
 
     def write(self, raw=False, **kwargs):
         if raw:
-            result = self.write_raw(kwargs['message_id'], kwargs['data'])
+            result = self.write_raw(kwargs['id'], kwargs['data'])
         else:
             result = self.write_translated(kwargs['name'], kwargs['value'],
                     kwargs['event'])

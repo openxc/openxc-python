@@ -49,8 +49,7 @@ def write_file(controller, filename, raw=False):
                         - time.time()))
 
                 message_count += 1
-                controller.write(raw=raw,
-                        **parsed_message)
+                controller.write(raw=raw, **parsed_message)
         print("%d lines sent" % message_count)
         if corrupt_entries > 0:
             print("%d invalid lines in the data file were not sent" %
