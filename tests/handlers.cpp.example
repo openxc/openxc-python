@@ -1,0 +1,22 @@
+#include "can/canread.h"
+
+using openxc::can::read::sendNumericalMessage;
+
+void handleSteeringWheelMessage(int messageId, uint64_t data, CanSignal* signals,
+        int signalCount, Pipeline* pipeline) {
+    sendNumericalMessage("latitude", 42.0, pipeline);
+}
+
+float handleInvertedSteeringWheel(CanSignal* signal, CanSignal* signals,
+        int signalCount, float value, bool* send) {
+    return value * -1;
+}
+
+void initializeMyStuff() { }
+
+void initializeOtherStuff() { }
+
+void myLooper() {
+    // this function will be called once each time through the main loop, after
+    // all CAN message processing has been completed
+}
