@@ -4,7 +4,7 @@ openxc - Python Library for the OpenXC Platform
 
 .. image:: /_static/logo.png
 
-:Version: 0.9.4-dev
+:Version: 0.9.4
 :Web: http://openxcplatform.com
 :Download: http://pypi.python.org/pypi/openxc/
 :Documentation: http://python.openxcplatform.com

@@ -1,11 +1,12 @@
 OpenXC Python Library Changelog
 ===============================
 
-v0.9.4-dev
+v0.9.4
 ----------
 
 * Move vehicle interface code generation utilites from cantranslator repository
   to this Python library
+* Support playing back a raw CAN trace file at the same speed it was recorded.
 
 v0.9.3
 ------
