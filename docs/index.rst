@@ -112,8 +112,22 @@ The `latest documentation`_ with user guides, tutorials and API reference
 is hosted at Read The Docs. For general documentation on the OpenXC platform,
 visit the main `OpenXC site`_.
 
+
 .. _`latest documentation`: http://openxcplatform.com/openxc-python
 .. _`OpenXC site`: http://openxcplatform.com
+
+VI Firmware Code Generation
+----------------------------
+
+For information on the code generation tools for the `OpenXC vehicle interface
+firmware <http://vi-firmware.openxcplatform.com>`_ (previous a part of the
+`cantranslator <https://github.com/openxc/cantranslator>`_ repository), see the
+:doc:`code generation documentation <code-generation>`.
+
+.. toctree::
+    :maxdepth: 2
+
+    code-generation
 
 Tools
 ------
