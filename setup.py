@@ -11,7 +11,7 @@ except ImportError:
 
 long_description = open('README.rst').read()
 
-install_reqs = ['pyusb', 'units >= 0.5', 'argparse', 'requests',]
+install_reqs = ['pyusb', 'units >= 0.5', 'argparse', 'requests==1.1.0',]
 
 setup(name='openxc',
     version=get_version(),
@@ -33,8 +33,8 @@ setup(name='openxc',
     tests_require=['nose'],
     install_requires=install_reqs,
     extras_require = {
-        'HTTP':  ["requests==1.1.0"],
         'serial': ["pyserial"],
+        'lxml': ["lxml"],
     },
     entry_points={
         'console_scripts': [
