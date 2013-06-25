@@ -71,7 +71,7 @@ added to the main loop.</p>
 path will work. If you use relative paths, however, they must be relative
 to the root of wherever you run the build scripts.</p>
 <p>Once you&#8217;ve defined your message set in a JSON file, run the
-<cite>openxc-generate-firmware-code</cite> tool to create an implementation of
+<tt class="docutils literal"><span class="pre">openxc-generate-firmware-code</span></tt> tool to create an implementation of
 <tt class="docutils literal"><span class="pre">signals.cpp</span></tt>:</p>
 <div class="highlight-sh"><div class="highlight"><pre>cantranslator/ <span class="nv">$ </span>openxc-generate-firmware-code --message-set mycar.json &gt; src/signals.cpp
 </pre></div>
@@ -173,7 +173,7 @@ messages from one call to your handler function.</p>
 <p>Using a custom message handler will not automatically stop the normal
 translation workflow for individual signals. To mute them (but still store
 their values in <tt class="docutils literal"><span class="pre">signal-&gt;lastvalue</span></tt>), specify <tt class="docutils literal"><span class="pre">ignoreHandler</span></tt> as the
-<tt class="docutils literal"><span class="pre">value_handler</span></tt>. This is not done by default because not every signal in
+<tt class="docutils literal"><span class="pre">handler</span></tt>. This is not done by default because not every signal in
 a message is always handled by a message handler.</p>
 </div>
 <div class="section" id="signal">
@@ -253,7 +253,7 @@ combination happen inside the VI, you can use a custom handler.</p>
 <p>You may also need a custom handler to return a value of a type other
 than float. A handler is provided for dealing with boolean values, the
 <tt class="docutils literal"><span class="pre">booleanHandler</span></tt> - if you specify that as your signal&#8217;s
-<tt class="docutils literal"><span class="pre">value_handler</span></tt> the resulting JSON will contain <tt class="docutils literal"><span class="pre">true</span></tt> for 1.0 and
+<tt class="docutils literal"><span class="pre">handler</span></tt> the resulting JSON will contain <tt class="docutils literal"><span class="pre">true</span></tt> for 1.0 and
 <tt class="docutils literal"><span class="pre">false</span></tt> for 0.0. If you want to translate integer state values to
 string names (for parsing as an enum, for example) you will need to
 write a value handler that returns a <tt class="docutils literal"><span class="pre">char*</span></tt>.</p>
@@ -262,7 +262,7 @@ by setting the sign positive or negative based on the value of the other
 signal (<tt class="docutils literal"><span class="pre">steering_angle_sign</span></tt>). Every time a CAN signal is received, the
 new value is stored in memory. Our custom handler
 <tt class="docutils literal"><span class="pre">handleSteeringWheelAngle</span></tt> will use that to adjust the raw steering
-wheel angle value. Modify the input JSON file to set the <tt class="docutils literal"><span class="pre">value_handler</span></tt>
+wheel angle value. Modify the input JSON file to set the <tt class="docutils literal"><span class="pre">handler</span></tt>
 attribute for the steering wheel angle signal to
 <tt class="docutils literal"><span class="pre">handleSteeringWheelAngle</span></tt>.</p>
 <p>Add this to the top of <tt class="docutils literal"><span class="pre">signals.cpp</span></tt> (or if using the mapping file, add it to
