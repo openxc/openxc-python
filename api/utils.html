@@ -85,6 +85,47 @@
 
 </dd></dl>
 
+<dl class="function">
+<dt id="openxc.utils.fatal_error">
+<tt class="descclassname">openxc.utils.</tt><tt class="descname">fatal_error</tt><big>(</big><em>message</em><big>)</big><a class="headerlink" href="#openxc.utils.fatal_error" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="openxc.utils.find_file">
+<tt class="descclassname">openxc.utils.</tt><tt class="descname">find_file</tt><big>(</big><em>filename</em>, <em>search_paths</em><big>)</big><a class="headerlink" href="#openxc.utils.find_file" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="openxc.utils.load_json_from_search_path">
+<tt class="descclassname">openxc.utils.</tt><tt class="descname">load_json_from_search_path</tt><big>(</big><em>filename</em>, <em>search_paths</em><big>)</big><a class="headerlink" href="#openxc.utils.load_json_from_search_path" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="openxc.utils.merge">
+<tt class="descclassname">openxc.utils.</tt><tt class="descname">merge</tt><big>(</big><em>a</em>, <em>b</em><big>)</big><a class="headerlink" href="#openxc.utils.merge" title="Permalink to this definition">¶</a></dt>
+<dd><p>Merge two deep dicts non-destructively</p>
+<p>Uses a stack to avoid maximum recursion depth exceptions</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;a&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">:</span> <span class="p">{</span><span class="mi">1</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="mi">2</span><span class="p">},</span> <span class="s">&#39;d&#39;</span><span class="p">:</span> <span class="mi">6</span><span class="p">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;c&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">:</span> <span class="p">{</span><span class="mi">2</span><span class="p">:</span> <span class="mi">7</span><span class="p">},</span> <span class="s">&#39;d&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s">&#39;z&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]}}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">merge</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span><span class="p">;</span> <span class="n">pprint</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+<span class="go">{&#39;a&#39;: 1, &#39;b&#39;: {1: 1, 2: 7}, &#39;c&#39;: 3, &#39;d&#39;: {&#39;z&#39;: [1, 2, 3]}}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="openxc.utils.quacks_like_dict">
+<tt class="descclassname">openxc.utils.</tt><tt class="descname">quacks_like_dict</tt><big>(</big><em>object</em><big>)</big><a class="headerlink" href="#openxc.utils.quacks_like_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if object is dict-like</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="openxc.utils.quacks_like_list">
+<tt class="descclassname">openxc.utils.</tt><tt class="descname">quacks_like_list</tt><big>(</big><em>object</em><big>)</big><a class="headerlink" href="#openxc.utils.quacks_like_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if object is list-like</p>
+</dd></dl>
+
 </div>
 
 

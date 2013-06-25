@@ -1,0 +1,502 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Vehicle Interface (VI) Code Generation &mdash; OpenXC for Python 0.9.4 documentation</title>
+    
+    <link rel="stylesheet" href="_static/rtd.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.9.4',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="OpenXC for Python 0.9.4 documentation" href="index.html" />
+    <link rel="next" title="openxc-control options and arguments" href="tools/control.html" />
+    <link rel="prev" title="OpenXC for Python" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="tools/control.html" title="openxc-control options and arguments"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="OpenXC for Python"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">OpenXC for Python 0.9.4 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="vehicle-interface-vi-code-generation">
+<h1>Vehicle Interface (VI) Code Generation<a class="headerlink" href="#vehicle-interface-vi-code-generation" title="Permalink to this headline">¶</a></h1>
+<p>The code generation utilities in the OpenXC Python library are intended to
+generate a valid <tt class="docutils literal"><span class="pre">signals.cpp</span></tt> file for the <a class="reference external" href="http://vi-firmware.openxcplatform.com">OpenXC vehicle interface firmware</a>. Instead of implementing all of the
+boilerplate C++ and C-structs by hand, you can maintain the CAN message
+definitions in a much easier to read and modify JSON format. The input format is
+a JSON object like the one found in <a class="reference external" href="https://github.com/openxc/cantranslator/blob/master/src/signals.json.example">signals.json.example</a>.</p>
+<p>You must know the CAN message formats of the vehicle you want to use with the
+vehicle interface, as you cannot create these input files without that
+knowledge.</p>
+<p>The root level JSON object maps CAN bus addresses to CAN bus objects,  CAN
+message IDs to CAN message objects in each bus, and CAN signal name to signal
+object within each message. Other top-level sections are available to list
+one-time initialization functions and to list arbitrary functions that should be
+added to the main loop.</p>
+<p>In all cases when we refer to a &#8220;path,&#8221; either an absolute or relative
+path will work. If you use relative paths, however, they must be relative
+to the root of wherever you run the build scripts.</p>
+<p>Once you&#8217;ve defined your message set in a JSON file, run the
+<cite>openxc-generate-firmware-code</cite> tool to create an implementation of
+<tt class="docutils literal"><span class="pre">signals.cpp</span></tt>:</p>
+<div class="highlight-sh"><div class="highlight"><pre>cantranslator/ <span class="nv">$ </span>openxc-generate-firmware-code --message-set mycar.json &gt; src/signals.cpp
+</pre></div>
+</div>
+<div class="section" id="message-set-name">
+<h2>Message Set Name<a class="headerlink" href="#message-set-name" title="Permalink to this headline">¶</a></h2>
+<p>Each JSON mapping file defines a &#8220;message set,&#8221; and it should have a name.
+Typically this identifies a particular model year vehicle, or possibly a broader
+vehicle platform. The <tt class="docutils literal"><span class="pre">name</span></tt> field is required.</p>
+<p><tt class="docutils literal"><span class="pre">bit_numbering_inverted</span></tt> - (optional, <tt class="docutils literal"><span class="pre">true</span></tt> by default) This flag controls
+the default <a class="reference internal" href="#bit-numbering"><em>bit numbering</em></a> for all messages included in this message set.
+You can override the bit numbering for any particular message or mapping, too.</p>
+</div>
+<div class="section" id="parent-message-sets">
+<h2>Parent Message Sets<a class="headerlink" href="#parent-message-sets" title="Permalink to this headline">¶</a></h2>
+<p>Message sets are composable - you can extend a set by adding a path to the
+parent(s) to the <tt class="docutils literal"><span class="pre">parents</span></tt> key.</p>
+</div>
+<div class="section" id="initializers">
+<h2>Initializers<a class="headerlink" href="#initializers" title="Permalink to this headline">¶</a></h2>
+<p>The key <tt class="docutils literal"><span class="pre">initializers</span></tt> should have as its value an array of strings. Each
+string should be the name of a function with the type signature:</p>
+<div class="highlight-c"><div class="highlight"><pre><span class="kt">void</span> <span class="nf">function</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>These functions will be called once at the beginning of execution, before
+reading any CAN messages.</p>
+</div>
+<div class="section" id="loopers">
+<h2>Loopers<a class="headerlink" href="#loopers" title="Permalink to this headline">¶</a></h2>
+<p>The key <tt class="docutils literal"><span class="pre">loopers</span></tt> should have as its value an array of strings. Each
+string should be the name of a function with the type signature:</p>
+<div class="highlight-c"><div class="highlight"><pre><span class="kt">void</span> <span class="nf">function</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>These functions will be called once each time through the main loop function,
+after reading and processing any CAN messages.</p>
+</div>
+<div class="section" id="can-buses">
+<h2>CAN Buses<a class="headerlink" href="#can-buses" title="Permalink to this headline">¶</a></h2>
+<p>The key <tt class="docutils literal"><span class="pre">buses</span></tt> must be an object, where each field is a CAN bus uses by this
+message set, and which CAN controllers are attached on the microcontroller. The</p>
+<p><tt class="docutils literal"><span class="pre">controller</span></tt> - The integer ID of the CAN controller to which this bus is
+attached. The platforms we are using now only have 2 CAN controllers, identified
+here by <tt class="docutils literal"><span class="pre">1</span></tt> and <tt class="docutils literal"><span class="pre">2</span></tt> - these are the only acceptable bus addresses. If this
+field is not defined, the bus and any messages associated with it will be
+ignored (but it won&#8217;t cause an error, so you can swap between buses very
+quickly).</p>
+<p><tt class="docutils literal"><span class="pre">speed</span></tt> - The CAN bus speed in Kbps, most often 125000 or 500000.</p>
+</div>
+<div class="section" id="can-messages">
+<span id="messages"></span><h2>CAN Messages<a class="headerlink" href="#can-messages" title="Permalink to this headline">¶</a></h2>
+<p>The <tt class="docutils literal"><span class="pre">messages</span></tt> key is a object with fields mapping from CAN message IDs
+to signal definitions. The fields must be hex IDs of CAN messages as
+strings (e.g. <tt class="docutils literal"><span class="pre">0x90</span></tt>).</p>
+<div class="section" id="message">
+<h3>Message<a class="headerlink" href="#message" title="Permalink to this headline">¶</a></h3>
+<p>The attributes of each message object are:</p>
+<p><tt class="docutils literal"><span class="pre">bus</span></tt> - The name of one of the previously defined CAN buses where this message
+can be found.</p>
+<p><tt class="docutils literal"><span class="pre">bit_numbering_inverted</span></tt> - (optional, defaults to the value of the message set)
+This flag controls the default <a class="reference internal" href="#bit-numbering"><em>bit numbering</em></a> for the signals in this message.</p>
+<p><tt class="docutils literal"><span class="pre">signals</span></tt> - A list of CAN signal objects (described in the <a class="reference internal" href="#signal"><em>Signal</em></a>
+section) that are in this message, with the name of the signal as the key. If
+this is a database-backed mappping, this value must match the signal name in the
+database exactly - otherwise, it&#8217;s an arbitrary name.</p>
+<p><tt class="docutils literal"><span class="pre">name</span></tt> - (optional) The name of the CAN message - this is not required and has
+no meaning in code, it can just be handy to be able to refer back to an original
+CAN message definition in another document.</p>
+<p><tt class="docutils literal"><span class="pre">handler</span></tt> - (optional) The name of a function that will be compiled with the
+firmware and should be applied to the entire raw message value (see
+<a class="reference internal" href="#message-handlers"><em>Message Handlers</em></a>).</p>
+<p><tt class="docutils literal"><span class="pre">enabled</span></tt> - (optional, true by default) Enable or disable all processing of a
+CAN message. By default, a message is enabled. If this flag is false, the CAN
+message and all its signals will be left out of the generated source code.</p>
+</div>
+<div class="section" id="message-handlers">
+<span id="id1"></span><h3>Message Handlers<a class="headerlink" href="#message-handlers" title="Permalink to this headline">¶</a></h3>
+<p>If you need additional control, you can provide a custom handler for the
+entire message to combine multiple signals into a single value (or any
+other arbitrary processing). You can generate 0, 1 or many translated
+messages from one call to your handler function.</p>
+<div class="highlight-c"><div class="highlight"><pre><span class="kt">void</span> <span class="nf">handleSteeringWheelMessage</span><span class="p">(</span><span class="kt">int</span> <span class="n">messageId</span><span class="p">,</span> <span class="kt">uint64_t</span> <span class="n">data</span><span class="p">,</span>
+        <span class="n">CanSignal</span><span class="o">*</span> <span class="n">signals</span><span class="p">,</span> <span class="kt">int</span> <span class="n">signalCount</span><span class="p">,</span> <span class="n">Pipeline</span><span class="o">*</span> <span class="n">pipeline</span><span class="p">);</span>
+    <span class="kt">float</span> <span class="n">steeringWheelAngle</span> <span class="o">=</span> <span class="n">decodeCanSignal</span><span class="p">(</span><span class="o">&amp;</span><span class="n">signals</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">data</span><span class="p">);</span>
+    <span class="kt">float</span> <span class="n">steeringWheelSign</span> <span class="o">=</span> <span class="n">decodeCanSignal</span><span class="p">(</span><span class="o">&amp;</span><span class="n">signals</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">data</span><span class="p">);</span>
+
+    <span class="kt">float</span> <span class="n">finalValue</span> <span class="o">=</span> <span class="n">steeringWheelAngle</span><span class="p">;</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">steeringWheelSign</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// left turn</span>
+        <span class="n">finalValue</span> <span class="o">*=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="kt">char</span><span class="o">*</span> <span class="n">message</span> <span class="o">=</span> <span class="n">generateJson</span><span class="p">(</span><span class="n">signals</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">finalValue</span><span class="p">);</span>
+    <span class="n">sendMessage</span><span class="p">(</span><span class="n">usbDevice</span><span class="p">,</span> <span class="p">(</span><span class="kt">uint64_t</span><span class="o">*</span><span class="p">)</span> <span class="n">message</span><span class="p">,</span> <span class="n">strlen</span><span class="p">(</span><span class="n">message</span><span class="p">));</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Using a custom message handler will not automatically stop the normal
+translation workflow for individual signals. To mute them (but still store
+their values in <tt class="docutils literal"><span class="pre">signal-&gt;lastvalue</span></tt>), specify <tt class="docutils literal"><span class="pre">ignoreHandler</span></tt> as the
+<tt class="docutils literal"><span class="pre">value_handler</span></tt>. This is not done by default because not every signal in
+a message is always handled by a message handler.</p>
+</div>
+<div class="section" id="signal">
+<span id="id2"></span><h3>Signal<a class="headerlink" href="#signal" title="Permalink to this headline">¶</a></h3>
+<p>The attributes of a <tt class="docutils literal"><span class="pre">signal</span></tt> object within a <tt class="docutils literal"><span class="pre">message</span></tt> are:</p>
+<p><tt class="docutils literal"><span class="pre">generic_name</span></tt> - The name of the associated generic signal name (from
+the OpenXC specification) that this should be translated to. Optional -
+if not specified, the signal is read and stored in memory, but not sent
+to the output bus. This is handy for combining the value of multiple
+signals into a composite measurement such as steering wheel angle with
+its sign.</p>
+<p><tt class="docutils literal"><span class="pre">bit_position</span></tt> - (required only if not a database-backed mapping) The staring
+bit position of this signal within the message.</p>
+<p><tt class="docutils literal"><span class="pre">bit_size</span></tt> - (required only if not a database-backed mapping) The width in
+bits of the signal.</p>
+<p><tt class="docutils literal"><span class="pre">factor</span></tt> - (required only if not a database-backed mapping) The signal value
+is multiplied by this if set. Optional.</p>
+<p><tt class="docutils literal"><span class="pre">offset</span></tt> - (required only if not a database-backed mapping) This is added to
+the signal value if set. Optional.</p>
+<p><tt class="docutils literal"><span class="pre">handler</span></tt> - (optional) The name of a function that will be compiled with the
+firmware and should be applied to the signal&#8217;s value after the normal
+translation. See the <a class="reference internal" href="#value-handlers"><em>Value Handlers</em></a> section for details.</p>
+<p><tt class="docutils literal"><span class="pre">ignore</span></tt> - (default: false) Setting this to <tt class="docutils literal"><span class="pre">true</span></tt> on a signal will silence
+output of the signal. The VI will not monitor the signal nor store any of its
+values. This is useful if you are using a custom handler for an entire message,
+want to silence the normal output of the signals it handles, <em>and</em> you don&#8217;t
+need the VI to keep track of the values of any of the signals separately (in the
+<tt class="docutils literal"><span class="pre">lastValue</span></tt> field). If you need to use the previously stored values of any of
+the signals, you can use the <tt class="docutils literal"><span class="pre">ignoreHandler</span></tt> as a value handler for the
+signal.</p>
+<p><tt class="docutils literal"><span class="pre">states</span></tt> - (required only for state-based signals) This is a mapping between
+the desired descriptive states (e.g. <tt class="docutils literal"><span class="pre">off</span></tt>) and the corresponding numerical
+values from the CAN message (usually an integer). The raw values are specified
+as a list to accommodate multiple raw states being coalesced into a single final
+state (e.g. key off and key removed both mapping to just &#8220;off&#8221;).</p>
+<p><tt class="docutils literal"><span class="pre">send_frequency</span></tt> - (default: 1) Some CAN signals are sent at a very high
+frequency, likely more often than will ever be useful to an application. The
+value of this attribute is used as the denominator in the ratio <tt class="docutils literal"><span class="pre">1/x</span></tt> to
+determine the percentage of the signals that will be let through. The default
+value (<tt class="docutils literal"><span class="pre">1</span></tt>) means that <tt class="docutils literal"><span class="pre">1/1</span></tt> (i.e. 100%) of the signal values received will
+be translated. Increasing the value will reduce the number of messages that are
+sent - a value of <tt class="docutils literal"><span class="pre">10</span></tt> means that only <tt class="docutils literal"><span class="pre">1/10</span></tt> messages (i.e. every 10th
+message) is processed. You don&#8217;t want to combine this attribute with
+<tt class="docutils literal"><span class="pre">send_same</span></tt> or else you risk missing a status change message if wasn&#8217;t one of
+the messages the VI decided to let through.</p>
+<p><tt class="docutils literal"><span class="pre">send_same</span></tt> - (default: <tt class="docutils literal"><span class="pre">true</span></tt>) By default, all signals are translated every
+time they are received from the CAN bus. By setting this to <tt class="docutils literal"><span class="pre">false</span></tt>, you can
+force a signal to be sent only if the value has actually changed. This works
+best with boolean and state based signals.</p>
+<p><tt class="docutils literal"><span class="pre">writable</span></tt> - (default: <tt class="docutils literal"><span class="pre">false</span></tt>) Set this attribute to <tt class="docutils literal"><span class="pre">true</span></tt> to allow this
+signal to be written back to the CAN bus by an application. OpenXC
+JSON-formatted messages sent back to the VI that are writable are translated
+back into raw CAN messages and written to the bus. By default, the value will be
+interpreted as a floating point number.</p>
+<p><tt class="docutils literal"><span class="pre">write_handler</span></tt> - (optional, default is a numerical handler) If the signal is
+writable and is not a plain floating point number (i.e. it is a boolean or state
+value), you can specify a custom function here to encode the value for a CAN
+messages. This is only necessary for boolean types at the moment - if your
+signal has states defined, we assume you need to encode a string state value
+back to its original numerical value.</p>
+<p><tt class="docutils literal"><span class="pre">enabled</span></tt> - (optional, true by default) Enable or disable all processing of a
+CAN signal. By default, a signal is enabled; if this flag is false, the signal
+will be left out of the generated source code.</p>
+</div>
+<div class="section" id="value-handlers">
+<span id="id3"></span><h3>Value Handlers<a class="headerlink" href="#value-handlers" title="Permalink to this headline">¶</a></h3>
+<p>The default value handler for each signal is a simple passthrough,
+translating the signal&#8217;s value from engineering units to something more
+usable (using the defined factor and offset). Some signals require
+additional processing that you may wish to do within the VI and
+not on the host device. Other signals may need to be combined to make a
+composite signal that&#8217;s more meaningful to developers.</p>
+<p>An good example is steering wheel angle. For an app developer to get a
+value that ranges from e.g. -350 to +350, we need to combine two
+different signals - the angle and the sign. If you want to make this
+combination happen inside the VI, you can use a custom handler.</p>
+<p>You may also need a custom handler to return a value of a type other
+than float. A handler is provided for dealing with boolean values, the
+<tt class="docutils literal"><span class="pre">booleanHandler</span></tt> - if you specify that as your signal&#8217;s
+<tt class="docutils literal"><span class="pre">value_handler</span></tt> the resulting JSON will contain <tt class="docutils literal"><span class="pre">true</span></tt> for 1.0 and
+<tt class="docutils literal"><span class="pre">false</span></tt> for 0.0. If you want to translate integer state values to
+string names (for parsing as an enum, for example) you will need to
+write a value handler that returns a <tt class="docutils literal"><span class="pre">char*</span></tt>.</p>
+<p>For this example, we want to modify the value of <tt class="docutils literal"><span class="pre">steering_wheel_angle</span></tt>
+by setting the sign positive or negative based on the value of the other
+signal (<tt class="docutils literal"><span class="pre">steering_angle_sign</span></tt>). Every time a CAN signal is received, the
+new value is stored in memory. Our custom handler
+<tt class="docutils literal"><span class="pre">handleSteeringWheelAngle</span></tt> will use that to adjust the raw steering
+wheel angle value. Modify the input JSON file to set the <tt class="docutils literal"><span class="pre">value_handler</span></tt>
+attribute for the steering wheel angle signal to
+<tt class="docutils literal"><span class="pre">handleSteeringWheelAngle</span></tt>.</p>
+<p>Add this to the top of <tt class="docutils literal"><span class="pre">signals.cpp</span></tt> (or if using the mapping file, add it to
+a separate <tt class="docutils literal"><span class="pre">.cpp</span></tt> file and then add that filename to the <tt class="docutils literal"><span class="pre">extra_sources</span></tt>
+field):</p>
+<div class="highlight-c"><div class="highlight"><pre><span class="kt">float</span> <span class="nf">handleSteeringWheelAngle</span><span class="p">(</span><span class="n">CanSignal</span><span class="o">*</span> <span class="n">signal</span><span class="p">,</span> <span class="n">CanSignal</span><span class="o">*</span> <span class="n">signals</span><span class="p">,</span>
+        <span class="kt">int</span> <span class="n">signalCount</span><span class="p">,</span> <span class="kt">float</span> <span class="n">value</span><span class="p">,</span> <span class="kt">bool</span><span class="o">*</span> <span class="n">send</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">signal</span><span class="o">-&gt;</span><span class="n">lastValue</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// left turn</span>
+        <span class="n">value</span> <span class="o">*=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">value</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The valid return types for value handlers are <tt class="docutils literal"><span class="pre">bool</span></tt>, <tt class="docutils literal"><span class="pre">float</span></tt> and
+<tt class="docutils literal"><span class="pre">char*</span></tt> - the function prototype must match one of:</p>
+<div class="highlight-c"><div class="highlight"><pre><span class="kt">char</span><span class="o">*</span> <span class="nf">customHandler</span><span class="p">(</span><span class="n">CanSignal</span><span class="o">*</span> <span class="n">signal</span><span class="p">,</span> <span class="n">CanSignal</span><span class="o">*</span> <span class="n">signals</span><span class="p">,</span> <span class="kt">int</span> <span class="n">signalCount</span><span class="p">,</span>
+        <span class="kt">float</span> <span class="n">value</span><span class="p">,</span> <span class="kt">bool</span><span class="o">*</span> <span class="n">send</span><span class="p">);</span>
+
+<span class="kt">float</span> <span class="nf">customHandler</span><span class="p">(</span><span class="n">CanSignal</span><span class="o">*</span> <span class="n">signal</span><span class="p">,</span> <span class="n">CanSignal</span><span class="o">*</span> <span class="n">signals</span><span class="p">,</span> <span class="kt">int</span> <span class="n">signalCount</span><span class="p">,</span>
+        <span class="kt">float</span> <span class="n">value</span><span class="p">,</span> <span class="kt">bool</span><span class="o">*</span> <span class="n">send</span><span class="p">);</span>
+
+<span class="kt">bool</span> <span class="nf">customhandler</span><span class="p">(</span><span class="n">cansignal</span><span class="o">*</span> <span class="n">signal</span><span class="p">,</span> <span class="n">cansignal</span><span class="o">*</span> <span class="n">signals</span><span class="p">,</span> <span class="kt">int</span> <span class="n">signalCount</span><span class="p">,</span>
+        <span class="kt">float</span> <span class="n">value</span><span class="p">,</span> <span class="kt">bool</span><span class="o">*</span> <span class="n">send</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>where <tt class="docutils literal"><span class="pre">signal</span></tt> is a pointer to the <tt class="docutils literal"><span class="pre">CanSignal</span></tt> this is handling,
+<tt class="docutils literal"><span class="pre">signals</span></tt> is an array of all signals, <tt class="docutils literal"><span class="pre">value</span></tt> is the raw value
+from CAN and <tt class="docutils literal"><span class="pre">send</span></tt> is a flag to indicate if this should be sent over
+USB.</p>
+<p>The <tt class="docutils literal"><span class="pre">bool*</span> <span class="pre">send</span></tt> parameter is a pointer to a <tt class="docutils literal"><span class="pre">bool</span></tt> you can flip to
+<tt class="docutils literal"><span class="pre">false</span></tt> if this signal value need not be sent over USB. This can be
+useful if you don&#8217;t want to keep notifying the same status over and over
+again, but only in the event of a change in value (you can use the
+<tt class="docutils literal"><span class="pre">lastValue</span></tt> field on the CanSignal object to determine if this is true).
+It&#8217;s also good practice to inspect the value of <tt class="docutils literal"><span class="pre">send</span></tt> when your custom
+handler is called - the normal translation workflow may have decided the
+data shouldn&#8217;t be sent (e.g. the value hasn&#8217;t changed and <tt class="docutils literal"><span class="pre">sendSame</span> <span class="pre">==</span>
+<span class="pre">false</span></tt>). Handlers are called every time a signal is received, even if
+<tt class="docutils literal"><span class="pre">send</span> <span class="pre">==</span> <span class="pre">false</span></tt>, so that you have the flexibility to implement custom
+processing that depends on receiving every data point.</p>
+<p>A known issue with this method is that there is no guarantee that the
+last value of another signal arrived in the message or before/after the
+value you&#8217;re current modifying. For steering wheel angle, that&#8217;s
+probably OK - for other signals, not so much.</p>
+</div>
+</div>
+<div class="section" id="mappings">
+<h2>Mappings<a class="headerlink" href="#mappings" title="Permalink to this headline">¶</a></h2>
+<p>The <tt class="docutils literal"><span class="pre">mappings</span></tt> field is an optional field allows you to move the definitions
+from the <tt class="docutils literal"><span class="pre">messages</span></tt> list to separate files for improved composability and
+readability.</p>
+<p>For an example of a message set using mappings, see the
+<a class="reference external" href="https://github.com/openxc/cantranslator/blob/master/src/mapped-signals.json.example">mapped-signals.json.example</a>
+file in the repository.</p>
+<p>The <tt class="docutils literal"><span class="pre">mappings</span></tt> field must be a list of JSON objects with:</p>
+<p><tt class="docutils literal"><span class="pre">mapping</span></tt> - a path to a JSON file containing a single object with the key
+<tt class="docutils literal"><span class="pre">messages</span></tt>, containing objects formatted as the <a class="reference internal" href="#messages"><em>CAN Messages</em></a> section
+documents. In short, you can pull out the <tt class="docutils literal"><span class="pre">messages</span></tt> key from the main file
+and throw it into a separate file and link it in here.</p>
+<p><tt class="docutils literal"><span class="pre">bus</span></tt> - (optional) The name of one of the defined CAN buses where these
+messages can be found - this value will be set for all of the messages contained
+the mapping file, but can be overridden by setting <tt class="docutils literal"><span class="pre">bus</span></tt> again in an individual
+message.</p>
+<p><tt class="docutils literal"><span class="pre">database</span></tt> - (optional) a path to
+a CAN message database associated with these mappings. Right now, XML exported
+from Vector CANdb++ is supported. If this is defined, you can leave the bit
+position, bit size, factor, offset, max and min values out of the <tt class="docutils literal"><span class="pre">mapping</span></tt>
+file - they will be picked up automatically from the database.</p>
+<p><tt class="docutils literal"><span class="pre">bit_numbering_inverted</span></tt> - (optional, defaults to the value of the message
+set) This flag controls the default <a class="reference internal" href="#bit-numbering"><em>bit numbering</em></a> for the
+messages contained in this mapping. Messages in the mapping can override the bit
+numbering by explicitly specifying their own value for this flag.</p>
+<p><tt class="docutils literal"><span class="pre">enabled</span></tt> - (optional, true by default) Enable or disable all processing of
+the CAN messages in a mapping. By default, a mapping is enabled; if this flag is
+false, all CAN message and signals from the mapping will be excluded from the
+generated source code.</p>
+<div class="section" id="database-backed-mappings">
+<h3>Database-backed Mappings<a class="headerlink" href="#database-backed-mappings" title="Permalink to this headline">¶</a></h3>
+<p>If you use Vector DBC files to store your &#8220;gold standard&#8221; CAN signal
+definitions, you can save some effort by using the static CAN messages
+definition from the database instead of repeating it in JSON.</p>
+<p>In the database <tt class="docutils literal"><span class="pre">mapping</span></tt> file referred to earlier, you only need to define
+(at minimum) the generic name for each signal in the message.</p>
+<p>The code generation script merges your JSON mapping with an XML version of the
+database. It pulls the necessary details of the messages from the database (bit
+position, bit size, offset, etc.), saving you from defining the tedious and
+error-prone parts in multiple places.</p>
+</div>
+</div>
+<div class="section" id="extra-sources">
+<h2>Extra Sources<a class="headerlink" href="#extra-sources" title="Permalink to this headline">¶</a></h2>
+<p>The <tt class="docutils literal"><span class="pre">extra_sources</span></tt> key is an optional list of C++ source files that should be
+injected into the generated <tt class="docutils literal"><span class="pre">signals.cpp</span></tt> file. These may include value
+handlers, message handlers, initializers or custom loopers.</p>
+</div>
+<div class="section" id="commands">
+<h2>Commands<a class="headerlink" href="#commands" title="Permalink to this headline">¶</a></h2>
+<p>The <tt class="docutils literal"><span class="pre">commands</span></tt> field is a mapping of arbitrary command names to functions that
+should be called to run arbitrary code in the VI on-demand (e.g. sending
+multiple CAN signals at once). The value of this attribute is a list of objects
+with these attributes:</p>
+<p><tt class="docutils literal"><span class="pre">name</span></tt> - The name of the command to be recognized on the OpenXC translated
+interface.</p>
+<p><tt class="docutils literal"><span class="pre">enabled</span></tt> - (optional, true by default) Enable or disable all processing of a
+command. By default, a command is enabled. If this flag is false, the command
+will be excluded from the generated source code.</p>
+<p><tt class="docutils literal"><span class="pre">handler</span></tt> - The name of a custom command handler function (that matches the
+<tt class="docutils literal"><span class="pre">CommandHandler</span></tt> function prototype from <tt class="docutils literal"><span class="pre">canutil.h</span></tt>) that should
+be called when the named command arrives over the translated VI interface (e.g.
+USB or Bluetooth).</p>
+<div class="highlight-c"><div class="highlight"><pre><span class="kt">bool</span> <span class="p">(</span><span class="o">*</span><span class="n">CommandHandler</span><span class="p">)(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">name</span><span class="p">,</span> <span class="n">cJSON</span><span class="o">*</span> <span class="n">value</span><span class="p">,</span> <span class="n">cJSON</span><span class="o">*</span> <span class="n">event</span><span class="p">,</span>
+        <span class="n">CanSignal</span><span class="o">*</span> <span class="n">signals</span><span class="p">,</span> <span class="kt">int</span> <span class="n">signalCount</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Any message received from the USB host with that given command name will be
+passed to your handler. This is useful for situations where there isn&#8217;t a 1 to
+1 mapping between OpenXC command and CAN signal, e.g. if the left and right turn
+signal are split into two signals instead of the 1 state-based signal used by
+OpenXC. You can use the <tt class="docutils literal"><span class="pre">sendCanSignal</span></tt> function in <tt class="docutils literal"><span class="pre">canwrite.h</span></tt> to do the
+actual data sending on the CAN bus.</p>
+</div>
+<div class="section" id="bit-numbering">
+<span id="id4"></span><h2>Bit Numbering<a class="headerlink" href="#bit-numbering" title="Permalink to this headline">¶</a></h2>
+<p>Because of different software tools and conventions in the industry, there are
+multiple ways to refer to bits within a CAN message. This doesn&#8217;t change the
+actual data representation (like a different <em>byte</em> order would) but it changes
+how you refer to different bit positions for CAN signals.</p>
+<p>The vehicle interface C++ source assumes the number of the highest order bit of
+a 64-bit CAN message is 0, and the numbering continuous left to right:</p>
+<div class="highlight-none"><div class="highlight"><pre>Hex:         0x83                     46
+Binary:      10000011              01000110
+Bit pos:   0 1 2 3 4 5 6 7   8 9 10 11 12 13 14 15 ...etc.
+</pre></div>
+</div>
+<p>The tool used at Ford to document CAN messages (Vector DBC files) uses an
+&#8220;inverted&#8221; numbering by default. In each byte of a CAN message, they start
+counting bits from the <em>rightmost bit</em>, e.g.:</p>
+<div class="highlight-none"><div class="highlight"><pre>Hex:         0x83                     46
+Binary:      10000011              01000110
+Bit pos:   7 6 5 4 3 2 1 0   15 14 13 12 11 10 9 8 ...etc.
+</pre></div>
+</div>
+<p>When building <tt class="docutils literal"><span class="pre">CanSignal</span></tt> structs manually, you must use the normal,
+non-inverted bit numbering.</p>
+<p>When using JSON mapping format and the code generation tools, you can control
+the bit numbering with the <tt class="docutils literal"><span class="pre">bit_numbering_inverted</span></tt> flag. By default it
+assumes inverted bit ordering (since the most common use case for the mappings
+up until now is the pull data from DBC files).</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Vehicle Interface (VI) Code Generation</a><ul>
+<li><a class="reference internal" href="#message-set-name">Message Set Name</a></li>
+<li><a class="reference internal" href="#parent-message-sets">Parent Message Sets</a></li>
+<li><a class="reference internal" href="#initializers">Initializers</a></li>
+<li><a class="reference internal" href="#loopers">Loopers</a></li>
+<li><a class="reference internal" href="#can-buses">CAN Buses</a></li>
+<li><a class="reference internal" href="#can-messages">CAN Messages</a><ul>
+<li><a class="reference internal" href="#message">Message</a></li>
+<li><a class="reference internal" href="#message-handlers">Message Handlers</a></li>
+<li><a class="reference internal" href="#signal">Signal</a></li>
+<li><a class="reference internal" href="#value-handlers">Value Handlers</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#mappings">Mappings</a><ul>
+<li><a class="reference internal" href="#database-backed-mappings">Database-backed Mappings</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#extra-sources">Extra Sources</a></li>
+<li><a class="reference internal" href="#commands">Commands</a></li>
+<li><a class="reference internal" href="#bit-numbering">Bit Numbering</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">OpenXC for Python</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="tools/control.html"
+                        title="next chapter"><tt class="docutils literal"><span class="pre">openxc-control</span></tt> options and arguments</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/code-generation.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="tools/control.html" title="openxc-control options and arguments"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="OpenXC for Python"
+             >previous</a> |</li>
+        <li><a href="index.html">OpenXC for Python 0.9.4 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2012, Christopher Peplin.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
+  </body>
+</html>

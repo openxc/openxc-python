@@ -24,7 +24,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="OpenXC for Python 0.9.4 documentation" href="#" />
-    <link rel="next" title="openxc-control options and arguments" href="tools/control.html" /> 
+    <link rel="next" title="Vehicle Interface (VI) Code Generation" href="code-generation.html" /> 
   </head>
   <body>
     <div class="related">
@@ -37,7 +37,7 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="tools/control.html" title="openxc-control options and arguments"
+          <a href="code-generation.html" title="Vehicle Interface (VI) Code Generation"
              accesskey="N">next</a> |</li>
         <li><a href="#">OpenXC for Python 0.9.4 documentation</a> &raquo;</li> 
       </ul>
@@ -61,13 +61,13 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Version:</th><td class="field-body">0.9.4-dev</td>
+<tr class="field-odd field"><th class="field-name">Version:</th><td class="field-body">0.9.4</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Web:</th><td class="field-body"><a class="reference external" href="http://openxcplatform.com">http://openxcplatform.com</a></td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Download:</th><td class="field-body"><a class="reference external" href="http://pypi.python.org/pypi/openxc/">http://pypi.python.org/pypi/openxc/</a></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Documentation:</th><td class="field-body"><a class="reference external" href="http://openxcplatform.com/openxc-python">http://openxcplatform.com/openxc-python</a></td>
+<tr class="field-even field"><th class="field-name">Documentation:</th><td class="field-body"><a class="reference external" href="http://python.openxcplatform.com">http://python.openxcplatform.com</a></td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Source:</th><td class="field-body"><a class="reference external" href="http://github.com/openxc/openxc-python/">http://github.com/openxc/openxc-python/</a></td>
 </tr>
@@ -178,6 +178,30 @@ using a virtualenv.</p>
 <p>The <a class="reference external" href="http://openxcplatform.com/openxc-python">latest documentation</a> with user guides, tutorials and API reference
 is hosted at Read The Docs. For general documentation on the OpenXC platform,
 visit the main <a class="reference external" href="http://openxcplatform.com">OpenXC site</a>.</p>
+<div class="section" id="vi-firmware-code-generation">
+<h3>VI Firmware Code Generation<a class="headerlink" href="#vi-firmware-code-generation" title="Permalink to this headline">¶</a></h3>
+<p>For information on the code generation tools for the <a class="reference external" href="http://vi-firmware.openxcplatform.com">OpenXC vehicle interface
+firmware</a> (previous a part of the
+<a class="reference external" href="https://github.com/openxc/cantranslator">cantranslator</a> repository), see the
+<a class="reference internal" href="code-generation.html"><em>code generation documentation</em></a>.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="code-generation.html">Vehicle Interface (VI) Code Generation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="code-generation.html#message-set-name">Message Set Name</a></li>
+<li class="toctree-l2"><a class="reference internal" href="code-generation.html#parent-message-sets">Parent Message Sets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="code-generation.html#initializers">Initializers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="code-generation.html#loopers">Loopers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="code-generation.html#can-buses">CAN Buses</a></li>
+<li class="toctree-l2"><a class="reference internal" href="code-generation.html#can-messages">CAN Messages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="code-generation.html#mappings">Mappings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="code-generation.html#extra-sources">Extra Sources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="code-generation.html#commands">Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="code-generation.html#bit-numbering">Bit Numbering</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
 <div class="section" id="tools">
 <h3>Tools<a class="headerlink" href="#tools" title="Permalink to this headline">¶</a></h3>
 <div class="toctree-wrapper compound">
@@ -229,7 +253,7 @@ visit the main <a class="reference external" href="http://openxcplatform.com">Op
 </div>
 <div class="section" id="contributing">
 <h2>Contributing<a class="headerlink" href="#contributing" title="Permalink to this headline">¶</a></h2>
-<p>Development of <tt class="docutils literal"><span class="pre">openxc-python</span></tt> happens at <a class="reference external" href="https://github.com/openxc/openxc-python">GitHub</a>. Be sure to see our <a class="reference external" href="https://github.com/openxc/openxc-python/blob/master/CONTRIBUTING.mkd">contribution document</a> for details.</p>
+<p>Development of <tt class="docutils literal"><span class="pre">openxc-python</span></tt> happens at <a class="reference external" href="https://github.com/openxc/openxc-python">GitHub</a>. Be sure to see our <a class="reference external" href="https://github.com/openxc/openxc-python/blob/master/CONTRIBUTING.rst">contribution document</a> for details.</p>
 <div class="section" id="mailing-list">
 <h3>Mailing list<a class="headerlink" href="#mailing-list" title="Permalink to this headline">¶</a></h3>
 <p>For discussions about the usage, development, and future of OpenXC, please join
@@ -265,6 +289,9 @@ to our issue tracker at <a class="reference external" href="http://github.com/op
 </ul>
 </li>
 <li><a class="reference internal" href="#documentation">Documentation</a><ul>
+<li><a class="reference internal" href="#vi-firmware-code-generation">VI Firmware Code Generation</a><ul>
+</ul>
+</li>
 <li><a class="reference internal" href="#tools">Tools</a><ul>
 </ul>
 </li>
@@ -283,8 +310,8 @@ to our issue tracker at <a class="reference external" href="http://github.com/op
 </ul>
 
   <h4>Next topic</h4>
-  <p class="topless"><a href="tools/control.html"
-                        title="next chapter"><tt class="docutils literal"><span class="pre">openxc-control</span></tt> options and arguments</a></p>
+  <p class="topless"><a href="code-generation.html"
+                        title="next chapter">Vehicle Interface (VI) Code Generation</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/index.txt"
@@ -317,7 +344,7 @@ to our issue tracker at <a class="reference external" href="http://github.com/op
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="tools/control.html" title="openxc-control options and arguments"
+          <a href="code-generation.html" title="Vehicle Interface (VI) Code Generation"
              >next</a> |</li>
         <li><a href="#">OpenXC for Python 0.9.4 documentation</a> &raquo;</li> 
       </ul>
