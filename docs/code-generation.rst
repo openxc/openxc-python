@@ -25,7 +25,7 @@ path will work. If you use relative paths, however, they must be relative
 to the root of wherever you run the build scripts.
 
 Once you've defined your message set in a JSON file, run the
-`openxc-generate-firmware-code` tool to create an implementation of
+``openxc-generate-firmware-code`` tool to create an implementation of
 ``signals.cpp``:
 
 .. code-block:: sh
