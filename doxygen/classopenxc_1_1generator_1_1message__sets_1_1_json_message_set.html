@@ -47,6 +47,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
+      <li><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -93,7 +94,7 @@ $(document).ready(function(){initNavTree('classopenxc_1_1generator_1_1message__s
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -130,9 +131,8 @@ def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class
 <tr class="memdesc:a2a52a97df15dbd12a749c6c2e5ddcca5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parse Routine. <br/></td></tr>
 <tr class="separator:a2a52a97df15dbd12a749c6c2e5ddcca5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classopenxc_1_1generator_1_1message__sets_1_1_message_set"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classopenxc_1_1generator_1_1message__sets_1_1_message_set')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classopenxc_1_1generator_1_1message__sets_1_1_message_set.html">openxc.generator.message_sets.MessageSet</a></td></tr>
-<tr class="memitem:abbd369ae802b977d7301ba18f3d6de6e inherit pub_methods_classopenxc_1_1generator_1_1message__sets_1_1_message_set"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abbd369ae802b977d7301ba18f3d6de6e"></a>
-def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenxc_1_1generator_1_1message__sets_1_1_message_set.html#abbd369ae802b977d7301ba18f3d6de6e">__init__</a></td></tr>
-<tr class="memdesc:abbd369ae802b977d7301ba18f3d6de6e inherit pub_methods_classopenxc_1_1generator_1_1message__sets_1_1_message_set"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialization Routine. <br/></td></tr>
+<tr class="memitem:abbd369ae802b977d7301ba18f3d6de6e inherit pub_methods_classopenxc_1_1generator_1_1message__sets_1_1_message_set"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenxc_1_1generator_1_1message__sets_1_1_message_set.html#abbd369ae802b977d7301ba18f3d6de6e">__init__</a></td></tr>
+<tr class="memdesc:abbd369ae802b977d7301ba18f3d6de6e inherit pub_methods_classopenxc_1_1generator_1_1message__sets_1_1_message_set"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialization Routine.  <a href="#abbd369ae802b977d7301ba18f3d6de6e">More...</a><br/></td></tr>
 <tr class="separator:abbd369ae802b977d7301ba18f3d6de6e inherit pub_methods_classopenxc_1_1generator_1_1message__sets_1_1_message_set"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a64bd8aaf6a3cb1ce2286e4d8962c59ec inherit pub_methods_classopenxc_1_1generator_1_1message__sets_1_1_message_set"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a64bd8aaf6a3cb1ce2286e4d8962c59ec"></a>
 def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenxc_1_1generator_1_1message__sets_1_1_message_set.html#a64bd8aaf6a3cb1ce2286e4d8962c59ec">valid_buses</a></td></tr>
@@ -187,28 +187,35 @@ def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class
 Additional Inherited Members</h2></td></tr>
 <tr class="inherit_header pub_attribs_classopenxc_1_1generator_1_1message__sets_1_1_message_set"><td colspan="2" onclick="javascript:toggleInherit('pub_attribs_classopenxc_1_1generator_1_1message__sets_1_1_message_set')"><img src="closed.png" alt="-"/>&#160;Public Attributes inherited from <a class="el" href="classopenxc_1_1generator_1_1message__sets_1_1_message_set.html">openxc.generator.message_sets.MessageSet</a></td></tr>
 <tr class="memitem:ab7c5981137f2d6a5638f35443f761a1e inherit pub_attribs_classopenxc_1_1generator_1_1message__sets_1_1_message_set"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab7c5981137f2d6a5638f35443f761a1e"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>name</b></td></tr>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenxc_1_1generator_1_1message__sets_1_1_message_set.html#ab7c5981137f2d6a5638f35443f761a1e">name</a></td></tr>
+<tr class="memdesc:ab7c5981137f2d6a5638f35443f761a1e inherit pub_attribs_classopenxc_1_1generator_1_1message__sets_1_1_message_set"><td class="mdescLeft">&#160;</td><td class="mdescRight">The name object instance. <br/></td></tr>
 <tr class="separator:ab7c5981137f2d6a5638f35443f761a1e inherit pub_attribs_classopenxc_1_1generator_1_1message__sets_1_1_message_set"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a19f8e9c40f2b01594b3bab916dba5573 inherit pub_attribs_classopenxc_1_1generator_1_1message__sets_1_1_message_set"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a19f8e9c40f2b01594b3bab916dba5573"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>buses</b></td></tr>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenxc_1_1generator_1_1message__sets_1_1_message_set.html#a19f8e9c40f2b01594b3bab916dba5573">buses</a></td></tr>
+<tr class="memdesc:a19f8e9c40f2b01594b3bab916dba5573 inherit pub_attribs_classopenxc_1_1generator_1_1message__sets_1_1_message_set"><td class="mdescLeft">&#160;</td><td class="mdescRight">The buses object instance. <br/></td></tr>
 <tr class="separator:a19f8e9c40f2b01594b3bab916dba5573 inherit pub_attribs_classopenxc_1_1generator_1_1message__sets_1_1_message_set"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7e7a1c29557f28b2336367c4d4f35dd1 inherit pub_attribs_classopenxc_1_1generator_1_1message__sets_1_1_message_set"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7e7a1c29557f28b2336367c4d4f35dd1"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>initializers</b></td></tr>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenxc_1_1generator_1_1message__sets_1_1_message_set.html#a7e7a1c29557f28b2336367c4d4f35dd1">initializers</a></td></tr>
+<tr class="memdesc:a7e7a1c29557f28b2336367c4d4f35dd1 inherit pub_attribs_classopenxc_1_1generator_1_1message__sets_1_1_message_set"><td class="mdescLeft">&#160;</td><td class="mdescRight">The initializers object instance. <br/></td></tr>
 <tr class="separator:a7e7a1c29557f28b2336367c4d4f35dd1 inherit pub_attribs_classopenxc_1_1generator_1_1message__sets_1_1_message_set"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a94a12d2e0a9df7103c7abef7d0945a87 inherit pub_attribs_classopenxc_1_1generator_1_1message__sets_1_1_message_set"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a94a12d2e0a9df7103c7abef7d0945a87"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>loopers</b></td></tr>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenxc_1_1generator_1_1message__sets_1_1_message_set.html#a94a12d2e0a9df7103c7abef7d0945a87">loopers</a></td></tr>
+<tr class="memdesc:a94a12d2e0a9df7103c7abef7d0945a87 inherit pub_attribs_classopenxc_1_1generator_1_1message__sets_1_1_message_set"><td class="mdescLeft">&#160;</td><td class="mdescRight">The loopers object instance. <br/></td></tr>
 <tr class="separator:a94a12d2e0a9df7103c7abef7d0945a87 inherit pub_attribs_classopenxc_1_1generator_1_1message__sets_1_1_message_set"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae0bf25b1da069e05e224aeedbe18795e inherit pub_attribs_classopenxc_1_1generator_1_1message__sets_1_1_message_set"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae0bf25b1da069e05e224aeedbe18795e"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>commands</b></td></tr>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenxc_1_1generator_1_1message__sets_1_1_message_set.html#ae0bf25b1da069e05e224aeedbe18795e">commands</a></td></tr>
+<tr class="memdesc:ae0bf25b1da069e05e224aeedbe18795e inherit pub_attribs_classopenxc_1_1generator_1_1message__sets_1_1_message_set"><td class="mdescLeft">&#160;</td><td class="mdescRight">The commands object instance. <br/></td></tr>
 <tr class="separator:ae0bf25b1da069e05e224aeedbe18795e inherit pub_attribs_classopenxc_1_1generator_1_1message__sets_1_1_message_set"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a990f5f4f25f7ab97182d8b3778f7b0bf inherit pub_attribs_classopenxc_1_1generator_1_1message__sets_1_1_message_set"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a990f5f4f25f7ab97182d8b3778f7b0bf"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>extra_sources</b></td></tr>
+<tr class="memitem:a990f5f4f25f7ab97182d8b3778f7b0bf inherit pub_attribs_classopenxc_1_1generator_1_1message__sets_1_1_message_set"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenxc_1_1generator_1_1message__sets_1_1_message_set.html#a990f5f4f25f7ab97182d8b3778f7b0bf">extra_sources</a></td></tr>
+<tr class="memdesc:a990f5f4f25f7ab97182d8b3778f7b0bf inherit pub_attribs_classopenxc_1_1generator_1_1message__sets_1_1_message_set"><td class="mdescLeft">&#160;</td><td class="mdescRight">The extra sources object instance.  <a href="#a990f5f4f25f7ab97182d8b3778f7b0bf">More...</a><br/></td></tr>
 <tr class="separator:a990f5f4f25f7ab97182d8b3778f7b0bf inherit pub_attribs_classopenxc_1_1generator_1_1message__sets_1_1_message_set"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Json Message Set Class. </p>
+
+<p>Definition at line <a class="el" href="message__sets_8py_source.html#l00151">151</a> of file <a class="el" href="message__sets_8py_source.html">message_sets.py</a>.</p>
 </div><hr/>The documentation for this class was generated from the following file:<ul>
-<li>openxc/generator/message_sets.py</li>
+<li>openxc/generator/<a class="el" href="message__sets_8py_source.html">message_sets.py</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -216,7 +223,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>openxc</b></li><li class="navelem"><b>generator</b></li><li class="navelem"><b>message_sets</b></li><li class="navelem"><a class="el" href="classopenxc_1_1generator_1_1message__sets_1_1_json_message_set.html">JsonMessageSet</a></li>
-    <li class="footer">Generated on Sun Jun 30 2013 01:50:27 for OpenXC by
+    <li class="footer">Generated on Sun Jun 30 2013 12:20:33 for OpenXC by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

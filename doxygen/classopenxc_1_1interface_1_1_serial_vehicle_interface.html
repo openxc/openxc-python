@@ -47,6 +47,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
+      <li><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -93,7 +94,7 @@ $(document).ready(function(){initNavTree('classopenxc_1_1interface_1_1_serial_ve
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -121,8 +122,10 @@ Inheritance diagram for openxc.interface.SerialVehicleInterface:</div>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This class is compatibile with an OpenXC CAN translator vehicle interface connected via a virtual serial port (e.g. </p>
 <p>FTDI or Bluetooth). It has full read support and limited write support (no control commands are supported). </p>
+
+<p>Definition at line <a class="el" href="interface_8py_source.html#l00019">19</a> of file <a class="el" href="interface_8py_source.html">interface.py</a>.</p>
 </div><hr/>The documentation for this class was generated from the following file:<ul>
-<li>openxc/interface.py</li>
+<li>openxc/<a class="el" href="interface_8py_source.html">interface.py</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -130,7 +133,7 @@ Inheritance diagram for openxc.interface.SerialVehicleInterface:</div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>openxc</b></li><li class="navelem"><b>interface</b></li><li class="navelem"><a class="el" href="classopenxc_1_1interface_1_1_serial_vehicle_interface.html">SerialVehicleInterface</a></li>
-    <li class="footer">Generated on Sun Jun 30 2013 01:50:27 for OpenXC by
+    <li class="footer">Generated on Sun Jun 30 2013 12:20:33 for OpenXC by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

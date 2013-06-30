@@ -47,6 +47,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
+      <li><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -93,7 +94,7 @@ $(document).ready(function(){initNavTree('classopenxc_1_1vehicle_1_1_vehicle.htm
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -168,6 +169,8 @@ Public Attributes</h2></td></tr>
 <p>A <a class="el" href="classopenxc_1_1vehicle_1_1_vehicle.html" title="The Vehicle class is the main entry point for the OpenXC Python library.">Vehicle</a> represents a connection to at least one vehicle data source and zero or 1 vehicle controllers, which can accept commands to send back to the vehicle. A <a class="el" href="classopenxc_1_1vehicle_1_1_vehicle.html" title="The Vehicle class is the main entry point for the OpenXC Python library.">Vehicle</a> instance can have more than one data source (e.g. if the computer using this library has a secondary GPS data source).</p>
 <p>Most applications will either request synchronous vehicle data measurements using the <code>get</code> method or or with a callback function passed to <code>listen</code>.</p>
 <p>More advanced applications that want access to all raw vehicle data may want to register a <code>DataSink</code> with a <a class="el" href="classopenxc_1_1vehicle_1_1_vehicle.html" title="The Vehicle class is the main entry point for the OpenXC Python library.">Vehicle</a>. </p>
+
+<p>Definition at line <a class="el" href="vehicle_8py_source.html#l00024">24</a> of file <a class="el" href="vehicle_8py_source.html">vehicle.py</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a4b79606c6056c932f7dca10c711bef0d"></a>
 <div class="memitem">
@@ -201,6 +204,31 @@ Public Attributes</h2></td></tr>
   </dd>
 </dl>
 
+<p>Definition at line <a class="el" href="vehicle_8py_source.html#l00032">32</a> of file <a class="el" href="vehicle_8py_source.html">vehicle.py</a>.</p>
+<div class="fragment"><div class="line"><a name="l00032"></a><span class="lineno"><a class="code" href="classopenxc_1_1vehicle_1_1_vehicle.html#a4b79606c6056c932f7dca10c711bef0d">   32</a></span>&#160;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        self.<a class="code" href="classopenxc_1_1vehicle_1_1_vehicle.html#ab9ff835cf983a3200b8f054117ab2252" title="Sources instance.">sources</a> = set()</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <span class="comment">## @var sinks</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="code" href="classopenxc_1_1vehicle_1_1_vehicle.html#ab9ff835cf983a3200b8f054117ab2252">   35</a></span>&#160;        <span class="comment"># Sinks instance.</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        self.<a class="code" href="classopenxc_1_1vehicle_1_1_vehicle.html#a1f9b57d4444f04791adcc8dfc46c0cbe" title="Sinks instance.">sinks</a> = set()</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        <span class="comment">## @var measurements</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="code" href="classopenxc_1_1vehicle_1_1_vehicle.html#a1f9b57d4444f04791adcc8dfc46c0cbe">   38</a></span>&#160;        <span class="comment"># Measurements instance.</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        self.<a class="code" href="classopenxc_1_1vehicle_1_1_vehicle.html#abfda0a0de4fa5febd547d7bfc9341977" title="Measurements instance.">measurements</a> = {}</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;</div>
+<div class="line"><a name="l00041"></a><span class="lineno"><a class="code" href="classopenxc_1_1vehicle_1_1_vehicle.html#abfda0a0de4fa5febd547d7bfc9341977">   41</a></span>&#160;        <span class="keywordflow">if</span> interface <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;            self.<a class="code" href="classopenxc_1_1vehicle_1_1_vehicle.html#a3654575334130a7a1ae4650b840cff49" title="Add a vehicle data source to the instance.">add_source</a>(interface)</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;            <span class="comment">## @var controller</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;            <span class="comment"># The controller instance.</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;            self.<a class="code" href="classopenxc_1_1vehicle_1_1_vehicle.html#a1a6a4841f4a46110a0cb374745ccc2df" title="The controller instance.">controller</a> = interface</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        </div>
+<div class="line"><a name="l00047"></a><span class="lineno"><a class="code" href="classopenxc_1_1vehicle_1_1_vehicle.html#a1a6a4841f4a46110a0cb374745ccc2df">   47</a></span>&#160;        <span class="comment">## @var notifier</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        <span class="comment"># The notifier instance.</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        self.<a class="code" href="classopenxc_1_1vehicle_1_1_vehicle.html#a947bf2da1b758bdcfec086e0fc1da514" title="The notifier instance.">notifier</a> = MeasurementNotifierSink()</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        self.sinks.add(self.<a class="code" href="classopenxc_1_1vehicle_1_1_vehicle.html#a947bf2da1b758bdcfec086e0fc1da514" title="The notifier instance.">notifier</a>)</div>
+<div class="line"><a name="l00051"></a><span class="lineno"><a class="code" href="classopenxc_1_1vehicle_1_1_vehicle.html#a947bf2da1b758bdcfec086e0fc1da514">   51</a></span>&#160;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keyword">def </span><a class="code" href="classopenxc_1_1vehicle_1_1_vehicle.html#a1c805ad75c767720572e83afc57881ab" title="Return the latest measurement for the given class or None if nothing has been received from the vehic...">get</a>(self, measurement_class):</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        <span class="stringliteral">&quot;&quot;&quot;Return the latest measurement for the given class or None if nothing</span></div>
+        has been received from the vehicle.</div>
+</div><!-- fragment -->
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
@@ -232,6 +260,15 @@ Public Attributes</h2></td></tr>
 <p><code>sink</code> should be a sub-class of <code>DataSink</code> or at least have a <code>receive(message, **kwargs)</code> method.</p>
 <p>The sink will be started if it is startable. (i.e. it has a <code>start()</code> method). </p>
 
+<p>Definition at line <a class="el" href="vehicle_8py_source.html#l00105">105</a> of file <a class="el" href="vehicle_8py_source.html">vehicle.py</a>.</p>
+<div class="fragment"><div class="line"><a name="l00105"></a><span class="lineno"><a class="code" href="classopenxc_1_1vehicle_1_1_vehicle.html#a1a86b7a8986d451339d675911fbb518d">  105</a></span>&#160;</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        self.<a class="code" href="classopenxc_1_1vehicle_1_1_vehicle.html#abfda0a0de4fa5febd547d7bfc9341977" title="Measurements instance.">measurements</a>[name] = message</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        <span class="keywordflow">for</span> sink <span class="keywordflow">in</span> self.<a class="code" href="classopenxc_1_1vehicle_1_1_vehicle.html#a1f9b57d4444f04791adcc8dfc46c0cbe" title="Sinks instance.">sinks</a>:</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;            sink.receive(message, **kwargs)</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;</div>
+    <span class="keyword">def </span>_construct_measurement(self, measurement_id):</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a class="anchor" id="a3654575334130a7a1ae4650b840cff49"></a>
@@ -261,6 +298,16 @@ Public Attributes</h2></td></tr>
 <p>Add a vehicle data source to the instance. </p>
 <p>The <a class="el" href="classopenxc_1_1vehicle_1_1_vehicle.html" title="The Vehicle class is the main entry point for the OpenXC Python library.">Vehicle</a> instance will be set as the callback of the source, and the source will be started if it is startable. (i.e. it has a <code>start()</code> method). </p>
 
+<p>Definition at line <a class="el" href="vehicle_8py_source.html#l00090">90</a> of file <a class="el" href="vehicle_8py_source.html">vehicle.py</a>.</p>
+<div class="fragment"><div class="line"><a name="l00090"></a><span class="lineno"><a class="code" href="classopenxc_1_1vehicle_1_1_vehicle.html#a3654575334130a7a1ae4650b840cff49">   90</a></span>&#160;</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="keyword">def </span><a class="code" href="classopenxc_1_1vehicle_1_1_vehicle.html#a1a86b7a8986d451339d675911fbb518d" title="Add a vehicle data sink to the instance.">add_sink</a>(self, sink):</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        <span class="stringliteral">&quot;&quot;&quot;Add a vehicle data sink to the instance. ``sink`` should be a</span></div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<span class="stringliteral">        sub-class of ``DataSink`` or at least have a ``receive(message,</span></div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="stringliteral">        **kwargs)`` method.</span></div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="stringliteral"></span></div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;<span class="stringliteral">        The sink will be started if it is startable. (i.e. it has a ``start()``</span></div>
+        method).</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a class="anchor" id="a8053b83dad91f7bea715882872155bee"></a>
@@ -296,6 +343,12 @@ Public Attributes</h2></td></tr>
 <p>Register the callback function to be called whenever a new measurement of the given class is received from the vehicle data sources. </p>
 <p>If the callback is already registered for measurements of the given type, this method will have no effect. </p>
 
+<p>Definition at line <a class="el" href="vehicle_8py_source.html#l00070">70</a> of file <a class="el" href="vehicle_8py_source.html">vehicle.py</a>.</p>
+<div class="fragment"><div class="line"><a name="l00070"></a><span class="lineno"><a class="code" href="classopenxc_1_1vehicle_1_1_vehicle.html#a8053b83dad91f7bea715882872155bee">   70</a></span>&#160;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        type.</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;</div>
+        If the callback was <span class="keywordflow">not</span> previously registered <span class="keyword">as</span> a listener, this method</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a class="anchor" id="a2f3fdcf56349865797d9381af77ae851"></a>
@@ -331,6 +384,12 @@ Public Attributes</h2></td></tr>
 <p>Stop notifying the given callback of new values of the measurement type. </p>
 <p>If the callback was not previously registered as a listener, this method will have no effect. </p>
 
+<p>Definition at line <a class="el" href="vehicle_8py_source.html#l00080">80</a> of file <a class="el" href="vehicle_8py_source.html">vehicle.py</a>.</p>
+<div class="fragment"><div class="line"><a name="l00080"></a><span class="lineno"><a class="code" href="classopenxc_1_1vehicle_1_1_vehicle.html#a2f3fdcf56349865797d9381af77ae851">   80</a></span>&#160;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        The Vehicle instance will be set <span class="keyword">as</span> the callback of the source, <span class="keywordflow">and</span> the</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        source will be started <span class="keywordflow">if</span> it <span class="keywordflow">is</span> startable. (i.e. it has a ``start()``</div>
+        method).</div>
+</div><!-- fragment -->
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
@@ -346,6 +405,8 @@ Public Attributes</h2></td></tr>
 
 <p>The controller instance. </p>
 
+<p>Definition at line <a class="el" href="vehicle_8py_source.html#l00047">47</a> of file <a class="el" href="vehicle_8py_source.html">vehicle.py</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="abfda0a0de4fa5febd547d7bfc9341977"></a>
@@ -359,6 +420,8 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Measurements instance. </p>
+
+<p>Definition at line <a class="el" href="vehicle_8py_source.html#l00041">41</a> of file <a class="el" href="vehicle_8py_source.html">vehicle.py</a>.</p>
 
 </div>
 </div>
@@ -374,6 +437,8 @@ Public Attributes</h2></td></tr>
 
 <p>The notifier instance. </p>
 
+<p>Definition at line <a class="el" href="vehicle_8py_source.html#l00051">51</a> of file <a class="el" href="vehicle_8py_source.html">vehicle.py</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a1f9b57d4444f04791adcc8dfc46c0cbe"></a>
@@ -387,6 +452,8 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Sinks instance. </p>
+
+<p>Definition at line <a class="el" href="vehicle_8py_source.html#l00038">38</a> of file <a class="el" href="vehicle_8py_source.html">vehicle.py</a>.</p>
 
 </div>
 </div>
@@ -402,10 +469,12 @@ Public Attributes</h2></td></tr>
 
 <p>Sources instance. </p>
 
+<p>Definition at line <a class="el" href="vehicle_8py_source.html#l00035">35</a> of file <a class="el" href="vehicle_8py_source.html">vehicle.py</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>openxc/vehicle.py</li>
+<li>openxc/<a class="el" href="vehicle_8py_source.html">vehicle.py</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -413,7 +482,7 @@ Public Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>openxc</b></li><li class="navelem"><b>vehicle</b></li><li class="navelem"><a class="el" href="classopenxc_1_1vehicle_1_1_vehicle.html">Vehicle</a></li>
-    <li class="footer">Generated on Sun Jun 30 2013 01:50:29 for OpenXC by
+    <li class="footer">Generated on Sun Jun 30 2013 12:20:34 for OpenXC by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

@@ -47,6 +47,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
+      <li><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -93,7 +94,7 @@ $(document).ready(function(){initNavTree('classopenxc_1_1sinks_1_1notifier_1_1_m
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -149,6 +150,8 @@ Public Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><a class="el" href="classopenxc_1_1sinks_1_1notifier_1_1_measurement_notifier_sink_1_1_notifier.html" title="Notifier Class.">Notifier</a> Class. </p>
+
+<p>Definition at line <a class="el" href="notifier_8py_source.html#l00067">67</a> of file <a class="el" href="notifier_8py_source.html">notifier.py</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a5684c3d06eefb6bb45ea8c2bd3aaaa63"></a>
 <div class="memitem">
@@ -189,6 +192,16 @@ Public Attributes</h2></td></tr>
   </dd>
 </dl>
 
+<p>Definition at line <a class="el" href="notifier_8py_source.html#l00080">80</a> of file <a class="el" href="notifier_8py_source.html">notifier.py</a>.</p>
+<div class="fragment"><div class="line"><a name="l00080"></a><span class="lineno"><a class="code" href="classopenxc_1_1sinks_1_1notifier_1_1_measurement_notifier_sink_1_1_notifier.html#a5684c3d06eefb6bb45ea8c2bd3aaaa63">   80</a></span>&#160;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;            <span class="stringliteral">&quot;&quot;&quot;Run Routine&quot;&quot;&quot;</span></div>
+<div class="line"><a name="l00082"></a><span class="lineno"><a class="code" href="classopenxc_1_1sinks_1_1notifier_1_1_measurement_notifier_sink_1_1_notifier.html#a0ef909ee6dba10d125d2baed1b043487">   82</a></span>&#160;            <span class="keywordflow">while</span> <span class="keyword">True</span>:</div>
+<div class="line"><a name="l00083"></a><span class="lineno"><a class="code" href="classopenxc_1_1sinks_1_1notifier_1_1_measurement_notifier_sink_1_1_notifier.html#ac4e9d4559f9431f89a357a209a21d822">   83</a></span>&#160;                message, kwargs = self.queue.get()</div>
+<div class="line"><a name="l00084"></a><span class="lineno"><a class="code" href="classopenxc_1_1sinks_1_1notifier_1_1_measurement_notifier_sink_1_1_notifier.html#a3bca56277746ec16e68279ec45f7e56e">   84</a></span>&#160;                <span class="keywordflow">try</span>:</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;                    measurement = Measurement.from_dict(message)</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;                    self.<a class="code" href="classopenxc_1_1sinks_1_1notifier_1_1_measurement_notifier_sink_1_1_notifier.html#a3bca56277746ec16e68279ec45f7e56e" title="The name of the callback routine.">callback</a>(measurement, **kwargs)</div>
+                    self.queue.task_done()</div>
+</div><!-- fragment -->
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
@@ -204,10 +217,12 @@ Public Attributes</h2></td></tr>
 
 <p>The name of the callback routine. </p>
 
+<p>Definition at line <a class="el" href="notifier_8py_source.html#l00084">84</a> of file <a class="el" href="notifier_8py_source.html">notifier.py</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>openxc/sinks/notifier.py</li>
+<li>openxc/sinks/<a class="el" href="notifier_8py_source.html">notifier.py</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -215,7 +230,7 @@ Public Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>openxc</b></li><li class="navelem"><b>sinks</b></li><li class="navelem"><b>notifier</b></li><li class="navelem"><a class="el" href="classopenxc_1_1sinks_1_1notifier_1_1_measurement_notifier_sink.html">MeasurementNotifierSink</a></li><li class="navelem"><a class="el" href="classopenxc_1_1sinks_1_1notifier_1_1_measurement_notifier_sink_1_1_notifier.html">Notifier</a></li>
-    <li class="footer">Generated on Sun Jun 30 2013 01:50:28 for OpenXC by
+    <li class="footer">Generated on Sun Jun 30 2013 12:20:34 for OpenXC by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

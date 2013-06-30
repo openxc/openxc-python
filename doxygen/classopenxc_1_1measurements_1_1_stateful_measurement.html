@@ -47,6 +47,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
+      <li><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -93,7 +94,7 @@ $(document).ready(function(){initNavTree('classopenxc_1_1measurements_1_1_statef
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -188,6 +189,8 @@ Additional Inherited Members</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Must have a class-level <code>states</code> member that defines a set of valid string states for this measurement's value. </p>
+
+<p>Definition at line <a class="el" href="measurements_8py_source.html#l00197">197</a> of file <a class="el" href="measurements_8py_source.html">measurements.py</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="a35fd535255bb1895fc9fdea1e07d453d"></a>
 <div class="memitem">
@@ -206,6 +209,13 @@ Additional Inherited Members</h2></td></tr>
 <p>Determine if the current state is valid, given the class' <code>state</code> member. </p>
 <p>Returns: True if the value is a valid state. </p>
 
+<p>Definition at line <a class="el" href="measurements_8py_source.html#l00213">213</a> of file <a class="el" href="measurements_8py_source.html">measurements.py</a>.</p>
+<div class="fragment"><div class="line"><a name="l00213"></a><span class="lineno"><a class="code" href="classopenxc_1_1measurements_1_1_stateful_measurement.html#a35fd535255bb1895fc9fdea1e07d453d">  213</a></span>&#160;</div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;    DATA_TYPE = unicode</div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;</div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;</div>
+<span class="keyword">class </span><a class="code" href="classopenxc_1_1measurements_1_1_percentage_measurement.html" title="Percentage Measurement.">PercentageMeasurement</a>(<a class="code" href="classopenxc_1_1measurements_1_1_numeric_measurement.html" title="A NumericMeasurement must have a numeric value and thus a valid range of acceptable values...">NumericMeasurement</a>):</div>
+</div><!-- fragment -->
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
@@ -229,6 +239,8 @@ Additional Inherited Members</h2></td></tr>
 
 <p>The data type object instance. </p>
 
+<p>Definition at line <a class="el" href="measurements_8py_source.html#l00201">201</a> of file <a class="el" href="measurements_8py_source.html">measurements.py</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a72498e5a1506712fcc5bbc2a05da1d62"></a>
@@ -251,10 +263,12 @@ Additional Inherited Members</h2></td></tr>
 
 <p>The current state of this <a class="el" href="classopenxc_1_1measurements_1_1_stateful_measurement.html" title="Must have a class-level states member that defines a set of valid string states for this measurement&#39;...">StatefulMeasurement</a> instance. </p>
 
+<p>Definition at line <a class="el" href="measurements_8py_source.html#l00204">204</a> of file <a class="el" href="measurements_8py_source.html">measurements.py</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>openxc/measurements.py</li>
+<li>openxc/<a class="el" href="measurements_8py_source.html">measurements.py</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -262,7 +276,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>openxc</b></li><li class="navelem"><b>measurements</b></li><li class="navelem"><a class="el" href="classopenxc_1_1measurements_1_1_stateful_measurement.html">StatefulMeasurement</a></li>
-    <li class="footer">Generated on Sun Jun 30 2013 01:50:27 for OpenXC by
+    <li class="footer">Generated on Sun Jun 30 2013 12:20:33 for OpenXC by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

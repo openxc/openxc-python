@@ -47,6 +47,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
+      <li><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -93,7 +94,7 @@ $(document).ready(function(){initNavTree('classopenxc_1_1generator_1_1xml__to__j
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -141,6 +142,8 @@ Public Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Represents all the messages on a single bus in an XML-backed database. </p>
+
+<p>Definition at line <a class="el" href="xml__to__json_8py_source.html#l00044">44</a> of file <a class="el" href="xml__to__json_8py_source.html">xml_to_json.py</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="ae798a140be0495755421589092594b33"></a>
 <div class="memitem">
@@ -188,6 +191,28 @@ Public Attributes</h2></td></tr>
   </dd>
 </dl>
 
+<p>Definition at line <a class="el" href="xml__to__json_8py_source.html#l00054">54</a> of file <a class="el" href="xml__to__json_8py_source.html">xml_to_json.py</a>.</p>
+<div class="fragment"><div class="line"><a name="l00054"></a><span class="lineno"><a class="code" href="classopenxc_1_1generator_1_1xml__to__json_1_1_network.html#ae798a140be0495755421589092594b33">   54</a></span>&#160;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;</div>
+<div class="line"><a name="l00056"></a><span class="lineno"><a class="code" href="classopenxc_1_1generator_1_1xml__to__json_1_1_network.html#ae326def98b2554c30c51d8da5dc529a3">   56</a></span>&#160;        <span class="keywordflow">for</span> message_id, message <span class="keywordflow">in</span> all_messages.items():</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;            message_id = int(message_id, 0)</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;            query = <span class="stringliteral">&quot;./Node/TxMessage[ID=\&quot;0x%s\&quot;]&quot;</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;            <span class="comment"># Search for both lower and upper case hex</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;            <span class="keywordflow">for</span> attr_value <span class="keywordflow">in</span> [<span class="stringliteral">&quot;%X&quot;</span>, <span class="stringliteral">&quot;%x&quot;</span>]:</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;                node = tree.find(query % (attr_value % message_id))</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;                <span class="keywordflow">if</span> node <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                    <span class="keywordflow">break</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;            <span class="keywordflow">if</span> node <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;                LOG.warning(<span class="stringliteral">&quot;Unable to find message ID 0x%x in %s&quot;</span> % (message_id,</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;                  database_name))</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;            <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;                self.<a class="code" href="classopenxc_1_1generator_1_1xml__to__json_1_1_network.html#ae326def98b2554c30c51d8da5dc529a3" title="The messages object instance.">messages</a>[message_id] = XMLBackedMessage.from_xml_node(</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;                    node, message[<span class="stringliteral">&#39;signals&#39;</span>])</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keyword">def </span><a class="code" href="classopenxc_1_1generator_1_1xml__to__json_1_1_network.html#ae176db0136ad1e6615e0f259ef6c7bff" title="The To Dictionary Routine.">to_dict</a>(self):</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        <span class="stringliteral">&quot;&quot;&quot;The To Dictionary Routine&quot;&quot;&quot;</span></div>
+        <span class="keywordflow">return</span> {<span class="stringliteral">&#39;messages&#39;</span>: dict((<span class="stringliteral">&quot;0x%x&quot;</span> % message.id,</div>
+</div><!-- fragment -->
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
@@ -203,10 +228,12 @@ Public Attributes</h2></td></tr>
 
 <p>The messages object instance. </p>
 
+<p>Definition at line <a class="el" href="xml__to__json_8py_source.html#l00056">56</a> of file <a class="el" href="xml__to__json_8py_source.html">xml_to_json.py</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>openxc/generator/xml_to_json.py</li>
+<li>openxc/generator/<a class="el" href="xml__to__json_8py_source.html">xml_to_json.py</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -214,7 +241,7 @@ Public Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>openxc</b></li><li class="navelem"><b>generator</b></li><li class="navelem"><b>xml_to_json</b></li><li class="navelem"><a class="el" href="classopenxc_1_1generator_1_1xml__to__json_1_1_network.html">Network</a></li>
-    <li class="footer">Generated on Sun Jun 30 2013 01:50:27 for OpenXC by
+    <li class="footer">Generated on Sun Jun 30 2013 12:20:33 for OpenXC by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

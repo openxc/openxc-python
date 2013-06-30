@@ -47,6 +47,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
+      <li><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -93,7 +94,7 @@ $(document).ready(function(){initNavTree('classopenxc_1_1generator_1_1structures
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -125,9 +126,8 @@ Inheritance diagram for openxc.generator.structures.Message:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a3edf47d5c3f360dc521beb97221fda8c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3edf47d5c3f360dc521beb97221fda8c"></a>
-def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenxc_1_1generator_1_1structures_1_1_message.html#a3edf47d5c3f360dc521beb97221fda8c">__init__</a></td></tr>
-<tr class="memdesc:a3edf47d5c3f360dc521beb97221fda8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialization Routine. <br/></td></tr>
+<tr class="memitem:a3edf47d5c3f360dc521beb97221fda8c"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenxc_1_1generator_1_1structures_1_1_message.html#a3edf47d5c3f360dc521beb97221fda8c">__init__</a></td></tr>
+<tr class="memdesc:a3edf47d5c3f360dc521beb97221fda8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialization Routine.  <a href="#a3edf47d5c3f360dc521beb97221fda8c">More...</a><br/></td></tr>
 <tr class="separator:a3edf47d5c3f360dc521beb97221fda8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a979e3a8552d642f10e985eb59308d21e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a979e3a8552d642f10e985eb59308d21e"></a>
 def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenxc_1_1generator_1_1structures_1_1_message.html#a979e3a8552d642f10e985eb59308d21e">id</a></td></tr>
@@ -137,13 +137,11 @@ def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class
 def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenxc_1_1generator_1_1structures_1_1_message.html#a979e3a8552d642f10e985eb59308d21e">id</a></td></tr>
 <tr class="memdesc:a979e3a8552d642f10e985eb59308d21e"><td class="mdescLeft">&#160;</td><td class="mdescRight">ID Routine (Setter) <br/></td></tr>
 <tr class="separator:a979e3a8552d642f10e985eb59308d21e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a35de0b61d9d34c40f99f9a222a7466de"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a35de0b61d9d34c40f99f9a222a7466de"></a>
-def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenxc_1_1generator_1_1structures_1_1_message.html#a35de0b61d9d34c40f99f9a222a7466de">merge_message</a></td></tr>
-<tr class="memdesc:a35de0b61d9d34c40f99f9a222a7466de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Merge <a class="el" href="classopenxc_1_1generator_1_1structures_1_1_message.html" title="Message Class.">Message</a> Routine. <br/></td></tr>
+<tr class="memitem:a35de0b61d9d34c40f99f9a222a7466de"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenxc_1_1generator_1_1structures_1_1_message.html#a35de0b61d9d34c40f99f9a222a7466de">merge_message</a></td></tr>
+<tr class="memdesc:a35de0b61d9d34c40f99f9a222a7466de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Merge <a class="el" href="classopenxc_1_1generator_1_1structures_1_1_message.html" title="Message Class.">Message</a> Routine.  <a href="#a35de0b61d9d34c40f99f9a222a7466de">More...</a><br/></td></tr>
 <tr class="separator:a35de0b61d9d34c40f99f9a222a7466de"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a59060aa849f6585a8718af5d08cfcd6b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a59060aa849f6585a8718af5d08cfcd6b"></a>
-def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenxc_1_1generator_1_1structures_1_1_message.html#a59060aa849f6585a8718af5d08cfcd6b">merge_signals</a></td></tr>
-<tr class="memdesc:a59060aa849f6585a8718af5d08cfcd6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Merge Signals Routine. <br/></td></tr>
+<tr class="memitem:a59060aa849f6585a8718af5d08cfcd6b"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenxc_1_1generator_1_1structures_1_1_message.html#a59060aa849f6585a8718af5d08cfcd6b">merge_signals</a></td></tr>
+<tr class="memdesc:a59060aa849f6585a8718af5d08cfcd6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Merge Signals Routine.  <a href="#a59060aa849f6585a8718af5d08cfcd6b">More...</a><br/></td></tr>
 <tr class="separator:a59060aa849f6585a8718af5d08cfcd6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae74c83b2a3db9a5ad2feec2b023ab297"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae74c83b2a3db9a5ad2feec2b023ab297"></a>
 def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenxc_1_1generator_1_1structures_1_1_message.html#ae74c83b2a3db9a5ad2feec2b023ab297">validate</a></td></tr>
@@ -164,32 +162,246 @@ def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:aec927d73e461d50a95b167287c06d0eb"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aec927d73e461d50a95b167287c06d0eb"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>bus_name</b></td></tr>
-<tr class="separator:aec927d73e461d50a95b167287c06d0eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae899290f85f0e425de1950879d9a50a6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae899290f85f0e425de1950879d9a50a6"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>id</b></td></tr>
-<tr class="separator:ae899290f85f0e425de1950879d9a50a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af4d8ae07c5e01cc6a6b7cfce0a850e09"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af4d8ae07c5e01cc6a6b7cfce0a850e09"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>name</b></td></tr>
-<tr class="separator:af4d8ae07c5e01cc6a6b7cfce0a850e09"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9eb4a3037b83a2a1fe71758ec37e5750"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9eb4a3037b83a2a1fe71758ec37e5750"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>bit_numbering_inverted</b></td></tr>
-<tr class="separator:a9eb4a3037b83a2a1fe71758ec37e5750"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acb4a906b8401d12730b83fa27525462e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acb4a906b8401d12730b83fa27525462e"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>handler</b></td></tr>
-<tr class="separator:acb4a906b8401d12730b83fa27525462e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abc366e672d6f86ea400c6d00bba59e47"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abc366e672d6f86ea400c6d00bba59e47"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>enabled</b></td></tr>
-<tr class="separator:abc366e672d6f86ea400c6d00bba59e47"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad0ba58f40cdfd69f806fbf93c00198bc"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad0ba58f40cdfd69f806fbf93c00198bc"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>signals</b></td></tr>
-<tr class="separator:ad0ba58f40cdfd69f806fbf93c00198bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aee7e3daf834eb9f98b64bccc7ac79857"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aee7e3daf834eb9f98b64bccc7ac79857"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenxc_1_1generator_1_1structures_1_1_message.html#aee7e3daf834eb9f98b64bccc7ac79857">bus_name</a></td></tr>
+<tr class="memdesc:aee7e3daf834eb9f98b64bccc7ac79857"><td class="mdescLeft">&#160;</td><td class="mdescRight">The bus_name object instance. <br/></td></tr>
+<tr class="separator:aee7e3daf834eb9f98b64bccc7ac79857"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac9b21332a019f732a135d9f4dd8f7542"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac9b21332a019f732a135d9f4dd8f7542"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenxc_1_1generator_1_1structures_1_1_message.html#ac9b21332a019f732a135d9f4dd8f7542">id</a></td></tr>
+<tr class="memdesc:ac9b21332a019f732a135d9f4dd8f7542"><td class="mdescLeft">&#160;</td><td class="mdescRight">The id object instance. <br/></td></tr>
+<tr class="separator:ac9b21332a019f732a135d9f4dd8f7542"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad041416159c51afde3e94865495e1b7d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad041416159c51afde3e94865495e1b7d"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenxc_1_1generator_1_1structures_1_1_message.html#ad041416159c51afde3e94865495e1b7d">name</a></td></tr>
+<tr class="memdesc:ad041416159c51afde3e94865495e1b7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">The name object instance. <br/></td></tr>
+<tr class="separator:ad041416159c51afde3e94865495e1b7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a18f44ecaffcb99e5c6bc062310272467"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a18f44ecaffcb99e5c6bc062310272467"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenxc_1_1generator_1_1structures_1_1_message.html#a18f44ecaffcb99e5c6bc062310272467">bit_numbering_inverted</a></td></tr>
+<tr class="memdesc:a18f44ecaffcb99e5c6bc062310272467"><td class="mdescLeft">&#160;</td><td class="mdescRight">The bit numbering inverted object instance. <br/></td></tr>
+<tr class="separator:a18f44ecaffcb99e5c6bc062310272467"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a39d91503c455e9ea4790d2080e21a137"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a39d91503c455e9ea4790d2080e21a137"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenxc_1_1generator_1_1structures_1_1_message.html#a39d91503c455e9ea4790d2080e21a137">handler</a></td></tr>
+<tr class="memdesc:a39d91503c455e9ea4790d2080e21a137"><td class="mdescLeft">&#160;</td><td class="mdescRight">The handler object instance. <br/></td></tr>
+<tr class="separator:a39d91503c455e9ea4790d2080e21a137"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abaf100a59ff881bf2e21c401026a40b8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abaf100a59ff881bf2e21c401026a40b8"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenxc_1_1generator_1_1structures_1_1_message.html#abaf100a59ff881bf2e21c401026a40b8">enabled</a></td></tr>
+<tr class="memdesc:abaf100a59ff881bf2e21c401026a40b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">The enabled object instance. <br/></td></tr>
+<tr class="separator:abaf100a59ff881bf2e21c401026a40b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a79aa7817d05d082eaad534660137a9c2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenxc_1_1generator_1_1structures_1_1_message.html#a79aa7817d05d082eaad534660137a9c2">signals</a></td></tr>
+<tr class="memdesc:a79aa7817d05d082eaad534660137a9c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">The signals object instance.  <a href="#a79aa7817d05d082eaad534660137a9c2">More...</a><br/></td></tr>
+<tr class="separator:a79aa7817d05d082eaad534660137a9c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><a class="el" href="classopenxc_1_1generator_1_1structures_1_1_message.html" title="Message Class.">Message</a> Class. </p>
-</div><hr/>The documentation for this class was generated from the following file:<ul>
-<li>openxc/generator/structures.py</li>
+
+<p>Definition at line <a class="el" href="structures_8py_source.html#l00049">49</a> of file <a class="el" href="structures_8py_source.html">structures.py</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a class="anchor" id="a3edf47d5c3f360dc521beb97221fda8c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def openxc.generator.structures.Message.__init__ </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>bus_name</em> = <code>None</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>id</em> = <code>None</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>name</em> = <code>None</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>bit_numbering_inverted</em> = <code>None</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>handler</em> = <code>None</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>enabled</em> = <code>True</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initialization Routine. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">bus_name</td><td>the bus name object instance. </td></tr>
+    <tr><td class="paramname">id</td><td>the id object instance. </td></tr>
+    <tr><td class="paramname">name</td><td>the name object instance. </td></tr>
+    <tr><td class="paramname">bit_numbering_inverted</td><td>the bit number inverted object instance. </td></tr>
+    <tr><td class="paramname">handler</td><td>the handler object instance. </td></tr>
+    <tr><td class="paramname">enabled</td><td>the enabled object instance. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definition at line <a class="el" href="structures_8py_source.html#l00076">76</a> of file <a class="el" href="structures_8py_source.html">structures.py</a>.</p>
+<div class="fragment"><div class="line"><a name="l00076"></a><span class="lineno"><a class="code" href="classopenxc_1_1generator_1_1structures_1_1_message.html#a3edf47d5c3f360dc521beb97221fda8c">   76</a></span>&#160;</div>
+<div class="line"><a name="l00077"></a><span class="lineno"><a class="code" href="classopenxc_1_1generator_1_1structures_1_1_message.html#aee7e3daf834eb9f98b64bccc7ac79857">   77</a></span>&#160;        self.<a class="code" href="classopenxc_1_1generator_1_1structures_1_1_message.html#abaf100a59ff881bf2e21c401026a40b8" title="The enabled object instance.">enabled</a> = enabled</div>
+<div class="line"><a name="l00078"></a><span class="lineno"><a class="code" href="classopenxc_1_1generator_1_1structures_1_1_message.html#ac9b21332a019f732a135d9f4dd8f7542">   78</a></span>&#160;        self.<a class="code" href="classopenxc_1_1generator_1_1structures_1_1_message.html#a79aa7817d05d082eaad534660137a9c2" title="The signals object instance.">signals</a> = defaultdict(Signal)</div>
+<div class="line"><a name="l00079"></a><span class="lineno"><a class="code" href="classopenxc_1_1generator_1_1structures_1_1_message.html#ad041416159c51afde3e94865495e1b7d">   79</a></span>&#160;</div>
+<div class="line"><a name="l00080"></a><span class="lineno"><a class="code" href="classopenxc_1_1generator_1_1structures_1_1_message.html#a18f44ecaffcb99e5c6bc062310272467">   80</a></span>&#160;    @property</div>
+<div class="line"><a name="l00081"></a><span class="lineno"><a class="code" href="classopenxc_1_1generator_1_1structures_1_1_message.html#a39d91503c455e9ea4790d2080e21a137">   81</a></span>&#160;    <span class="keyword">def </span><a class="code" href="classopenxc_1_1generator_1_1structures_1_1_message.html#ac9b21332a019f732a135d9f4dd8f7542" title="The id object instance.">id</a>(self):</div>
+<div class="line"><a name="l00082"></a><span class="lineno"><a class="code" href="classopenxc_1_1generator_1_1structures_1_1_message.html#abaf100a59ff881bf2e21c401026a40b8">   82</a></span>&#160;        <span class="stringliteral">&quot;&quot;&quot;ID Routine (Property)&quot;&quot;&quot;</span></div>
+<div class="line"><a name="l00083"></a><span class="lineno"><a class="code" href="classopenxc_1_1generator_1_1structures_1_1_message.html#a79aa7817d05d082eaad534660137a9c2">   83</a></span>&#160;        <span class="keywordflow">return</span> getattr(self, <span class="stringliteral">&#39;_id&#39;</span>, <span class="keywordtype">None</span>)</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;</div>
+    @id.setter</div>
+</div><!-- fragment -->
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="a35de0b61d9d34c40f99f9a222a7466de"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def openxc.generator.structures.Message.merge_message </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>data</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Merge <a class="el" href="classopenxc_1_1generator_1_1structures_1_1_message.html" title="Message Class.">Message</a> Routine. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">data</td><td>the data object instance. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definition at line <a class="el" href="structures_8py_source.html#l00103">103</a> of file <a class="el" href="structures_8py_source.html">structures.py</a>.</p>
+<div class="fragment"><div class="line"><a name="l00103"></a><span class="lineno"><a class="code" href="classopenxc_1_1generator_1_1structures_1_1_message.html#a35de0b61d9d34c40f99f9a222a7466de">  103</a></span>&#160;</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;            self.<a class="code" href="classopenxc_1_1generator_1_1structures_1_1_message.html#abaf100a59ff881bf2e21c401026a40b8" title="The enabled object instance.">enabled</a> = data.get(<span class="stringliteral">&#39;enabled&#39;</span>, self.<a class="code" href="classopenxc_1_1generator_1_1structures_1_1_message.html#abaf100a59ff881bf2e21c401026a40b8" title="The enabled object instance.">enabled</a>)</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        <span class="keywordflow">if</span> <span class="stringliteral">&#39;signals&#39;</span> <span class="keywordflow">in</span> data:</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;            self.<a class="code" href="classopenxc_1_1generator_1_1structures_1_1_message.html#a59060aa849f6585a8718af5d08cfcd6b" title="Merge Signals Routine.">merge_signals</a>(data[<span class="stringliteral">&#39;signals&#39;</span>])</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <span class="keyword">def </span><a class="code" href="classopenxc_1_1generator_1_1structures_1_1_message.html#a59060aa849f6585a8718af5d08cfcd6b" title="Merge Signals Routine.">merge_signals</a>(self, data):</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        <span class="stringliteral">&quot;&quot;&quot;Merge Signals Routine</span></div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="stringliteral">        @param data the data object instance.&quot;&quot;&quot;</span></div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        <span class="keywordflow">for</span> signal_name, signal_data <span class="keywordflow">in</span> data.items():</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;            states = []</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;            <span class="keywordflow">for</span> name, raw_matches <span class="keywordflow">in</span> signal_data.get(<span class="stringliteral">&#39;states&#39;</span>, {}).items():</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;                <span class="keywordflow">for</span> raw_match <span class="keywordflow">in</span> raw_matches:</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;                    states.append(<a class="code" href="classopenxc_1_1generator_1_1structures_1_1_signal_state.html" title="Signal State Class.">SignalState</a>(raw_match, name))</div>
+            signal_data.pop(<span class="stringliteral">&#39;states&#39;</span>, <span class="keywordtype">None</span>)</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a class="anchor" id="a59060aa849f6585a8718af5d08cfcd6b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def openxc.generator.structures.Message.merge_signals </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>data</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Merge Signals Routine. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">data</td><td>the data object instance. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definition at line <a class="el" href="structures_8py_source.html#l00121">121</a> of file <a class="el" href="structures_8py_source.html">structures.py</a>.</p>
+<div class="fragment"><div class="line"><a name="l00121"></a><span class="lineno"><a class="code" href="classopenxc_1_1generator_1_1structures_1_1_message.html#a59060aa849f6585a8718af5d08cfcd6b">  121</a></span>&#160;</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;            signal.message_set = self.message_set</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;            signal.message = self</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;            <span class="comment"># TODO this will clobber existing states but I don&#39;t have a really</span></div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;            <span class="comment"># obvious clean solution to it at the moment</span></div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;            signal.states = states</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;            signal.merge_signal(signal_data)</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    <span class="keyword">def </span><a class="code" href="classopenxc_1_1generator_1_1structures_1_1_message.html#ae74c83b2a3db9a5ad2feec2b023ab297" title="Validate Routine.">validate</a>(self):</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;        <span class="stringliteral">&quot;&quot;&quot;Validate Routine&quot;&quot;&quot;</span></div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;        <span class="keywordflow">if</span> self.<a class="code" href="classopenxc_1_1generator_1_1structures_1_1_message.html#aee7e3daf834eb9f98b64bccc7ac79857" title="The bus_name object instance.">bus_name</a> <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;            LOG.warning(<span class="stringliteral">&quot;No default or explicit bus for message %s&quot;</span> % self.<a class="code" href="classopenxc_1_1generator_1_1structures_1_1_message.html#ac9b21332a019f732a135d9f4dd8f7542" title="The id object instance.">id</a>)</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">False</span></div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;        <span class="keywordflow">if</span> self.<a class="code" href="classopenxc_1_1generator_1_1structures_1_1_message.html#aee7e3daf834eb9f98b64bccc7ac79857" title="The bus_name object instance.">bus_name</a> <span class="keywordflow">not</span> <span class="keywordflow">in</span> self.message_set.buses:</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;            LOG.warning(<span class="stringliteral">&quot;Bus &#39;%s&#39; (from message 0x%x) is not defined&quot;</span> %</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;                    (self.<a class="code" href="classopenxc_1_1generator_1_1structures_1_1_message.html#aee7e3daf834eb9f98b64bccc7ac79857" title="The bus_name object instance.">bus_name</a>, self.<a class="code" href="classopenxc_1_1generator_1_1structures_1_1_message.html#ac9b21332a019f732a135d9f4dd8f7542" title="The id object instance.">id</a>))</div>
+            <span class="keywordflow">return</span> <span class="keyword">False</span></div>
+</div><!-- fragment -->
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a class="anchor" id="a79aa7817d05d082eaad534660137a9c2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Message.signals</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The signals object instance. </p>
+
+<p>Definition at line <a class="el" href="structures_8py_source.html#l00083">83</a> of file <a class="el" href="structures_8py_source.html">structures.py</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>openxc/generator/<a class="el" href="structures_8py_source.html">structures.py</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -197,7 +409,7 @@ Public Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>openxc</b></li><li class="navelem"><b>generator</b></li><li class="navelem"><b>structures</b></li><li class="navelem"><a class="el" href="classopenxc_1_1generator_1_1structures_1_1_message.html">Message</a></li>
-    <li class="footer">Generated on Sun Jun 30 2013 01:50:27 for OpenXC by
+    <li class="footer">Generated on Sun Jun 30 2013 12:20:33 for OpenXC by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

@@ -47,6 +47,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
+      <li><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -93,7 +94,7 @@ $(document).ready(function(){initNavTree('classopenxc_1_1generator_1_1structures
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -149,6 +150,8 @@ Public Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><a class="el" href="classopenxc_1_1generator_1_1structures_1_1_command.html" title="Command Class.">Command</a> Class. </p>
+
+<p>Definition at line <a class="el" href="structures_8py_source.html#l00021">21</a> of file <a class="el" href="structures_8py_source.html">structures.py</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="ac48e3f6fb31c6aafe0cfcd21e29a19d9"></a>
 <div class="memitem">
@@ -203,6 +206,14 @@ Public Attributes</h2></td></tr>
   </dd>
 </dl>
 
+<p>Definition at line <a class="el" href="structures_8py_source.html#l00036">36</a> of file <a class="el" href="structures_8py_source.html">structures.py</a>.</p>
+<div class="fragment"><div class="line"><a name="l00036"></a><span class="lineno"><a class="code" href="classopenxc_1_1generator_1_1structures_1_1_command.html#ac48e3f6fb31c6aafe0cfcd21e29a19d9">   36</a></span>&#160;</div>
+<div class="line"><a name="l00037"></a><span class="lineno"><a class="code" href="classopenxc_1_1generator_1_1structures_1_1_command.html#a8225eebea8aea04c87f31de8aefa58c3">   37</a></span>&#160;        self.<a class="code" href="classopenxc_1_1generator_1_1structures_1_1_command.html#aa3e5aa7388b60afd76ece5ada86de6b2" title="The enabled object instance.">enabled</a> = enabled</div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="code" href="classopenxc_1_1generator_1_1structures_1_1_command.html#a8cb1e948b59517f47adbd53fd7edfc17">   38</a></span>&#160;</div>
+<div class="line"><a name="l00039"></a><span class="lineno"><a class="code" href="classopenxc_1_1generator_1_1structures_1_1_command.html#aa3e5aa7388b60afd76ece5ada86de6b2">   39</a></span>&#160;    <span class="keyword">def </span><a class="code" href="classopenxc_1_1generator_1_1structures_1_1_command.html#a6b13411ca3d5080dfcd6a942d8a82249" title="String Representation.">__str__</a>(self):</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        <span class="stringliteral">&quot;&quot;&quot;String Representation&quot;&quot;&quot;</span></div>
+        <span class="keywordflow">return</span> <span class="stringliteral">&quot;{ \&quot;%s\&quot;, %s },&quot;</span> % (self.<a class="code" href="classopenxc_1_1generator_1_1structures_1_1_command.html#a8225eebea8aea04c87f31de8aefa58c3" title="The name object instance.">name</a>, self.<a class="code" href="classopenxc_1_1generator_1_1structures_1_1_command.html#a8cb1e948b59517f47adbd53fd7edfc17" title="The handler object instance.">handler</a>)</div>
+</div><!-- fragment -->
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
@@ -218,10 +229,12 @@ Public Attributes</h2></td></tr>
 
 <p>The enabled object instance. </p>
 
+<p>Definition at line <a class="el" href="structures_8py_source.html#l00039">39</a> of file <a class="el" href="structures_8py_source.html">structures.py</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>openxc/generator/structures.py</li>
+<li>openxc/generator/<a class="el" href="structures_8py_source.html">structures.py</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -229,7 +242,7 @@ Public Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>openxc</b></li><li class="navelem"><b>generator</b></li><li class="navelem"><b>structures</b></li><li class="navelem"><a class="el" href="classopenxc_1_1generator_1_1structures_1_1_command.html">Command</a></li>
-    <li class="footer">Generated on Sun Jun 30 2013 01:50:27 for OpenXC by
+    <li class="footer">Generated on Sun Jun 30 2013 12:20:33 for OpenXC by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

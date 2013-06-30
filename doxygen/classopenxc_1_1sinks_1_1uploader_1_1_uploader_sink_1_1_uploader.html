@@ -47,6 +47,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
+      <li><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -93,7 +94,7 @@ $(document).ready(function(){initNavTree('classopenxc_1_1sinks_1_1uploader_1_1_u
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -152,6 +153,8 @@ Public Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The <a class="el" href="classopenxc_1_1sinks_1_1uploader_1_1_uploader_sink_1_1_uploader.html" title="The Uploader Class.">Uploader</a> Class. </p>
+
+<p>Definition at line <a class="el" href="uploader_8py_source.html#l00039">39</a> of file <a class="el" href="uploader_8py_source.html">uploader.py</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="ace4bde42f28c60f412e1f3460ba24a5d"></a>
 <div class="memitem">
@@ -192,6 +195,17 @@ Public Attributes</h2></td></tr>
   </dd>
 </dl>
 
+<p>Definition at line <a class="el" href="uploader_8py_source.html#l00054">54</a> of file <a class="el" href="uploader_8py_source.html">uploader.py</a>.</p>
+<div class="fragment"><div class="line"><a name="l00054"></a><span class="lineno"><a class="code" href="classopenxc_1_1sinks_1_1uploader_1_1_uploader_sink_1_1_uploader.html#ace4bde42f28c60f412e1f3460ba24a5d">   54</a></span>&#160;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;            self.<a class="code" href="classopenxc_1_1sinks_1_1uploader_1_1_uploader_sink_1_1_uploader.html#af49ec2500ba4ba1a3e4300bd5d1187bb" title="List object containing the records related to this class instance.">records</a> = []</div>
+<div class="line"><a name="l00056"></a><span class="lineno"><a class="code" href="classopenxc_1_1sinks_1_1uploader_1_1_uploader_sink_1_1_uploader.html#ad20ff794d16f29084bf578d6fd312e28">   56</a></span>&#160;            self.<a class="code" href="classopenxc_1_1sinks_1_1uploader_1_1_uploader_sink_1_1_uploader.html#ab3370692a365337029ed5d0183910da4" title="The uploader URL setting.">url</a> = url</div>
+<div class="line"><a name="l00057"></a><span class="lineno"><a class="code" href="classopenxc_1_1sinks_1_1uploader_1_1_uploader_sink_1_1_uploader.html#a77c8ab99f6e03f4b8cef88994a08a0e1">   57</a></span>&#160;            self.start()</div>
+<div class="line"><a name="l00058"></a><span class="lineno"><a class="code" href="classopenxc_1_1sinks_1_1uploader_1_1_uploader_sink_1_1_uploader.html#af49ec2500ba4ba1a3e4300bd5d1187bb">   58</a></span>&#160;</div>
+<div class="line"><a name="l00059"></a><span class="lineno"><a class="code" href="classopenxc_1_1sinks_1_1uploader_1_1_uploader_sink_1_1_uploader.html#ab3370692a365337029ed5d0183910da4">   59</a></span>&#160;        @classmethod</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        <span class="keyword">def </span>_upload(cls, url, records):</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;            <span class="stringliteral">&quot;&quot;&quot;Upload Routine</span></div>
+            @param url The url setting for the upload.</div>
+</div><!-- fragment -->
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
@@ -211,6 +225,13 @@ Public Attributes</h2></td></tr>
 
 <p>Run Routine. </p>
 
+<p>Definition at line <a class="el" href="uploader_8py_source.html#l00080">80</a> of file <a class="el" href="uploader_8py_source.html">uploader.py</a>.</p>
+<div class="fragment"><div class="line"><a name="l00080"></a><span class="lineno"><a class="code" href="classopenxc_1_1sinks_1_1uploader_1_1_uploader_sink_1_1_uploader.html#a40c17fc1fcb9679d2426e4d35ef3ac50">   80</a></span>&#160;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;                <span class="keywordflow">if</span> len(self.<a class="code" href="classopenxc_1_1sinks_1_1uploader_1_1_uploader_sink_1_1_uploader.html#af49ec2500ba4ba1a3e4300bd5d1187bb" title="List object containing the records related to this class instance.">records</a>) &gt; UploaderSink.UPLOAD_BATCH_SIZE:</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;                    self.<a class="code" href="classopenxc_1_1sinks_1_1uploader_1_1_uploader_sink_1_1_uploader.html#a5795daf0e1ab815491519c5966d51fe7" title="Upload Routine.">_upload</a>(self.<a class="code" href="classopenxc_1_1sinks_1_1uploader_1_1_uploader_sink_1_1_uploader.html#ab3370692a365337029ed5d0183910da4" title="The uploader URL setting.">url</a>, self.<a class="code" href="classopenxc_1_1sinks_1_1uploader_1_1_uploader_sink_1_1_uploader.html#af49ec2500ba4ba1a3e4300bd5d1187bb" title="List object containing the records related to this class instance.">records</a>)</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;                self.queue.task_done()</div>
+</div><!-- fragment -->
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
@@ -226,10 +247,12 @@ Public Attributes</h2></td></tr>
 
 <p>The uploader URL setting. </p>
 
+<p>Definition at line <a class="el" href="uploader_8py_source.html#l00059">59</a> of file <a class="el" href="uploader_8py_source.html">uploader.py</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>openxc/sinks/uploader.py</li>
+<li>openxc/sinks/<a class="el" href="uploader_8py_source.html">uploader.py</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -237,7 +260,7 @@ Public Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>openxc</b></li><li class="navelem"><b>sinks</b></li><li class="navelem"><b>uploader</b></li><li class="navelem"><a class="el" href="classopenxc_1_1sinks_1_1uploader_1_1_uploader_sink.html">UploaderSink</a></li><li class="navelem"><a class="el" href="classopenxc_1_1sinks_1_1uploader_1_1_uploader_sink_1_1_uploader.html">Uploader</a></li>
-    <li class="footer">Generated on Sun Jun 30 2013 01:50:28 for OpenXC by
+    <li class="footer">Generated on Sun Jun 30 2013 12:20:34 for OpenXC by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

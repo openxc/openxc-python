@@ -47,6 +47,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
+      <li><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -93,7 +94,7 @@ $(document).ready(function(){initNavTree('classopenxc_1_1tools_1_1gps_1_1_g_p_x_
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -156,6 +157,8 @@ Public Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>GPX Transcoder Class. </p>
+
+<p>Definition at line <a class="el" href="gps_8py_source.html#l00019">19</a> of file <a class="el" href="gps_8py_source.html">gps.py</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="a7328356122ee25bae5b2daab9d22be6b"></a>
 <div class="memitem">
@@ -174,6 +177,12 @@ Public Attributes</h2></td></tr>
 <p>Output Routine. </p>
 <dl class="section return"><dt>Returns</dt><dd>The Element version of this object instance. </dd></dl>
 
+<p>Definition at line <a class="el" href="gps_8py_source.html#l00049">49</a> of file <a class="el" href="gps_8py_source.html">gps.py</a>.</p>
+<div class="fragment"><div class="line"><a name="l00049"></a><span class="lineno"><a class="code" href="classopenxc_1_1tools_1_1gps_1_1_g_p_x_transcoder.html#a7328356122ee25bae5b2daab9d22be6b">   49</a></span>&#160;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <span class="stringliteral">&quot;&quot;&quot;Receive Routine</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="stringliteral">        @param message The message to process.</span></div>
+        @param kwargs Additional input.&quot;&quot;&quot;</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a class="anchor" id="ab4c3429f93f39b473b6503b97e94cc17"></a>
@@ -215,6 +224,22 @@ Public Attributes</h2></td></tr>
   </dd>
 </dl>
 
+<p>Definition at line <a class="el" href="gps_8py_source.html#l00056">56</a> of file <a class="el" href="gps_8py_source.html">gps.py</a>.</p>
+<div class="fragment"><div class="line"><a name="l00056"></a><span class="lineno"><a class="code" href="classopenxc_1_1tools_1_1gps_1_1_g_p_x_transcoder.html#ab4c3429f93f39b473b6503b97e94cc17">   56</a></span>&#160;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        <span class="keywordflow">if</span> self.<a class="code" href="classopenxc_1_1tools_1_1gps_1_1_g_p_x_transcoder.html#aee723dd0c5ca28163f195a2c8fe332cd" title="The latitude object instance.">latitude</a> <span class="keywordflow">and</span> self.<a class="code" href="classopenxc_1_1tools_1_1gps_1_1_g_p_x_transcoder.html#a257018f3243e60c1a6b52b90141d9431" title="The longitude object instance.">longitude</a>:</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;            point = ET.SubElement(self.<a class="code" href="classopenxc_1_1tools_1_1gps_1_1_g_p_x_transcoder.html#a2d7f0e15280de207aa34e74fc9aa9aad" title="The segment object instance.">segment</a>, <span class="stringliteral">&quot;trkpt&quot;</span>)</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;            point.set(<span class="stringliteral">&#39;lat&#39;</span>, str(self.<a class="code" href="classopenxc_1_1tools_1_1gps_1_1_g_p_x_transcoder.html#aee723dd0c5ca28163f195a2c8fe332cd" title="The latitude object instance.">latitude</a>))</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;            point.set(<span class="stringliteral">&#39;lon&#39;</span>, str(self.<a class="code" href="classopenxc_1_1tools_1_1gps_1_1_g_p_x_transcoder.html#a257018f3243e60c1a6b52b90141d9431" title="The longitude object instance.">longitude</a>))</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;            self.<a class="code" href="classopenxc_1_1tools_1_1gps_1_1_g_p_x_transcoder.html#aee723dd0c5ca28163f195a2c8fe332cd" title="The latitude object instance.">latitude</a> = self.<a class="code" href="classopenxc_1_1tools_1_1gps_1_1_g_p_x_transcoder.html#a257018f3243e60c1a6b52b90141d9431" title="The longitude object instance.">longitude</a> = <span class="keywordtype">None</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="keyword">def </span>parse_options():</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="stringliteral">&quot;&quot;&quot;Parse Options Routine</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="stringliteral">    @return arguments The parser arguments.&quot;&quot;&quot;</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="comment">## #var parse</span></div>
+    <span class="comment"># The parser object instance.</span></div>
+</div><!-- fragment -->
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
@@ -230,10 +255,12 @@ Public Attributes</h2></td></tr>
 
 <p>The longitude object instance. </p>
 
+<p>Definition at line <a class="el" href="gps_8py_source.html#l00044">44</a> of file <a class="el" href="gps_8py_source.html">gps.py</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>openxc/tools/gps.py</li>
+<li>openxc/tools/<a class="el" href="gps_8py_source.html">gps.py</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -241,7 +268,7 @@ Public Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>openxc</b></li><li class="navelem"><b>tools</b></li><li class="navelem"><b>gps</b></li><li class="navelem"><a class="el" href="classopenxc_1_1tools_1_1gps_1_1_g_p_x_transcoder.html">GPXTranscoder</a></li>
-    <li class="footer">Generated on Sun Jun 30 2013 01:50:28 for OpenXC by
+    <li class="footer">Generated on Sun Jun 30 2013 12:20:34 for OpenXC by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

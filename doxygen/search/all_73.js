@@ -1,14 +1,20 @@
 var searchData=
 [
+  ['search_5fpaths',['search_paths',['../classopenxc_1_1generator_1_1coder_1_1_code_generator.html#a1e85d7721343863fe1305eb089cfdedb',1,'openxc::generator::coder::CodeGenerator']]],
   ['segment',['segment',['../classopenxc_1_1tools_1_1gps_1_1_g_p_x_transcoder.html#a2d7f0e15280de207aa34e74fc9aa9aad',1,'openxc::tools::gps::GPXTranscoder']]],
+  ['send_5ffrequency',['send_frequency',['../classopenxc_1_1generator_1_1structures_1_1_signal.html#a1941bc4736435d6d23c9bac9d57907ec',1,'openxc::generator::structures::Signal']]],
+  ['send_5fsame',['send_same',['../classopenxc_1_1generator_1_1structures_1_1_signal.html#aba1ad50be6114979af2629cc82298b42',1,'openxc::generator::structures::Signal']]],
   ['serialcontrollermixin',['SerialControllerMixin',['../classopenxc_1_1controllers_1_1serial_1_1_serial_controller_mixin.html',1,'openxc::controllers::serial']]],
   ['serialdatasource',['SerialDataSource',['../classopenxc_1_1sources_1_1serial_1_1_serial_data_source.html',1,'openxc::sources::serial']]],
   ['serialdatasourcetests',['SerialDataSourceTests',['../classtests_1_1test__serial_1_1_serial_data_source_tests.html',1,'tests::test_serial']]],
   ['serialvehicleinterface',['SerialVehicleInterface',['../classopenxc_1_1interface_1_1_serial_vehicle_interface.html',1,'openxc::interface']]],
   ['setup',['setUp',['../classtests_1_1test__measurement_1_1_measurement_tests.html#a224fd8972ee10e8c23fc1b8f875da450',1,'tests.test_measurement.MeasurementTests.setUp()'],['../classtests_1_1test__serial_1_1_serial_data_source_tests.html#a879d913074e001da576e8f5caae5e6a4',1,'tests.test_serial.SerialDataSourceTests.setUp()'],['../classtests_1_1test__usb_1_1_usb_data_source_tests.html#acaefa9d69c21664489543b017fd7aa2d',1,'tests.test_usb.UsbDataSourceTests.setUp()'],['../classtests_1_1test__vehicle_1_1_vehicle_tests.html#af3d70af4de819c0a7205c17e44ff1bbd',1,'tests.test_vehicle.VehicleTests.setUp()']]],
+  ['setup_2epy',['setup.py',['../setup_8py.html',1,'']]],
   ['signal',['Signal',['../classopenxc_1_1generator_1_1structures_1_1_signal.html',1,'openxc::generator::structures']]],
+  ['signals',['signals',['../classopenxc_1_1generator_1_1structures_1_1_message.html#a79aa7817d05d082eaad534660137a9c2',1,'openxc::generator::structures::Message']]],
   ['signalstate',['SignalState',['../classopenxc_1_1generator_1_1structures_1_1_signal_state.html',1,'openxc::generator::structures']]],
   ['sinks',['sinks',['../classopenxc_1_1vehicle_1_1_vehicle.html#a1f9b57d4444f04791adcc8dfc46c0cbe',1,'openxc::vehicle::Vehicle']]],
+  ['sorted_5fmessage_5fsets',['sorted_message_sets',['../classopenxc_1_1generator_1_1coder_1_1_code_generator.html#a786b61ea95ccbf53eca5892a5d659896',1,'openxc::generator::coder::CodeGenerator']]],
   ['sorted_5fmessages',['sorted_messages',['../classopenxc_1_1generator_1_1structures_1_1_can_bus.html#a98988f94ace4b3ab5a17b29da21b4169',1,'openxc::generator::structures::CanBus']]],
   ['sorted_5fsignals',['sorted_signals',['../classopenxc_1_1generator_1_1structures_1_1_message.html#a538288702a8e52e3c0614ca96b8914eb',1,'openxc::generator::structures::Message']]],
   ['sorted_5fstates',['sorted_states',['../classopenxc_1_1generator_1_1structures_1_1_signal.html#ac8820cebbee93a0097362a260a98c4a6',1,'openxc::generator::structures::Signal']]],
@@ -18,6 +24,7 @@ var searchData=
   ['spread',['spread',['../classopenxc_1_1utils_1_1_range.html#a4067015653df845ef75649da74bf7439',1,'openxc::utils::Range']]],
   ['started_5ftime',['started_time',['../classopenxc_1_1tools_1_1dashboard_1_1_dashboard.html#abf50384752e88e0b320d8fbb118d5a1d',1,'openxc::tools::dashboard::Dashboard']]],
   ['statefulmeasurement',['StatefulMeasurement',['../classopenxc_1_1measurements_1_1_stateful_measurement.html',1,'openxc::measurements']]],
-  ['states',['states',['../classopenxc_1_1measurements_1_1_stateful_measurement.html#a72498e5a1506712fcc5bbc2a05da1d62',1,'openxc.measurements.StatefulMeasurement.states()'],['../classopenxc_1_1measurements_1_1_ignition_status.html#a7885e209f49fd8d91d0f3ef7f9892511',1,'openxc.measurements.IgnitionStatus.states()'],['../classopenxc_1_1measurements_1_1_transmission_gear_position.html#a602d2a4c885e47200d77563b335ea3fa',1,'openxc.measurements.TransmissionGearPosition.states()'],['../classopenxc_1_1measurements_1_1_button_event.html#a8ece18c8e57974c72099a70fa996f309',1,'openxc.measurements.ButtonEvent.states()']]],
-  ['steeringwheelangle',['SteeringWheelAngle',['../classopenxc_1_1measurements_1_1_steering_wheel_angle.html',1,'openxc::measurements']]]
+  ['states',['states',['../classopenxc_1_1generator_1_1structures_1_1_signal.html#a995fb8ff05f153157483c8c45f6fcc3a',1,'openxc.generator.structures.Signal.states()'],['../classopenxc_1_1measurements_1_1_stateful_measurement.html#a72498e5a1506712fcc5bbc2a05da1d62',1,'openxc.measurements.StatefulMeasurement.states()'],['../classopenxc_1_1measurements_1_1_ignition_status.html#a7885e209f49fd8d91d0f3ef7f9892511',1,'openxc.measurements.IgnitionStatus.states()'],['../classopenxc_1_1measurements_1_1_transmission_gear_position.html#a602d2a4c885e47200d77563b335ea3fa',1,'openxc.measurements.TransmissionGearPosition.states()'],['../classopenxc_1_1measurements_1_1_button_event.html#a8ece18c8e57974c72099a70fa996f309',1,'openxc.measurements.ButtonEvent.states()']]],
+  ['steeringwheelangle',['SteeringWheelAngle',['../classopenxc_1_1measurements_1_1_steering_wheel_angle.html',1,'openxc::measurements']]],
+  ['structures_2epy',['structures.py',['../structures_8py.html',1,'']]]
 ];

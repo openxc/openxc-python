@@ -10,6 +10,9 @@ var NAVTREE =
         [ "Functions", "functions_func.html", null ],
         [ "Variables", "functions_vars.html", null ]
       ] ]
+    ] ],
+    [ "Files", null, [
+      [ "File List", "files.html", "files" ]
     ] ]
   ] ]
 ];
@@ -17,7 +20,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 ".html",
-"classopenxc_1_1sources_1_1base_1_1_bytestream_data_source.html#a6fe9ff26dd256018b2022bf1c077a7ed"
+"classopenxc_1_1sources_1_1base_1_1_bytestream_data_source.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

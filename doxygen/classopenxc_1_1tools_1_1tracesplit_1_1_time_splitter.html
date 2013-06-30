@@ -47,6 +47,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
+      <li><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -93,7 +94,7 @@ $(document).ready(function(){initNavTree('classopenxc_1_1tools_1_1tracesplit_1_1
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -157,6 +158,8 @@ Public Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Time Splitter Class. </p>
+
+<p>Definition at line <a class="el" href="tracesplit_8py_source.html#l00064">64</a> of file <a class="el" href="tracesplit_8py_source.html">tracesplit.py</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a295bc1654652ca5376aff7d46f6ef049"></a>
 <div class="memitem">
@@ -190,6 +193,15 @@ Public Attributes</h2></td></tr>
   </dd>
 </dl>
 
+<p>Definition at line <a class="el" href="tracesplit_8py_source.html#l00068">68</a> of file <a class="el" href="tracesplit_8py_source.html">tracesplit.py</a>.</p>
+<div class="fragment"><div class="line"><a name="l00068"></a><span class="lineno"><a class="code" href="classopenxc_1_1tools_1_1tracesplit_1_1_time_splitter.html#a295bc1654652ca5376aff7d46f6ef049">   68</a></span>&#160;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        @param record The input record<span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="stringliteral">        ## @var date</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="stringliteral">        # The date object instance.</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno"><a class="code" href="classopenxc_1_1tools_1_1tracesplit_1_1_time_splitter.html#a5d7c9fa635202719971cc588246a4120">   72</a></span>&#160;<span class="stringliteral">        date = datetime.datetime.fromtimestamp(record[&#39;timestamp&#39;])</span></div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="stringliteral">        if self.unit == &quot;day&quot;:</span></div>
+            date_format = &#39;%Y-%m-%d&#39;</div>
+</div><!-- fragment -->
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
@@ -205,10 +217,12 @@ Public Attributes</h2></td></tr>
 
 <p>The unit instance. </p>
 
+<p>Definition at line <a class="el" href="tracesplit_8py_source.html#l00072">72</a> of file <a class="el" href="tracesplit_8py_source.html">tracesplit.py</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>openxc/tools/tracesplit.py</li>
+<li>openxc/tools/<a class="el" href="tracesplit_8py_source.html">tracesplit.py</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -216,7 +230,7 @@ Public Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>openxc</b></li><li class="navelem"><b>tools</b></li><li class="navelem"><b>tracesplit</b></li><li class="navelem"><a class="el" href="classopenxc_1_1tools_1_1tracesplit_1_1_time_splitter.html">TimeSplitter</a></li>
-    <li class="footer">Generated on Sun Jun 30 2013 01:50:28 for OpenXC by
+    <li class="footer">Generated on Sun Jun 30 2013 12:20:34 for OpenXC by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

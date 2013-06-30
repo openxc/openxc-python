@@ -47,6 +47,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
+      <li><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -126,7 +127,7 @@ $(document).ready(function(){initNavTree('functions_0x69.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -139,11 +140,17 @@ $(document).ready(function(){initNavTree('functions_0x69.html','');});
 <div class="textblock">Here is a list of all documented class members with links to the class documentation for each member:</div>
 
 <h3><a class="anchor" id="index_i"></a>- i -</h3><ul>
-<li>id()
-: <a class="el" href="classopenxc_1_1generator_1_1structures_1_1_message.html#a979e3a8552d642f10e985eb59308d21e">openxc.generator.structures.Message</a>
+<li>id
+: <a class="el" href="classopenxc_1_1generator_1_1structures_1_1_message.html#ac9b21332a019f732a135d9f4dd8f7542">openxc.generator.structures.Message</a>
+</li>
+<li>ignore
+: <a class="el" href="classopenxc_1_1generator_1_1structures_1_1_signal.html#a86d79906c2ef298b8685ba1d3c212a3a">openxc.generator.structures.Signal</a>
 </li>
 <li>in_endpoint
 : <a class="el" href="classopenxc_1_1sources_1_1usb_1_1_usb_data_source.html#a58d217be34028be8f9590bb69bf07ba0">openxc.sources.usb.UsbDataSource</a>
+</li>
+<li>initializers
+: <a class="el" href="classopenxc_1_1generator_1_1message__sets_1_1_message_set.html#a7e7a1c29557f28b2336367c4d4f35dd1">openxc.generator.message_sets.MessageSet</a>
 </li>
 <li>inject()
 : <a class="el" href="classtests_1_1test__vehicle_1_1_test_data_source.html#ac1e67ad63084e635373de2bfe286de92">tests.test_vehicle.TestDataSource</a>
@@ -154,7 +161,7 @@ $(document).ready(function(){initNavTree('functions_0x69.html','');});
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Sun Jun 30 2013 01:50:29 for OpenXC by
+    <li class="footer">Generated on Sun Jun 30 2013 12:20:34 for OpenXC by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

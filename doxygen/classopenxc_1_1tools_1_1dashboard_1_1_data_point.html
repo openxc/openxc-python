@@ -47,6 +47,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
+      <li><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -93,7 +94,7 @@ $(document).ready(function(){initNavTree('classopenxc_1_1tools_1_1dashboard_1_1_
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -163,6 +164,8 @@ Public Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><a class="el" href="classopenxc_1_1tools_1_1dashboard_1_1_data_point.html" title="DataPoint Class.">DataPoint</a> Class. </p>
+
+<p>Definition at line <a class="el" href="dashboard_8py_source.html#l00072">72</a> of file <a class="el" href="dashboard_8py_source.html">dashboard.py</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a8981e596d56dcc3772183f9014a66f3e"></a>
 <div class="memitem">
@@ -196,6 +199,17 @@ Public Attributes</h2></td></tr>
   </dd>
 </dl>
 
+<p>Definition at line <a class="el" href="dashboard_8py_source.html#l00089">89</a> of file <a class="el" href="dashboard_8py_source.html">dashboard.py</a>.</p>
+<div class="fragment"><div class="line"><a name="l00089"></a><span class="lineno"><a class="code" href="classopenxc_1_1tools_1_1dashboard_1_1_data_point.html#a8981e596d56dcc3772183f9014a66f3e">   89</a></span>&#160;</div>
+<div class="line"><a name="l00090"></a><span class="lineno"><a class="code" href="classopenxc_1_1tools_1_1dashboard_1_1_data_point.html#aea3d996378853dd351049355626ed1dc">   90</a></span>&#160;        self.<a class="code" href="classopenxc_1_1tools_1_1dashboard_1_1_data_point.html#a5e618979073922f364a7b60b6bf2d3a3" title="Stores the number of messages received.">messages_received</a> = 0</div>
+<div class="line"><a name="l00091"></a><span class="lineno"><a class="code" href="classopenxc_1_1tools_1_1dashboard_1_1_data_point.html#a2aaa5f834037c2ce81bf85792712b2b1">   91</a></span>&#160;        self.<a class="code" href="classopenxc_1_1tools_1_1dashboard_1_1_data_point.html#a28be72554da30df081c61b6799e11d43" title="Stores the measurement type for this object instance.">measurement_type</a> = measurement_type</div>
+<div class="line"><a name="l00092"></a><span class="lineno"><a class="code" href="classopenxc_1_1tools_1_1dashboard_1_1_data_point.html#a20b3ce31e24d10d9098b6d4c1aed4ada">   92</a></span>&#160;    </div>
+<div class="line"><a name="l00093"></a><span class="lineno"><a class="code" href="classopenxc_1_1tools_1_1dashboard_1_1_data_point.html#acb8a93786129b036cb1d99d0a6cb8dcc">   93</a></span>&#160;    <span class="keyword">def </span><a class="code" href="classopenxc_1_1tools_1_1dashboard_1_1_data_point.html#a495f1fe0997bc91bb4d4ae3ef4adc485" title="Update Routine.">update</a>(self, measurement):</div>
+<div class="line"><a name="l00094"></a><span class="lineno"><a class="code" href="classopenxc_1_1tools_1_1dashboard_1_1_data_point.html#a5e618979073922f364a7b60b6bf2d3a3">   94</a></span>&#160;        <span class="stringliteral">&quot;&quot;&quot;Update Routine</span></div>
+<div class="line"><a name="l00095"></a><span class="lineno"><a class="code" href="classopenxc_1_1tools_1_1dashboard_1_1_data_point.html#a28be72554da30df081c61b6799e11d43">   95</a></span>&#160;<span class="stringliteral">        @param measurement The measurement instance.&quot;&quot;&quot;</span></div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        self.<a class="code" href="classopenxc_1_1tools_1_1dashboard_1_1_data_point.html#a5e618979073922f364a7b60b6bf2d3a3" title="Stores the number of messages received.">messages_received</a> += 1</div>
+        self.<a class="code" href="classopenxc_1_1tools_1_1dashboard_1_1_data_point.html#a20b3ce31e24d10d9098b6d4c1aed4ada" title="Stores the current data value.">current_data</a> = measurement</div>
+</div><!-- fragment -->
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
@@ -245,6 +259,63 @@ Public Attributes</h2></td></tr>
   </dd>
 </dl>
 
+<p>Definition at line <a class="el" href="dashboard_8py_source.html#l00117">117</a> of file <a class="el" href="dashboard_8py_source.html">dashboard.py</a>.</p>
+<div class="fragment"><div class="line"><a name="l00117"></a><span class="lineno"><a class="code" href="classopenxc_1_1tools_1_1dashboard_1_1_data_point.html#af7f6ef9beb057d150b0593acfe18e1b2">  117</a></span>&#160;</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;                percent = ((self.current_data.value.num -</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;                    self.measurement_type.valid_range.min) /</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;                        float(self.measurement_type.valid_range.spread)) * 100</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;                chunks = int((percent - .1) * .1)</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;                graph = <span class="stringliteral">&quot;*%s|%s*&quot;</span> % (<span class="stringliteral">&quot;-&quot;</span> * chunks, <span class="stringliteral">&quot;-&quot;</span> * (10 - chunks))</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;                window.addstr(row, 30, graph)</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;            <span class="keywordflow">if</span> len(self.<a class="code" href="classopenxc_1_1tools_1_1dashboard_1_1_data_point.html#acb8a93786129b036cb1d99d0a6cb8dcc" title="Stores a dictionary containing the events.">events</a>) == 0:</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;                value = str(self.<a class="code" href="classopenxc_1_1tools_1_1dashboard_1_1_data_point.html#a20b3ce31e24d10d9098b6d4c1aed4ada" title="Stores the current data value.">current_data</a>)</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;            <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;                result = <span class="stringliteral">&quot;&quot;</span></div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;                <span class="keywordflow">for</span> item, value <span class="keywordflow">in</span> enumerate(self.measurement_type.states):</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;                    <span class="comment"># TODO missing keys here?</span></div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;                    result += <span class="stringliteral">&quot;%s: %s &quot;</span> % (value, self.events.get(item, <span class="stringliteral">&quot;?&quot;</span>))</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;                value = result</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;            <span class="keywordflow">if</span> self.<a class="code" href="classopenxc_1_1tools_1_1dashboard_1_1_data_point.html#a2aaa5f834037c2ce81bf85792712b2b1" title="Stores the number of times bad data is found.">bad_data</a> &gt; 0:</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;                value += <span class="stringliteral">&quot; (invalid)&quot;</span></div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;                value_color = curses.color_pair(1)</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;            <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;                value_color = curses.color_pair(0)</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;            window.addstr(row, 45, value, value_color)</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;        <span class="keywordflow">if</span> self.<a class="code" href="classopenxc_1_1tools_1_1dashboard_1_1_data_point.html#a2aaa5f834037c2ce81bf85792712b2b1" title="Stores the number of times bad data is found.">bad_data</a> &gt; 0:</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;            bad_data_color = curses.color_pair(1)</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;        <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;            bad_data_color = curses.color_pair(2)</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;        <span class="keywordflow">if</span> width &gt; 90:</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;            window.addstr(row, 80, <span class="stringliteral">&quot;Errors: %d&quot;</span> % self.<a class="code" href="classopenxc_1_1tools_1_1dashboard_1_1_data_point.html#a2aaa5f834037c2ce81bf85792712b2b1" title="Stores the number of times bad data is found.">bad_data</a>,</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;                    bad_data_color)</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;        <span class="keywordflow">if</span> self.<a class="code" href="classopenxc_1_1tools_1_1dashboard_1_1_data_point.html#a5e618979073922f364a7b60b6bf2d3a3" title="Stores the number of messages received.">messages_received</a> &gt; 0:</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;            message_count_color = curses.color_pair(0)</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;        <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;            message_count_color = curses.color_pair(3)</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;        <span class="keywordflow">if</span> width &gt; 100:</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;            window.addstr(row, 95, <span class="stringliteral">&quot;Messages: &quot;</span> + str(self.<a class="code" href="classopenxc_1_1tools_1_1dashboard_1_1_data_point.html#a5e618979073922f364a7b60b6bf2d3a3" title="Stores the number of messages received.">messages_received</a>),</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;                    message_count_color)</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;        <span class="keywordflow">if</span> width &gt;= 125:</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;            window.addstr(row, 110, <span class="stringliteral">&quot;Frequency (Hz): %d&quot;</span> %</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;                    (self.<a class="code" href="classopenxc_1_1tools_1_1dashboard_1_1_data_point.html#a5e618979073922f364a7b60b6bf2d3a3" title="Stores the number of messages received.">messages_received</a> /</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;                        (total_seconds(datetime.now() - started_time) + 0.1)))</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;<span class="keyword">class </span><a class="code" href="classopenxc_1_1tools_1_1dashboard_1_1_dashboard.html" title="Dashboard Class.">Dashboard</a>(object):</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;    <span class="stringliteral">&quot;&quot;&quot;Dashboard Class&quot;&quot;&quot;</span></div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;    <span class="keyword">def </span><a class="code" href="classopenxc_1_1tools_1_1dashboard_1_1_data_point.html#a8981e596d56dcc3772183f9014a66f3e" title="Initialization Routine.">__init__</a>(self, window, vehicle):</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;        <span class="stringliteral">&quot;&quot;&quot;Initialization Routine</span></div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;<span class="stringliteral">        @param window The window instance.</span></div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;<span class="stringliteral">        @param vehicle The vehicle instance.&quot;&quot;&quot;</span></div>
+        <span class="comment">## @var window</span></div>
+</div><!-- fragment -->
 </div>
 </div>
 <a class="anchor" id="a495f1fe0997bc91bb4d4ae3ef4adc485"></a>
@@ -279,6 +350,21 @@ Public Attributes</h2></td></tr>
   </dd>
 </dl>
 
+<p>Definition at line <a class="el" href="dashboard_8py_source.html#l00100">100</a> of file <a class="el" href="dashboard_8py_source.html">dashboard.py</a>.</p>
+<div class="fragment"><div class="line"><a name="l00100"></a><span class="lineno"><a class="code" href="classopenxc_1_1tools_1_1dashboard_1_1_data_point.html#a495f1fe0997bc91bb4d4ae3ef4adc485">  100</a></span>&#160;</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;            <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;                self.<a class="code" href="classopenxc_1_1tools_1_1dashboard_1_1_data_point.html#a2aaa5f834037c2ce81bf85792712b2b1" title="Stores the number of times bad data is found.">bad_data</a> += 1</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        <span class="keywordflow">elif</span> (isinstance(measurement, NumericMeasurement) <span class="keywordflow">and</span> <span class="keywordflow">not</span></div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;                measurement.within_range()):</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;            self.<a class="code" href="classopenxc_1_1tools_1_1dashboard_1_1_data_point.html#a2aaa5f834037c2ce81bf85792712b2b1" title="Stores the number of times bad data is found.">bad_data</a> += 1</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <span class="keyword">def </span><a class="code" href="classopenxc_1_1tools_1_1dashboard_1_1_data_point.html#af7f6ef9beb057d150b0593acfe18e1b2" title="Print to Window Routine.">print_to_window</a>(self, window, row, started_time):</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        <span class="stringliteral">&quot;&quot;&quot;Print to Window Routine</span></div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;<span class="stringliteral">        @param window The window instance.</span></div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;<span class="stringliteral">        @param row The row instance.</span></div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="stringliteral">        @param started_time The started time object&quot;&quot;&quot;</span></div>
+        width = window.getmaxyx()[1]</div>
+</div><!-- fragment -->
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
@@ -294,10 +380,12 @@ Public Attributes</h2></td></tr>
 
 <p>Stores the measurement type for this object instance. </p>
 
+<p>Definition at line <a class="el" href="dashboard_8py_source.html#l00095">95</a> of file <a class="el" href="dashboard_8py_source.html">dashboard.py</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>openxc/tools/dashboard.py</li>
+<li>openxc/tools/<a class="el" href="dashboard_8py_source.html">dashboard.py</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -305,7 +393,7 @@ Public Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>openxc</b></li><li class="navelem"><b>tools</b></li><li class="navelem"><b>dashboard</b></li><li class="navelem"><a class="el" href="classopenxc_1_1tools_1_1dashboard_1_1_data_point.html">DataPoint</a></li>
-    <li class="footer">Generated on Sun Jun 30 2013 01:50:28 for OpenXC by
+    <li class="footer">Generated on Sun Jun 30 2013 12:20:34 for OpenXC by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

@@ -47,6 +47,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
+      <li><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -93,7 +94,7 @@ $(document).ready(function(){initNavTree('classopenxc_1_1sinks_1_1uploader_1_1_u
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -155,6 +156,8 @@ Static Public Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Uploads all incoming vehicle data to a remote web application via HTTP. </p>
 <p>TODO document service side format </p>
+
+<p>Definition at line <a class="el" href="uploader_8py_source.html#l00017">17</a> of file <a class="el" href="uploader_8py_source.html">uploader.py</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a0d0b05b788ff375a74b30ca05cc1d44b"></a>
 <div class="memitem">
@@ -188,6 +191,13 @@ Static Public Attributes</h2></td></tr>
   </dd>
 </dl>
 
+<p>Definition at line <a class="el" href="uploader_8py_source.html#l00033">33</a> of file <a class="el" href="uploader_8py_source.html">uploader.py</a>.</p>
+<div class="fragment"><div class="line"><a name="l00033"></a><span class="lineno"><a class="code" href="classopenxc_1_1sinks_1_1uploader_1_1_uploader_sink.html#a0d0b05b788ff375a74b30ca05cc1d44b">   33</a></span>&#160;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        self.<a class="code" href="classopenxc_1_1sinks_1_1uploader_1_1_uploader_sink.html#ae9b6c5d10c850c0cd91e60b1bd258495" title="The recorder object instance.">recorder</a> = self.<a class="code" href="classopenxc_1_1sinks_1_1uploader_1_1_uploader_sink_1_1_uploader.html" title="The Uploader Class.">Uploader</a>(self.queue, url)</div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="code" href="classopenxc_1_1sinks_1_1uploader_1_1_uploader_sink.html#ae9b6c5d10c850c0cd91e60b1bd258495">   35</a></span>&#160;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keyword">class </span><a class="code" href="classopenxc_1_1sinks_1_1uploader_1_1_uploader_sink_1_1_uploader.html" title="The Uploader Class.">Uploader</a>(Thread):</div>
+        <span class="stringliteral">&quot;&quot;&quot; The Uploader Class&quot;&quot;&quot;</span></div>
+</div><!-- fragment -->
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
@@ -211,6 +221,8 @@ Static Public Attributes</h2></td></tr>
 
 <p>The HTTP Timeout Settings in Seconds. </p>
 
+<p>Definition at line <a class="el" href="uploader_8py_source.html#l00024">24</a> of file <a class="el" href="uploader_8py_source.html">uploader.py</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="ae9b6c5d10c850c0cd91e60b1bd258495"></a>
@@ -224,6 +236,8 @@ Static Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>The recorder object instance. </p>
+
+<p>Definition at line <a class="el" href="uploader_8py_source.html#l00035">35</a> of file <a class="el" href="uploader_8py_source.html">uploader.py</a>.</p>
 
 </div>
 </div>
@@ -247,10 +261,12 @@ Static Public Attributes</h2></td></tr>
 
 <p>The upload batch size setting. </p>
 
+<p>Definition at line <a class="el" href="uploader_8py_source.html#l00021">21</a> of file <a class="el" href="uploader_8py_source.html">uploader.py</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>openxc/sinks/uploader.py</li>
+<li>openxc/sinks/<a class="el" href="uploader_8py_source.html">uploader.py</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -258,7 +274,7 @@ Static Public Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>openxc</b></li><li class="navelem"><b>sinks</b></li><li class="navelem"><b>uploader</b></li><li class="navelem"><a class="el" href="classopenxc_1_1sinks_1_1uploader_1_1_uploader_sink.html">UploaderSink</a></li>
-    <li class="footer">Generated on Sun Jun 30 2013 01:50:28 for OpenXC by
+    <li class="footer">Generated on Sun Jun 30 2013 12:20:34 for OpenXC by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

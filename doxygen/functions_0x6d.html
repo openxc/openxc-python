@@ -47,6 +47,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
+      <li><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -126,7 +127,7 @@ $(document).ready(function(){initNavTree('functions_0x6d.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -141,6 +142,12 @@ $(document).ready(function(){initNavTree('functions_0x6d.html','');});
 <h3><a class="anchor" id="index_m"></a>- m -</h3><ul>
 <li>max
 : <a class="el" href="classopenxc_1_1utils_1_1_range.html#a78840c9e8e1568799b5e0a33af3e8848">openxc.utils.Range</a>
+</li>
+<li>MAX_SIGNAL_STATES
+: <a class="el" href="classopenxc_1_1generator_1_1coder_1_1_code_generator.html#a24e1dd599600ca510d3f33d41760931f">openxc.generator.coder.CodeGenerator</a>
+</li>
+<li>max_value
+: <a class="el" href="classopenxc_1_1generator_1_1structures_1_1_signal.html#a321958316e43fb6e3ab9be17239b1f82">openxc.generator.structures.Signal</a>
 </li>
 <li>MAXIMUM_RECORD_GAP_SECONDS
 : <a class="el" href="classopenxc_1_1tools_1_1tracesplit_1_1_trip_splitter.html#ae161028f30478d05a1aca4ec4c23edca">openxc.tools.tracesplit.TripSplitter</a>
@@ -166,17 +173,23 @@ $(document).ready(function(){initNavTree('functions_0x6d.html','');});
 <li>message_set
 : <a class="el" href="classopenxc_1_1generator_1_1structures_1_1_signal.html#ab5e8eec5cca25296187cc7008a206bb0">openxc.generator.structures.Signal</a>
 </li>
+<li>message_sets
+: <a class="el" href="classopenxc_1_1generator_1_1coder_1_1_code_generator.html#ab660271276571970e7caf646158652fa">openxc.generator.coder.CodeGenerator</a>
+</li>
 <li>messages
 : <a class="el" href="classopenxc_1_1generator_1_1structures_1_1_can_bus.html#acea72374a1af8cb6c964a00f4837c4d3">openxc.generator.structures.CanBus</a>
 , <a class="el" href="classopenxc_1_1generator_1_1xml__to__json_1_1_network.html#ae326def98b2554c30c51d8da5dc529a3">openxc.generator.xml_to_json.Network</a>
 </li>
 <li>messages_received
-: <a class="el" href="classopenxc_1_1tools_1_1dashboard_1_1_dashboard.html#a6634e9545296ee1d05f7d9be68df755f">openxc.tools.dashboard.Dashboard</a>
-, <a class="el" href="classopenxc_1_1tools_1_1dashboard_1_1_data_point.html#a5e618979073922f364a7b60b6bf2d3a3">openxc.tools.dashboard.DataPoint</a>
+: <a class="el" href="classopenxc_1_1tools_1_1dashboard_1_1_data_point.html#a5e618979073922f364a7b60b6bf2d3a3">openxc.tools.dashboard.DataPoint</a>
 , <a class="el" href="classtests_1_1test__vehicle_1_1_vehicle_tests.html#a843f12ca0f28b62072440de37f8aa88e">tests.test_vehicle.VehicleTests</a>
+, <a class="el" href="classopenxc_1_1tools_1_1dashboard_1_1_dashboard.html#a6634e9545296ee1d05f7d9be68df755f">openxc.tools.dashboard.Dashboard</a>
 </li>
 <li>min
 : <a class="el" href="classopenxc_1_1utils_1_1_range.html#a7cd71e15f96781144d5ed54a853e8e4e">openxc.utils.Range</a>
+</li>
+<li>min_value
+: <a class="el" href="classopenxc_1_1generator_1_1structures_1_1_signal.html#ae46de7c7735f96a643207e4029d44c2e">openxc.generator.structures.Signal</a>
 </li>
 </ul>
 </div><!-- contents -->
@@ -184,7 +197,7 @@ $(document).ready(function(){initNavTree('functions_0x6d.html','');});
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Sun Jun 30 2013 01:50:29 for OpenXC by
+    <li class="footer">Generated on Sun Jun 30 2013 12:20:34 for OpenXC by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

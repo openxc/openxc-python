@@ -47,6 +47,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
+      <li><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -93,7 +94,7 @@ $(document).ready(function(){initNavTree('classopenxc_1_1sources_1_1base_1_1_byt
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -158,6 +159,8 @@ Public Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A source that receives data is a series of bytes, with discrete messages separated by a newline character. </p>
 <p>Subclasses of this class need only to implement the <code>_read</code> method. </p>
+
+<p>Definition at line <a class="el" href="sources_2base_8py_source.html#l00059">59</a> of file <a class="el" href="sources_2base_8py_source.html">base.py</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="abe5dcdc5aa0ae46b59d77b34849efb1f"></a>
 <div class="memitem">
@@ -191,6 +194,14 @@ Public Attributes</h2></td></tr>
   </dd>
 </dl>
 
+<p>Definition at line <a class="el" href="sources_2base_8py_source.html#l00069">69</a> of file <a class="el" href="sources_2base_8py_source.html">base.py</a>.</p>
+<div class="fragment"><div class="line"><a name="l00069"></a><span class="lineno"><a class="code" href="classopenxc_1_1sources_1_1base_1_1_bytestream_data_source.html#abe5dcdc5aa0ae46b59d77b34849efb1f">   69</a></span>&#160;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        <span class="stringliteral">&quot;&quot;&quot;Continuously read data from the source and attempt to parse a valid</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno"><a class="code" href="classopenxc_1_1sources_1_1base_1_1_bytestream_data_source.html#a6fe9ff26dd256018b2022bf1c077a7ed">   71</a></span>&#160;<span class="stringliteral">        message from the buffer of bytes. When a message is parsed, passes it</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno"><a class="code" href="classopenxc_1_1sources_1_1base_1_1_bytestream_data_source.html#abcf019e0d864733ec425a0b6138a0ce7">   72</a></span>&#160;<span class="stringliteral">        off to the callback if one is set.</span></div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="stringliteral">        &quot;&quot;&quot;</span></div>
+        message_buffer = b<span class="stringliteral">&quot;&quot;</span></div>
+</div><!-- fragment -->
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
@@ -211,6 +222,29 @@ Public Attributes</h2></td></tr>
 <p>Continuously read data from the source and attempt to parse a valid message from the buffer of bytes. </p>
 <p>When a message is parsed, passes it off to the callback if one is set. </p>
 
+<p>Definition at line <a class="el" href="sources_2base_8py_source.html#l00079">79</a> of file <a class="el" href="sources_2base_8py_source.html">base.py</a>.</p>
+<div class="fragment"><div class="line"><a name="l00079"></a><span class="lineno"><a class="code" href="classopenxc_1_1sources_1_1base_1_1_bytestream_data_source.html#aa47515dc7598fe49950cb2409383e9e4">   79</a></span>&#160;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;                <span class="keywordflow">if</span> message <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;                    <span class="keywordflow">break</span></div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;                <span class="keywordflow">if</span> <span class="keywordflow">not</span> hasattr(message, <span class="stringliteral">&#39;__iter__&#39;</span>) <span class="keywordflow">or</span> <span class="keywordflow">not</span> (</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;                        (<span class="stringliteral">&#39;name&#39;</span> <span class="keywordflow">in</span> message <span class="keywordflow">and</span> <span class="stringliteral">&#39;value&#39;</span> <span class="keywordflow">in</span> message) <span class="keywordflow">or</span> (</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;                        <span class="stringliteral">&#39;id&#39;</span> <span class="keywordflow">in</span> message <span class="keywordflow">and</span> <span class="stringliteral">&#39;data&#39;</span> <span class="keywordflow">in</span> message)):</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;                    self.<a class="code" href="classopenxc_1_1sources_1_1base_1_1_bytestream_data_source.html#abcf019e0d864733ec425a0b6138a0ce7" title="The number of corrupted messages received.">corrupted_messages</a> += 1</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;                    <span class="keywordflow">break</span></div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;                self.<a class="code" href="classopenxc_1_1sources_1_1base_1_1_bytestream_data_source.html#a6fe9ff26dd256018b2022bf1c077a7ed" title="The number of bytes received.">bytes_received</a> += byte_count</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;                <span class="keywordflow">if</span> self.<a class="code" href="classopenxc_1_1sources_1_1base_1_1_data_source.html#af5901e36493848c86464aa3398c28873" title="The callback function to use.">callback</a> <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;                    self.<a class="code" href="classopenxc_1_1sources_1_1base_1_1_data_source.html#af5901e36493848c86464aa3398c28873" title="The callback function to use.">callback</a>(message,</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;                            data_remaining=len(message_buffer) &gt; 0)</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="keyword">def </span>_parse_message(self, message_buffer):</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        <span class="stringliteral">&quot;&quot;&quot;If a message can be parsed from the given buffer, return it and</span></div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="stringliteral">        remove it.</span></div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;<span class="stringliteral"></span></div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="stringliteral">        Returns the message if one could be parsed, otherwise None, and the</span></div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;<span class="stringliteral">        remainder of the buffer.</span></div>
+        </div>
+</div><!-- fragment -->
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
@@ -226,10 +260,12 @@ Public Attributes</h2></td></tr>
 
 <p>The number of corrupted messages received. </p>
 
+<p>Definition at line <a class="el" href="sources_2base_8py_source.html#l00072">72</a> of file <a class="el" href="sources_2base_8py_source.html">base.py</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>openxc/sources/base.py</li>
+<li>openxc/sources/<a class="el" href="sources_2base_8py_source.html">base.py</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -237,7 +273,7 @@ Public Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>openxc</b></li><li class="navelem"><b>sources</b></li><li class="navelem"><b>base</b></li><li class="navelem"><a class="el" href="classopenxc_1_1sources_1_1base_1_1_bytestream_data_source.html">BytestreamDataSource</a></li>
-    <li class="footer">Generated on Sun Jun 30 2013 01:50:28 for OpenXC by
+    <li class="footer">Generated on Sun Jun 30 2013 12:20:34 for OpenXC by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

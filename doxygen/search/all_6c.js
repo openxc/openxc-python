@@ -10,5 +10,6 @@ var searchData=
   ['longitudinalacceleration',['LongitudinalAcceleration',['../classopenxc_1_1measurements_1_1_longitudinal_acceleration.html',1,'openxc::measurements']]],
   ['lookup_5fbus_5findex',['lookup_bus_index',['../classopenxc_1_1generator_1_1message__sets_1_1_message_set.html#acac14479397fc56ebd9df67c12a9f8ad',1,'openxc::generator::message_sets::MessageSet']]],
   ['lookup_5fmessage_5findex',['lookup_message_index',['../classopenxc_1_1generator_1_1message__sets_1_1_message_set.html#ae1882efbf1d5284e4fe7255b43411ed9',1,'openxc::generator::message_sets::MessageSet']]],
-  ['loop',['loop',['../classopenxc_1_1sources_1_1trace_1_1_trace_data_source.html#ae827c13acd79e4e3e17ab47112054bb0',1,'openxc::sources::trace::TraceDataSource']]]
+  ['loop',['loop',['../classopenxc_1_1sources_1_1trace_1_1_trace_data_source.html#ae827c13acd79e4e3e17ab47112054bb0',1,'openxc::sources::trace::TraceDataSource']]],
+  ['loopers',['loopers',['../classopenxc_1_1generator_1_1message__sets_1_1_message_set.html#a94a12d2e0a9df7103c7abef7d0945a87',1,'openxc::generator::message_sets::MessageSet']]]
 ];

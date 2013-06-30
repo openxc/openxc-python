@@ -47,6 +47,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
+      <li><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -93,7 +94,7 @@ $(document).ready(function(){initNavTree('classopenxc_1_1generator_1_1structures
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -111,6 +112,9 @@ $(document).ready(function(){initNavTree('classopenxc_1_1generator_1_1structures
 <div class="title">openxc.generator.structures.Signal Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p><a class="el" href="classopenxc_1_1generator_1_1structures_1_1_signal.html" title="Signal Class.">Signal</a> Class.  
+ <a href="classopenxc_1_1generator_1_1structures_1_1_signal.html#details">More...</a></p>
 <div class="dynheader">
 Inheritance diagram for openxc.generator.structures.Signal:</div>
 <div class="dyncontent">
@@ -127,7 +131,7 @@ def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class
 <tr class="memdesc:a02d7e47c0b9695cafa074acbfb09e928"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialization Routine. <br/></td></tr>
 <tr class="separator:a02d7e47c0b9695cafa074acbfb09e928"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a38285559ff7c74c9ec00f50840e64658"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenxc_1_1generator_1_1structures_1_1_signal.html#a38285559ff7c74c9ec00f50840e64658">merge_signal</a></td></tr>
-<tr class="memdesc:a38285559ff7c74c9ec00f50840e64658"><td class="mdescLeft">&#160;</td><td class="mdescRight">Merge <a class="el" href="classopenxc_1_1generator_1_1structures_1_1_signal.html">Signal</a>.  <a href="#a38285559ff7c74c9ec00f50840e64658">More...</a><br/></td></tr>
+<tr class="memdesc:a38285559ff7c74c9ec00f50840e64658"><td class="mdescLeft">&#160;</td><td class="mdescRight">Merge <a class="el" href="classopenxc_1_1generator_1_1structures_1_1_signal.html" title="Signal Class.">Signal</a>.  <a href="#a38285559ff7c74c9ec00f50840e64658">More...</a><br/></td></tr>
 <tr class="separator:a38285559ff7c74c9ec00f50840e64658"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a13953f5170e0ee39f9affc28861b2a0f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a13953f5170e0ee39f9affc28861b2a0f"></a>
 def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenxc_1_1generator_1_1structures_1_1_signal.html#a13953f5170e0ee39f9affc28861b2a0f">handler</a></td></tr>
@@ -178,60 +182,79 @@ Public Attributes</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenxc_1_1generator_1_1structures_1_1_signal.html#ab5e8eec5cca25296187cc7008a206bb0">message_set</a></td></tr>
 <tr class="memdesc:ab5e8eec5cca25296187cc7008a206bb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">The message set object instance. <br/></td></tr>
 <tr class="separator:ab5e8eec5cca25296187cc7008a206bb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a762f54f04f3494f05b55444661fd16d6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenxc_1_1generator_1_1structures_1_1_signal.html#a762f54f04f3494f05b55444661fd16d6">message</a></td></tr>
-<tr class="memdesc:a762f54f04f3494f05b55444661fd16d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">The name object instance.  <a href="#a762f54f04f3494f05b55444661fd16d6">More...</a><br/></td></tr>
+<tr class="memitem:a762f54f04f3494f05b55444661fd16d6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a762f54f04f3494f05b55444661fd16d6"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenxc_1_1generator_1_1structures_1_1_signal.html#a762f54f04f3494f05b55444661fd16d6">message</a></td></tr>
+<tr class="memdesc:a762f54f04f3494f05b55444661fd16d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">The name object instance. <br/></td></tr>
 <tr class="separator:a762f54f04f3494f05b55444661fd16d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa9b08ed96ac82f2c402a80eab416ae0f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa9b08ed96ac82f2c402a80eab416ae0f"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenxc_1_1generator_1_1structures_1_1_signal.html#aa9b08ed96ac82f2c402a80eab416ae0f">name</a></td></tr>
 <tr class="memdesc:aa9b08ed96ac82f2c402a80eab416ae0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">The name object instance. <br/></td></tr>
 <tr class="separator:aa9b08ed96ac82f2c402a80eab416ae0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a12cab84c61bedfd2069ce9a86f96d20a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a12cab84c61bedfd2069ce9a86f96d20a"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>generic_name</b></td></tr>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenxc_1_1generator_1_1structures_1_1_signal.html#a12cab84c61bedfd2069ce9a86f96d20a">generic_name</a></td></tr>
+<tr class="memdesc:a12cab84c61bedfd2069ce9a86f96d20a"><td class="mdescLeft">&#160;</td><td class="mdescRight">The generic name object instance. <br/></td></tr>
 <tr class="separator:a12cab84c61bedfd2069ce9a86f96d20a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a375c61b67f6c73eef3f64d856cc0bf3a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a375c61b67f6c73eef3f64d856cc0bf3a"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>bit_position</b></td></tr>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenxc_1_1generator_1_1structures_1_1_signal.html#a375c61b67f6c73eef3f64d856cc0bf3a">bit_position</a></td></tr>
+<tr class="memdesc:a375c61b67f6c73eef3f64d856cc0bf3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">The bit position object instance. <br/></td></tr>
 <tr class="separator:a375c61b67f6c73eef3f64d856cc0bf3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaa3d4812d4c46ddb6cf73327f62925a0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aaa3d4812d4c46ddb6cf73327f62925a0"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>bit_size</b></td></tr>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenxc_1_1generator_1_1structures_1_1_signal.html#aaa3d4812d4c46ddb6cf73327f62925a0">bit_size</a></td></tr>
+<tr class="memdesc:aaa3d4812d4c46ddb6cf73327f62925a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">The bit size object instance. <br/></td></tr>
 <tr class="separator:aaa3d4812d4c46ddb6cf73327f62925a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a487572542793e9bf0555ad303fac48d9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a487572542793e9bf0555ad303fac48d9"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>handler</b></td></tr>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenxc_1_1generator_1_1structures_1_1_signal.html#a487572542793e9bf0555ad303fac48d9">handler</a></td></tr>
+<tr class="memdesc:a487572542793e9bf0555ad303fac48d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">The handler object instance. <br/></td></tr>
 <tr class="separator:a487572542793e9bf0555ad303fac48d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7c7bfdd41f690f2fd11b075b5f6dfa62"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7c7bfdd41f690f2fd11b075b5f6dfa62"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>write_handler</b></td></tr>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenxc_1_1generator_1_1structures_1_1_signal.html#a7c7bfdd41f690f2fd11b075b5f6dfa62">write_handler</a></td></tr>
+<tr class="memdesc:a7c7bfdd41f690f2fd11b075b5f6dfa62"><td class="mdescLeft">&#160;</td><td class="mdescRight">The write handler object instance. <br/></td></tr>
 <tr class="separator:a7c7bfdd41f690f2fd11b075b5f6dfa62"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af99d6063ca23a2dfe5d71dd793c619f3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af99d6063ca23a2dfe5d71dd793c619f3"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>factor</b></td></tr>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenxc_1_1generator_1_1structures_1_1_signal.html#af99d6063ca23a2dfe5d71dd793c619f3">factor</a></td></tr>
+<tr class="memdesc:af99d6063ca23a2dfe5d71dd793c619f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">The factor object instance. <br/></td></tr>
 <tr class="separator:af99d6063ca23a2dfe5d71dd793c619f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3cf36d15eb9b706548d3506257e07810"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3cf36d15eb9b706548d3506257e07810"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>offset</b></td></tr>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenxc_1_1generator_1_1structures_1_1_signal.html#a3cf36d15eb9b706548d3506257e07810">offset</a></td></tr>
+<tr class="memdesc:a3cf36d15eb9b706548d3506257e07810"><td class="mdescLeft">&#160;</td><td class="mdescRight">The offset object instance. <br/></td></tr>
 <tr class="separator:a3cf36d15eb9b706548d3506257e07810"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae46de7c7735f96a643207e4029d44c2e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae46de7c7735f96a643207e4029d44c2e"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>min_value</b></td></tr>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenxc_1_1generator_1_1structures_1_1_signal.html#ae46de7c7735f96a643207e4029d44c2e">min_value</a></td></tr>
+<tr class="memdesc:ae46de7c7735f96a643207e4029d44c2e"><td class="mdescLeft">&#160;</td><td class="mdescRight">The minimum value object instance. <br/></td></tr>
 <tr class="separator:ae46de7c7735f96a643207e4029d44c2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a321958316e43fb6e3ab9be17239b1f82"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a321958316e43fb6e3ab9be17239b1f82"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>max_value</b></td></tr>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenxc_1_1generator_1_1structures_1_1_signal.html#a321958316e43fb6e3ab9be17239b1f82">max_value</a></td></tr>
+<tr class="memdesc:a321958316e43fb6e3ab9be17239b1f82"><td class="mdescLeft">&#160;</td><td class="mdescRight">The maximum value object instance. <br/></td></tr>
 <tr class="separator:a321958316e43fb6e3ab9be17239b1f82"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a86d79906c2ef298b8685ba1d3c212a3a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a86d79906c2ef298b8685ba1d3c212a3a"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>ignore</b></td></tr>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenxc_1_1generator_1_1structures_1_1_signal.html#a86d79906c2ef298b8685ba1d3c212a3a">ignore</a></td></tr>
+<tr class="memdesc:a86d79906c2ef298b8685ba1d3c212a3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">The ignore object instance. <br/></td></tr>
 <tr class="separator:a86d79906c2ef298b8685ba1d3c212a3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1941bc4736435d6d23c9bac9d57907ec"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1941bc4736435d6d23c9bac9d57907ec"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>send_frequency</b></td></tr>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenxc_1_1generator_1_1structures_1_1_signal.html#a1941bc4736435d6d23c9bac9d57907ec">send_frequency</a></td></tr>
+<tr class="memdesc:a1941bc4736435d6d23c9bac9d57907ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">The send frequency object instance. <br/></td></tr>
 <tr class="separator:a1941bc4736435d6d23c9bac9d57907ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aba1ad50be6114979af2629cc82298b42"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aba1ad50be6114979af2629cc82298b42"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>send_same</b></td></tr>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenxc_1_1generator_1_1structures_1_1_signal.html#aba1ad50be6114979af2629cc82298b42">send_same</a></td></tr>
+<tr class="memdesc:aba1ad50be6114979af2629cc82298b42"><td class="mdescLeft">&#160;</td><td class="mdescRight">The send_same object instance. <br/></td></tr>
 <tr class="separator:aba1ad50be6114979af2629cc82298b42"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4cb35dbee9119649eb3cd517e0e398a8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4cb35dbee9119649eb3cd517e0e398a8"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>writable</b></td></tr>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenxc_1_1generator_1_1structures_1_1_signal.html#a4cb35dbee9119649eb3cd517e0e398a8">writable</a></td></tr>
+<tr class="memdesc:a4cb35dbee9119649eb3cd517e0e398a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">The writable object instance. <br/></td></tr>
 <tr class="separator:a4cb35dbee9119649eb3cd517e0e398a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a297745d8a7eb0bd0094a6387b0673651"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a297745d8a7eb0bd0094a6387b0673651"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>enabled</b></td></tr>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenxc_1_1generator_1_1structures_1_1_signal.html#a297745d8a7eb0bd0094a6387b0673651">enabled</a></td></tr>
+<tr class="memdesc:a297745d8a7eb0bd0094a6387b0673651"><td class="mdescLeft">&#160;</td><td class="mdescRight">The enabled object instance. <br/></td></tr>
 <tr class="separator:a297745d8a7eb0bd0094a6387b0673651"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a995fb8ff05f153157483c8c45f6fcc3a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a995fb8ff05f153157483c8c45f6fcc3a"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>states</b></td></tr>
+<tr class="memitem:a995fb8ff05f153157483c8c45f6fcc3a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenxc_1_1generator_1_1structures_1_1_signal.html#a995fb8ff05f153157483c8c45f6fcc3a">states</a></td></tr>
+<tr class="memdesc:a995fb8ff05f153157483c8c45f6fcc3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">The states object instance.  <a href="#a995fb8ff05f153157483c8c45f6fcc3a">More...</a><br/></td></tr>
 <tr class="separator:a995fb8ff05f153157483c8c45f6fcc3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p><a class="el" href="classopenxc_1_1generator_1_1structures_1_1_signal.html" title="Signal Class.">Signal</a> Class. </p>
+
+<p>Definition at line <a class="el" href="structures_8py_source.html#l00246">246</a> of file <a class="el" href="structures_8py_source.html">structures.py</a>.</p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="ac19ca9c1bfb15a8f061007eb5b66f125"></a>
 <div class="memitem">
 <div class="memproto">
@@ -264,6 +287,12 @@ Public Attributes</h2></td></tr>
   </dd>
 </dl>
 
+<p>Definition at line <a class="el" href="structures_8py_source.html#l00368">368</a> of file <a class="el" href="structures_8py_source.html">structures.py</a>.</p>
+<div class="fragment"><div class="line"><a name="l00368"></a><span class="lineno"><a class="code" href="classopenxc_1_1generator_1_1structures_1_1_signal.html#ac19ca9c1bfb15a8f061007eb5b66f125">  368</a></span>&#160;</div>
+<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;        <span class="keywordflow">return</span> translated_value</div>
+<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;</div>
+    <span class="keyword">def </span><a class="code" href="classopenxc_1_1generator_1_1structures_1_1_signal.html#ab477300221ab4659b559eefdcb48dcc9" title="Validate Routine.">validate</a>(self):</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a class="anchor" id="a13953f5170e0ee39f9affc28861b2a0f"></a>
@@ -298,6 +327,12 @@ Public Attributes</h2></td></tr>
   </dd>
 </dl>
 
+<p>Definition at line <a class="el" href="structures_8py_source.html#l00352">352</a> of file <a class="el" href="structures_8py_source.html">structures.py</a>.</p>
+<div class="fragment"><div class="line"><a name="l00352"></a><span class="lineno"><a class="code" href="classopenxc_1_1generator_1_1structures_1_1_signal.html#a13953f5170e0ee39f9affc28861b2a0f">  352</a></span>&#160;</div>
+<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;                <span class="stringliteral">&quot;bit_size&quot;</span>: self.<a class="code" href="classopenxc_1_1generator_1_1structures_1_1_signal.html#aaa3d4812d4c46ddb6cf73327f62925a0" title="The bit size object instance.">bit_size</a>,</div>
+<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;                <span class="stringliteral">&quot;factor&quot;</span>: self.<a class="code" href="classopenxc_1_1generator_1_1structures_1_1_signal.html#af99d6063ca23a2dfe5d71dd793c619f3" title="The factor object instance.">factor</a>,</div>
+                <span class="stringliteral">&quot;offset&quot;</span>: self.<a class="code" href="classopenxc_1_1generator_1_1structures_1_1_signal.html#a3cf36d15eb9b706548d3506257e07810" title="The offset object instance.">offset</a>,</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a class="anchor" id="a38285559ff7c74c9ec00f50840e64658"></a>
@@ -324,7 +359,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Merge <a class="el" href="classopenxc_1_1generator_1_1structures_1_1_signal.html">Signal</a>. </p>
+<p>Merge <a class="el" href="classopenxc_1_1generator_1_1structures_1_1_signal.html" title="Signal Class.">Signal</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">data</td><td>the data instance to load into this object instance. </td></tr>
@@ -332,25 +367,52 @@ Public Attributes</h2></td></tr>
   </dd>
 </dl>
 
+<p>Definition at line <a class="el" href="structures_8py_source.html#l00314">314</a> of file <a class="el" href="structures_8py_source.html">structures.py</a>.</p>
+<div class="fragment"><div class="line"><a name="l00314"></a><span class="lineno"><a class="code" href="classopenxc_1_1generator_1_1structures_1_1_signal.html#a38285559ff7c74c9ec00f50840e64658">  314</a></span>&#160;</div>
+<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;        <span class="stringliteral">&quot;&quot;&quot;Handler (Property)&quot;&quot;&quot;</span></div>
+<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;        handler = getattr(self, <span class="stringliteral">&#39;_handler&#39;</span>, <span class="keywordtype">None</span>)</div>
+<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;        <span class="keywordflow">if</span> handler <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;            <span class="keywordflow">if</span> self.<a class="code" href="classopenxc_1_1generator_1_1structures_1_1_signal.html#a86d79906c2ef298b8685ba1d3c212a3a" title="The ignore object instance.">ignore</a>:</div>
+<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;                handler = <span class="stringliteral">&quot;ignoreHandler&quot;</span></div>
+<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;            <span class="keywordflow">if</span> len(self.<a class="code" href="classopenxc_1_1generator_1_1structures_1_1_signal.html#a995fb8ff05f153157483c8c45f6fcc3a" title="The states object instance.">states</a>) &gt; 0:</div>
+<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;                handler = <span class="stringliteral">&quot;stateHandler&quot;</span></div>
+<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;        <span class="keywordflow">return</span> handler</div>
+<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;</div>
+<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;    @handler.setter</div>
+<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;    <span class="keyword">def </span><a class="code" href="classopenxc_1_1generator_1_1structures_1_1_signal.html#a487572542793e9bf0555ad303fac48d9" title="The handler object instance.">handler</a>(self, value):</div>
+<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;        <span class="stringliteral">&quot;&quot;&quot;Handler (Setter)</span></div>
+<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;<span class="stringliteral">        @param value the value for the handler object instance.&quot;&quot;&quot;</span></div>
+<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;        self.<a class="code" href="classopenxc_1_1generator_1_1structures_1_1_signal.html#a7f6f2d7b093b077a1b09b65b35ef394a">_handler</a> = value</div>
+<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;</div>
+<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;    @property</div>
+<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;    <span class="keyword">def </span><a class="code" href="classopenxc_1_1generator_1_1structures_1_1_signal.html#a297745d8a7eb0bd0094a6387b0673651" title="The enabled object instance.">enabled</a>(self):</div>
+<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;        <span class="stringliteral">&quot;&quot;&quot;Enabled Routine (Property)&quot;&quot;&quot;</span></div>
+<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;        signal_enabled = getattr(self, <span class="stringliteral">&#39;_enabled&#39;</span>, <span class="keyword">True</span>)</div>
+<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;        <span class="keywordflow">if</span> self.<a class="code" href="classopenxc_1_1generator_1_1structures_1_1_signal.html#a762f54f04f3494f05b55444661fd16d6" title="The name object instance.">message</a> <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;            <span class="keywordflow">return</span> self.message.enabled <span class="keywordflow">and</span> signal_enabled</div>
+        <span class="keywordflow">return</span> signal_enabled</div>
+</div><!-- fragment -->
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a class="anchor" id="a762f54f04f3494f05b55444661fd16d6"></a>
+<a class="anchor" id="a995fb8ff05f153157483c8c45f6fcc3a"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">openxc.generator.structures.Signal.message</td>
+          <td class="memname">openxc.generator.structures.Signal.states</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>The name object instance. </p>
+<p>The states object instance. </p>
+
+<p>Definition at line <a class="el" href="structures_8py_source.html#l00307">307</a> of file <a class="el" href="structures_8py_source.html">structures.py</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>openxc/generator/structures.py</li>
+<li>openxc/generator/<a class="el" href="structures_8py_source.html">structures.py</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -358,7 +420,7 @@ Public Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>openxc</b></li><li class="navelem"><b>generator</b></li><li class="navelem"><b>structures</b></li><li class="navelem"><a class="el" href="classopenxc_1_1generator_1_1structures_1_1_signal.html">Signal</a></li>
-    <li class="footer">Generated on Sun Jun 30 2013 01:50:27 for OpenXC by
+    <li class="footer">Generated on Sun Jun 30 2013 12:20:33 for OpenXC by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

@@ -47,6 +47,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
+      <li><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -126,7 +127,7 @@ $(document).ready(function(){initNavTree('functions_0x62.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -142,11 +143,26 @@ $(document).ready(function(){initNavTree('functions_0x62.html','');});
 <li>bad_data
 : <a class="el" href="classopenxc_1_1tools_1_1dashboard_1_1_data_point.html#a2aaa5f834037c2ce81bf85792712b2b1">openxc.tools.dashboard.DataPoint</a>
 </li>
+<li>bit_numbering_inverted
+: <a class="el" href="classopenxc_1_1generator_1_1structures_1_1_message.html#a18f44ecaffcb99e5c6bc062310272467">openxc.generator.structures.Message</a>
+</li>
 <li>bit_position()
 : <a class="el" href="classopenxc_1_1generator_1_1structures_1_1_signal.html#aaf87069a194b927882be5c9d36e4f24f">openxc.generator.structures.Signal</a>
 </li>
+<li>bit_size
+: <a class="el" href="classopenxc_1_1generator_1_1structures_1_1_signal.html#aaa3d4812d4c46ddb6cf73327f62925a0">openxc.generator.structures.Signal</a>
+</li>
 <li>buckets
 : <a class="el" href="classopenxc_1_1tools_1_1tracesplit_1_1_base_splitter.html#a1fccda71ec305c1e3fb4fdc02125a3ae">openxc.tools.tracesplit.BaseSplitter</a>
+</li>
+<li>build_source()
+: <a class="el" href="classopenxc_1_1generator_1_1coder_1_1_code_generator.html#a8ee85842348647176547d325a5ea9b0d">openxc.generator.coder.CodeGenerator</a>
+</li>
+<li>bus_name
+: <a class="el" href="classopenxc_1_1generator_1_1structures_1_1_message.html#aee7e3daf834eb9f98b64bccc7ac79857">openxc.generator.structures.Message</a>
+</li>
+<li>buses
+: <a class="el" href="classopenxc_1_1generator_1_1message__sets_1_1_message_set.html#a19f8e9c40f2b01594b3bab916dba5573">openxc.generator.message_sets.MessageSet</a>
 </li>
 <li>bytes_received
 : <a class="el" href="classopenxc_1_1sources_1_1base_1_1_bytestream_data_source.html#a6fe9ff26dd256018b2022bf1c077a7ed">openxc.sources.base.BytestreamDataSource</a>
@@ -157,7 +173,7 @@ $(document).ready(function(){initNavTree('functions_0x62.html','');});
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Sun Jun 30 2013 01:50:29 for OpenXC by
+    <li class="footer">Generated on Sun Jun 30 2013 12:20:34 for OpenXC by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

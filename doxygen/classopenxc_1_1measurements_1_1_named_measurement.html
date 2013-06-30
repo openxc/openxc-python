@@ -47,6 +47,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
+      <li><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -93,7 +94,7 @@ $(document).ready(function(){initNavTree('classopenxc_1_1measurements_1_1_named_
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -198,6 +199,8 @@ Additional Inherited Members</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A <a class="el" href="classopenxc_1_1measurements_1_1_named_measurement.html" title="A NamedMeasurement has a class-level name variable and thus the name argument is not required in its ...">NamedMeasurement</a> has a class-level <code>name</code> variable and thus the <code>name</code> argument is not required in its constructor. </p>
+
+<p>Definition at line <a class="el" href="measurements_8py_source.html#l00169">169</a> of file <a class="el" href="measurements_8py_source.html">measurements.py</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="ac2537177fb3b3289bb92f112b00cf691"></a>
 <div class="memitem">
@@ -238,10 +241,17 @@ Additional Inherited Members</h2></td></tr>
   </dd>
 </dl>
 
+<p>Definition at line <a class="el" href="measurements_8py_source.html#l00174">174</a> of file <a class="el" href="measurements_8py_source.html">measurements.py</a>.</p>
+<div class="fragment"><div class="line"><a name="l00174"></a><span class="lineno"><a class="code" href="classopenxc_1_1measurements_1_1_named_measurement.html#ac2537177fb3b3289bb92f112b00cf691">  174</a></span>&#160;</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;    <span class="keyword">def </span>within_range(self):</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;        <span class="stringliteral">&quot;&quot;&quot;Within Range Routine&quot;&quot;&quot;</span></div>
+        <span class="keywordflow">return</span> self.valid_range.within_range(self.value.num)</div>
+</div><!-- fragment -->
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>openxc/measurements.py</li>
+<li>openxc/<a class="el" href="measurements_8py_source.html">measurements.py</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -249,7 +259,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>openxc</b></li><li class="navelem"><b>measurements</b></li><li class="navelem"><a class="el" href="classopenxc_1_1measurements_1_1_named_measurement.html">NamedMeasurement</a></li>
-    <li class="footer">Generated on Sun Jun 30 2013 01:50:27 for OpenXC by
+    <li class="footer">Generated on Sun Jun 30 2013 12:20:33 for OpenXC by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

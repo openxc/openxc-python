@@ -47,6 +47,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
+      <li><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -93,7 +94,7 @@ $(document).ready(function(){initNavTree('classopenxc_1_1sinks_1_1recorder_1_1_f
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -145,6 +146,8 @@ Public Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><a class="el" href="classopenxc_1_1sinks_1_1recorder_1_1_file_recorder_sink_1_1_recorder.html" title="Recorder Class.">Recorder</a> Class. </p>
+
+<p>Definition at line <a class="el" href="recorder_8py_source.html#l00035">35</a> of file <a class="el" href="recorder_8py_source.html">recorder.py</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a16ad6a0018fa369990a2b6efa48671da"></a>
 <div class="memitem">
@@ -178,6 +181,15 @@ Public Attributes</h2></td></tr>
   </dd>
 </dl>
 
+<p>Definition at line <a class="el" href="recorder_8py_source.html#l00045">45</a> of file <a class="el" href="recorder_8py_source.html">recorder.py</a>.</p>
+<div class="fragment"><div class="line"><a name="l00045"></a><span class="lineno"><a class="code" href="classopenxc_1_1sinks_1_1recorder_1_1_file_recorder_sink_1_1_recorder.html#a16ad6a0018fa369990a2b6efa48671da">   45</a></span>&#160;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;</div>
+<div class="line"><a name="l00047"></a><span class="lineno"><a class="code" href="classopenxc_1_1sinks_1_1recorder_1_1_file_recorder_sink_1_1_recorder.html#a0ef1a8378280149a1da7c19e5fca8446">   47</a></span>&#160;        @staticmethod</div>
+<div class="line"><a name="l00048"></a><span class="lineno"><a class="code" href="classopenxc_1_1sinks_1_1recorder_1_1_file_recorder_sink_1_1_recorder.html#abfe597a390e6a5c3ddc3f7a5098df6d5">   48</a></span>&#160;        <span class="keyword">def </span>_generate_filename():</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;            <span class="stringliteral">&quot;&quot;&quot;Generate Filename Routine</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="stringliteral">            @return The generated filename string.&quot;&quot;&quot;</span></div>
+            current_date = datetime.datetime.now()</div>
+</div><!-- fragment -->
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
@@ -193,10 +205,12 @@ Public Attributes</h2></td></tr>
 
 <p>The queue object instance. </p>
 
+<p>Definition at line <a class="el" href="recorder_8py_source.html#l00048">48</a> of file <a class="el" href="recorder_8py_source.html">recorder.py</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>openxc/sinks/recorder.py</li>
+<li>openxc/sinks/<a class="el" href="recorder_8py_source.html">recorder.py</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -204,7 +218,7 @@ Public Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>openxc</b></li><li class="navelem"><b>sinks</b></li><li class="navelem"><b>recorder</b></li><li class="navelem"><a class="el" href="classopenxc_1_1sinks_1_1recorder_1_1_file_recorder_sink.html">FileRecorderSink</a></li><li class="navelem"><a class="el" href="classopenxc_1_1sinks_1_1recorder_1_1_file_recorder_sink_1_1_recorder.html">Recorder</a></li>
-    <li class="footer">Generated on Sun Jun 30 2013 01:50:28 for OpenXC by
+    <li class="footer">Generated on Sun Jun 30 2013 12:20:34 for OpenXC by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

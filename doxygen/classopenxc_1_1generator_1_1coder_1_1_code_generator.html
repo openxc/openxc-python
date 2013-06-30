@@ -47,6 +47,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
+      <li><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -93,7 +94,7 @@ $(document).ready(function(){initNavTree('classopenxc_1_1generator_1_1coder_1_1_
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -127,38 +128,109 @@ Inheritance diagram for openxc.generator.coder.CodeGenerator:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:aefc68c2cb2445f9e0a80a806fda0aad7"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aefc68c2cb2445f9e0a80a806fda0aad7"></a>
-def&#160;</td><td class="memItemRight" valign="bottom"><b>__init__</b></td></tr>
+def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenxc_1_1generator_1_1coder_1_1_code_generator.html#aefc68c2cb2445f9e0a80a806fda0aad7">__init__</a></td></tr>
+<tr class="memdesc:aefc68c2cb2445f9e0a80a806fda0aad7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initailization Routine. <br/></td></tr>
 <tr class="separator:aefc68c2cb2445f9e0a80a806fda0aad7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8ee85842348647176547d325a5ea9b0d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8ee85842348647176547d325a5ea9b0d"></a>
-def&#160;</td><td class="memItemRight" valign="bottom"><b>build_source</b></td></tr>
+def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenxc_1_1generator_1_1coder_1_1_code_generator.html#a8ee85842348647176547d325a5ea9b0d">build_source</a></td></tr>
+<tr class="memdesc:a8ee85842348647176547d325a5ea9b0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Build Source Routine. <br/></td></tr>
 <tr class="separator:a8ee85842348647176547d325a5ea9b0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a786b61ea95ccbf53eca5892a5d659896"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a786b61ea95ccbf53eca5892a5d659896"></a>
-def&#160;</td><td class="memItemRight" valign="bottom"><b>sorted_message_sets</b></td></tr>
+def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenxc_1_1generator_1_1coder_1_1_code_generator.html#a786b61ea95ccbf53eca5892a5d659896">sorted_message_sets</a></td></tr>
+<tr class="memdesc:a786b61ea95ccbf53eca5892a5d659896"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sorted Message Sets (Property) <br/></td></tr>
 <tr class="separator:a786b61ea95ccbf53eca5892a5d659896"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a1e85d7721343863fe1305eb089cfdedb"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1e85d7721343863fe1305eb089cfdedb"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>search_paths</b></td></tr>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenxc_1_1generator_1_1coder_1_1_code_generator.html#a1e85d7721343863fe1305eb089cfdedb">search_paths</a></td></tr>
+<tr class="memdesc:a1e85d7721343863fe1305eb089cfdedb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stores the search paths. <br/></td></tr>
 <tr class="separator:a1e85d7721343863fe1305eb089cfdedb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab660271276571970e7caf646158652fa"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab660271276571970e7caf646158652fa"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>message_sets</b></td></tr>
+<tr class="memitem:ab660271276571970e7caf646158652fa"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenxc_1_1generator_1_1coder_1_1_code_generator.html#ab660271276571970e7caf646158652fa">message_sets</a></td></tr>
+<tr class="memdesc:ab660271276571970e7caf646158652fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stores the message sets as a list.  <a href="#ab660271276571970e7caf646158652fa">More...</a><br/></td></tr>
 <tr class="separator:ab660271276571970e7caf646158652fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
-<tr class="memitem:aa1ac991e2dccce3d2e6fcee99434eed8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa1ac991e2dccce3d2e6fcee99434eed8"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>MAX_SIGNAL_STATES</b> = 12</td></tr>
-<tr class="separator:aa1ac991e2dccce3d2e6fcee99434eed8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a319d81ca2807f1d12a031ef36c9deb7d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a319d81ca2807f1d12a031ef36c9deb7d"></a>
-string&#160;</td><td class="memItemRight" valign="bottom"><b>GENERATED_CODE_VERSION</b> = &quot;4.0&quot;</td></tr>
-<tr class="separator:a319d81ca2807f1d12a031ef36c9deb7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24e1dd599600ca510d3f33d41760931f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenxc_1_1generator_1_1coder_1_1_code_generator.html#a24e1dd599600ca510d3f33d41760931f">MAX_SIGNAL_STATES</a> = 12</td></tr>
+<tr class="memdesc:a24e1dd599600ca510d3f33d41760931f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stores the maximum number of signal states.  <a href="#a24e1dd599600ca510d3f33d41760931f">More...</a><br/></td></tr>
+<tr class="separator:a24e1dd599600ca510d3f33d41760931f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa14565327eaaea371dc24fb86352544b"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenxc_1_1generator_1_1coder_1_1_code_generator.html#aa14565327eaaea371dc24fb86352544b">GENERATED_CODE_VERSION</a> = &quot;4.0&quot;</td></tr>
+<tr class="memdesc:aa14565327eaaea371dc24fb86352544b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stores the generated code version.  <a href="#aa14565327eaaea371dc24fb86352544b">More...</a><br/></td></tr>
+<tr class="separator:aa14565327eaaea371dc24fb86352544b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This class is used to build an implementation of the signals.h functions from one or more CAN message sets. </p>
 <p>The message sets must already be read into memory and parsed. </p>
-</div><hr/>The documentation for this class was generated from the following file:<ul>
-<li>openxc/generator/coder.py</li>
+
+<p>Definition at line <a class="el" href="coder_8py_source.html#l00028">28</a> of file <a class="el" href="coder_8py_source.html">coder.py</a>.</p>
+</div><h2 class="groupheader">Member Data Documentation</h2>
+<a class="anchor" id="aa14565327eaaea371dc24fb86352544b"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">openxc.generator.coder.CodeGenerator.GENERATED_CODE_VERSION = &quot;4.0&quot;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Stores the generated code version. </p>
+
+<p>Definition at line <a class="el" href="coder_8py_source.html#l00035">35</a> of file <a class="el" href="coder_8py_source.html">coder.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a24e1dd599600ca510d3f33d41760931f"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">openxc.generator.coder.CodeGenerator.MAX_SIGNAL_STATES = 12</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Stores the maximum number of signal states. </p>
+
+<p>Definition at line <a class="el" href="coder_8py_source.html#l00032">32</a> of file <a class="el" href="coder_8py_source.html">coder.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ab660271276571970e7caf646158652fa"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">openxc.generator.coder.CodeGenerator.message_sets</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Stores the message sets as a list. </p>
+
+<p>Definition at line <a class="el" href="coder_8py_source.html#l00047">47</a> of file <a class="el" href="coder_8py_source.html">coder.py</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>openxc/generator/<a class="el" href="coder_8py_source.html">coder.py</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -166,7 +238,7 @@ string&#160;</td><td class="memItemRight" valign="bottom"><b>GENERATED_CODE_VERS
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>openxc</b></li><li class="navelem"><b>generator</b></li><li class="navelem"><b>coder</b></li><li class="navelem"><a class="el" href="classopenxc_1_1generator_1_1coder_1_1_code_generator.html">CodeGenerator</a></li>
-    <li class="footer">Generated on Sun Jun 30 2013 01:50:27 for OpenXC by
+    <li class="footer">Generated on Sun Jun 30 2013 12:20:33 for OpenXC by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

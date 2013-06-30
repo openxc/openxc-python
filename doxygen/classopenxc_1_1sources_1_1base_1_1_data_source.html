@@ -47,6 +47,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
+      <li><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -93,7 +94,7 @@ $(document).ready(function(){initNavTree('classopenxc_1_1sources_1_1base_1_1_dat
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -144,6 +145,8 @@ Public Attributes</h2></td></tr>
 <div class="textblock"><p>Interface for all vehicle data sources. </p>
 <p>This inherits from Thread and when a source is added to a vehicle it attempts to call the <code>start()</code> method if it exists. If an implementer of <a class="el" href="classopenxc_1_1sources_1_1base_1_1_data_source.html" title="Interface for all vehicle data sources.">DataSource</a> needs some background process to read data, it's just a matter of defining a <code>run()</code> method.</p>
 <p>A data source requires a callback method to be specified. Whenever new data is received, it will pass it to that callback. </p>
+
+<p>Definition at line <a class="el" href="sources_2base_8py_source.html#l00017">17</a> of file <a class="el" href="sources_2base_8py_source.html">base.py</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="adb59072f061a30050192c9c79d8324e6"></a>
 <div class="memitem">
@@ -183,6 +186,14 @@ Public Attributes</h2></td></tr>
   </dd>
 </dl>
 
+<p>Definition at line <a class="el" href="sources_2base_8py_source.html#l00035">35</a> of file <a class="el" href="sources_2base_8py_source.html">base.py</a>.</p>
+<div class="fragment"><div class="line"><a name="l00035"></a><span class="lineno"><a class="code" href="classopenxc_1_1sources_1_1base_1_1_data_source.html#adb59072f061a30050192c9c79d8324e6">   35</a></span>&#160;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        self.<a class="code" href="classopenxc_1_1sources_1_1base_1_1_data_source.html#abaa693cc8f30e2e4d2996aba020b1f05" title="Boolean value representing if the datasource operates like a daemon.">daemon</a> = <span class="keyword">True</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno"><a class="code" href="classopenxc_1_1sources_1_1base_1_1_data_source.html#af5901e36493848c86464aa3398c28873">   37</a></span>&#160;</div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="code" href="classopenxc_1_1sources_1_1base_1_1_data_source.html#abaa693cc8f30e2e4d2996aba020b1f05">   38</a></span>&#160;    <span class="keyword">def </span>_read(self, timeout=None):</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        <span class="stringliteral">&quot;&quot;&quot;Read data from the source.</span></div>
+</div>
+</div><!-- fragment -->
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
@@ -198,10 +209,12 @@ Public Attributes</h2></td></tr>
 
 <p>Boolean value representing if the datasource operates like a daemon. </p>
 
+<p>Definition at line <a class="el" href="sources_2base_8py_source.html#l00038">38</a> of file <a class="el" href="sources_2base_8py_source.html">base.py</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>openxc/sources/base.py</li>
+<li>openxc/sources/<a class="el" href="sources_2base_8py_source.html">base.py</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -209,7 +222,7 @@ Public Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>openxc</b></li><li class="navelem"><b>sources</b></li><li class="navelem"><b>base</b></li><li class="navelem"><a class="el" href="classopenxc_1_1sources_1_1base_1_1_data_source.html">DataSource</a></li>
-    <li class="footer">Generated on Sun Jun 30 2013 01:50:28 for OpenXC by
+    <li class="footer">Generated on Sun Jun 30 2013 12:20:34 for OpenXC by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

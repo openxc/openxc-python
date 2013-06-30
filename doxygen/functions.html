@@ -47,6 +47,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
+      <li><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -126,7 +127,7 @@ $(document).ready(function(){initNavTree('functions.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -140,13 +141,13 @@ $(document).ready(function(){initNavTree('functions.html','');});
 
 <h3><a class="anchor" id="index__"></a>- _ -</h3><ul>
 <li>__init__()
-: <a class="el" href="classopenxc_1_1generator_1_1message__sets_1_1_message_set.html#abbd369ae802b977d7301ba18f3d6de6e">openxc.generator.message_sets.MessageSet</a>
-, <a class="el" href="classopenxc_1_1generator_1_1structures_1_1_command.html#ac48e3f6fb31c6aafe0cfcd21e29a19d9">openxc.generator.structures.Command</a>
-, <a class="el" href="classopenxc_1_1generator_1_1structures_1_1_can_bus.html#a5215beb36877bccf702c58d4cadb35cb">openxc.generator.structures.CanBus</a>
-, <a class="el" href="classopenxc_1_1measurements_1_1_measurement.html#a1c7e1680bfa431c6dd5616d98ea27dda">openxc.measurements.Measurement</a>
+: <a class="el" href="classopenxc_1_1generator_1_1coder_1_1_code_generator.html#aefc68c2cb2445f9e0a80a806fda0aad7">openxc.generator.coder.CodeGenerator</a>
+, <a class="el" href="classopenxc_1_1generator_1_1message__sets_1_1_message_set.html#abbd369ae802b977d7301ba18f3d6de6e">openxc.generator.message_sets.MessageSet</a>
+, <a class="el" href="classopenxc_1_1generator_1_1structures_1_1_message.html#a3edf47d5c3f360dc521beb97221fda8c">openxc.generator.structures.Message</a>
+, <a class="el" href="classopenxc_1_1generator_1_1xml__to__json_1_1_network.html#ae798a140be0495755421589092594b33">openxc.generator.xml_to_json.Network</a>
+, <a class="el" href="classopenxc_1_1sinks_1_1uploader_1_1_uploader_sink.html#a0d0b05b788ff375a74b30ca05cc1d44b">openxc.sinks.uploader.UploaderSink</a>
 , <a class="el" href="classopenxc_1_1sinks_1_1uploader_1_1_uploader_sink_1_1_uploader.html#ace4bde42f28c60f412e1f3460ba24a5d">openxc.sinks.uploader.UploaderSink.Uploader</a>
-, <a class="el" href="classopenxc_1_1sources_1_1base_1_1_data_source.html#adb59072f061a30050192c9c79d8324e6">openxc.sources.base.DataSource</a>
-, <a class="el" href="classopenxc_1_1measurements_1_1_named_measurement.html#ac2537177fb3b3289bb92f112b00cf691">openxc.measurements.NamedMeasurement</a>
+, <a class="el" href="classopenxc_1_1measurements_1_1_measurement.html#a1c7e1680bfa431c6dd5616d98ea27dda">openxc.measurements.Measurement</a>
 , <a class="el" href="classopenxc_1_1vehicle_1_1_vehicle.html#a4b79606c6056c932f7dca10c711bef0d">openxc.vehicle.Vehicle</a>
 , <a class="el" href="classopenxc_1_1utils_1_1_aging_data.html#ab898763fe8255dc44503275441c3f8b2">openxc.utils.AgingData</a>
 , <a class="el" href="classopenxc_1_1utils_1_1_range.html#a5e84221b96216a554eb15a5b7cd4171d">openxc.utils.Range</a>
@@ -157,18 +158,19 @@ $(document).ready(function(){initNavTree('functions.html','');});
 , <a class="el" href="classopenxc_1_1tools_1_1dashboard_1_1_data_point.html#a8981e596d56dcc3772183f9014a66f3e">openxc.tools.dashboard.DataPoint</a>
 , <a class="el" href="classopenxc_1_1sources_1_1usb_1_1_usb_data_source.html#ad46ffd466e85e8be647c201dd78a3bb7">openxc.sources.usb.UsbDataSource</a>
 , <a class="el" href="classopenxc_1_1sources_1_1trace_1_1_trace_data_source.html#abc36d2d0b16f783205f163fdafaa356e">openxc.sources.trace.TraceDataSource</a>
-, <a class="el" href="classopenxc_1_1sources_1_1base_1_1_bytestream_data_source.html#abe5dcdc5aa0ae46b59d77b34849efb1f">openxc.sources.base.BytestreamDataSource</a>
 , <a class="el" href="classopenxc_1_1sources_1_1serial_1_1_serial_data_source.html#a93f2ca3609d361397afc36a01e89efa0">openxc.sources.serial.SerialDataSource</a>
-, <a class="el" href="classopenxc_1_1generator_1_1structures_1_1_signal.html#a02d7e47c0b9695cafa074acbfb09e928">openxc.generator.structures.Signal</a>
-, <a class="el" href="classopenxc_1_1sinks_1_1notifier_1_1_measurement_notifier_sink.html#aae702c1b95905746ed639a1b0f06bb14">openxc.sinks.notifier.MeasurementNotifierSink</a>
-, <a class="el" href="classopenxc_1_1sinks_1_1uploader_1_1_uploader_sink.html#a0d0b05b788ff375a74b30ca05cc1d44b">openxc.sinks.uploader.UploaderSink</a>
+, <a class="el" href="classopenxc_1_1sources_1_1base_1_1_data_source.html#adb59072f061a30050192c9c79d8324e6">openxc.sources.base.DataSource</a>
+, <a class="el" href="classopenxc_1_1sources_1_1base_1_1_bytestream_data_source.html#abe5dcdc5aa0ae46b59d77b34849efb1f">openxc.sources.base.BytestreamDataSource</a>
+, <a class="el" href="classopenxc_1_1generator_1_1structures_1_1_can_bus.html#a5215beb36877bccf702c58d4cadb35cb">openxc.generator.structures.CanBus</a>
+, <a class="el" href="classopenxc_1_1measurements_1_1_named_measurement.html#ac2537177fb3b3289bb92f112b00cf691">openxc.measurements.NamedMeasurement</a>
 , <a class="el" href="classopenxc_1_1sinks_1_1recorder_1_1_file_recorder_sink_1_1_recorder.html#a16ad6a0018fa369990a2b6efa48671da">openxc.sinks.recorder.FileRecorderSink.Recorder</a>
 , <a class="el" href="classopenxc_1_1sinks_1_1recorder_1_1_file_recorder_sink.html#adac6ba77e65a862cff8ab6d507f79838">openxc.sinks.recorder.FileRecorderSink</a>
 , <a class="el" href="classopenxc_1_1sinks_1_1queued_1_1_queued_sink.html#a2aa2f0a990e4bd719622e5bc35f30ab0">openxc.sinks.queued.QueuedSink</a>
 , <a class="el" href="classopenxc_1_1sinks_1_1notifier_1_1_measurement_notifier_sink_1_1_notifier.html#a5684c3d06eefb6bb45ea8c2bd3aaaa63">openxc.sinks.notifier.MeasurementNotifierSink.Notifier</a>
-, <a class="el" href="classopenxc_1_1generator_1_1structures_1_1_message.html#a3edf47d5c3f360dc521beb97221fda8c">openxc.generator.structures.Message</a>
+, <a class="el" href="classopenxc_1_1sinks_1_1notifier_1_1_measurement_notifier_sink.html#aae702c1b95905746ed639a1b0f06bb14">openxc.sinks.notifier.MeasurementNotifierSink</a>
+, <a class="el" href="classopenxc_1_1generator_1_1structures_1_1_command.html#ac48e3f6fb31c6aafe0cfcd21e29a19d9">openxc.generator.structures.Command</a>
+, <a class="el" href="classopenxc_1_1generator_1_1structures_1_1_signal.html#a02d7e47c0b9695cafa074acbfb09e928">openxc.generator.structures.Signal</a>
 , <a class="el" href="classopenxc_1_1generator_1_1structures_1_1_signal_state.html#ac6e75d608095f9b30b3945e815e611ca">openxc.generator.structures.SignalState</a>
-, <a class="el" href="classopenxc_1_1generator_1_1xml__to__json_1_1_network.html#ae798a140be0495755421589092594b33">openxc.generator.xml_to_json.Network</a>
 </li>
 <li>__repr__()
 : <a class="el" href="classopenxc_1_1measurements_1_1_measurement.html#ad207eda84393a386362c74108b3351f6">openxc.measurements.Measurement</a>
@@ -186,7 +188,7 @@ $(document).ready(function(){initNavTree('functions.html','');});
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Sun Jun 30 2013 01:50:29 for OpenXC by
+    <li class="footer">Generated on Sun Jun 30 2013 12:20:34 for OpenXC by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

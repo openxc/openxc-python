@@ -47,6 +47,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
+      <li><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -93,7 +94,7 @@ $(document).ready(function(){initNavTree('classopenxc_1_1tools_1_1tracesplit_1_1
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -150,6 +151,8 @@ Public Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Base Splitter Class. </p>
+
+<p>Definition at line <a class="el" href="tracesplit_8py_source.html#l00023">23</a> of file <a class="el" href="tracesplit_8py_source.html">tracesplit.py</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="a7a9be6b17d840ee79243a723c537db0c"></a>
 <div class="memitem">
@@ -183,6 +186,21 @@ Public Attributes</h2></td></tr>
   </dd>
 </dl>
 
+<p>Definition at line <a class="el" href="tracesplit_8py_source.html#l00044">44</a> of file <a class="el" href="tracesplit_8py_source.html">tracesplit.py</a>.</p>
+<div class="fragment"><div class="line"><a name="l00044"></a><span class="lineno"><a class="code" href="classopenxc_1_1tools_1_1tracesplit_1_1_base_splitter.html#a7a9be6b17d840ee79243a723c537db0c">   44</a></span>&#160;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        self.records.sort(key=itemgetter(<span class="stringliteral">&#39;timestamp&#39;</span>))</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        <span class="keywordflow">for</span> record <span class="keywordflow">in</span> self.<a class="code" href="classopenxc_1_1tools_1_1tracesplit_1_1_base_splitter.html#a9ab1bf95c578c7627beeaea238a0c22a" title="The records instance.">records</a>:</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;            self.<a class="code" href="classopenxc_1_1tools_1_1tracesplit_1_1_base_splitter.html#a1fccda71ec305c1e3fb4fdc02125a3ae" title="The buckets instance.">buckets</a>[self.<a class="code" href="classopenxc_1_1tools_1_1tracesplit_1_1_base_splitter.html#a3a4940b67814c59c2edaf069f43d2ff1" title="Key For Record Routine.">_key_for_record</a>(record)].append(record)</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <span class="keywordflow">return</span> self.<a class="code" href="classopenxc_1_1tools_1_1tracesplit_1_1_base_splitter.html#a1fccda71ec305c1e3fb4fdc02125a3ae" title="The buckets instance.">buckets</a></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keyword">def </span><a class="code" href="classopenxc_1_1tools_1_1tracesplit_1_1_base_splitter.html#a59507937198429ed6d30a7fce4badc0a" title="Receive Routine.">receive</a>(self, message, **kwargs):</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        <span class="stringliteral">&quot;&quot;&quot;Receive Routine&quot;&quot;&quot;</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        self.records.append(message)</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;</div>
+</div>
+</div><!-- fragment -->
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
@@ -198,6 +216,8 @@ Public Attributes</h2></td></tr>
 
 <p>The buckets instance. </p>
 
+<p>Definition at line <a class="el" href="tracesplit_8py_source.html#l00032">32</a> of file <a class="el" href="tracesplit_8py_source.html">tracesplit.py</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a9ab1bf95c578c7627beeaea238a0c22a"></a>
@@ -212,10 +232,12 @@ Public Attributes</h2></td></tr>
 
 <p>The records instance. </p>
 
+<p>Definition at line <a class="el" href="tracesplit_8py_source.html#l00029">29</a> of file <a class="el" href="tracesplit_8py_source.html">tracesplit.py</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>openxc/tools/tracesplit.py</li>
+<li>openxc/tools/<a class="el" href="tracesplit_8py_source.html">tracesplit.py</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -223,7 +245,7 @@ Public Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>openxc</b></li><li class="navelem"><b>tools</b></li><li class="navelem"><b>tracesplit</b></li><li class="navelem"><a class="el" href="classopenxc_1_1tools_1_1tracesplit_1_1_base_splitter.html">BaseSplitter</a></li>
-    <li class="footer">Generated on Sun Jun 30 2013 01:50:28 for OpenXC by
+    <li class="footer">Generated on Sun Jun 30 2013 12:20:34 for OpenXC by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>
