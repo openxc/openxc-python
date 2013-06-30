@@ -31,7 +31,15 @@ except ImportError:
 class Network(object):
     """Represents all the messages on a single bus in an XML-backed database."""
 
+    ## @var messages
+    # The messages object instance.
+    
     def __init__(self, database_name, tree, all_messages):
+        """Initialization Routine
+        @param database_name The database name.
+        @param tree the tree name.
+        @param all_messages the all messages object instance."""
+        
         self.messages = {}
 
         for message_id, message in all_messages.items():
@@ -50,15 +58,24 @@ class Network(object):
                     node, message['signals'])
 
     def to_dict(self):
+        """The To Dictionary Routine"""
         return {'messages': dict(("0x%x" % message.id,
                     message.to_dict())
                 for message in list(self.messages.values())
                 if len(message.signals) > 0)}
 
 class XMLBackedMessage(Message):
-
+    """XML Backed Message Class"""
+    
+    ## @var message
+    # The message object instance.
+    
     @classmethod
     def from_xml_node(cls, node, mapped_signals):
+        """From XML Node Routine
+        @param cls the object instance.
+        @param node the node object instance.
+        @param mapped_signals the mapped signals object instance."""
         message = cls()
 
         message.name = node.find("Name").text
@@ -74,7 +91,8 @@ class XMLBackedMessage(Message):
         return message
 
 class XMLBackedSignal(Signal):
-
+    """XML Backed Signal Class"""
+    
     @classmethod
     def from_xml_node(cls, node):
         """Construct a Signal instance from an XML node exported from a Vector
@@ -90,6 +108,9 @@ class XMLBackedSignal(Signal):
 
 
 def merge_database_into_mapping(database_filename, messages):
+    """Merge Database Into Mappings Routine
+    @param database_filename the database filename object instance.
+    @param messages the messages object instance."""
     if len(messages) == 0:
         LOG.warning("No messages specified for mapping from XML")
         return {}

@@ -24,15 +24,27 @@ class Vehicle(object):
     def __init__(self, interface=None):
         """Construct a new Vehicle instance, optionally providing an vehicle
         interface from ``openxc.interface`` to user for I/O.
+        
+        @param interface The input interface instance.
         """
+        ## @var sources
+        # Sources instance.
         self.sources = set()
+        ## @var sinks
+        # Sinks instance.
         self.sinks = set()
+        ## @var measurements
+        # Measurements instance.
         self.measurements = {}
 
         if interface is not None:
             self.add_source(interface)
+            ## @var controller
+            # The controller instance.
             self.controller = interface
-
+        
+        ## @var notifier
+        # The notifier instance.
         self.notifier = MeasurementNotifierSink()
         self.sinks.add(self.notifier)
 

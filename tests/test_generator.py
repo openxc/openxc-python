@@ -6,8 +6,9 @@ from openxc.generator.message_sets import JsonMessageSet
 from openxc.generator.coder import CodeGenerator
 
 class CodeGeneratorTests(unittest.TestCase):
-
+    """Code Generator Tests TestCase Class"""
     def _validate(self, filename):
+        """Validate Routine"""
         search_paths = [os.path.dirname(__file__)]
         generator = CodeGenerator(search_paths)
 
@@ -28,7 +29,9 @@ class CodeGeneratorTests(unittest.TestCase):
             ok_(("0x%x" % message.id) in output)
 
     def test_non_mapped(self):
+        """No Mapped Test Routine"""
         self._validate('signals.json.example')
 
     def test_mapped(self):
+        """Mapped Test Routine"""
         self._validate('signals-mapped.json.example')

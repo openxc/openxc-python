@@ -13,18 +13,37 @@ class TraceDataSource(BytestreamDataSource):
     For details on the trace file format, see
     http://openxcplatform.com/android/testing.html.
     """
-
+    
+    ## @var realtime
+    # The realtime object instance.
+    ## @var loop
+    # The loop object instance.
+    ## @var filename
+    # The filename object instance.
+    ## @var first_timestamp
+    # The first_timestamp object instance.
+    ## @var trace_file
+    # The trace_file object instance.
+    
     def __init__(self, callback=None, filename=None, realtime=True, loop=True):
         """Construct the source and attempt to open the trace file.
 
         Kwargs:
             filename - the full absolute path to the trace file
             realtime - if ``True``, the trace will be replayed at approximately
-                the same cadence as it was recorded. Otherwise, the trace file will
-                be replayed as fast as possible (likely much faster than any
-                vehicle).
+                the same cadence as it was recorded. Otherwise, the trace file 
+                will be replayed as fast as possible (likely much faster than 
+                any vehicle).
             loop - if ``True``, the trace file will be looped and will provide
                 data until the process exist or the source is stopped.
+        
+        @param callback the callback function.
+        @param filename the full absolute path to the trace file
+        @param realtime if ``True``, the trace will be replayed at 
+                approximately the same cadence as it was recorded. Otherwise, 
+                the trace file will be replayed as fast as possible (likely 
+                much faster than any vehicle).
+        @param loop the loop object instance.
         """
         super(TraceDataSource, self).__init__(callback)
         self.realtime = realtime
@@ -33,6 +52,7 @@ class TraceDataSource(BytestreamDataSource):
         self._reopen_file()
 
     def run(self):
+        """Run Routine"""
         while True:
             self._reopen_file()
             starting_time = time.time()
@@ -60,6 +80,7 @@ class TraceDataSource(BytestreamDataSource):
                 break
 
     def _reopen_file(self):
+        """Reopen File Routine"""
         if getattr(self, 'trace_file', None) is not None:
             self.trace_file.close()
         self.trace_file = self._open_file(self.filename)
@@ -67,6 +88,7 @@ class TraceDataSource(BytestreamDataSource):
     def _store_timestamp(self, timestamp):
         """If not already saved, cache the first timestamp in the active trace
         file on the instance.
+        @param timestamp The timestamp object instance.
         """
         if getattr(self, 'first_timestamp', None) is None:
             self.first_timestamp = timestamp
@@ -83,6 +105,8 @@ class TraceDataSource(BytestreamDataSource):
 
         Raises:
             DataSourceError, if the file cannot be opened.
+            
+        @param filename The file name to open for reading.
         """
         try:
             trace_file = open(filename, "r")
@@ -97,7 +121,9 @@ class TraceDataSource(BytestreamDataSource):
         """Given that the first timestamp in the trace file is
         ``first_timestamp`` and we started playing back the file at
         ``starting_time``, block until the current ``timestamp`` should occur.
-        """
+        @param starting_time The starting timestamp object instance.
+        #param first_timestamp The first timestamp object instance.
+        @param timestamp The timestamp object instance."""
         target_time = starting_time + (timestamp - first_timestamp)
         time.sleep(max(target_time - time.time(), 0))
 
@@ -107,6 +133,7 @@ class TraceDataSource(BytestreamDataSource):
 
         Returns:
             ``True`` if the message contains at least a ``name`` and ``value``.
+        @param message The message instance.
         """
         for key in ['name', 'value']:
             if key not in message:

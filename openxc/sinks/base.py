@@ -15,5 +15,8 @@ class DataSink(object):
            data_remaining (bool) - if the originating data source can peek ahead
                in the data stream, this argument will True if there is more data
                available.
+        
+        @param message a new OpenXC vehicle data message.
+        @param kwargs Additional inputs. 
         """
         raise NotImplementedError("Don't use DataSink directly")

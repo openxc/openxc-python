@@ -13,6 +13,12 @@ class DataSource(threading.Thread):
     A data source requires a callback method to be specified. Whenever new data
     is received, it will pass it to that callback.
     """
+    
+    ## @var callback
+    # The callback function to use.
+    ## @var daemon
+    # Boolean value representing if the datasource operates like a daemon.
+    
     def __init__(self, callback=None):
         """Construct a new DataSource.
 
@@ -22,6 +28,7 @@ class DataSource(threading.Thread):
 
         Kwargs:
             callback - function to call with any new data received
+        @param callback function to call with any new data received.
         """
         super(DataSource, self).__init__()
         self.callback = callback
@@ -33,18 +40,27 @@ class DataSource(threading.Thread):
         Kwargs:
             timeout (float) - if the source implementation could potentially
                 block, timeout after this number of seconds.
+        @param timeout if the source implementation could potentially block, 
+        timeout after this number of seconds.
         """
         raise NotImplementedError("Don't use DataSource directly")
 
 
 class BytestreamDataSource(DataSource):
-    """A source that receives data is a series of bytes, with discrete messages
-    separated by a newline character.
+    """A source that receives data is a series of bytes, with discrete 
+    messages separated by a newline character.
 
     Subclasses of this class need only to implement the ``_read`` method.
     """
-
+    
+    ## @var bytes_received
+    # The number of bytes received.
+    ## @var corrupted_messages
+    # The number of corrupted messages received.
+    
     def __init__(self, callback=None):
+        """Initialization Routine
+        @param callback The callback function name."""
         super(BytestreamDataSource, self).__init__(callback)
         self.bytes_received = 0
         self.corrupted_messages = 0
@@ -79,6 +95,8 @@ class BytestreamDataSource(DataSource):
 
         Returns the message if one could be parsed, otherwise None, and the
         remainder of the buffer.
+        
+        @param message_buffer The message_buffer object instance.
         """
         if not isinstance(message_buffer, bytes):
             message_buffer = message_buffer.encode("utf-8")
@@ -97,4 +115,5 @@ class BytestreamDataSource(DataSource):
 
 
 class DataSourceError(Exception):
+    """Data Source Error Exception Class"""
     pass
