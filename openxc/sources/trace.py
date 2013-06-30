@@ -135,7 +135,18 @@ class TraceDataSource(BytestreamDataSource):
             ``True`` if the message contains at least a ``name`` and ``value``.
         @param message The message instance.
         """
-        for key in ['name', 'value']:
-            if key not in message:
-                return False
-        return True
+        
+        ## @var flag
+        # Flag to determine return value (for single point of return)
+        flag = True
+        ## @var do_loop
+        # Used to determine if this section should still loop.
+        do_loop = True
+        while do_loop:
+            for key in ['name', 'value']:
+                if key not in message:
+                    # Instead of Return Here, change both Boolean values.
+                    flag = False
+                    do_loop = False
+        # Return the flag value as part of single point of return
+        return flag
