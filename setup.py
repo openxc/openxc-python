@@ -1,3 +1,11 @@
+
+"""
+@file    openxc-python\setup.py Setup Script
+@author  Christopher Peplin
+@date    June 25, 2013
+@version 1.0.0
+"""
+
 import sys
 from setuptools import setup, find_packages
 

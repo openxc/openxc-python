@@ -16,16 +16,25 @@ from .common import device_options, configure_logging, select_device
 
 
 def version(controller):
+    """Version Routine
+    @param controller the controller object instance."""
+    
     print("Device is running version %s" % controller.version())
 
 
 def reset(controller):
+    """Reset Routine
+    @param controller the controller object instance."""
     print("Resetting device...")
     controller.reset()
     version(controller)
 
 
 def write_file(controller, filename, raw=False):
+    """Write File Routine
+    @param controller the controller object instance.
+    @param filename The specified filename to write the contents to.
+    @param raw the raw object instance setting.  True or False."""
     with open(filename, "r") as output_file:
         corrupt_entries = 0
         message_count = 0
@@ -57,6 +66,11 @@ def write_file(controller, filename, raw=False):
 
 
 def write(controller, name, value, event=None, raw=False):
+    """Write Routine
+    @param controller the controller object instance.
+    @param value the value object instance.
+    @param event the event object instance.
+    @param raw the raw object instance.  True or False."""
     print("Sending command %s: %s %s" % (name, value, event))
     if raw:
         method = controller.write_raw
@@ -67,6 +81,7 @@ def write(controller, name, value, event=None, raw=False):
 
 
 def parse_options():
+    """Parse Options Routine"""
     parser = argparse.ArgumentParser(description="Send control messages to an "
             "attached OpenXC CAN translator", parents=[device_options()])
     parser.add_argument("command", type=str,
@@ -90,6 +105,7 @@ def parse_options():
 
 
 def main():
+    """Main Routine"""
     configure_logging()
     arguments = parse_options()
 

@@ -1,3 +1,11 @@
+
+"""
+@file    openxc-python\openxc\generator\structures.py Structures File
+@author  Christopher Peplin
+@date    June 25, 2013
+@version 1.0.0
+"""
+
 import operator
 import math
 from collections import defaultdict
@@ -34,9 +42,32 @@ class Command(object):
 
 class Message(object):
     """Message Class"""
+    
+    ## @var bus_name
+    # The bus_name object instance.
+    ## @var id
+    # The id object instance.
+    ## @var name
+    # The name object instance. 
+    ## @var bit_numbering_inverted
+    # The bit numbering inverted object instance.
+    ## @var handler
+    # The handler object instance.
+    ## @var enabled
+    # The enabled object instance.
+    ## @var signals
+    # The signals object instance.
+    
     def __init__(self, bus_name=None, id=None, name=None,
             bit_numbering_inverted=None, handler=None, enabled=True):
-        """Initialization Routine"""
+        """Initialization Routine
+        @param bus_name the bus name object instance.
+        @param id the id object instance.
+        @param name the name object instance.
+        @param bit_numbering_inverted the bit number inverted object 
+        instance.
+        @param handler the handler object instance.
+        @param enabled the enabled object instance."""
         self.bus_name = bus_name
         self.id = id
         self.name = name
@@ -59,7 +90,8 @@ class Message(object):
             self._id = value
 
     def merge_message(self, data):
-        """Merge Message Routine"""
+        """Merge Message Routine
+        @param data the data object instance."""
         self.bus_name = self.bus_name or data.get('bus', None)
         self.id = self.id or data.get('id')
         self.name = self.name or data.get('name', None)
@@ -75,7 +107,8 @@ class Message(object):
             self.merge_signals(data['signals'])
 
     def merge_signals(self, data):
-        """Merge Signals Routine"""
+        """Merge Signals Routine
+        @param data the data object instance."""
         for signal_name, signal_data in data.items():
             states = []
             for name, raw_matches in signal_data.get('states', {}).items():
@@ -188,13 +221,44 @@ class CanBus(object):
 
 
 class Signal(object):
-
+    """Signal Class"""
+    
     ## @var name
     # The name object instance.
     ## @var message_set
     # The message set object instance.
     ## @var message
     # The name object instance.
+    ## @var generic_name
+    # The generic name object instance.
+    ## @var bit_position
+    # The bit position object instance.
+    ## @var bit_size
+    # The bit size object instance.
+    ## @var handler
+    # The handler object instance.
+    ## @var write_handler
+    # The write handler object instance.
+    ## @var factor
+    # The factor object instance.
+    ## @var offset
+    # The offset object instance.
+    ## @var min_value
+    # The minimum value object instance.
+    ## @var max_value
+    # The maximum value object instance.
+    ## @var send_same
+    # The send_same object instance.
+    ## @var writable
+    # The writable object instance.
+    ## @var send_frequency
+    # The send frequency object instance.
+    ## @var enabled
+    # The enabled object instance.
+    ## @var ignore
+    # The ignore object instance.
+    ## @var states
+    # The states object instance.
     
     def __init__(self, message_set=None, message=None, states=None, **kwargs):
         """Initialization Routine"""

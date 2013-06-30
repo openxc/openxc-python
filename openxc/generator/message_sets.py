@@ -1,6 +1,12 @@
+
 """
-This modules contains the logic to parse and validate JSON files in the OpenXC
-message set format.
+@file    openxc-python\openxc\generator\message_sets.py Message Sets File
+@author  Christopher Peplin
+@date    June 25, 2013
+@version 1.0.0
+
+@brief This modules contains the logic to parse and validate JSON files in 
+the OpenXC message set format.
 """
 
 from __future__ import print_function
@@ -13,13 +19,30 @@ from .structures import Command, CanBus
 from openxc.utils import fatal_error, merge, find_file, \
         load_json_from_search_path
 
+## @var LOG
+# The logger object instance.
 LOG = logging.getLogger(__name__)
 
 
 class MessageSet(object):
     """Message Set Class"""
+    
+    ## @var name
+    # The name object instance.
+    ## @var buses
+    # The buses object instance.
+    ## @var initializers
+    # The initializers object instance.
+    ## @var loopers
+    # The loopers object instance.
+    ## @var commands
+    # The commands object instance.
+    ## @var extra_sources
+    # The extra sources object instance.
+    
     def __init__(self, name):
-        """Initialization Routine"""
+        """Initialization Routine
+        @param name The name object instance."""
         self.name = name
         self.buses = defaultdict(CanBus)
         self.initializers = []

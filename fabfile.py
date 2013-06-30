@@ -1,3 +1,11 @@
+
+"""
+@file    openxc-python\fabfile.py Fab File Script
+@author  Christopher Peplin
+@date    June 25, 2013
+@version 1.0.0
+"""
+
 from __future__ import with_statement
 
 import os
@@ -6,6 +14,11 @@ from fabric.api import abort, local, task, lcd, puts
 
 @task(default=True)
 def docs(clean='no', browse_='no'):
+    """Docs Routine
+    @param clean specifies if the clean should be processed.  The default
+    setting is 'no'.
+    @param browse_ specifies if the docs should be processed with browse
+    to include the source code.  The default setting is 'no'."""
     with lcd('docs'):
         local('make clean html')
     temp_path = "/tmp/openxc-python-docs"
@@ -33,6 +46,8 @@ def browse():
 
 @task(default=True)
 def test(args=None):
+    """Test Task Routine
+    @param args the args input parameter."""
     local("tox")
 
 

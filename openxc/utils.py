@@ -1,4 +1,13 @@
-"""Data containers and other utilities."""
+
+"""
+@file    openxc-python\openxc\utils.py Utilities File
+@author  Christopher Peplin
+@date    June 25, 2013
+@version 1.0.0
+
+@brief Data containers and other utilities.
+"""
+
 import time
 import json
 import collections
@@ -6,18 +15,23 @@ import logging
 import os
 import sys
 
+## @var LOG
+# The logger object instance.
 LOG = logging.getLogger(__name__)
 
 class Range(object):
+    """Range Class"""
+    
+    ## @var min
+    # The minimum input value for this class instance.
+    ## @var max
+    # The maximum input value for this class instance.
+    
     def __init__(self, minimum, maximum):
         """Encapsulates a ranged defined by a min and max numerical value.
         @param minimum The minimum range input.
         @param maximum The maximum range input."""
-        ## @var min
-        # The minimum input value for this class instance.
         self.min = minimum
-        ## @var max
-        # The maximum input value for this class instance.
         self.max = maximum
 
     def within_range(self, value):
@@ -33,12 +47,14 @@ class Range(object):
 
 
 class AgingData(object):
-    """Mixin to associate a class with a time of birth."""
+    """Aging Data Class
+    @brief Mixin to associate a class with a time of birth."""
 
+    ## @var created_at
+    # Stores the time this AgingData class instance was created.
+    
     def __init__(self):
-        """Initialization Routine"""
-        ## @var created_at
-        # Stores the time this AgingData class instance was created.
+        """Initialization Routine"""    
         self.created_at = time.time()
 
     @property
@@ -125,6 +141,6 @@ def load_json_from_search_path(filename, search_paths):
 
 def fatal_error(message):
     """Fatal Error Routine
-    @param message The message to log"""
+    @param message The message to log."""
     LOG.error(message)
     sys.exit(1)

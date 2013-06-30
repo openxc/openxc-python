@@ -1,8 +1,18 @@
+
+"""
+@file    openxc-python\openxc\generator\xml_to_json.py XML to JSON File
+@author  Christopher Peplin
+@date    June 25, 2013
+@version 1.0.0
+"""
+
 import logging
 
 from openxc.utils import fatal_error
 from .structures import Signal, Message
 
+## @var LOG
+# The logger object instance.
 LOG = logging.getLogger(__name__)
 
 try:
