@@ -1,12 +1,11 @@
 
 """
-@file    openxc-python\openxc\utils.py Utilities File
-@author  Christopher Peplin
+@file    openxc-python\openxc\utils.py OpenXC Utilities Script
+@author  Christopher Peplin github@rhubarbtech.com
 @date    June 25, 2013
-@version 1.0.0
+@version 0.9.4
 
-@brief Data containers and other utilities.
-"""
+@brief Data containers and other utilities."""
 
 import time
 import json
@@ -20,7 +19,10 @@ import sys
 LOG = logging.getLogger(__name__)
 
 class Range(object):
-    """Range Class"""
+    """Range Class
+    @author  Christopher Peplin github@rhubarbtech.com
+    @date    June 25, 2013
+    @version 0.9.4"""
     
     ## @var min
     # The minimum input value for this class instance.
@@ -47,7 +49,10 @@ class Range(object):
 
 
 class AgingData(object):
-    """Aging Data Class
+    """AgingData Class
+    @author  Christopher Peplin github@rhubarbtech.com
+    @date    June 25, 2013
+    @version 0.9.4
     @brief Mixin to associate a class with a time of birth."""
 
     ## @var created_at

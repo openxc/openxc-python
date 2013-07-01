@@ -1,4 +1,11 @@
-"""Vehicle data measurement types pre-defined in OpenXC."""
+
+"""
+@file    openxc-python\openxc\measurements.py OpenXC Measurements Script
+@author  Christopher Peplin github@rhubarbtech.com
+@date    June 25, 2013
+@version 0.9.4
+
+@brief   Vehicle data measurement types pre-defined in OpenXC."""
 import numbers
 
 import openxc.units as units
@@ -7,16 +14,20 @@ from .utils import Range, AgingData
 try:
     unicode
 except NameError:
-    # Python 3
+    ## @var basestring
+    # Definition for Python 3
     basestring = unicode = str
 
-"""Measurement Class"""
 class Measurement(AgingData):
-    """The Measurement is the base type of all values read from an OpenXC
+    """Measurement Class
+    
+    @brief The Measurement is the base type of all values read from an OpenXC
     vehicle interface. All values encapsulated in a Measurement have an
     associated scalar unit (e.g. meters, degrees, etc) to avoid crashing a rover
     into Mars.
-    """
+    @author  Christopher Peplin github@rhubarbtech.com
+    @date    June 25, 2013
+    @version 0.9.4"""
     
     ## @var DATA_TYPE
     # The data type object instance.
@@ -50,6 +61,10 @@ class Measurement(AgingData):
         Raises:
             UnrecognizedMeasurementError if the value is not the correct units,
             e.g. if it's a string and we're expecting a numerical value
+        
+        @author  Christopher Peplin github@rhubarbtech.com
+        @date    June 25, 2013
+        @version 0.9.4
         
         @param name The name of the measurement
         @param value The value of the measurement
@@ -156,7 +171,10 @@ class Measurement(AgingData):
 class NamedMeasurement(Measurement):
     """A NamedMeasurement has a class-level ``name`` variable and thus the
     ``name`` argument is not required in its constructor.
-    """
+    @author  Christopher Peplin github@rhubarbtech.com
+    @date    June 25, 2013
+    @version 0.9.4"""
+    
     def __init__(self, value, **kwargs):
         """Initialization Routine
         @param value The named measurement value.
@@ -167,7 +185,10 @@ class NamedMeasurement(Measurement):
 class NumericMeasurement(NamedMeasurement):
     """A NumericMeasurement must have a numeric value and thus a valid range of
     acceptable values.
-    """
+    @author  Christopher Peplin github@rhubarbtech.com
+    @date    June 25, 2013
+    @version 0.9.4"""
+    
     ## @var valid_range
     # The valid range object instance.
     valid_range = None
@@ -178,9 +199,14 @@ class NumericMeasurement(NamedMeasurement):
 
 
 class StatefulMeasurement(NamedMeasurement):
-    """Must have a class-level ``states`` member that defines a set of valid
-    string states for this measurement's value.
-    """
+    """Stateful Measurement Class
+    
+    @brief Must have a class-level ``states`` member that defines a set of  
+    valid string states for this measurement's value.
+    
+    @author  Christopher Peplin github@rhubarbtech.com
+    @date    June 25, 2013
+    @version 0.9.4"""
     
     ## @var DATA_TYPE
     # The data type object instance.
@@ -200,21 +226,33 @@ class StatefulMeasurement(NamedMeasurement):
 
 
 class BooleanMeasurement(NamedMeasurement):
-    """Boolean Measurement Class"""
+    """Boolean Measurement Class
+    @author  Christopher Peplin github@rhubarbtech.com
+    @date    June 25, 2013
+    @version 0.9.4"""
+    
     ## @var DATA_TYPE
     # The data type object instance.
     DATA_TYPE = bool
 
 
 class EventedMeasurement(StatefulMeasurement):
-    """Evented Measurement Class"""
+    """Evented Measurement Class
+    @author  Christopher Peplin github@rhubarbtech.com
+    @date    June 25, 2013
+    @version 0.9.4"""
+    
     ## @var DATA_TYPE
     # The data type object instance.
     DATA_TYPE = unicode
 
 
 class PercentageMeasurement(NumericMeasurement):
-    """Percentage Measurement"""
+    """Percentage Measurement
+    @author  Christopher Peplin github@rhubarbtech.com
+    @date    June 25, 2013
+    @version 0.9.4"""
+    
     ## @var valid_range
     # The valid range object instance.
     valid_range = Range(0, 100)
@@ -223,19 +261,32 @@ class PercentageMeasurement(NumericMeasurement):
     unit = units.Percentage
 
 class AcceleratorPedalPosition(PercentageMeasurement):
-    """Accelerator Pedal Position Class"""
+    """Accelerator Pedal Position Class
+    @author  Christopher Peplin github@rhubarbtech.com
+    @date    June 25, 2013
+    @version 0.9.4"""
+    
     ## @var name
     # The name object instance.
     name = "accelerator_pedal_position"
 
 class FuelLevel(PercentageMeasurement):
-    """Fuel Level Class"""
+    """Fuel Level Class
+    
+    @author  Christopher Peplin github@rhubarbtech.com
+    @date    June 25, 2013
+    @version 0.9.4"""
+    
     ## @var name
     # The name object instance.
     name = "fuel_level"
 
 class VehicleSpeed(NumericMeasurement):
-    """Vehicle Speed Class"""
+    """Vehicle Speed Class
+    @author  Christopher Peplin github@rhubarbtech.com
+    @date    June 25, 2013
+    @version 0.9.4"""
+    
     ## @var name
     # The name object instance.
     name = "vehicle_speed"
@@ -247,7 +298,11 @@ class VehicleSpeed(NumericMeasurement):
     unit = units.KilometersPerHour
 
 class EngineSpeed(NumericMeasurement):
-    """Engine Speed Class"""
+    """Engine Speed Class
+    @author  Christopher Peplin github@rhubarbtech.com
+    @date    June 25, 2013
+    @version 0.9.4"""
+    
     ## @var name
     # The name object instance.
     name = "engine_speed"
@@ -259,7 +314,11 @@ class EngineSpeed(NumericMeasurement):
     unit = units.RotationsPerMinute
 
 class FuelConsumed(NumericMeasurement):
-    """Fuel Consumed"""
+    """Fuel Consumed
+    @author  Christopher Peplin github@rhubarbtech.com
+    @date    June 25, 2013
+    @version 0.9.4"""
+    
     ## @var name
     # The name object instance.
     name = "fuel_consumed_since_restart"
@@ -271,7 +330,11 @@ class FuelConsumed(NumericMeasurement):
     unit = units.Litre
 
 class Latitude(NumericMeasurement):
-    """Latitude Class"""
+    """Latitude Class
+    @author  Christopher Peplin github@rhubarbtech.com
+    @date    June 25, 2013
+    @version 0.9.4"""
+    
     ## @var name
     # The name object instance.
     name = "latitude"
@@ -283,7 +346,11 @@ class Latitude(NumericMeasurement):
     unit = units.Degree
 
 class Longitude(NumericMeasurement):
-    """Longitude Class"""
+    """Longitude Class
+    @author  Christopher Peplin github@rhubarbtech.com
+    @date    June 25, 2013
+    @version 0.9.4"""
+    
     ## @var name
     # The name object instance.
     name = "longitude"
@@ -295,7 +362,11 @@ class Longitude(NumericMeasurement):
     unit = units.Degree
 
 class Odometer(NumericMeasurement):
-    """Odometer Class"""
+    """Odometer Class
+    @author  Christopher Peplin github@rhubarbtech.com
+    @date    June 25, 2013
+    @version 0.9.4"""
+    
     ## @var name
     # The name object instance.
     name = "odometer"
@@ -307,7 +378,11 @@ class Odometer(NumericMeasurement):
     unit = units.Kilometer
 
 class SteeringWheelAngle(NumericMeasurement):
-    """SteeringWheelAngle Class"""
+    """SteeringWheelAngle Class
+    @author  Christopher Peplin github@rhubarbtech.com
+    @date    June 25, 2013
+    @version 0.9.4"""
+    
     ## @var name
     # The name object instance.
     name = "steering_wheel_angle"
@@ -319,7 +394,11 @@ class SteeringWheelAngle(NumericMeasurement):
     unit = units.Degree
 
 class TorqueAtTransmission(NumericMeasurement):
-    """Torque At Transmission Class"""
+    """Torque At Transmission Class
+    @author  Christopher Peplin github@rhubarbtech.com
+    @date    June 25, 2013
+    @version 0.9.4"""
+    
     ## @var name
     # The name object instance.
     name = "torque_at_transmission"
@@ -331,7 +410,11 @@ class TorqueAtTransmission(NumericMeasurement):
     unit = units.NewtonMeter
 
 class LateralAcceleration(NumericMeasurement):
-    """Lateral Acceleration Class"""
+    """Lateral Acceleration Class
+    @author  Christopher Peplin github@rhubarbtech.com
+    @date    June 25, 2013
+    @version 0.9.4"""
+    
     ## @var name
     # The name object instance.
     name = "lateral_acceleration"
@@ -343,7 +426,11 @@ class LateralAcceleration(NumericMeasurement):
     unit = units.MetersPerSecondSquared
 
 class LongitudinalAcceleration(NumericMeasurement):
-    """Longitudinal Acceleration Class"""
+    """Longitudinal Acceleration Class
+    @author  Christopher Peplin github@rhubarbtech.com
+    @date    June 25, 2013
+    @version 0.9.4"""
+    
     ## @var name
     # The name object instance.
     name = "longitudinal_acceleration"
@@ -356,38 +443,62 @@ class LongitudinalAcceleration(NumericMeasurement):
 
 
 class BrakePedalStatus(BooleanMeasurement):
-    """Brake Pedal Status Class"""
+    """Brake Pedal Status Class
+    @author  Christopher Peplin github@rhubarbtech.com
+    @date    June 25, 2013
+    @version 0.9.4"""
+    
     ## @var name
     # The name object instance.
     name = "brake_pedal_status"
 
 class HeadlampStatus(BooleanMeasurement):
-    """Headlamp Status Class"""
+    """Headlamp Status Class
+    @author  Christopher Peplin github@rhubarbtech.com
+    @date    June 25, 2013
+    @version 0.9.4"""
+    
     ## @var name
     # The name object instance.
     name = "headlamp_status"
 
 class HighBeamStatus(BooleanMeasurement):
-    """High Beam Status Class"""
+    """High Beam Status Class
+    @author  Christopher Peplin github@rhubarbtech.com
+    @date    June 25, 2013
+    @version 0.9.4"""
+    
     ## @var name
     # The name object instance.
     name = "high_beam_status"
 
 class ParkingBrakeStatus(BooleanMeasurement):
-    """Parking Brake Status"""
+    """Parking Brake Status
+    @author  Christopher Peplin github@rhubarbtech.com
+    @date    June 25, 2013
+    @version 0.9.4"""
+    
     ## @var name
     # The name object instance.
     name = "parking_brake_status"
 
 class WindshieldWiperStatus(BooleanMeasurement):
-    """Windshield Wiper Status Class"""
+    """Windshield Wiper Status Class
+    @author  Christopher Peplin github@rhubarbtech.com
+    @date    June 25, 2013
+    @version 0.9.4"""
+    
     ## @var name
     # The name object instance.
     name = "windshield_wiper_status"
 
 
 class IgnitionStatus(StatefulMeasurement):
-    """Ignition Status Class"""
+    """Ignition Status Class
+    @author  Christopher Peplin github@rhubarbtech.com
+    @date    June 25, 2013
+    @version 0.9.4"""
+    
     ## @var name
     # The name object instance.
     name = "ignition_status"
@@ -396,7 +507,11 @@ class IgnitionStatus(StatefulMeasurement):
     states = ['off', 'accessory', 'run', 'start']
 
 class TransmissionGearPosition(StatefulMeasurement):
-    """Transmission Gear Position"""
+    """Transmission Gear Position
+    @author  Christopher Peplin github@rhubarbtech.com
+    @date    June 25, 2013
+    @version 0.9.4"""
+    
     ## @var name
     # The name object instance.
     name = "transmission_gear_position"
@@ -406,22 +521,34 @@ class TransmissionGearPosition(StatefulMeasurement):
             'eighth', 'neutral', 'reverse', 'park']
 
 class TurnSignalStatus(StatefulMeasurement):
-    """Turn Signal Status Class"""
+    """Turn Signal Status Class
+    @author  Christopher Peplin github@rhubarbtech.com
+    @date    June 25, 2013
+    @version 0.9.4"""
+    
     ## @var name
     # The name object instance.
     name = "turn_signal_status"
 
 class ButtonEvent(EventedMeasurement):
-    """Button Event Class"""
+    """Button Event Class
+    @author  Christopher Peplin github@rhubarbtech.com
+    @date    June 25, 2013
+    @version 0.9.4"""
+    
     ## @var name
     # The name object instance.
-    name = "button_event"
     ## @var states
     # The states object instance.
+    name = "button_event"
     states = ['up', 'down', 'left', 'right', 'ok']
 
 class DoorStatus(EventedMeasurement):
-    """Door Status Class"""'
+    """Door Status Class
+    @author  Christopher Peplin github@rhubarbtech.com
+    @date    June 25, 2013
+    @version 0.9.4"""
+    
     ## @var name
     # The name object instance.
     name = "door_status"
@@ -430,5 +557,8 @@ class DoorStatus(EventedMeasurement):
     states = ['driver', 'rear_left', 'rear_right', 'passenger']
 
 class UnrecognizedMeasurementError(Exception):
-    """Unrecognized Measurement Error Class"""
+    """Unrecognized Measurement Error Class
+    @author  Christopher Peplin github@rhubarbtech.com
+    @date    June 25, 2013
+    @version 0.9.4"""
     pass

@@ -1,6 +1,14 @@
-"""Contains the abstract interface for sending commands back to a vehicle
-interface.
+
 """
+@file    openxc-python\openxc\controllers\base.py Base Controller Script
+@author  Christopher Peplin github@rhubarbtech.com
+@date    June 25, 2013
+@version 0.9.4
+
+@brief   Contains the abstract interface for sending commands back to a vehicle
+         interface.
+"""
+
 import numbers
 
 from openxc.formats.json import JsonFormatter
@@ -11,9 +19,13 @@ class Controller(object):
     send back to the vehicle. This class is abstract, and implemtnations of the
     interface must define at least the ``write_bytes``, ``version``, or
     ``reset`` methods.
-    """
+    
+    @author  Christopher Peplin github@rhubarbtech.com
+    @date    June 25, 2013
+    @version 0.9.4"""
 
     def write(self, raw=False, **kwargs):
+        """Write Routine"""
         if raw:
             result = self.write_raw(kwargs['id'], kwargs['data'])
         else:
@@ -87,4 +99,9 @@ class Controller(object):
 
 
 class ControllerError(Exception):
+    """Controller Error Class
+    
+    @author  Christopher Peplin github@rhubarbtech.com
+    @date    June 25, 2013
+    @version 0.9.4"""
     pass

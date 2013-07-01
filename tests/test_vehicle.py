@@ -1,3 +1,12 @@
+
+"""
+@file    openxc-python\tests\test_vehicle.py OpenXC Test Vehicle Script
+@author  Christopher Peplin github@rhubarbtech.com
+@date    June 25, 2013
+@version 0.9.4
+
+@brief   OpenXC Test Vehicle Script."""
+
 from nose.tools import eq_, ok_
 import unittest
 import time
@@ -7,17 +16,21 @@ from openxc.measurements import Measurement, NamedMeasurement, \
         UnrecognizedMeasurementError
 from openxc.vehicle import Vehicle
 
-
 class VehicleTests(unittest.TestCase):
-    """Vehicle Tests TestCase Class"""
+    """Vehicle Tests TestCase Class
+    @author  Christopher Peplin github@rhubarbtech.com
+    @date    June 25, 2013
+    @version 0.9.4"""
+    
+    ## @var vehicle
+    # The vehicle object instance.
+    ## @var messages_received
+    # The messages received instance.
+    
     def setUp(self):
         """Set up Routine"""
         super(VehicleTests, self).setUp()
-        ## @var vehicle
-        # The vehicle instance.
         self.vehicle = Vehicle()
-        ## @var messages_received
-        # The messages received instance.
         self.messages_received = []
 
     def _callback(self, message):
@@ -76,7 +89,10 @@ class VehicleTests(unittest.TestCase):
 
 
 class TestMeasurement(NamedMeasurement):
-    """Test Measurement"""
+    """Test Measurement
+    @author  Christopher Peplin github@rhubarbtech.com
+    @date    June 25, 2013
+    @version 0.9.4"""
     
     ## @var name
     # The name of this Measurement instance.

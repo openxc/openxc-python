@@ -1,3 +1,12 @@
+
+"""
+@file    openxc-python\openxc\tools\common.py Common Tools Script
+@author  Christopher Peplin github@rhubarbtech.com
+@date    June 25, 2013
+@version 0.9.4
+
+@brief   Common Tools definitions."""
+
 import argparse
 import logging
 
@@ -7,8 +16,6 @@ from openxc.interface import SerialVehicleInterface, UsbVehicleInterface
 
 def device_options():
     """Device Options Routine"""
-    ## @var parser
-    # ArgumentParser object instance.
     parser = argparse.ArgumentParser(add_help=False)
     device_group = parser.add_mutually_exclusive_group()
     device_group.add_argument("--usb", action="store_true", dest="use_usb",

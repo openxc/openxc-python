@@ -1,9 +1,9 @@
 
 """
-@file    openxc-python\openxc\generator\xml_to_json.py XML to JSON File
-@author  Christopher Peplin
+@file    openxc-python\openxc\generator\xml_to_json.py XML to JSON Script
+@author  Christopher Peplin github@rhubarbtech.com
 @date    June 25, 2013
-@version 1.0.0
+@version 0.9.4
 """
 
 import logging
@@ -39,7 +39,11 @@ except ImportError:
 
 
 class Network(object):
-    """Represents all the messages on a single bus in an XML-backed database."""
+    """Represents all the messages on a single bus in an XML-backed database.
+    
+    @author  Christopher Peplin github@rhubarbtech.com
+    @date    June 25, 2013
+    @version 0.9.4"""
 
     ## @var messages
     # The messages object instance.
@@ -75,10 +79,11 @@ class Network(object):
                 if len(message.signals) > 0)}
 
 class XMLBackedMessage(Message):
-    """XML Backed Message Class"""
+    """XML Backed Message Class
     
-    ## @var message
-    # The message object instance.
+    @author  Christopher Peplin github@rhubarbtech.com
+    @date    June 25, 2013
+    @version 0.9.4"""
     
     @classmethod
     def from_xml_node(cls, node, mapped_signals):
@@ -101,7 +106,11 @@ class XMLBackedMessage(Message):
         return message
 
 class XMLBackedSignal(Signal):
-    """XML Backed Signal Class"""
+    """XML Backed Signal Class
+    
+    @author  Christopher Peplin github@rhubarbtech.com
+    @date    June 25, 2013
+    @version 0.9.4"""
     
     @classmethod
     def from_xml_node(cls, node):

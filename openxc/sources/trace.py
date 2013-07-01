@@ -1,4 +1,12 @@
-"""A data source for reading from pre-recorded OpenXC trace files."""
+
+"""
+@file    openxc-python\openxc\sources\trace.py Trace Sources Script
+@author  Christopher Peplin github@rhubarbtech.com
+@date    June 25, 2013
+@version 0.9.4
+
+@brief   A data source for reading from pre-recorded OpenXC trace files."""
+
 from __future__ import absolute_import
 
 import logging
@@ -6,13 +14,18 @@ import time
 
 from .base import DataSourceError, BytestreamDataSource
 
+## @var LOG
+# The logging object instance.
 LOG = logging.getLogger(__name__)
 
 class TraceDataSource(BytestreamDataSource):
     """A class to replay a previously recorded OpenXC vehicle data trace file.
     For details on the trace file format, see
     http://openxcplatform.com/android/testing.html.
-    """
+    
+    @author  Christopher Peplin github@rhubarbtech.com
+    @date    June 25, 2013
+    @version 0.9.4"""
     
     ## @var realtime
     # The realtime object instance.
@@ -135,7 +148,6 @@ class TraceDataSource(BytestreamDataSource):
             ``True`` if the message contains at least a ``name`` and ``value``.
         @param message The message instance.
         """
-        ## @var flag
         # Flag to determine return value (for single point of return)
         flag = True
         # Loop through each key as a name and value pair

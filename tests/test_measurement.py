@@ -1,3 +1,12 @@
+
+"""
+@file    openxc-python\tests\test_measurement.py OpenXC Test Measurement Script
+@author  Christopher Peplin github@rhubarbtech.com
+@date    June 25, 2013
+@version 0.9.4
+
+@brief   OpenXC Test Measurement Script."""
+
 from nose.tools import eq_, ok_
 import unittest
 import time
@@ -5,7 +14,11 @@ import time
 from openxc.measurements import Measurement, VehicleSpeed
 
 class MeasurementTests(unittest.TestCase):
-    """Measurement Tests TestCase Class"""
+    """Measurement Tests TestCase Class
+    @author  Christopher Peplin github@rhubarbtech.com
+    @date    June 25, 2013
+    @version 0.9.4"""
+    
     def setUp(self):
         """Setup Routine"""
         super(MeasurementTests, self).setUp()

@@ -1,10 +1,16 @@
-"""
-This module contains the methods for the ``openxc-control`` command line
-program.
 
-`main` is executed when ``openxc-control`` is run, and all other callables in
-this module are internal only.
 """
+@file    openxc-python\openxc\tools\control.py Control Tools Script
+@author  Christopher Peplin github@rhubarbtech.com
+@date    June 25, 2013
+@version 0.9.4
+
+@brief   This module contains the methods for the ``openxc-control`` command 
+         line program.
+
+         `main` is executed when ``openxc-control`` is run, and all other 
+         callables in this module are internal only."""
+
 from __future__ import absolute_import
 
 import argparse

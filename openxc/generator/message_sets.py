@@ -1,9 +1,9 @@
 
 """
-@file    openxc-python\openxc\generator\message_sets.py Message Sets File
-@author  Christopher Peplin
+@file    openxc-python\openxc\generator\message_sets.py Message Sets Script
+@author  Christopher Peplin github@rhubarbtech.com
 @date    June 25, 2013
-@version 1.0.0
+@version 0.9.4
 
 @brief This modules contains the logic to parse and validate JSON files in 
 the OpenXC message set format.
@@ -25,7 +25,11 @@ LOG = logging.getLogger(__name__)
 
 
 class MessageSet(object):
-    """Message Set Class"""
+    """Message Set Class
+    
+    @author  Christopher Peplin github@rhubarbtech.com
+    @date    June 25, 2013
+    @version 0.9.4"""
     
     ## @var name
     # The name object instance.
@@ -131,7 +135,11 @@ class MessageSet(object):
 
 
 class JsonMessageSet(MessageSet):
-    """Json Message Set Class"""
+    """Json Message Set Class
+    
+    @author  Christopher Peplin github@rhubarbtech.com
+    @date    June 25, 2013
+    @version 0.9.4"""
     
     @classmethod
     def parse(cls, filename, search_paths=None, skip_disabled_mappings=False):

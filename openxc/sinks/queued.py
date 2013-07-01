@@ -1,6 +1,13 @@
-"""Common functinality for data sinks that work on a queue of incoming
-messages.
+
 """
+@file    openxc-python\openxc\sinks\queued.py Queued Sinks Script
+@author  Christopher Peplin github@rhubarbtech.com
+@date    June 25, 2013
+@version 0.9.4
+
+@brief   Common functinality for data sinks that work on a queue of incoming 
+         messages."""
+
 from .base import DataSink
 
 try:
@@ -14,7 +21,10 @@ class QueuedSink(DataSink):
     source as a tuple in a queue.
 
     The queue can be reference in subclasses via the `queue` attribute.
-    """
+    
+    @author  Christopher Peplin github@rhubarbtech.com
+    @date    June 25, 2013
+    @version 0.9.4"""
     
     ## @var queue
     # The queue object instance.

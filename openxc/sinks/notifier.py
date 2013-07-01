@@ -1,6 +1,13 @@
-"""A data sink implementation for the core listener notification service of
-:class:`openxc.vehicle.Vehicle`.
+
 """
+@file    openxc-python\openxc\sinks\notifier.py Notifier Sinks Script
+@author  Christopher Peplin github@rhubarbtech.com
+@date    June 25, 2013
+@version 0.9.4
+
+@brief   A data sink implementation for the core listener notification service 
+         of :class:`openxc.vehicle.Vehicle`."""
+
 from threading import Thread
 from collections import defaultdict
 
@@ -14,7 +21,10 @@ class MeasurementNotifierSink(QueuedSink):
 
     This data sink is the core of the asynchronous interface of
     :class:`openxc.vehicle.Vehicle.`
-    """
+    
+    @author  Christopher Peplin github@rhubarbtech.com
+    @date    June 25, 2013
+    @version 0.9.4"""
     
     ## @var callbacks
     # List of callback routines.
@@ -57,7 +67,11 @@ class MeasurementNotifierSink(QueuedSink):
                 callback(measurement)
 
     class Notifier(Thread):
-        """Notifier Class"""
+        """Notifier Class
+        
+        @author  Christopher Peplin github@rhubarbtech.com
+        @date    June 25, 2013
+        @version 0.9.4"""
         
         ## @var daemon
         # Boolean representing if the notifier functions as a daemon.
@@ -85,5 +99,6 @@ class MeasurementNotifierSink(QueuedSink):
                     self.callback(measurement, **kwargs)
                     self.queue.task_done()
                 except UnrecognizedMeasurementError as e:
+                    """@todo add some logging"""
                     # TODO add some logging
                     pass

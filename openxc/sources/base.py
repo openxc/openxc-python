@@ -1,4 +1,12 @@
-"""Abstract base interface for vehicle data sources."""
+
+"""
+@file    openxc-python\openxc\sources\base.py Base Sources Script
+@author  Christopher Peplin github@rhubarbtech.com
+@date    June 25, 2013
+@version 0.9.4
+
+@brief   Abstract base interface for vehicle data sources."""
+
 import threading
 
 from openxc.formats.json import JsonFormatter
@@ -12,7 +20,10 @@ class DataSource(threading.Thread):
 
     A data source requires a callback method to be specified. Whenever new data
     is received, it will pass it to that callback.
-    """
+    
+    @author  Christopher Peplin github@rhubarbtech.com
+    @date    June 25, 2013
+    @version 0.9.4"""
     
     ## @var callback
     # The callback function to use.
@@ -51,7 +62,10 @@ class BytestreamDataSource(DataSource):
     messages separated by a newline character.
 
     Subclasses of this class need only to implement the ``_read`` method.
-    """
+    
+    @author  Christopher Peplin github@rhubarbtech.com
+    @date    June 25, 2013
+    @version 0.9.4"""
     
     ## @var bytes_received
     # The number of bytes received.
@@ -115,5 +129,9 @@ class BytestreamDataSource(DataSource):
 
 
 class DataSourceError(Exception):
-    """Data Source Error Exception Class"""
+    """Data Source Error Exception Class
+    
+    @author  Christopher Peplin github@rhubarbtech.com
+    @date    June 25, 2013
+    @version 0.9.4"""
     pass

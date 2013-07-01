@@ -1,9 +1,16 @@
-""" This module contains the methods for the ``openxc-dashboard`` command line
-program.
 
-`main` is executed when ``openxc-dashboard`` is run, and all other callables in
-this module are internal only.
 """
+@file    openxc-python\openxc\tools\dashboard.py Dashboard Tools Script
+@author  Christopher Peplin github@rhubarbtech.com
+@date    June 25, 2013
+@version 0.9.4
+
+@brief   This module contains the methods for the ``openxc-dashboard`` command 
+         line program.
+
+         `main` is executed when ``openxc-dashboard`` is run, and all other 
+         callables in this module are internal only."""
+
 from __future__ import absolute_import
 
 import argparse
@@ -20,10 +27,12 @@ import openxc.measurements as measurements
 try:
     unicode
 except NameError:
-    # Python 3
+    ## @var basestring
+    # Definitions for Python 3
     basestring = unicode = str
 
-"""Dashboard Measurements"""
+## @var DASHBOARD_MEASUREMENTS
+# Dashboard measurements definition as a list.
 DASHBOARD_MEASUREMENTS  = [measurements.AcceleratorPedalPosition,
                 measurements.FuelLevel,
                 measurements.VehicleSpeed,
@@ -65,11 +74,15 @@ def sizeof_fmt(num):
         num /= 1024.0
 
 class DataPoint(object):
-    """DataPoint Class"""
+    """DataPoint Class
+    @author  Christopher Peplin github@rhubarbtech.com
+    @date    June 25, 2013
+    @version 0.9.4"""
+    
     ## @var event
     # The event object instance.
     ## @var bad_data
-    # Stores the number of times bad data is found.
+    # Stores the number of times bad data is submitted.
     ## @var current_data
     # Stores the current data value
     ## @var events
@@ -162,7 +175,11 @@ class DataPoint(object):
 
 
 class Dashboard(object):
-    """Dashboard Class"""
+    """Dashboard Class
+    @author  Christopher Peplin github@rhubarbtech.com
+    @date    June 25, 2013
+    @version 0.9.4"""
+    
     def __init__(self, window, vehicle):
         """Initialization Routine
         @param window The window instance.

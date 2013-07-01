@@ -1,3 +1,12 @@
+
+"""
+@file    openxc-python\openxc\sinks\uploader.py Uploader Sinks Script
+@author  Christopher Peplin github@rhubarbtech.com
+@date    June 25, 2013
+@version 0.9.4
+
+@brief   Uploader Sinks Script."""
+
 from threading import Thread
 import time
 import logging
@@ -6,6 +15,8 @@ import requests
 from openxc.formats import JsonFormatter
 from .queued import QueuedSink
 
+## @var LOG
+# The logging object instance.
 LOG = logging.getLogger(__name__)
 
 
@@ -13,7 +24,11 @@ class UploaderSink(QueuedSink):
     """Uploads all incoming vehicle data to a remote web application via HTTP.
     
     TODO document service side format
-    """
+    
+    @author  Christopher Peplin github@rhubarbtech.com
+    @date    June 25, 2013
+    @version 0.9.4
+    @todo document service side format."""
     
     ## @var UPLOAD_BATCH_SIZE
     # The upload batch size setting.
@@ -33,7 +48,10 @@ class UploaderSink(QueuedSink):
         self.recorder = self.Uploader(self.queue, url)
 
     class Uploader(Thread):
-        """ The Uploader Class"""
+        """ The Uploader Class
+        @author  Christopher Peplin github@rhubarbtech.com
+        @date    June 25, 2013
+        @version 0.9.4"""
         
         ## @var daemon
         # Boolean representing if this datasource operates like a daemon.

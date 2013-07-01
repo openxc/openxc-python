@@ -1,11 +1,24 @@
-"""A virtual serial port data source."""
+
+"""
+@file    openxc-python\openxc\sources\serial.py Serial Sources Script
+@author  Christopher Peplin github@rhubarbtech.com
+@date    June 25, 2013
+@version 0.9.4
+
+@brief   A virtual serial port data source."""
+
 from __future__ import absolute_import
 
 import logging
 
 from .base import BytestreamDataSource, DataSourceError
 
+## @var LOG
+# The logging object instance.
 LOG = logging.getLogger(__name__)
+
+## @var serial
+# The serial object instance.
 
 try:
     import serial
@@ -17,18 +30,18 @@ except ImportError:
 class SerialDataSource(BytestreamDataSource):
     """A data source reading from a serial port, which could be implemented
     with a USB to Serial or Bluetooth adapter.
-    """
+    
+    @author  Christopher Peplin github@rhubarbtech.com
+    @date    June 25, 2013
+    @version 0.9.4"""
+    
     ## @var DEFAULT_PORT
     # The default serial port to read from.
     DEFAULT_PORT = "/dev/ttyUSB0"
     ## @var DEFAULT_BAUDRATE
     # The default serial port baud rate.
     DEFAULT_BAUDRATE = 230400
-
-    ## @var port
-    # The port for processing the serial port input.
-    ## @var baudrate
-    # The baudrate for processing the serial port input.
+    
     ## @var device
     # The device object instance.
     
@@ -63,4 +76,5 @@ class SerialDataSource(BytestreamDataSource):
             LOG.debug("Opened serial device at %s", port)
 
     def _read(self):
+        """Read Routine"""
         return self.device.readline()

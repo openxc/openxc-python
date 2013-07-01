@@ -1,4 +1,12 @@
-"""A USB vehicle interface data source."""
+
+"""
+@file    openxc-python\openxc\sources\usb.py USB Sources Script
+@author  Christopher Peplin github@rhubarbtech.com
+@date    June 25, 2013
+@version 0.9.4
+
+@brief   A USB vehicle interface data source."""
+
 from __future__ import absolute_import
 
 import logging
@@ -6,11 +14,17 @@ import usb.core
 
 from .base import BytestreamDataSource, DataSourceError
 
+## @var LOG
+# The logging object instance.
 LOG = logging.getLogger(__name__)
 
 
 class UsbDataSource(BytestreamDataSource):
-    """A source to receive data from an OpenXC vehicle interface via USB."""
+    """A source to receive data from an OpenXC vehicle interface via USB.
+    @author  Christopher Peplin github@rhubarbtech.com
+    @date    June 25, 2013
+    @version 0.9.4"""
+    
     ## @var DEFAULT_VENDOR_ID
     # Default Vendor ID
     DEFAULT_VENDOR_ID = 0x1bc4
@@ -30,12 +44,12 @@ class UsbDataSource(BytestreamDataSource):
     # Reset Control Command Setting
     RESET_CONTROL_COMMAND = 0x81
 
+    ## @var device
+    # The device object instance.
     ## @var vendor_id
     # The Vendor ID object instance.
     ## @var product_id
     # The Product ID object instance.
-    ## @var device
-    # The device object instance.
     ## @var in_endpoint
     # The in_endpoint object instance.
     

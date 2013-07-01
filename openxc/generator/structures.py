@@ -1,9 +1,9 @@
 
 """
-@file    openxc-python\openxc\generator\structures.py Structures File
-@author  Christopher Peplin
+@file    openxc-python\openxc\generator\structures.py Structures Script
+@author  Christopher Peplin github@rhubarbtech.com
 @date    June 25, 2013
-@version 1.0.0
+@version 0.9.4
 """
 
 import operator
@@ -12,11 +12,17 @@ from collections import defaultdict
 
 import logging
 
+## @var LOG
+# The logging object instance.
 LOG = logging.getLogger(__name__)
 
 
 class Command(object):
-    """Command Class"""
+    """Command Class
+    
+    @author  Christopher Peplin github@rhubarbtech.com
+    @date    June 25, 2013
+    @version 0.9.4"""
     
     ## @var name
     # The name object instance.
@@ -41,7 +47,11 @@ class Command(object):
 
 
 class Message(object):
-    """Message Class"""
+    """Message Class
+    
+    @author  Christopher Peplin github@rhubarbtech.com
+    @date    June 25, 2013
+    @version 0.9.4"""
     
     ## @var bus_name
     # The bus_name object instance.
@@ -162,9 +172,15 @@ class Message(object):
         return ""
 
 class CanBus(object):
-    # Only works with 2 CAN buses since we are limited by 2 CAN controllers,
-    # and we want to be a little careful that we always expect 0x101 to be
-    # plugged into the CAN1 controller and 0x102 into CAN2.
+    """Can Bus Class
+    
+    @brief Only works with 2 CAN buses since we are limited by 2 CAN 
+    controllers, and we want to be a little careful that we always expect 
+    0x101 to be plugged into the CAN1 controller and 0x102 into CAN2.
+    
+    @author  Christopher Peplin github@rhubarbtech.com
+    @date    June 25, 2013
+    @version 0.9.4"""
     
     ## @var name
     # The name object instance.
@@ -221,7 +237,11 @@ class CanBus(object):
 
 
 class Signal(object):
-    """Signal Class"""
+    """Signal Class
+    
+    @author  Christopher Peplin github@rhubarbtech.com
+    @date    June 25, 2013
+    @version 0.9.4"""
     
     ## @var name
     # The name object instance.
@@ -420,7 +440,11 @@ class Signal(object):
 
 
 class SignalState(object):
-    """Signal State Class"""
+    """Signal State Class
+    
+    @author  Christopher Peplin github@rhubarbtech.com
+    @date    June 25, 2013
+    @version 0.9.4"""
     
     ## @var value
     # The value object instance.

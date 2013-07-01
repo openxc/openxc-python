@@ -1,4 +1,12 @@
-"""Trace file recording operations."""
+
+"""
+@file    openxc-python\openxc\sinks\recorder.py Recorder Sinks Script
+@author  Christopher Peplin github@rhubarbtech.com
+@date    June 25, 2013
+@version 0.9.4
+
+@brief   Trace file recording operations."""
+
 from threading import Thread
 import datetime
 import time
@@ -10,7 +18,10 @@ from .queued import QueuedSink
 class FileRecorderSink(QueuedSink):
     """A sink to record trace files based on the messages received from all data
     sources.
-    """
+    
+    @author  Christopher Peplin github@rhubarbtech.com
+    @date    June 25, 2013
+    @version 0.9.4"""
     
     ## @var FILENAME_DATE_FORMAT
     # The filename date format string
@@ -28,7 +39,11 @@ class FileRecorderSink(QueuedSink):
         self.recorder = self.Recorder(self.queue)
 
     class Recorder(Thread):
-        """Recorder Class"""
+        """Recorder Class
+        
+        @author  Christopher Peplin github@rhubarbtech.com
+        @date    June 25, 2013
+        @version 0.9.4"""
         
         ## @var daemon
         # The daemon object value.

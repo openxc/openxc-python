@@ -1,9 +1,9 @@
 
 """
-@file    openxc-python\openxc\generator\coder.py Coder Generator File
-@author  Christopher Peplin
+@file    openxc-python\openxc\generator\coder.py Coder Generator Script
+@author  Christopher Peplin github@rhubarbtech.com
 @date    June 25, 2013
-@version 1.0.0
+@version 0.9.4
 
 @brief C++ source code generator for the vehicle interface firmware.
 """
@@ -23,7 +23,10 @@ class CodeGenerator(object):
     """This class is used to build an implementation of the signals.h functions
     from one or more CAN message sets. The message sets must already be read
     into memory and parsed.
-    """
+    
+    @author  Christopher Peplin github@rhubarbtech.com
+    @date    June 25, 2013
+    @version 0.9.4"""
     
     ## @var MAX_SIGNAL_STATES
     # Stores the maximum number of signal states.

@@ -1,9 +1,16 @@
-"""
-This module contains the methods for the ``openxc-gps`` command line program.
 
-`main` is executed when ``openxc-gps`` is run, and all other callables in this
-module are internal only.
 """
+@file    openxc-python\openxc\tools\gps.py GPS Tools Script
+@author  Christopher Peplin github@rhubarbtech.com
+@date    June 25, 2013
+@version 0.9.4
+
+@brief   This module contains the methods for the ``openxc-gps`` command line 
+         program.
+
+         `main` is executed when ``openxc-gps`` is run, and all other 
+         callables in this module are internal only."""
+
 from __future__ import absolute_import
 
 import argparse
@@ -14,13 +21,13 @@ from .common import device_options, configure_logging, select_device
 
 
 class GPXTranscoder(object):
-    """GPX Transcoder Class"""
+    """GPX Transcoder Class
+    @author  Christopher Peplin github@rhubarbtech.com
+    @date    June 25, 2013
+    @version 0.9.4"""
+    
     ## @var root
     # The root object instance.
-    ## @var track
-    # The track object instance.
-    ## @var number
-    # The number object instance.
     ## @var segment
     # The segment object instance.
     # @var latitude
@@ -64,16 +71,14 @@ class GPXTranscoder(object):
 def parse_options():
     """Parse Options Routine
     @return arguments The parser arguments."""
-    ## #var parse
-    # The parser object instance.
+    
     parser = argparse.ArgumentParser(description=
             "Create a GPS trace in various formats from OpenXC input data")
     parser.add_argument("trace_file", metavar ='TRACEFILE',
             help="trace file to pull GPX log from")
     parser.add_argument("-f", "--format", type=str, choices=['gpx'],
             default='gpx', help="select the output format of the GPS trace")
-    ## @var arguments
-    # The arguments object instance.
+    
     arguments = parser.parse_args()
     return arguments
 
@@ -81,14 +86,9 @@ def parse_options():
 def main():
     """Main Routine"""
     configure_logging()
-    ## @var arguments
-    # The arguments object instance.
     arguments = parse_options()
-    ## @var transcoder
-    # The transcoder object instance.
     transcoder = GPXTranscoder()
-    ## @var source
-    # The source object instance.
+    
     source = TraceDataSource(transcoder.receive, filename=arguments.trace_file,
             loop=False, realtime=False)
     source.start()

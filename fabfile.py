@@ -1,9 +1,9 @@
 
 """
 @file    openxc-python\fabfile.py Fab File Script
-@author  Christopher Peplin
+@author  Christopher Peplin github@rhubarbtech.com
 @date    June 25, 2013
-@version 1.0.0
+@version 0.9.4
 """
 
 from __future__ import with_statement
