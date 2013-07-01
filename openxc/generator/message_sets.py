@@ -1,6 +1,12 @@
+
 """
-This modules contains the logic to parse and validate JSON files in the OpenXC
-message set format.
+@file    openxc-python\openxc\generator\message_sets.py Message Sets Script
+@author  Christopher Peplin github@rhubarbtech.com
+@date    June 25, 2013
+@version 0.9.4
+
+@brief This modules contains the logic to parse and validate JSON files in 
+the OpenXC message set format.
 """
 
 from __future__ import print_function
@@ -13,11 +19,34 @@ from .structures import Command, CanBus
 from openxc.utils import fatal_error, merge, find_file, \
         load_json_from_search_path
 
+## @var LOG
+# The logger object instance.
 LOG = logging.getLogger(__name__)
 
 
 class MessageSet(object):
+    """Message Set Class
+    
+    @author  Christopher Peplin github@rhubarbtech.com
+    @date    June 25, 2013
+    @version 0.9.4"""
+    
+    ## @var name
+    # The name object instance.
+    ## @var buses
+    # The buses object instance.
+    ## @var initializers
+    # The initializers object instance.
+    ## @var loopers
+    # The loopers object instance.
+    ## @var commands
+    # The commands object instance.
+    ## @var extra_sources
+    # The extra sources object instance.
+    
     def __init__(self, name):
+        """Initialization Routine
+        @param name The name object instance."""
         self.name = name
         self.buses = defaultdict(CanBus)
         self.initializers = []
@@ -26,42 +55,51 @@ class MessageSet(object):
         self.extra_sources = set()
 
     def valid_buses(self):
+        """Valid Buses"""
         valid_buses = [bus for bus in self.buses.values() if bus.valid()]
         return sorted(valid_buses, key=operator.attrgetter('controller'))
 
     def active_messages(self):
+        """Active Messages Routine"""
         for message in self.all_messages():
             if message.enabled:
                 yield message
 
     def all_messages(self):
+        """All Messages Routine"""
         for bus in self.valid_buses():
             for message in bus.sorted_messages():
                 yield message
 
     def active_signals(self):
+        """Active Signals Routine"""
         for signal in self.all_signals():
             if signal.enabled:
                 yield signal
 
     def active_commands(self):
+        """Active Commands Routine"""
         for command in self.all_commands():
             if command.enabled:
                 yield command
 
     def all_commands(self):
+        """All Commands Routine"""
         for command in sorted(self.commands, key=operator.attrgetter('name')):
             yield command
 
     def all_signals(self):
+        """All Signals Routine"""
         for message in self.all_messages():
             for signal in message.sorted_signals():
                 yield signal
 
     def validate(self):
+        """Validate Routine"""
         return self.validate_name() and self.validate_messages()
 
     def validate_messages(self):
+        """Validate Messages Routine"""
         valid = True
         for message in self.all_messages():
             valid = valid and message.validate()
@@ -70,17 +108,20 @@ class MessageSet(object):
         return valid
 
     def validate_name(self):
+        """Validate Name Routine"""
         if self.name is None:
             LOG.warning("missing message set (%s)" % self.name)
             return False
         return True
 
     def lookup_message_index(self, message):
+        """Lookup Message Index Routine"""
         for i, candidate in enumerate(self.active_messages()):
             if candidate.id == message.id:
                 return i
 
     def lookup_bus_index(self, bus_name):
+        """Lookup Bus Index Routine"""
         bus = self.buses.get(bus_name, None)
         if bus and bus.controller is not None:
             for index, candidate_bus_address in enumerate(CanBus.VALID_BUS_ADDRESSES):
@@ -89,12 +130,20 @@ class MessageSet(object):
         return None
 
     def _message_count(self):
+        """Message Count Routine"""
         return len(list(self.all_messages()))
 
 
 class JsonMessageSet(MessageSet):
+    """Json Message Set Class
+    
+    @author  Christopher Peplin github@rhubarbtech.com
+    @date    June 25, 2013
+    @version 0.9.4"""
+    
     @classmethod
     def parse(cls, filename, search_paths=None, skip_disabled_mappings=False):
+        """Parse Routine"""
         search_paths = search_paths or []
 
         data = load_json_from_search_path(filename, search_paths)
@@ -134,10 +183,12 @@ class JsonMessageSet(MessageSet):
 
     @classmethod
     def _parse_commands(cls, commands):
+        """Parse Command Routine"""
         return [Command(**command_data) for command_data in commands]
 
     @classmethod
     def _parse_buses(cls, data):
+        """Parse Buses Routine"""
         buses = {}
         for bus_name, bus_data in data.get('buses', {}).items():
             buses[bus_name] = CanBus(name=bus_name, **bus_data)
@@ -147,6 +198,7 @@ class JsonMessageSet(MessageSet):
         return buses
 
     def _parse_mappings(self, data, search_paths, skip_disabled_mappings):
+        """Parse Mappings Routine"""
         all_messages = []
         all_commands = []
         all_extra_sources = set()
@@ -210,6 +262,7 @@ class JsonMessageSet(MessageSet):
                 'loopers': all_loopers}
 
     def _parse_messages(self, messages, default_bus=None):
+        """Parse Messages Routine"""
         for message_data in messages:
             message_data.setdefault('bit_numbering_inverted',
                     self.bit_numbering_inverted)

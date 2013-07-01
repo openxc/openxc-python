@@ -1,3 +1,12 @@
+
+"""
+@file    openxc-python\tests\test_measurement.py OpenXC Test Measurement Script
+@author  Christopher Peplin github@rhubarbtech.com
+@date    June 25, 2013
+@version 0.9.4
+
+@brief   OpenXC Test Measurement Script."""
+
 from nose.tools import eq_, ok_
 import unittest
 import time
@@ -5,19 +14,28 @@ import time
 from openxc.measurements import Measurement, VehicleSpeed
 
 class MeasurementTests(unittest.TestCase):
+    """Measurement Tests TestCase Class
+    @author  Christopher Peplin github@rhubarbtech.com
+    @date    June 25, 2013
+    @version 0.9.4"""
+    
     def setUp(self):
+        """Setup Routine"""
         super(MeasurementTests, self).setUp()
 
     def test_basic(self):
+        """Test Basic Routine"""
         Measurement("name", "value", override_unit=True)
 
     def test_has_age(self):
+        """Test Has Age Routine"""
         measurement = Measurement("name", "value", override_unit=True)
         age = measurement.age
         time.sleep(0.001)
         ok_(measurement.age > age)
 
     def test_unit(self):
+        """Test Unit Routine"""
         measurement = VehicleSpeed(42, override_unit=True)
         try:
             eq_(measurement.value, 42)
@@ -28,6 +46,7 @@ class MeasurementTests(unittest.TestCase):
         eq_(measurement.value, measurement.unit(42))
 
     def test_override_unit(self):
+        """Override Unit Test Routine"""
         try:
             VehicleSpeed(42)
         except AttributeError:
@@ -38,6 +57,7 @@ class MeasurementTests(unittest.TestCase):
         VehicleSpeed(42, override_unit=True)
 
     def test_assign_value(self):
+        """Assign Value Test Routine"""
         measurement = VehicleSpeed(42, override_unit=True)
         new_value = VehicleSpeed.unit(42)
 

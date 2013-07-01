@@ -1,12 +1,17 @@
 #!/usr/bin/env python
-"""
-This module is the main entry point for generating vehicle interface source code
-from JSON mappings.
 
-Given one or more JSON mapping filenames, and a list of directories where
-configuration files may be found, it parses the mappings, validates them, and
-prints the resulting source to stdout.
 """
+@file    openxc-python\openxc\tools\generate_code.py Generate Code Tools Script
+@author  Christopher Peplin github@rhubarbtech.com
+@date    June 25, 2013
+@version 0.9.4
+
+@brief   This module is the main entry point for generating vehicle interface 
+         source code from JSON mappings.
+
+         Given one or more JSON mapping filenames, and a list of directories 
+         where configuration files may be found, it parses the mappings, 
+         validates them, and prints the resulting source to stdout."""
 
 from __future__ import print_function
 import sys
@@ -18,12 +23,17 @@ from openxc.generator.message_sets import JsonMessageSet
 from openxc.utils import fatal_error, load_json_from_search_path
 from .common import configure_logging
 
+## @var LOG
+# The logging object instance.
 LOG = logging.getLogger(__name__)
 
+## @var DEFAULT_SEARCH_PATH
+# The default search path
 DEFAULT_SEARCH_PATH = "."
 
 
 def parse_options():
+    """Parse Options Routine"""
     parser = argparse.ArgumentParser(description="Generate C++ source code "
             "from CAN signal descriptions in JSON")
 
@@ -52,6 +62,8 @@ def parse_options():
 
 
 def main():
+    """Main Routine
+    @todo dump last print to a filename or pipe instead."""
     configure_logging()
     arguments = parse_options()
 

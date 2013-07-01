@@ -1,4 +1,15 @@
 # -*- coding: utf-8 -*-
+
+"""
+@file    openxc-python\docs\conf.py Python Sphinx Documentation Configuration 
+         Script
+@author  Christopher Peplin github@rhubarbtech.com
+@date    June 25, 2013
+@version 0.9.4
+
+@brief   OpenXC for Python documentation build configuration file, created by 
+         sphinx-quickstart on Thu Oct  4 10:54:31 2012."""
+
 #
 # OpenXC for Python documentation build configuration file, created by
 # sphinx-quickstart on Thu Oct  4 10:54:31 2012.
@@ -23,24 +34,33 @@ import sys, os
 # If your documentation needs a minimal Sphinx version, state it here.
 #needs_sphinx = '1.0'
 
+## @var extensions
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
 extensions = ['sphinx.ext.autodoc']
 
+## @var templates_path
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
 
+## @var source_suffix
 # The suffix of source filenames.
 source_suffix = '.rst'
 
 # The encoding of source files.
 #source_encoding = 'utf-8-sig'
 
+## @var master_doc
 # The master toctree document.
 master_doc = 'index'
 
 # General information about the project.
+
+## @var project
+# The project name
 project = u'OpenXC for Python'
+## @var copyright
+# The copyright object instance
 copyright = u'2012, Christopher Peplin'
 
 # The version info for the project you're documenting, acts as replacement for
@@ -51,8 +71,10 @@ copyright = u'2012, Christopher Peplin'
 sys.path.insert(0, os.path.abspath(os.path.join(os.getcwd(), '..')))
 from openxc.version import get_version
 
+## @var version
 # The short X.Y version.
 version = get_version()
+## @var release
 # The full version, including alpha/beta/rc tags.
 release = get_version()
 
@@ -66,6 +88,7 @@ release = get_version()
 # Else, today_fmt is used as the format for a strftime call.
 #today_fmt = '%B %d, %Y'
 
+## @var exclude_patterns
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 exclude_patterns = ['_build']
@@ -84,6 +107,7 @@ exclude_patterns = ['_build']
 # output. They are ignored by default.
 #show_authors = False
 
+## @var pygments_style
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = 'sphinx'
 
@@ -95,7 +119,12 @@ pygments_style = 'sphinx'
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
+
+## @var html_theme
+# The HTML Theme for output.
 html_theme = 'default'
+## @var html_style
+# The HTML Stylesheet for output.
 html_style = 'rtd.css'
 
 # Theme options are theme-specific and customize the look and feel of a theme
@@ -122,6 +151,7 @@ html_style = 'rtd.css'
 # pixels large.
 #html_favicon = None
 
+## @var html_static_path
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
@@ -168,12 +198,15 @@ html_static_path = ['_static']
 # This is the file name suffix for HTML files (e.g. ".xhtml").
 #html_file_suffix = None
 
+## @var htmlhelp_basename
 # Output file base name for HTML help builder.
 htmlhelp_basename = 'OpenXCforPythondoc'
 
 
 # -- Options for LaTeX output --------------------------------------------------
 
+## @var latex_elements
+# Latex elements object instance.
 latex_elements = {
 # The paper size ('letterpaper' or 'a4paper').
 #'papersize': 'letterpaper',
@@ -187,6 +220,9 @@ latex_elements = {
 
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
+
+## @var latex_documents
+# Latex documents object instance.
 latex_documents = [
   ('index', 'OpenXCforPython.tex', u'OpenXC for Python Documentation',
    u'Christopher Peplin', 'manual'),
@@ -217,6 +253,9 @@ latex_documents = [
 
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
+
+## @var man_pages
+# manpages object instance.
 man_pages = [
     ('index', 'openxcforpython', u'OpenXC for Python Documentation',
      [u'Christopher Peplin'], 1)
@@ -231,6 +270,9 @@ man_pages = [
 # Grouping the document tree into Texinfo files. List of tuples
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
+
+## @var texinfo_documents
+# TexInfo Document object instance.
 texinfo_documents = [
   ('index', 'OpenXCforPython', u'OpenXC for Python Documentation',
    u'Christopher Peplin', 'OpenXCforPython', 'One line description of project.',
@@ -243,6 +285,8 @@ texinfo_documents = [
 # If false, no module index is generated.
 #texinfo_domain_indices = True
 
+## @var autoclass_content
+# Autoclass content object instance.
 autoclass_content = 'both'
 
 # How to display URL addresses: 'footnote', 'no', or 'inline'.

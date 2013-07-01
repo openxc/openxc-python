@@ -1,25 +1,83 @@
+
+"""
+@file    openxc-python\openxc\generator\structures.py Structures Script
+@author  Christopher Peplin github@rhubarbtech.com
+@date    June 25, 2013
+@version 0.9.4
+"""
+
 import operator
 import math
 from collections import defaultdict
 
 import logging
 
+## @var LOG
+# The logging object instance.
 LOG = logging.getLogger(__name__)
 
 
 class Command(object):
+    """Command Class
+    
+    @author  Christopher Peplin github@rhubarbtech.com
+    @date    June 25, 2013
+    @version 0.9.4"""
+    
+    ## @var name
+    # The name object instance.
+    ## @var handler
+    # The handler object instance.
+    ## @var enabled
+    # The enabled object instance.
+    
     def __init__(self, name=None, handler=None, enabled=True, **kwargs):
+        """Initialization Routine
+        @param name The name of this command instance.
+        @param handler the handler for this command instance.
+        @param enabled Boolean value representing if this Command is enabled.
+        @param kwargs Additional input."""
         self.name = name
         self.handler = handler
         self.enabled = enabled
 
     def __str__(self):
+        """String Representation"""
         return "{ \"%s\", %s }," % (self.name, self.handler)
 
 
 class Message(object):
+    """Message Class
+    
+    @author  Christopher Peplin github@rhubarbtech.com
+    @date    June 25, 2013
+    @version 0.9.4"""
+    
+    ## @var bus_name
+    # The bus_name object instance.
+    ## @var id
+    # The id object instance.
+    ## @var name
+    # The name object instance. 
+    ## @var bit_numbering_inverted
+    # The bit numbering inverted object instance.
+    ## @var handler
+    # The handler object instance.
+    ## @var enabled
+    # The enabled object instance.
+    ## @var signals
+    # The signals object instance.
+    
     def __init__(self, bus_name=None, id=None, name=None,
             bit_numbering_inverted=None, handler=None, enabled=True):
+        """Initialization Routine
+        @param bus_name the bus name object instance.
+        @param id the id object instance.
+        @param name the name object instance.
+        @param bit_numbering_inverted the bit number inverted object 
+        instance.
+        @param handler the handler object instance.
+        @param enabled the enabled object instance."""
         self.bus_name = bus_name
         self.id = id
         self.name = name
@@ -30,16 +88,20 @@ class Message(object):
 
     @property
     def id(self):
+        """ID Routine (Property)"""
         return getattr(self, '_id', None)
 
     @id.setter
     def id(self, value):
+        """ID Routine (Setter)"""
         if value is not None:
             if not isinstance(value, int):
                 value = int(value, 0)
             self._id = value
 
     def merge_message(self, data):
+        """Merge Message Routine
+        @param data the data object instance."""
         self.bus_name = self.bus_name or data.get('bus', None)
         self.id = self.id or data.get('id')
         self.name = self.name or data.get('name', None)
@@ -55,6 +117,8 @@ class Message(object):
             self.merge_signals(data['signals'])
 
     def merge_signals(self, data):
+        """Merge Signals Routine
+        @param data the data object instance."""
         for signal_name, signal_data in data.items():
             states = []
             for name, raw_matches in signal_data.get('states', {}).items():
@@ -72,6 +136,7 @@ class Message(object):
             signal.merge_signal(signal_data)
 
     def validate(self):
+        """Validate Routine"""
         if self.bus_name is None:
             LOG.warning("No default or explicit bus for message %s" % self.id)
             return False
@@ -83,17 +148,20 @@ class Message(object):
         return True
 
     def sorted_signals(self):
+        """Sorted Signals Routine"""
         for signal in sorted(self.signals.values(),
                 key=operator.attrgetter('generic_name')):
             yield signal
 
 
     def to_dict(self):
+        """To Dictionary Routine"""
         return {"name": self.name,
                 "signals": dict((key, value.to_dict())
                     for key, value in self.signals.items())}
 
     def __str__(self):
+        """String Representation"""
         bus_index = self.message_set.lookup_bus_index(self.bus_name)
         if bus_index is not None:
             return "{&CAN_BUSES[%d][%d], 0x%x}, // %s" % (
@@ -104,37 +172,62 @@ class Message(object):
         return ""
 
 class CanBus(object):
-    # Only works with 2 CAN buses since we are limited by 2 CAN controllers,
-    # and we want to be a little careful that we always expect 0x101 to be
-    # plugged into the CAN1 controller and 0x102 into CAN2.
+    """Can Bus Class
+    
+    @brief Only works with 2 CAN buses since we are limited by 2 CAN 
+    controllers, and we want to be a little careful that we always expect 
+    0x101 to be plugged into the CAN1 controller and 0x102 into CAN2.
+    
+    @author  Christopher Peplin github@rhubarbtech.com
+    @date    June 25, 2013
+    @version 0.9.4"""
+    
+    ## @var name
+    # The name object instance.
+    ## @var speed
+    # The speed object instance.
+    ## @var messages
+    # The messages object instance.
+    ## @var controller
+    # The controller object instance.
+    
+    ## @var VALID_BUS_ADDRESSES
+    # The valid bus addresses object instance.
     VALID_BUS_ADDRESSES = (1, 2)
 
     def __init__(self, name=None, speed=None, controller=None, **kwargs):
+        """Initalization Routine"""
         self.name = name
         self.speed = speed
         self.messages = defaultdict(Message)
         self.controller = controller
 
     def valid(self):
+        """Valid Routine"""
         return self.controller in self.VALID_BUS_ADDRESSES
 
     def active_messages(self):
+        """Active Messages Routine"""
         for message in self.sorted_messages():
             if message.enabled:
                 yield message
 
     def sorted_messages(self):
+        """Sorted Message Routine"""
         for message in sorted(self.messages.values(),
                 key=operator.attrgetter('id')):
             yield message
 
     def get_or_create_message(self, message_id):
+        """Get or Create Message Routine"""
         return self.messages[message_id]
 
     def add_message(self, message):
+        """Add Message Routine"""
         self.messages.append(message)
 
     def __str__(self):
+        """String Representation"""
         result = """        {{ {bus_speed}, {controller}, can{controller},
             #ifdef __PIC32__
             handleCan{controller}Interrupt,
@@ -144,7 +237,51 @@ class CanBus(object):
 
 
 class Signal(object):
+    """Signal Class
+    
+    @author  Christopher Peplin github@rhubarbtech.com
+    @date    June 25, 2013
+    @version 0.9.4"""
+    
+    ## @var name
+    # The name object instance.
+    ## @var message_set
+    # The message set object instance.
+    ## @var message
+    # The name object instance.
+    ## @var generic_name
+    # The generic name object instance.
+    ## @var bit_position
+    # The bit position object instance.
+    ## @var bit_size
+    # The bit size object instance.
+    ## @var handler
+    # The handler object instance.
+    ## @var write_handler
+    # The write handler object instance.
+    ## @var factor
+    # The factor object instance.
+    ## @var offset
+    # The offset object instance.
+    ## @var min_value
+    # The minimum value object instance.
+    ## @var max_value
+    # The maximum value object instance.
+    ## @var send_same
+    # The send_same object instance.
+    ## @var writable
+    # The writable object instance.
+    ## @var send_frequency
+    # The send frequency object instance.
+    ## @var enabled
+    # The enabled object instance.
+    ## @var ignore
+    # The ignore object instance.
+    ## @var states
+    # The states object instance.
+    
     def __init__(self, message_set=None, message=None, states=None, **kwargs):
+        """Initialization Routine"""
         self.message_set = message_set
         self.message = message
 
@@ -169,6 +306,8 @@ class Signal(object):
         self.merge_signal(kwargs)
 
     def merge_signal(self, data):
+        """Merge Signal
+        @param data the data instance to load into this object instance."""
         self.name = data.get('name', self.name)
         self.enabled = data.get('enabled', self.enabled)
         self.generic_name = data.get('generic_name', self.generic_name)
@@ -192,6 +331,7 @@ class Signal(object):
 
     @property
     def handler(self):
+        """Handler (Property)"""
         handler = getattr(self, '_handler', None)
         if handler is None:
             if self.ignore:
@@ -202,10 +342,13 @@ class Signal(object):
 
     @handler.setter
     def handler(self, value):
+        """Handler (Setter)
+        @param value the value for the handler object instance."""
         self._handler = value
 
     @property
     def enabled(self):
+        """Enabled Routine (Property)"""
         signal_enabled = getattr(self, '_enabled', True)
         if self.message is not None:
             return self.message.enabled and signal_enabled
@@ -213,13 +356,17 @@ class Signal(object):
 
     @enabled.setter
     def enabled(self, value):
+        """Enabled Routine (Setter)
+        @param value the Boolean setting for the enabled object instance."""
         self._enabled = value
 
     @property
     def sorted_states(self):
+        """Sorted States (Property)"""
         return sorted(self.states, key=operator.attrgetter('value'))
 
     def to_dict(self):
+        """To Dictionary Routine"""
         return {"generic_name": self.generic_name,
                 "bit_position": self.bit_position,
                 "bit_size": self.bit_size,
@@ -229,6 +376,7 @@ class Signal(object):
                 "max_value": self.max_value}
 
     def translate(self, can_data):
+        """Translate Routine"""
         translated_value = int(can_data, 16)
 
         # Trim off everything to the right
@@ -240,6 +388,7 @@ class Signal(object):
         return translated_value
 
     def validate(self):
+        """Validate Routine"""
         if self.send_same is False and self.send_frequency != 1:
             LOG.warning("Signal %s combines send_same and " % self.generic_name +
                     "send_frequency - this is not recommended")
@@ -251,6 +400,7 @@ class Signal(object):
 
     @property
     def bit_position(self):
+        """Bit Position (Property)"""
         if getattr(self, '_bit_position', None) is not None and getattr(
                 self.message, 'bit_numbering_inverted', False):
             return self._invert_bit_index(self._bit_position, self.bit_size)
@@ -259,15 +409,18 @@ class Signal(object):
 
     @bit_position.setter
     def bit_position(self, value):
+        """Bit Position (Setter)"""
         self._bit_position = value
 
     @classmethod
     def _invert_bit_index(cls, i, l):
+        """Invert Bit Index"""
         (b, r) = divmod(i, 8)
         end = (8 * b) + (7 - r)
         return(end - l + 1)
 
     def __str__(self):
+        """String Representation"""
         result =  ("{&CAN_MESSAGES[%d][%d], \"%s\", %s, %d, %f, %f, %f, %f, "
                     "%d, %s, false, " % (
                 self.message_set.index,
@@ -287,9 +440,24 @@ class Signal(object):
 
 
 class SignalState(object):
+    """Signal State Class
+    
+    @author  Christopher Peplin github@rhubarbtech.com
+    @date    June 25, 2013
+    @version 0.9.4"""
+    
+    ## @var value
+    # The value object instance.
+    ## @var name
+    # The name object instance.
+    
     def __init__(self, value, name):
+        """Initialization Routine
+        @param value the value object instance.
+        @param name the name object instance."""
         self.value = value
         self.name = name
 
     def __str__(self):
+        """String Representation"""
         return "{%d, \"%s\"}" % (self.value, self.name)

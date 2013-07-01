@@ -1,4 +1,13 @@
-"""Controller implementation for a virtual serial device."""
+
+"""
+@file    openxc-python\openxc\controllers\serial.py Serial Controller Script
+@author  Christopher Peplin github@rhubarbtech.com
+@date    June 25, 2013
+@version 0.9.4
+
+@brief   Controller implementation for a virtual serial device.
+"""
+
 from __future__ import absolute_import
 
 from .base import Controller
@@ -13,6 +22,11 @@ class SerialControllerMixin(Controller):
 
     TODO bah, this is kind of weird. refactor the relatinoship between
     sources/controllers.
-    """
+    
+    @author  Christopher Peplin github@rhubarbtech.com
+    @date    June 25, 2013
+    @version 0.9.4"""
+    
     def write_bytes(self, data):
+        """Write Bytes Routine"""
         return self.device.write(data)

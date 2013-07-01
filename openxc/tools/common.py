@@ -1,3 +1,12 @@
+
+"""
+@file    openxc-python\openxc\tools\common.py Common Tools Script
+@author  Christopher Peplin github@rhubarbtech.com
+@date    June 25, 2013
+@version 0.9.4
+
+@brief   Common Tools definitions."""
+
 import argparse
 import logging
 
@@ -6,6 +15,7 @@ from openxc.interface import SerialVehicleInterface, UsbVehicleInterface
 
 
 def device_options():
+    """Device Options Routine"""
     parser = argparse.ArgumentParser(add_help=False)
     device_group = parser.add_mutually_exclusive_group()
     device_group.add_argument("--usb", action="store_true", dest="use_usb",
@@ -35,11 +45,15 @@ def device_options():
 
 
 def configure_logging(level=logging.WARN):
+    """Configure Logging Instance Routine
+    @param level Specifies the logging level."""
     logging.getLogger("openxc").addHandler(logging.StreamHandler())
     logging.getLogger("openxc").setLevel(level)
 
 
 def select_device(arguments):
+    """Select Device
+    @param arguments The arguments object instance."""
     if arguments.use_serial:
         source_class = SerialVehicleInterface
         source_kwargs = dict(port=arguments.serial_port,

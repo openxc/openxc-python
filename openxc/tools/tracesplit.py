@@ -1,10 +1,16 @@
-"""
-This module contains the methods for the ``openxc-trace-split`` command line
-program.
 
-`main` is executed when ``openxc-trace-split`` is run, and all other callables
-in this module are internal only.
 """
+@file    openxc-python\openxc\tools\tracesplit.py Trace Split Tools Script
+@author  Christopher Peplin github@rhubarbtech.com
+@date    June 25, 2013
+@version 0.9.4
+
+@brief   This module contains the methods for the ``openxc-trace-split`` 
+         command line program.
+
+         `main` is executed when ``openxc-trace-split`` is run, and all other 
+         callables in this module are internal only."""
+
 from __future__ import absolute_import
 
 import argparse
@@ -18,14 +24,30 @@ from .common import configure_logging
 
 
 class BaseSplitter(object):
+    """Base Splitter Class
+    @author  Christopher Peplin github@rhubarbtech.com
+    @date    June 25, 2013
+    @version 0.9.4"""
+    
+    ## @var records
+    # The records instance.
+    ## @var buckets
+    # The buckets instance.
+    
     def __init__(self):
+        """Initialization Routine"""
         self.records = []
         self.buckets = defaultdict(list)
 
     def _key_for_record(self, record):
+        """Key For Record Routine
+        @param record The input record.
+        @exception NotImplementedError Returned if not implemented."""
         raise NotImplementedError
 
     def split(self, files):
+        """Split Routine
+        @param files Object with a list of files to process."""
         for filename in files:
             source = TraceDataSource(self.receive, filename=filename,
                     loop=False, realtime=False)
@@ -38,28 +60,53 @@ class BaseSplitter(object):
         return self.buckets
 
     def receive(self, message, **kwargs):
+        """Receive Routine"""
         self.records.append(message)
 
 
 class TimeSplitter(BaseSplitter):
+    """Time Splitter Class
+    @author  Christopher Peplin github@rhubarbtech.com
+    @date    June 25, 2013
+    @version 0.9.4"""
+    
+    ## @var unit
+    # The unit instance.
+    
     def __init__(self, unit):
+        """Initialization Routine
+        @param unit The unit instance."""
         super(TimeSplitter, self).__init__()
         self.unit = unit
 
     def _key_for_record(self, record):
+        """Key For Record Routine
+        @param record The input record"""
         date = datetime.datetime.fromtimestamp(record['timestamp'])
         if self.unit == "day":
             date_format = '%Y-%m-%d'
         elif self.unit == "hour":
             date_format = '%Y-%m-%d-%H'
         return date.strftime(date_format)
-
-
+        
 class TripSplitter(BaseSplitter):
-    # TODO allow overriding this at the command line
+    """Trip Splitter Class
+    @author  Christopher Peplin github@rhubarbtech.com
+    @date    June 25, 2013
+    @version 0.9.4
+    @todo allow overriding this at the command line."""
+    
+    ## @var MAXIMUM_RECORD_GAP_SECONDS
+    # Maximum Record Gap Seconds
     MAXIMUM_RECORD_GAP_SECONDS = 600
-
+    ## @var last_timestamp
+    # The last timestamp instance.
+    ## @var current_trip_key
+    # The current trip key object instance.
+        
     def _key_for_record(self, record):
+        """Key For Record Routine
+        @param record The input record"""
         timestamp = record['timestamp']
         last_timestamp = getattr(self, 'last_timestamp', None)
         if last_timestamp is not None:
@@ -73,19 +120,22 @@ class TripSplitter(BaseSplitter):
 
 
 def parse_options():
+    """Parse Options Routine"""
     parser = argparse.ArgumentParser(description="Split a collection of "
             "OpenXC trace files by day, hour or trips")
     parser.add_argument("files", action="store", nargs='+', default=False)
     parser.add_argument("-s", "--split", action="store",
             choices=['day', 'hour', 'trip'], default="trip",
             help="select the time unit to split the combined trace files")
-
+    
     arguments = parser.parse_args()
     return arguments
 
 
 def main():
+    """Main Routine"""
     configure_logging()
+    
     arguments = parse_options()
 
     if arguments.split == 'trip':

@@ -1,9 +1,16 @@
-""" This module contains the methods for the ``openxc-dashboard`` command line
-program.
 
-`main` is executed when ``openxc-dashboard`` is run, and all other callables in
-this module are internal only.
 """
+@file    openxc-python\openxc\tools\dashboard.py Dashboard Tools Script
+@author  Christopher Peplin github@rhubarbtech.com
+@date    June 25, 2013
+@version 0.9.4
+
+@brief   This module contains the methods for the ``openxc-dashboard`` command 
+         line program.
+
+         `main` is executed when ``openxc-dashboard`` is run, and all other 
+         callables in this module are internal only."""
+
 from __future__ import absolute_import
 
 import argparse
@@ -20,10 +27,12 @@ import openxc.measurements as measurements
 try:
     unicode
 except NameError:
-    # Python 3
+    ## @var basestring
+    # Definitions for Python 3
     basestring = unicode = str
 
-
+## @var DASHBOARD_MEASUREMENTS
+# Dashboard measurements definition as a list.
 DASHBOARD_MEASUREMENTS  = [measurements.AcceleratorPedalPosition,
                 measurements.FuelLevel,
                 measurements.VehicleSpeed,
@@ -48,30 +57,54 @@ DASHBOARD_MEASUREMENTS  = [measurements.AcceleratorPedalPosition,
                 measurements.DoorStatus]
 
 
-# timedelta.total_seconds() is only in 2.7, so we backport it here for 2.6
 def total_seconds(delta):
+    """ timedelta.total_seconds() is only in 2.7, so we backport it here for 
+    2.6
+    @param delta The time delta.
+    """
     return (delta.microseconds + (delta.seconds
         + delta.days * 24 * 3600) * 10**6) / 10**6
 
-
-# Thanks, SO: http://stackoverflow.com/questions/1094841/reusable-library-to-get-human-readable-version-of-file-size
 def sizeof_fmt(num):
+    """ Thanks, SO: http://stackoverflow.com/q/1094841/
+    @param num The number of bytes to obtain in a formatted measurement."""
     for unit in ['bytes', 'KB', 'MB', 'GB', 'TB']:
         if num < 1024.0:
             return "%3.1f%s" % (num, unit)
         num /= 1024.0
 
-
 class DataPoint(object):
+    """DataPoint Class
+    @author  Christopher Peplin github@rhubarbtech.com
+    @date    June 25, 2013
+    @version 0.9.4"""
+    
+    ## @var event
+    # The event object instance.
+    ## @var bad_data
+    # Stores the number of times bad data is submitted.
+    ## @var current_data
+    # Stores the current data value
+    ## @var events
+    # Stores a dictionary containing the events.
+    ## @var messages_received
+    # Stores the number of messages received.
+    ## @var measurement_type
+    # Stores the measurement type for this object instance.
+    
     def __init__(self, measurement_type):
-        self.event = ''
+        """Initialization Routine
+        @param measurement_type The measurement type."""
+        self.event = ''    
         self.bad_data = 0
         self.current_data = None
         self.events = {}
         self.messages_received = 0
         self.measurement_type = measurement_type
-
+    
     def update(self, measurement):
+        """Update Routine
+        @param measurement The measurement instance."""
         self.messages_received += 1
         self.current_data = measurement
         if isinstance(measurement, EventedMeasurement):
@@ -84,6 +117,10 @@ class DataPoint(object):
             self.bad_data += 1
 
     def print_to_window(self, window, row, started_time):
+        """Print to Window Routine
+        @param window The window instance.
+        @param row The row instance.
+        @param started_time The started time object"""
         width = window.getmaxyx()[1]
         window.addstr(row, 0, self.measurement_type.name)
         if self.current_data is not None:
@@ -138,15 +175,30 @@ class DataPoint(object):
 
 
 class Dashboard(object):
+    """Dashboard Class
+    @author  Christopher Peplin github@rhubarbtech.com
+    @date    June 25, 2013
+    @version 0.9.4"""
+    
     def __init__(self, window, vehicle):
+        """Initialization Routine
+        @param window The window instance.
+        @param vehicle The vehicle instance."""
+        ## @var window
+        # The window object instance.
         self.window = window
+        ## @var elements
+        # The elements dictionary.
         self.elements = {}
         for measurement_type in DASHBOARD_MEASUREMENTS:
             self.elements[Measurement.name_from_class(
                     measurement_type)] = DataPoint(measurement_type)
             vehicle.listen(measurement_type, self.receive)
-
+        ## @var started_time
+        # The dashboard start time.
         self.started_time = datetime.now()
+        ## @var messages_received
+        # Stores the number of stored messages.
         self.messages_received = 0
 
         curses.use_default_colors()
@@ -155,6 +207,10 @@ class Dashboard(object):
         curses.init_pair(3, curses.COLOR_YELLOW, -1)
 
     def receive(self, measurement, data_remaining=False, **kwargs):
+        """Receive Routine
+        @param measurement The measurement instance.
+        @param data_remaining Boolean value indicating if there is more data.
+        @param kwargs Additional values."""
         if self.messages_received == 0:
             self.started_time = datetime.now()
         self.messages_received += 1
@@ -165,6 +221,7 @@ class Dashboard(object):
 
 
     def _redraw(self):
+        """The redraw routine"""
         self.window.erase()
         max_rows = self.window.getmaxyx()[0] - 4
         for row, element in enumerate(sorted(self.elements.values(),
@@ -188,6 +245,10 @@ class Dashboard(object):
 
 
 def run_dashboard(window, source_class, source_kwargs):
+    """Run Dashboard Routine
+    @param window The window instance.
+    @param The source_class instance.
+    @param source_kwargs Additional input parameters."""
     vehicle = Vehicle()
     dashboard = Dashboard(window, vehicle)
     dashboard.source = source_class(**source_kwargs)
@@ -199,6 +260,7 @@ def run_dashboard(window, source_class, source_kwargs):
 
 
 def parse_options():
+    """Parse Options Routine"""
     parser = argparse.ArgumentParser(
             description="View a real-time dashboard of all OpenXC measurements",
             parents=[device_options()])
@@ -207,6 +269,7 @@ def parse_options():
 
 
 def main():
+    """Main Routine"""
     configure_logging()
     arguments = parse_options()
     source_class, source_kwargs = select_device(arguments)

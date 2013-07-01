@@ -1,4 +1,12 @@
-"""Data containers and other utilities."""
+
+"""
+@file    openxc-python\openxc\utils.py OpenXC Utilities Script
+@author  Christopher Peplin github@rhubarbtech.com
+@date    June 25, 2013
+@version 0.9.4
+
+@brief Data containers and other utilities."""
+
 import time
 import json
 import collections
@@ -6,16 +14,32 @@ import logging
 import os
 import sys
 
+## @var LOG
+# The logger object instance.
 LOG = logging.getLogger(__name__)
 
 class Range(object):
-    """Encapsulates a ranged defined by a min and max numerical value."""
+    """Range Class
+    @author  Christopher Peplin github@rhubarbtech.com
+    @date    June 25, 2013
+    @version 0.9.4"""
+    
+    ## @var min
+    # The minimum input value for this class instance.
+    ## @var max
+    # The maximum input value for this class instance.
+    
     def __init__(self, minimum, maximum):
+        """Encapsulates a ranged defined by a min and max numerical value.
+        @param minimum The minimum range input.
+        @param maximum The maximum range input."""
         self.min = minimum
         self.max = maximum
 
     def within_range(self, value):
-        """Returns True if the value is between this Range, inclusive."""
+        """Returns True if the value is between this Range, inclusive.
+        @param value The value to compare with the defined minimum and maximum.
+        @return bool True if value is less than minimum, otherwise False."""
         return value >= self.min and value <= self.max
 
     @property
@@ -25,14 +49,23 @@ class Range(object):
 
 
 class AgingData(object):
-    """Mixin to associate a class with a time of birth."""
+    """AgingData Class
+    @author  Christopher Peplin github@rhubarbtech.com
+    @date    June 25, 2013
+    @version 0.9.4
+    @brief Mixin to associate a class with a time of birth."""
 
+    ## @var created_at
+    # Stores the time this AgingData class instance was created.
+    
     def __init__(self):
+        """Initialization Routine"""    
         self.created_at = time.time()
 
     @property
     def age(self):
-        """Return the age of the data in seconds."""
+        """Return the age of the data in seconds.
+        @return time The created time of this object instance."""
         return time.time() - self.created_at
 
 
@@ -56,6 +89,9 @@ def merge(a, b):
     >>> c = merge(a, b)
     >>> from pprint import pprint; pprint(c)
     {'a': 1, 'b': {1: 1, 2: 7}, 'c': 3, 'd': {'z': [1, 2, 3]}}
+    @param a The a input to merge with the b input.
+    @param b The b input to merge with the a input.
+    @return list List object containing the merge a and b inputs.
     """
     assert quacks_like_dict(a), quacks_like_dict(b)
     dst = a.copy()
@@ -79,6 +115,10 @@ def merge(a, b):
 
 
 def find_file(filename, search_paths):
+    """The Find File Routine
+    @param search_parths The paths to search to find the specified file.
+    @exception Exception if the specified file cannot be found.
+    @return The full path if the file is found"""
     for search_path in search_paths:
         if filename[0] != '/':
             full_path = "%s/%s" % (search_path, filename)
@@ -91,6 +131,10 @@ def find_file(filename, search_paths):
 
 
 def load_json_from_search_path(filename, search_paths):
+    """Load JSON From Search Path Routine
+    @param The paths to search to find the specified filename to read.
+    @exception Exception if the file does not contain valid JSON data.
+    @return string String containing the read in data."""
     with open(find_file(filename, search_paths)) as json_file:
         try:
             data = json.load(json_file)
@@ -101,5 +145,7 @@ def load_json_from_search_path(filename, search_paths):
             return data
 
 def fatal_error(message):
+    """Fatal Error Routine
+    @param message The message to log."""
     LOG.error(message)
     sys.exit(1)

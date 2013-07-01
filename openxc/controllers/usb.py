@@ -1,4 +1,12 @@
-"""Controller implementation for an OpenXC USB device."""
+
+"""
+@file    openxc-python\openxc\controllers\usb.py USB Controller Script
+@author  Christopher Peplin github@rhubarbtech.com
+@date    June 25, 2013
+@version 0.9.4
+
+@brief   Controller implementation for an OpenXC USB device."""
+
 from __future__ import absolute_import
 
 import logging
@@ -6,6 +14,8 @@ import usb.core
 
 from .base import Controller, ControllerError
 
+## @var LOG
+# The log object instance.
 LOG = logging.getLogger(__name__)
 
 
@@ -18,15 +28,20 @@ class UsbControllerMixin(Controller):
 
     TODO bah, this is kind of weird. refactor the relationship between
     sources/controllers.
-    """
-
+    
+    @author  Christopher Peplin github@rhubarbtech.com
+    @date    June 25, 2013
+    @version 0.9.4"""
+    
     @property
     def out_endpoint(self):
+        """Out EndPoint Routine"""
         if getattr(self, '_out_endpoint', None) is None:
             self._out_endpoint = self._connect_out_endpoint(self.device)
         return self._out_endpoint
 
     def write_bytes(self, data):
+        """Write Bytes Routine"""
         if self.out_endpoint is None:
             LOG.warn("Can't write \"%s\" to USB, OUT endpoint is %x", data,
                     self.out_endpoint)
@@ -37,11 +52,13 @@ class UsbControllerMixin(Controller):
             return self.out_endpoint.write(data.encode("utf8"))
 
     def version(self):
+        """Version Routine"""
         raw_version = self.device.ctrl_transfer(0xC0,
                 self.VERSION_CONTROL_COMMAND, 0, 0, 100)
         return ''.join([chr(x) for x in raw_version])
 
     def reset(self):
+        """Reset Routine"""
         self.device.ctrl_transfer(0x40, self.RESET_CONTROL_COMMAND, 0, 0)
 
     @staticmethod

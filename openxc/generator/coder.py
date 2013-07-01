@@ -1,12 +1,21 @@
+
 """
-C++ source code generator for the vehicle interface firmware.
+@file    openxc-python\openxc\generator\coder.py Coder Generator Script
+@author  Christopher Peplin github@rhubarbtech.com
+@date    June 25, 2013
+@version 0.9.4
+
+@brief C++ source code generator for the vehicle interface firmware.
 """
+
 import os
 import operator
 import logging
 
 from openxc.utils import find_file
 
+## @var LOG
+# The logger object instance.
 LOG = logging.getLogger(__name__)
 
 
@@ -14,16 +23,31 @@ class CodeGenerator(object):
     """This class is used to build an implementation of the signals.h functions
     from one or more CAN message sets. The message sets must already be read
     into memory and parsed.
-    """
-
+    
+    @author  Christopher Peplin github@rhubarbtech.com
+    @date    June 25, 2013
+    @version 0.9.4"""
+    
+    ## @var MAX_SIGNAL_STATES
+    # Stores the maximum number of signal states.
     MAX_SIGNAL_STATES = 12
+    ## @var GENERATED_CODE_VERSION
+    # Stores the generated code version.
     GENERATED_CODE_VERSION = "4.0"
 
+    ## @var search_paths
+    # Stores the search paths.
+    ## @var message_sets
+    # Stores the message sets as a list.
+    
+    
     def __init__(self, search_paths):
+        """Initailization Routine"""
         self.search_paths = search_paths
         self.message_sets = []
 
     def build_source(self):
+        """Build Source Routine"""
         lines = []
         lines.extend(self._build_header())
         lines.extend(self._build_extra_sources())
@@ -47,9 +71,11 @@ class CodeGenerator(object):
 
     @property
     def sorted_message_sets(self):
+        """Sorted Message Sets (Property)"""
         return sorted(self.message_sets, key=operator.attrgetter('name'))
 
     def _max_command_count(self):
+        """Max Command Count Routine"""
         if len(self.message_sets) == 0:
             return 0
 
@@ -57,12 +83,14 @@ class CodeGenerator(object):
                 for message_set in self.message_sets)
 
     def _max_message_count(self):
+        """Max Message Count Routine"""
         if len(self.message_sets) == 0:
             return 0
         return max(len(list(message_set.active_messages()))
                 for message_set in self.message_sets)
 
     def _max_signal_count(self):
+        """Max Signal Count Routine"""
         if len(self.message_sets) == 0:
             return 0
 
@@ -70,11 +98,13 @@ class CodeGenerator(object):
                 for message_set in self.message_sets)
 
     def _build_header(self):
+        """Build Header Routine"""
         with open(os.path.join(os.path.dirname(__file__),
                 'signals.cpp.header')) as header:
             return [header.read().format(self.GENERATED_CODE_VERSION)]
 
     def _build_extra_sources(self):
+        """Build Extra Sources Routine"""
         lines = []
         for i, message_set in enumerate(self.sorted_message_sets):
             for extra_source_filename in message_set.extra_sources:
@@ -84,6 +114,7 @@ class CodeGenerator(object):
         return lines
 
     def _build_message_set(self, index, message_set):
+        """Build Message Set Routine"""
         LOG.info("Added message set '%s'" % message_set.name)
         return "    { %d, \"%s\", %d, %d, %d, %d }," % (index, message_set.name,
                 len(list(message_set.valid_buses())),
@@ -92,12 +123,14 @@ class CodeGenerator(object):
                 len(list(message_set.active_commands())))
 
     def _build_messages(self):
+        """Build Messages Routine"""
         lines = []
         lines.append("const int MAX_MESSAGE_COUNT = %d;" %
                 self._max_message_count())
         lines.append("CanMessage CAN_MESSAGES[][MAX_MESSAGE_COUNT] = {")
 
         def block(message_set):
+            """Block Routine"""
             lines = []
             for message_index, message in enumerate(message_set.all_messages()):
                 if not message.enabled:
@@ -115,6 +148,7 @@ class CodeGenerator(object):
         return lines
 
     def _build_message_sets(self):
+        """Build Message Sets Routine"""
         lines = []
         lines.append("const int MESSAGE_SET_COUNT = %d;" %
                 len(self.message_sets))
@@ -127,11 +161,13 @@ class CodeGenerator(object):
         return lines
 
     def _build_buses(self):
+        """Build Buses Routine"""
         lines = []
         lines.append("const int MAX_CAN_BUS_COUNT = 2;")
         lines.append("CanBus CAN_BUSES[][MAX_CAN_BUS_COUNT] = {")
 
         def block(message_set, **kwargs):
+            """Block Routine"""
             lines = []
             for bus in message_set.valid_buses():
                 lines.append(str(bus))
@@ -145,6 +181,7 @@ class CodeGenerator(object):
         return lines
 
     def _build_filters(self):
+        """Build Filters Routine"""
         # These arrays can't be initialized when we create the variables or else
         # they end up in the .data portion of the compiled program, and it
         # becomes too big for the microcontroller. Initializing them at runtime
@@ -157,6 +194,7 @@ class CodeGenerator(object):
                 "uint64_t address, int* count) {")
 
         def block(message_set):
+            """Block Routine"""
             lines = []
             lines.append("        switch(address) {")
             for bus in message_set.valid_buses():
@@ -176,6 +214,7 @@ class CodeGenerator(object):
         return lines
 
     def _build_signal_states(self):
+        """Build Signal States Routine"""
         lines = []
         lines.append("const int MAX_SIGNAL_STATES = %d;" %
                 self.MAX_SIGNAL_STATES)
@@ -185,6 +224,7 @@ class CodeGenerator(object):
                 "[MAX_SIGNAL_COUNT][MAX_SIGNAL_STATES] = {")
 
         def block(message_set, **kwargs):
+            """Block Routine"""
             states_index = 0
             lines = []
             for signal in message_set.active_signals():
@@ -211,6 +251,7 @@ class CodeGenerator(object):
         return lines
 
     def _message_set_lister(self, block, indent=4):
+        """Message Set Lister Routine"""
         lines = []
         whitespace = " " * indent
         for message_set in self.sorted_message_sets:
@@ -220,6 +261,7 @@ class CodeGenerator(object):
         return lines
 
     def _message_set_switcher(self, block, indent=4):
+        """Message Set Switcher Routine"""
         lines = []
         whitespace = " " * indent
         lines.append(whitespace + "switch(getConfiguration()"
@@ -233,10 +275,12 @@ class CodeGenerator(object):
         return lines
 
     def _build_signals(self):
+        """Build Signals Routine"""
         lines = []
         lines.append("CanSignal SIGNALS[][MAX_SIGNAL_COUNT] = {")
 
         def block(message_set):
+            """Block Routine"""
             lines = []
             i = 1
             for signal in message_set.all_signals():
@@ -257,10 +301,12 @@ class CodeGenerator(object):
         return lines
 
     def _build_initializers(self):
+        """Build Initializers Routine"""
         lines = []
         lines.append("void openxc::signals::initialize() {")
 
         def block(message_set):
+            """Block Routine"""
             return ["        %s();" % initializer
                 for initializer in message_set.initializers]
         lines.extend(self._message_set_switcher(block))
@@ -269,9 +315,11 @@ class CodeGenerator(object):
         return lines
 
     def _build_loop(self):
+        """Build Loop Routine"""
         lines = []
         lines.append("void openxc::signals::loop() {")
         def block(message_set):
+            """Block Routine"""
             return ["        %s();" % looper for looper in message_set.loopers]
         lines.extend(self._message_set_switcher(block))
         lines.append("}")
@@ -279,6 +327,7 @@ class CodeGenerator(object):
         return lines
 
     def _build_commands(self):
+        """Build Commands Routine"""
         lines = []
         lines.append("const int MAX_COMMAND_COUNT = %d;" %
                 self._max_command_count())
@@ -297,11 +346,13 @@ class CodeGenerator(object):
         return lines
 
     def _build_decoder(self):
+        """Build Decoder Routine"""
         lines = []
         lines.append("void openxc::signals::decodeCanMessage("
                 "Pipeline* pipeline, CanBus* bus, int id, uint64_t data) {")
 
         def block(message_set):
+            """Block Routine"""
             lines = []
             lines.append(" " * 8 + "switch(bus->address) {")
             for bus in message_set.valid_buses():

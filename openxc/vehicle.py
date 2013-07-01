@@ -1,8 +1,16 @@
-"""This module is contains the Vehicle class, which is the main entry point for
-using the Python library to access vehicle data programatically. Most users will
-want to interact with an instance of Vehicle, and won't need to deal with other
-parts of the library directly (besides measurement types).
+
 """
+@file    openxc-python\openxc\vehicle.py OpenXC Vehicle Script
+@author  Christopher Peplin github@rhubarbtech.com
+@date    June 25, 2013
+@version 0.9.4
+
+@brief   This module is contains the Vehicle class, which is the main entry 
+         point for using the Python library to access vehicle data 
+         programatically. Most users will want to interact with an instance of 
+         Vehicle, and won't need to deal with other parts of the library 
+         directly (besides measurement types)."""
+
 from .measurements import Measurement
 from .sinks import MeasurementNotifierSink
 
@@ -19,20 +27,35 @@ class Vehicle(object):
 
     More advanced applications that want access to all raw vehicle data may want
     to register a ``DataSink`` with a Vehicle.
-    """
+    
+    @author  Christopher Peplin github@rhubarbtech.com
+    @date    June 25, 2013
+    @version 0.9.4"""
 
     def __init__(self, interface=None):
         """Construct a new Vehicle instance, optionally providing an vehicle
         interface from ``openxc.interface`` to user for I/O.
+        
+        @param interface The input interface instance.
         """
+        ## @var sources
+        # Sources instance.
         self.sources = set()
+        ## @var sinks
+        # Sinks instance.
         self.sinks = set()
+        ## @var measurements
+        # Measurements instance.
         self.measurements = {}
 
         if interface is not None:
             self.add_source(interface)
+            ## @var controller
+            # The controller instance.
             self.controller = interface
-
+        
+        ## @var notifier
+        # The notifier instance.
         self.notifier = MeasurementNotifierSink()
         self.sinks.add(self.notifier)
 

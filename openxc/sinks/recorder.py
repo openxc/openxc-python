@@ -1,4 +1,12 @@
-"""Trace file recording operations."""
+
+"""
+@file    openxc-python\openxc\sinks\recorder.py Recorder Sinks Script
+@author  Christopher Peplin github@rhubarbtech.com
+@date    June 25, 2013
+@version 0.9.4
+
+@brief   Trace file recording operations."""
+
 from threading import Thread
 import datetime
 import time
@@ -10,16 +18,41 @@ from .queued import QueuedSink
 class FileRecorderSink(QueuedSink):
     """A sink to record trace files based on the messages received from all data
     sources.
-    """
+    
+    @author  Christopher Peplin github@rhubarbtech.com
+    @date    June 25, 2013
+    @version 0.9.4"""
+    
+    ## @var FILENAME_DATE_FORMAT
+    # The filename date format string
     FILENAME_DATE_FORMAT = "%Y-%m-%d-%H"
+    ## @var FILENAME_FORMAT
+    # The JSON filename format.
     FILENAME_FORMAT = "%s.json"
-
+    
+    ## @var recorder
+    # The recorder object instance.
+    
     def __init__(self):
+        """Initialization Routine"""
         super(FileRecorderSink, self).__init__()
         self.recorder = self.Recorder(self.queue)
 
     class Recorder(Thread):
+        """Recorder Class
+        
+        @author  Christopher Peplin github@rhubarbtech.com
+        @date    June 25, 2013
+        @version 0.9.4"""
+        
+        ## @var daemon
+        # The daemon object value.
+        ## @var queue
+        # The queue object instance.
+        
         def __init__(self, queue):
+            """Initialization Routine
+            @param queue The queue object instance."""
             super(FileRecorderSink.Recorder, self).__init__()
             self.daemon = True
             self.queue = queue
@@ -27,11 +60,14 @@ class FileRecorderSink(QueuedSink):
 
         @staticmethod
         def _generate_filename():
+            """Generate Filename Routine
+            @return The generated filename string."""
             current_date = datetime.datetime.now()
             return FileRecorderSink.FILENAME_FORMAT % current_date.strftime(
                     FileRecorderSink.FILENAME_DATE_FORMAT)
 
         def run(self):
+            """Run Routine"""
             while True:
                 last_hour_opened = datetime.datetime.now().hour
                 filename = self._generate_filename()
