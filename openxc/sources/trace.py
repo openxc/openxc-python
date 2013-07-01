@@ -1,4 +1,10 @@
-"""A data source for reading from pre-recorded OpenXC trace files."""
+
+"""A data source for reading from pre-recorded OpenXC trace files.
+
+.. moduleauthor:: Christopher Peplin <github@rhubarbtech.com>
+
+"""
+ 
 from __future__ import absolute_import
 
 import logging
@@ -6,6 +12,7 @@ import time
 
 from .base import DataSourceError, BytestreamDataSource
 
+"""Logging instance."""
 LOG = logging.getLogger(__name__)
 
 class TraceDataSource(BytestreamDataSource):
@@ -33,6 +40,7 @@ class TraceDataSource(BytestreamDataSource):
         self._reopen_file()
 
     def run(self):
+        """Run Routine"""
         while True:
             self._reopen_file()
             starting_time = time.time()
@@ -60,6 +68,7 @@ class TraceDataSource(BytestreamDataSource):
                 break
 
     def _reopen_file(self):
+        """Reopen File Routine (Private)"""
         if getattr(self, 'trace_file', None) is not None:
             self.trace_file.close()
         self.trace_file = self._open_file(self.filename)
@@ -108,7 +117,8 @@ class TraceDataSource(BytestreamDataSource):
         Returns:
             ``True`` if the message contains at least a ``name`` and ``value``.
         """
+        flag = True
         for key in ['name', 'value']:
             if key not in message:
-                return False
-        return True
+                flag = False
+        return flag
