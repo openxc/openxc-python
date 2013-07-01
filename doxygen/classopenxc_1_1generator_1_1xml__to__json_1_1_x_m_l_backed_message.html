@@ -32,7 +32,7 @@
    <div id="projectname">OpenXC
    &#160;<span id="projectnumber">1.0.0</span>
    </div>
-   <div id="projectbrief">OpenXC Python library  http://openxcplatform.com/openxc-python/</div>
+   <div id="projectbrief">OpenXC Python library</div>
   </td>
  </tr>
  </tbody>
@@ -46,6 +46,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -94,7 +95,7 @@ $(document).ready(function(){initNavTree('classopenxc_1_1generator_1_1xml__to__j
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -131,8 +132,11 @@ Public Member Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>XML Backed Message Class. </p>
+<dl class="section author"><dt>Author</dt><dd>Christopher Peplin <a href="#" onclick="location.href='mai'+'lto:'+'git'+'hu'+'b@r'+'hu'+'bar'+'bt'+'ech'+'.c'+'om'; return false;">githu<span style="display: none;">.nosp@m.</span>b@rh<span style="display: none;">.nosp@m.</span>ubarb<span style="display: none;">.nosp@m.</span>tech<span style="display: none;">.nosp@m.</span>.com</a> </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>June 25, 2013 </dd></dl>
+<dl class="section version"><dt>Version</dt><dd>0.9.4 </dd></dl>
 
-<p>Definition at line <a class="el" href="xml__to__json_8py_source.html#l00083">83</a> of file <a class="el" href="xml__to__json_8py_source.html">xml_to_json.py</a>.</p>
+<p>Definition at line <a class="el" href="xml__to__json_8py_source.html#l00091">91</a> of file <a class="el" href="xml__to__json_8py_source.html">xml_to_json.py</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="a9da74542e1de9406dd1c0ff446b0a40a"></a>
 <div class="memitem">
@@ -174,24 +178,8 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="xml__to__json_8py_source.html#l00094">94</a> of file <a class="el" href="xml__to__json_8py_source.html">xml_to_json.py</a>.</p>
-<div class="fragment"><div class="line"><a name="l00094"></a><span class="lineno"><a class="code" href="classopenxc_1_1generator_1_1xml__to__json_1_1_x_m_l_backed_message.html#a9da74542e1de9406dd1c0ff446b0a40a">   94</a></span>&#160;</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        <span class="keywordflow">for</span> signal_name <span class="keywordflow">in</span> mapped_signals.keys():</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;            mapped_signal_node = node.find(<span class="stringliteral">&quot;Signal[Name=\&quot;%s\&quot;]&quot;</span> % signal_name)</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;            <span class="keywordflow">if</span> mapped_signal_node <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;                mapped_signal = XMLBackedSignal.from_xml_node(mapped_signal_node)</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;                mapped_signal.generic_name = signal_name</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;                message.signals[signal_name] = mapped_signal</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        <span class="keywordflow">return</span> message</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="keyword">class </span><a class="code" href="classopenxc_1_1generator_1_1xml__to__json_1_1_x_m_l_backed_signal.html" title="XML Backed Signal Class.">XMLBackedSignal</a>(Signal):</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    <span class="stringliteral">&quot;&quot;&quot;XML Backed Signal Class&quot;&quot;&quot;</span></div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    </div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    @classmethod</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <span class="keyword">def </span><a class="code" href="classopenxc_1_1generator_1_1xml__to__json_1_1_x_m_l_backed_message.html#a9da74542e1de9406dd1c0ff446b0a40a" title="From XML Node Routine.">from_xml_node</a>(cls, node):</div>
-        <span class="stringliteral">&quot;&quot;&quot;Construct a Signal instance from an XML node exported from a Vector</span></div>
-</div><!-- fragment -->
+<p>Definition at line <a class="el" href="xml__to__json_8py_source.html#l00099">99</a> of file <a class="el" href="xml__to__json_8py_source.html">xml_to_json.py</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
@@ -203,7 +191,7 @@ Public Member Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>openxc</b></li><li class="navelem"><b>generator</b></li><li class="navelem"><b>xml_to_json</b></li><li class="navelem"><a class="el" href="classopenxc_1_1generator_1_1xml__to__json_1_1_x_m_l_backed_message.html">XMLBackedMessage</a></li>
-    <li class="footer">Generated on Sun Jun 30 2013 12:20:33 for OpenXC by
+    <li class="footer">Generated on Mon Jul 1 2013 02:58:25 for OpenXC by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

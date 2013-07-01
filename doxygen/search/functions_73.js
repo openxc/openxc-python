@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['serialize',['serialize',['../classopenxc_1_1formats_1_1json_1_1_json_formatter.html#a30129effc4ea7acb74efcd6d48f5cd19',1,'openxc::formats::json::JsonFormatter']]],
   ['setup',['setUp',['../classtests_1_1test__measurement_1_1_measurement_tests.html#a224fd8972ee10e8c23fc1b8f875da450',1,'tests.test_measurement.MeasurementTests.setUp()'],['../classtests_1_1test__serial_1_1_serial_data_source_tests.html#a879d913074e001da576e8f5caae5e6a4',1,'tests.test_serial.SerialDataSourceTests.setUp()'],['../classtests_1_1test__usb_1_1_usb_data_source_tests.html#acaefa9d69c21664489543b017fd7aa2d',1,'tests.test_usb.UsbDataSourceTests.setUp()'],['../classtests_1_1test__vehicle_1_1_vehicle_tests.html#af3d70af4de819c0a7205c17e44ff1bbd',1,'tests.test_vehicle.VehicleTests.setUp()']]],
   ['sorted_5fmessage_5fsets',['sorted_message_sets',['../classopenxc_1_1generator_1_1coder_1_1_code_generator.html#a786b61ea95ccbf53eca5892a5d659896',1,'openxc::generator::coder::CodeGenerator']]],
   ['sorted_5fmessages',['sorted_messages',['../classopenxc_1_1generator_1_1structures_1_1_can_bus.html#a98988f94ace4b3ab5a17b29da21b4169',1,'openxc::generator::structures::CanBus']]],

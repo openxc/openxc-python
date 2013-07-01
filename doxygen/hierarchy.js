@@ -41,6 +41,7 @@ var hierarchy =
     ] ],
     [ "Exception", null, [
       [ "openxc.controllers.base.ControllerError", "classopenxc_1_1controllers_1_1base_1_1_controller_error.html", null ],
+      [ "openxc.measurements.UnrecognizedMeasurementError", "classopenxc_1_1measurements_1_1_unrecognized_measurement_error.html", null ],
       [ "openxc.sources.base.DataSourceError", "classopenxc_1_1sources_1_1base_1_1_data_source_error.html", null ]
     ] ],
     [ "Handler", null, [

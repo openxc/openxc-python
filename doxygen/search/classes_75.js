@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['unrecognizedmeasurementerror',['UnrecognizedMeasurementError',['../classopenxc_1_1measurements_1_1_unrecognized_measurement_error.html',1,'openxc::measurements']]],
   ['uploader',['Uploader',['../classopenxc_1_1sinks_1_1uploader_1_1_uploader_sink_1_1_uploader.html',1,'openxc::sinks::uploader::UploaderSink']]],
   ['uploadersink',['UploaderSink',['../classopenxc_1_1sinks_1_1uploader_1_1_uploader_sink.html',1,'openxc::sinks::uploader']]],
   ['uploadersinktest',['UploaderSinkTest',['../classtests_1_1test__uploader_1_1_uploader_sink_test.html',1,'tests::test_uploader']]],

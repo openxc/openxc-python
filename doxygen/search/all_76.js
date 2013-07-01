@@ -11,9 +11,11 @@ var searchData=
   ['value',['value',['../classopenxc_1_1generator_1_1structures_1_1_signal_state.html#aaf86b46394c6f491a3a496e3e60ec61f',1,'openxc.generator.structures.SignalState.value()'],['../classopenxc_1_1measurements_1_1_measurement.html#ad1c148d1b2c455d805a63028f986475a',1,'openxc.measurements.Measurement.value()'],['../classopenxc_1_1measurements_1_1_measurement.html#a67a68cededb6271f6b5433a1a70742be',1,'openxc.measurements.Measurement.value'],['../classopenxc_1_1measurements_1_1_measurement.html#a67a68cededb6271f6b5433a1a70742be',1,'openxc.measurements.Measurement.value']]],
   ['vehicle',['Vehicle',['../classopenxc_1_1vehicle_1_1_vehicle.html',1,'openxc::vehicle']]],
   ['vehicle',['vehicle',['../classtests_1_1test__vehicle_1_1_vehicle_tests.html#ad3ee8168197354f66874e82327e2dec2',1,'tests::test_vehicle::VehicleTests']]],
+  ['vehicle_2epy',['vehicle.py',['../vehicle_8py.html',1,'']]],
   ['vehiclespeed',['VehicleSpeed',['../classopenxc_1_1measurements_1_1_vehicle_speed.html',1,'openxc::measurements']]],
   ['vehicletests',['VehicleTests',['../classtests_1_1test__vehicle_1_1_vehicle_tests.html',1,'tests::test_vehicle']]],
   ['vendor_5fid',['vendor_id',['../classopenxc_1_1sources_1_1usb_1_1_usb_data_source.html#a0f974ab4a83989ba97ac2e50508f361f',1,'openxc::sources::usb::UsbDataSource']]],
-  ['version',['version',['../classopenxc_1_1controllers_1_1base_1_1_controller.html#a558d0ec92b55bb38fc8441be688ee5e1',1,'openxc::controllers::base::Controller']]],
+  ['version',['version',['../classopenxc_1_1controllers_1_1base_1_1_controller.html#a558d0ec92b55bb38fc8441be688ee5e1',1,'openxc.controllers.base.Controller.version()'],['../classopenxc_1_1controllers_1_1usb_1_1_usb_controller_mixin.html#aaa254c4136ac4e93923030da33ebc6ca',1,'openxc.controllers.usb.UsbControllerMixin.version()']]],
+  ['version_2epy',['version.py',['../version_8py.html',1,'']]],
   ['version_5fcontrol_5fcommand',['VERSION_CONTROL_COMMAND',['../classopenxc_1_1sources_1_1usb_1_1_usb_data_source.html#a0a8ea4a74f703c9d1377280968cf2426',1,'openxc::sources::usb::UsbDataSource']]]
 ];

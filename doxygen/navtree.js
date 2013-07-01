@@ -1,6 +1,8 @@
 var NAVTREE =
 [
   [ "OpenXC", "index.html", [
+    [ "Main Page", "index.html", null ],
+    [ "Todo List", "todo.html", null ],
     [ "Classes", null, [
       [ "Class List", "annotated.html", "annotated" ],
       [ "Class Index", "classes.html", null ],
@@ -20,7 +22,8 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 ".html",
-"classopenxc_1_1sources_1_1base_1_1_bytestream_data_source.html"
+"classopenxc_1_1sinks_1_1uploader_1_1_uploader_sink_1_1_uploader.html#ad20ff794d16f29084bf578d6fd312e28",
+"openxc_2controllers_2____init_____8py_source.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

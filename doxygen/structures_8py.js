@@ -5,5 +5,5 @@ var structures_8py =
     [ "CanBus", "classopenxc_1_1generator_1_1structures_1_1_can_bus.html", "classopenxc_1_1generator_1_1structures_1_1_can_bus" ],
     [ "Signal", "classopenxc_1_1generator_1_1structures_1_1_signal.html", "classopenxc_1_1generator_1_1structures_1_1_signal" ],
     [ "SignalState", "classopenxc_1_1generator_1_1structures_1_1_signal_state.html", "classopenxc_1_1generator_1_1structures_1_1_signal_state" ],
-    [ "LOG", "structures_8py.html#a357fc36f2f1b67c663675a22b5f70b0d", null ]
+    [ "LOG", "structures_8py.html#adfda075f006dcbc11e446ae44c6272db", null ]
 ];

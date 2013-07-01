@@ -75,7 +75,8 @@ var annotated =
         [ "TransmissionGearPosition", "classopenxc_1_1measurements_1_1_transmission_gear_position.html", null ],
         [ "TurnSignalStatus", "classopenxc_1_1measurements_1_1_turn_signal_status.html", null ],
         [ "ButtonEvent", "classopenxc_1_1measurements_1_1_button_event.html", null ],
-        [ "DoorStatus", "classopenxc_1_1measurements_1_1_door_status.html", null ]
+        [ "DoorStatus", "classopenxc_1_1measurements_1_1_door_status.html", null ],
+        [ "UnrecognizedMeasurementError", "classopenxc_1_1measurements_1_1_unrecognized_measurement_error.html", null ]
       ] ],
       [ "sinks", null, [
         [ "base", null, [

@@ -7,5 +7,5 @@ var searchData=
   ['validate_5fmessages',['validate_messages',['../classopenxc_1_1generator_1_1message__sets_1_1_message_set.html#aab12656b6032114432c10ce700db7e93',1,'openxc::generator::message_sets::MessageSet']]],
   ['validate_5fname',['validate_name',['../classopenxc_1_1generator_1_1message__sets_1_1_message_set.html#aa729825a4e48ff9bf6ac608ad647b1b2',1,'openxc::generator::message_sets::MessageSet']]],
   ['value',['value',['../classopenxc_1_1measurements_1_1_measurement.html#a67a68cededb6271f6b5433a1a70742be',1,'openxc.measurements.Measurement.value'],['../classopenxc_1_1measurements_1_1_measurement.html#a67a68cededb6271f6b5433a1a70742be',1,'openxc.measurements.Measurement.value']]],
-  ['version',['version',['../classopenxc_1_1controllers_1_1base_1_1_controller.html#a558d0ec92b55bb38fc8441be688ee5e1',1,'openxc::controllers::base::Controller']]]
+  ['version',['version',['../classopenxc_1_1controllers_1_1base_1_1_controller.html#a558d0ec92b55bb38fc8441be688ee5e1',1,'openxc.controllers.base.Controller.version()'],['../classopenxc_1_1controllers_1_1usb_1_1_usb_controller_mixin.html#aaa254c4136ac4e93923030da33ebc6ca',1,'openxc.controllers.usb.UsbControllerMixin.version()']]]
 ];
