@@ -43,6 +43,8 @@ Submitting Changes
 ==================
 
 * Push your changes to a topic branch in your fork of the repository.
+* Sign the `Contributor License Agreement
+  <http://openxcplatform.com/contributor-license-agreement.html>`_ (CLA)
 * Submit a pull request to the repository in the openxc organization.
 
 Additional Resources
