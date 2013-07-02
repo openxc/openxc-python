@@ -84,6 +84,9 @@ class TraceDataSource(BytestreamDataSource):
         Raises:
             DataSourceError, if the file cannot be opened.
         """
+        if filename is None:
+            raise DataSourceError("Trace filename is not defined")
+
         try:
             trace_file = open(filename, "r")
         except IOError as e:
