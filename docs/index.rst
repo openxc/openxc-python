@@ -147,7 +147,6 @@ Vehicle API Reference
 
     api/*
 
-
 Contributing
 ============
 
@@ -155,6 +154,23 @@ Development of ``openxc-python`` happens at `GitHub`_. Be sure to see our `contr
 
 .. _`GitHub`: https://github.com/openxc/openxc-python
 .. _`contribution document`: https://github.com/openxc/openxc-python/blob/master/CONTRIBUTING.rst
+
+Test Suite
+----------
+
+The ``openxc-python`` repository contains a test suite that can be run with the
+``tox`` tool, which attemps to run the test suite in Python 2.6, 2.7 and 3.3. If
+you wish to just run the test suite in your primary Python version, run
+
+.. code-block:: sh
+
+    $ python setup.py test
+
+To run it with tox:
+
+.. code-block:: sh
+
+    $ tox
 
 Mailing list
 ------------

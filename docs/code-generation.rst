@@ -25,7 +25,7 @@ path will work. If you use relative paths, however, they must be relative
 to the root of wherever you run the build scripts.
 
 Once you've defined your message set in a JSON file, run the
-`openxc-generate-firmware-code` tool to create an implementation of
+``openxc-generate-firmware-code`` tool to create an implementation of
 ``signals.cpp``:
 
 .. code-block:: sh
@@ -157,7 +157,7 @@ messages from one call to your handler function.
 Using a custom message handler will not automatically stop the normal
 translation workflow for individual signals. To mute them (but still store
 their values in ``signal->lastvalue``), specify ``ignoreHandler`` as the
-``value_handler``. This is not done by default because not every signal in
+``handler``. This is not done by default because not every signal in
 a message is always handled by a message handler.
 
 .. _signal:
@@ -258,7 +258,7 @@ combination happen inside the VI, you can use a custom handler.
 You may also need a custom handler to return a value of a type other
 than float. A handler is provided for dealing with boolean values, the
 ``booleanHandler`` - if you specify that as your signal's
-``value_handler`` the resulting JSON will contain ``true`` for 1.0 and
+``handler`` the resulting JSON will contain ``true`` for 1.0 and
 ``false`` for 0.0. If you want to translate integer state values to
 string names (for parsing as an enum, for example) you will need to
 write a value handler that returns a ``char*``.
@@ -268,7 +268,7 @@ by setting the sign positive or negative based on the value of the other
 signal (``steering_angle_sign``). Every time a CAN signal is received, the
 new value is stored in memory. Our custom handler
 ``handleSteeringWheelAngle`` will use that to adjust the raw steering
-wheel angle value. Modify the input JSON file to set the ``value_handler``
+wheel angle value. Modify the input JSON file to set the ``handler``
 attribute for the steering wheel angle signal to
 ``handleSteeringWheelAngle``.
 

@@ -1,4 +1,5 @@
 """A data source for reading from pre-recorded OpenXC trace files."""
+
 from __future__ import absolute_import
 
 import logging
@@ -20,9 +21,9 @@ class TraceDataSource(BytestreamDataSource):
         Kwargs:
             filename - the full absolute path to the trace file
             realtime - if ``True``, the trace will be replayed at approximately
-                the same cadence as it was recorded. Otherwise, the trace file will
-                be replayed as fast as possible (likely much faster than any
-                vehicle).
+                the same cadence as it was recorded. Otherwise, the trace file
+                will be replayed as fast as possible (likely much faster than
+                any vehicle).
             loop - if ``True``, the trace file will be looped and will provide
                 data until the process exist or the source is stopped.
         """
@@ -30,7 +31,6 @@ class TraceDataSource(BytestreamDataSource):
         self.realtime = realtime
         self.loop = loop
         self.filename = filename
-        self._reopen_file()
 
     def run(self):
         while True:
@@ -84,6 +84,9 @@ class TraceDataSource(BytestreamDataSource):
         Raises:
             DataSourceError, if the file cannot be opened.
         """
+        if filename is None:
+            raise DataSourceError("Trace filename is not defined")
+
         try:
             trace_file = open(filename, "r")
         except IOError as e:
@@ -108,7 +111,9 @@ class TraceDataSource(BytestreamDataSource):
         Returns:
             ``True`` if the message contains at least a ``name`` and ``value``.
         """
+        valid = True
         for key in ['name', 'value']:
             if key not in message:
-                return False
-        return True
+                valid = False
+                break
+        return valid
