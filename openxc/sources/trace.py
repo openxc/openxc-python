@@ -21,9 +21,9 @@ class TraceDataSource(BytestreamDataSource):
         Kwargs:
             filename - the full absolute path to the trace file
             realtime - if ``True``, the trace will be replayed at approximately
-                the same cadence as it was recorded. Otherwise, the trace file will
-                be replayed as fast as possible (likely much faster than any
-                vehicle).
+                the same cadence as it was recorded. Otherwise, the trace file
+                will be replayed as fast as possible (likely much faster than
+                any vehicle).
             loop - if ``True``, the trace file will be looped and will provide
                 data until the process exist or the source is stopped.
         """
