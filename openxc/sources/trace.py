@@ -31,7 +31,6 @@ class TraceDataSource(BytestreamDataSource):
         self.realtime = realtime
         self.loop = loop
         self.filename = filename
-        self._reopen_file()
 
     def run(self):
         while True:
