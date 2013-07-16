@@ -119,8 +119,8 @@ database exactly - otherwise, it's an arbitrary name.
 no meaning in code, it can just be handy to be able to refer back to an original
 CAN message definition in another document.
 
-``handler`` - (optional) The name of a function that will be compiled with the
-firmware and should be applied to the entire raw message value (see
+``handlers`` - (optional) An array of names of functions that will be compiled
+with the firmware and should be applied to the entire raw message value (see
 :ref:`message-handlers`).
 
 ``enabled`` - (optional, true by default) Enable or disable all processing of a
@@ -132,10 +132,10 @@ message and all its signals will be left out of the generated source code.
 Message Handlers
 ----------------
 
-If you need additional control, you can provide a custom handler for the
-entire message to combine multiple signals into a single value (or any
-other arbitrary processing). You can generate 0, 1 or many translated
-messages from one call to your handler function.
+If you need additional control, you can provide custom handlers for the entire
+message to combine multiple signals into a single value (or any other arbitrary
+processing). You can generate 0, 1 or many translated messages from each call to
+a custom handler function.
 
 .. code-block:: c
 

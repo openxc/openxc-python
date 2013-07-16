@@ -19,12 +19,12 @@ class Command(object):
 
 class Message(object):
     def __init__(self, bus_name=None, id=None, name=None,
-            bit_numbering_inverted=None, handler=None, enabled=True):
+            bit_numbering_inverted=None, handlers=None, enabled=True):
         self.bus_name = bus_name
         self.id = id
         self.name = name
         self.bit_numbering_inverted = bit_numbering_inverted
-        self.handler = handler
+        self.handlers = handlers or []
         self.enabled = enabled
         self.signals = defaultdict(Signal)
 
@@ -45,7 +45,10 @@ class Message(object):
         self.name = self.name or data.get('name', None)
         self.bit_numbering_inverted = (self.bit_numbering_inverted or
                 data.get('bit_numbering_inverted', None))
-        self.handler = self.handler or data.get('handler', None)
+        self.handlers.extend(data.get('handlers', []))
+        # Support deprecated single 'handler' field
+        if 'handler' in data:
+            self.handlers.append(data.get('handler'))
         if self.enabled is None:
             self.enabled = data.get('enabled', True)
         else:

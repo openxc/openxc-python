@@ -310,9 +310,9 @@ class CodeGenerator(object):
                 for message in bus.active_messages():
                     lines.append(" " * 12 + "case 0x%x: // %s" % (message.id,
                             message.name))
-                    if message.handler is not None:
+                    for handler in message.handlers:
                         lines.append(" " * 16 + "%s(id, data, SIGNALS[%d], " % (
-                            message.handler, message_set.index) +
+                            handler, message_set.index) +
                                 "getSignalCount(), pipeline);")
                     for signal in sorted((s for s in message.signals.values()),
                             key=operator.attrgetter('generic_name')):
