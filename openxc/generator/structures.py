@@ -198,7 +198,7 @@ class Signal(object):
         if handler is None:
             if self.ignore:
                 handler = "ignoreHandler"
-            if len(self.states) > 0:
+            elif len(self.states) > 0:
                 handler = "stateHandler"
         return handler
 
