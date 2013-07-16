@@ -161,7 +161,6 @@ class Signal(object):
         self.offset = 0
         self.min_value = 0.0
         self.max_value = 0.0
-        self.ignore = False
         self.send_frequency = 1
         self.send_same = True
         self.writable=False
