@@ -62,7 +62,7 @@ def write(controller, name, value, event=None, raw=False):
         method = controller.write_raw
     else:
         method = controller.write
-    method(name, value, event)
+    method(name=name, value=value, event=event, raw=raw)
     print("Done.")
 
 
