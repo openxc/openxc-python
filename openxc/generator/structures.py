@@ -146,6 +146,10 @@ class CanBus(object):
         return result.format(bus_speed=self.speed, controller=self.controller)
 
 
+class BitInversionError(Exception):
+    pass
+
+
 class Signal(object):
     def __init__(self, message_set=None, message=None, states=None, **kwargs):
         self.message_set = message_set
@@ -264,10 +268,16 @@ class Signal(object):
         self._bit_position = value
 
     @classmethod
-    def _invert_bit_index(cls, i, l):
-        (b, r) = divmod(i, 8)
+    def _invert_bit_index(cls, bit_index, length):
+        (b, r) = divmod(bit_index, 8)
         end = (8 * b) + (7 - r)
-        return(end - l + 1)
+        inverted_index = end - length + 1
+        if inverted_index < 0:
+            raise BitInversionError("Bit index %d with length %d cannot be " %
+                        (bit_index, length) +
+                    "inverted - you probably have need the "
+                    "'bit_numbering_inverted' flag in your JSON mapping")
+        return inverted_index
 
     def __str__(self):
         result =  ("{&CAN_MESSAGES[%d][%d], \"%s\", %s, %d, %f, %f, %f, %f, "

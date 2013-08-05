@@ -1,8 +1,9 @@
-from nose.tools import ok_
+from nose.tools import ok_, eq_
 import unittest
 import os
 
 from openxc.generator.message_sets import JsonMessageSet
+from openxc.generator.structures import BitInversionError, Signal
 from openxc.generator.coder import CodeGenerator
 
 class CodeGeneratorTests(unittest.TestCase):
@@ -32,3 +33,17 @@ class CodeGeneratorTests(unittest.TestCase):
 
     def test_mapped(self):
         self._validate('signals-mapped.json.example')
+
+    def test_bit_inversion(self):
+
+        eq_(Signal._invert_bit_index(24, 16), 16)
+        eq_(Signal._invert_bit_index(48, 1), 55)
+        eq_(Signal._invert_bit_index(8, 16), 0)
+
+    def test_invalid_bit_inversion(self):
+        try:
+            Signal._invert_bit_index(0, 16)
+        except BitInversionError:
+            pass
+        else:
+            self.fail("")
