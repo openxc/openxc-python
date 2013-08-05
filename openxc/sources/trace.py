@@ -39,6 +39,9 @@ class TraceDataSource(BytestreamDataSource):
 
             while True:
                 line = self._read()
+                if line == '':
+                    break
+
                 message, _, byte_count = self._parse_message(line)
                 if message is None:
                     continue
@@ -47,7 +50,7 @@ class TraceDataSource(BytestreamDataSource):
                 if not self._validate(message):
                     continue
                 timestamp = message.get('timestamp', None)
-                if self.realtime and 'timestamp' is not None:
+                if self.realtime and timestamp is not None:
                     self._store_timestamp(timestamp)
                     self._wait(starting_time, self.first_timestamp, timestamp)
                 if self.callback is not None:
