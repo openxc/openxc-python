@@ -65,7 +65,6 @@ def sizeof_fmt(num):
 class DataPoint(object):
     def __init__(self, measurement_type):
         self.event = ''
-        self.bad_data = 0
         self.current_data = None
         self.events = {}
         self.messages_received = 0
@@ -77,18 +76,12 @@ class DataPoint(object):
         if isinstance(measurement, EventedMeasurement):
             if measurement.valid_state():
                 self.events[measurement.value] = measurement.event
-            else:
-                self.bad_data += 1
-        elif (isinstance(measurement, NumericMeasurement) and not
-                measurement.within_range()):
-            self.bad_data += 1
 
     def print_to_window(self, window, row, started_time):
         width = window.getmaxyx()[1]
         window.addstr(row, 0, self.measurement_type.name)
         if self.current_data is not None:
-            if (self.measurement_type.DATA_TYPE == numbers.Number and
-                    self.bad_data == 0):
+            if self.measurement_type.DATA_TYPE == numbers.Number:
                 # TODO leaking the unit class member here
                 percent = ((self.current_data.value.num -
                     self.measurement_type.valid_range.min) /
@@ -106,33 +99,20 @@ class DataPoint(object):
                     result += "%s: %s " % (value, self.events.get(item, "?"))
                 value = result
 
-            if self.bad_data > 0:
-                value += " (invalid)"
-                value_color = curses.color_pair(1)
-            else:
-                value_color = curses.color_pair(0)
+            value_color = curses.color_pair(0)
             window.addstr(row, 45, value, value_color)
-
-        if self.bad_data > 0:
-            bad_data_color = curses.color_pair(1)
-        else:
-            bad_data_color = curses.color_pair(2)
-
-        if width > 90:
-            window.addstr(row, 80, "Errors: %d" % self.bad_data,
-                    bad_data_color)
 
         if self.messages_received > 0:
             message_count_color = curses.color_pair(0)
         else:
             message_count_color = curses.color_pair(3)
 
-        if width > 100:
-            window.addstr(row, 95, "Messages: " + str(self.messages_received),
+        if width > 90:
+            window.addstr(row, 80, "Messages: " + str(self.messages_received),
                     message_count_color)
 
-        if width >= 125:
-            window.addstr(row, 110, "Frequency (Hz): %d" %
+        if width >= 115:
+            window.addstr(row, 95, "Freq. (Hz): %d" %
                     (self.messages_received /
                         (total_seconds(datetime.now() - started_time) + 0.1)))
 
