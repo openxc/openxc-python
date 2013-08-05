@@ -109,6 +109,7 @@ class Dashboard(object):
             self.started_time = datetime.now()
         self.messages_received += 1
 
+
         if measurement.name not in self.elements:
             self.elements[measurement.name] = DataPoint(measurement.__class__)
         self.elements[measurement.name].update(measurement)

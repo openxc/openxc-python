@@ -49,10 +49,8 @@ class Measurement(AgingData):
         """
         super(Measurement, self).__init__()
         self.name = name
-        if override_unit:
-            if type(value) == unicode:
-                raise UnrecognizedMeasurementError("%s value cannot be a string"
-                        % self.__class__)
+        if (not isinstance(value, bool) and isinstance(value, numbers.Number)
+                and override_unit):
             value = self.unit(value)
         self.value = value
         self.event = event
