@@ -78,11 +78,14 @@ class DataPoint(object):
         width = window.getmaxyx()[1]
         window.addstr(row, 0, self.current_data.name)
         if self.current_data is not None:
-            percentage = self.percentage()
-            if percentage is not None:
-                chunks = int((percentage - .1) * .1)
-                graph = "%s=%s" % ("-" * chunks, "-" * (10 - chunks))
-                window.addstr(row, 30, graph)
+            value_indent = 0
+            if width > 60:
+                percentage = self.percentage()
+                value_indent = 15
+                if percentage is not None:
+                    chunks = int((percentage - .1) * .1)
+                    graph = "%s=%s" % ("-" * chunks, "-" * (10 - chunks))
+                    window.addstr(row, 30, graph)
 
             if len(self.events) == 0:
                 value = str(self.current_data)
@@ -94,7 +97,7 @@ class DataPoint(object):
                 value = result
 
             value_color = curses.color_pair(2)
-            window.addstr(row, 45, value, value_color)
+            window.addstr(row, 30 + value_indent, value, value_color)
 
         if width > 90:
             message_count_color = curses.color_pair(3)
