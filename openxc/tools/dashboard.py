@@ -8,14 +8,11 @@ from __future__ import absolute_import
 
 import argparse
 import curses
-import numbers
 from datetime import datetime
 
 from .common import device_options, configure_logging, select_device
 from openxc.vehicle import Vehicle
-from openxc.measurements import EventedMeasurement, NumericMeasurement, \
-        Measurement
-import openxc.measurements as measurements
+from openxc.measurements import EventedMeasurement, Measurement
 
 try:
     unicode
