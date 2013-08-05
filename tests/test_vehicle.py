@@ -51,11 +51,14 @@ class VehicleTests(unittest.TestCase):
         measurement = self.vehicle.get(TestMeasurement)
         ok_(measurement is not None)
         eq_(measurement.name, data['name'])
-        eq_(measurement.value, data['value'])
+        eq_(measurement.value.num, data['value'])
 
     def test_bad_measurement_type(self):
+        class NotAMeasurement(object):
+            pass
+
         try:
-            self.vehicle.get(Measurement)
+            self.vehicle.get(NotAMeasurement)
         except UnrecognizedMeasurementError:
             pass
         else:
