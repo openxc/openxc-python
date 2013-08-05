@@ -26,6 +26,7 @@ class Measurement(AgingData):
     associated scalar unit (e.g. meters, degrees, etc) to avoid crashing a rover
     into Mars.
     """
+    name = 'generic'
     DATA_TYPE = numbers.Number
     _measurement_map = {}
     unit = units.Undefined
@@ -48,7 +49,7 @@ class Measurement(AgingData):
         """
         super(Measurement, self).__init__()
         self.name = name
-        if self.unit != units.Undefined and override_unit:
+        if override_unit:
             if type(value) == unicode:
                 raise UnrecognizedMeasurementError("%s value cannot be a string"
                         % self.__class__)

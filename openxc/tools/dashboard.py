@@ -55,9 +55,9 @@ class DataPoint(object):
 
     def print_to_window(self, window, row, started_time):
         width = window.getmaxyx()[1]
-        window.addstr(row, 0, self.measurement_type.name)
+        window.addstr(row, 0, self.current_data.name)
         if self.current_data is not None:
-            if self.measurement_type.DATA_TYPE == numbers.Number:
+            if hasattr(self.measurement_type, 'valid_range'):
                 # TODO leaking the unit class member here
                 percent = ((self.current_data.value.num -
                     self.measurement_type.valid_range.min) /
@@ -97,10 +97,7 @@ class Dashboard(object):
     def __init__(self, window, vehicle):
         self.window = window
         self.elements = {}
-        for measurement_type in measurements.all_measurements():
-            self.elements[Measurement.name_from_class(
-                    measurement_type)] = DataPoint(measurement_type)
-            vehicle.listen(measurement_type, self.receive)
+        vehicle.listen(Measurement, self.receive)
 
         self.started_time = datetime.now()
         self.messages_received = 0
@@ -115,6 +112,8 @@ class Dashboard(object):
             self.started_time = datetime.now()
         self.messages_received += 1
 
+        if measurement.name not in self.elements:
+            self.elements[measurement.name] = DataPoint(measurement.__class__)
         self.elements[measurement.name].update(measurement)
         if not data_remaining:
             self._redraw()
@@ -124,7 +123,7 @@ class Dashboard(object):
         self.window.erase()
         max_rows = self.window.getmaxyx()[0] - 4
         for row, element in enumerate(sorted(self.elements.values(),
-                key=lambda elt: elt.measurement_type.name)):
+                key=lambda elt: elt.current_data.name)):
             if row > max_rows:
                 break
             element.print_to_window(self.window, row, self.started_time)

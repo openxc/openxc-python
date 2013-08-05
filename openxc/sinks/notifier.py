@@ -37,7 +37,9 @@ class MeasurementNotifierSink(QueuedSink):
                 ].remove(callback)
 
     def _propagate(self, measurement, **kwargs):
-        for callback in self.callbacks[measurement.name]:
+        measurement_callbacks = self.callbacks[measurement.name]
+        measurement_callbacks.update(self.callbacks[Measurement.name])
+        for callback in measurement_callbacks:
             try:
                 callback(measurement, **kwargs)
             except TypeError:
