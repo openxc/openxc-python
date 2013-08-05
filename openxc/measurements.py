@@ -111,6 +111,10 @@ class Measurement(AgingData):
             UnrecognizedMeasurementError: if the class does not have a valid
                 generic name
         """
+        if not getattr(cls, '_measurements_initialized', False):
+            cls._measurement_map = dict((m.name, m) for m in all_measurements())
+            cls._measurements_initialized = True
+
         try:
             name = getattr(measurement_class, 'name')
         except AttributeError:

@@ -45,9 +45,8 @@ class DataPoint(object):
         self.events = {}
         self.messages_received = 0
         self.measurement_type = measurement_type
-        if not hasattr(self.measurement_type, 'valid_range'):
-            self.min = None
-            self.max = None
+        self.min = None
+        self.max = None
 
     def update(self, measurement):
         self.messages_received += 1
