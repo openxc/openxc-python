@@ -93,15 +93,11 @@ class DataPoint(object):
                     result += "%s: %s " % (value, self.events.get(item, "?"))
                 value = result
 
-            value_color = curses.color_pair(0)
+            value_color = curses.color_pair(2)
             window.addstr(row, 45, value, value_color)
 
-        if self.messages_received > 0:
-            message_count_color = curses.color_pair(0)
-        else:
-            message_count_color = curses.color_pair(3)
-
         if width > 90:
+            message_count_color = curses.color_pair(3)
             window.addstr(row, 80, "Messages: " + str(self.messages_received),
                     message_count_color)
 
