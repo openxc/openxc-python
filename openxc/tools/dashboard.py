@@ -81,7 +81,7 @@ class DataPoint(object):
             percentage = self.percentage()
             if percentage is not None:
                 chunks = int((percentage - .1) * .1)
-                graph = "*%s|%s*" % ("-" * chunks, "-" * (10 - chunks))
+                graph = "%s=%s" % ("-" * chunks, "-" * (10 - chunks))
                 window.addstr(row, 30, graph)
 
             if len(self.events) == 0:
