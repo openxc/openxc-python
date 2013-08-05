@@ -1,5 +1,7 @@
 """Vehicle data measurement types pre-defined in OpenXC."""
 import numbers
+import sys
+import inspect
 
 import openxc.units as units
 from .utils import Range, AgingData
@@ -9,6 +11,13 @@ try:
 except NameError:
     # Python 3
     basestring = unicode = str
+
+
+def all_measurements():
+    for name, obj in inspect.getmembers(sys.modules[__name__]):
+        if inspect.isclass(obj) and Measurement in obj.mro() and hasattr(
+                obj, 'name'):
+            yield obj
 
 
 class Measurement(AgingData):
@@ -106,7 +115,8 @@ class Measurement(AgingData):
         try:
             name = getattr(measurement_class, 'name')
         except AttributeError:
-            raise UnrecognizedMeasurementError()
+            raise UnrecognizedMeasurementError("No 'name' attribute in %s" %
+                    measurement_class)
         else:
             cls._measurement_map[name] = measurement_class
             return name

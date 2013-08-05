@@ -24,30 +24,6 @@ except NameError:
     basestring = unicode = str
 
 
-DASHBOARD_MEASUREMENTS  = [measurements.AcceleratorPedalPosition,
-                measurements.FuelLevel,
-                measurements.VehicleSpeed,
-                measurements.EngineSpeed,
-                measurements.FuelConsumed,
-                measurements.Latitude,
-                measurements.Longitude,
-                measurements.Odometer,
-                measurements.SteeringWheelAngle,
-                measurements.TorqueAtTransmission,
-                measurements.LateralAcceleration,
-                measurements.LongitudinalAcceleration,
-                measurements.BrakePedalStatus,
-                measurements.HeadlampStatus,
-                measurements.HighBeamStatus,
-                measurements.ParkingBrakeStatus,
-                measurements.WindshieldWiperStatus,
-                measurements.IgnitionStatus,
-                measurements.TransmissionGearPosition,
-                measurements.TurnSignalStatus,
-                measurements.ButtonEvent,
-                measurements.DoorStatus]
-
-
 # timedelta.total_seconds() is only in 2.7, so we backport it here for 2.6
 def total_seconds(delta):
     return (delta.microseconds + (delta.seconds
@@ -121,7 +97,7 @@ class Dashboard(object):
     def __init__(self, window, vehicle):
         self.window = window
         self.elements = {}
-        for measurement_type in DASHBOARD_MEASUREMENTS:
+        for measurement_type in measurements.all_measurements():
             self.elements[Measurement.name_from_class(
                     measurement_type)] = DataPoint(measurement_type)
             vehicle.listen(measurement_type, self.receive)
