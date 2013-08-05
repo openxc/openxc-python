@@ -6,11 +6,13 @@ this module are internal only.
 """
 from __future__ import absolute_import
 
+import numbers
 import argparse
 import curses
 from datetime import datetime
 
 from .common import device_options, configure_logging, select_device
+import openxc.units as units
 from openxc.vehicle import Vehicle
 from openxc.measurements import EventedMeasurement, Measurement
 
@@ -36,30 +38,50 @@ def sizeof_fmt(num):
 
 
 class DataPoint(object):
+
     def __init__(self, measurement_type):
         self.event = ''
         self.current_data = None
         self.events = {}
         self.messages_received = 0
         self.measurement_type = measurement_type
+        if not hasattr(self.measurement_type, 'valid_range'):
+            self.min = None
+            self.max = None
 
     def update(self, measurement):
         self.messages_received += 1
         self.current_data = measurement
+
+        if getattr(self.current_data.value, 'unit', None) == self.current_data.unit:
+            if self.min is None or self.current_data.value < self.min:
+                self.min = self.current_data.value
+            elif self.max is None or self.current_data.value > self.max:
+                self.max = self.current_data.value
+
         if isinstance(measurement, EventedMeasurement):
             if measurement.valid_state():
                 self.events[measurement.value] = measurement.event
+
+    def percentage(self):
+        # TODO man, this is getting really ugly to handle all of the different
+        # types
+        percent = None
+        if hasattr(self.measurement_type, 'valid_range'):
+            percent = self.current_data.percentage_within_range()
+        elif (getattr(self, 'min', None) is not None and
+                getattr(self, 'max', None) is not None) and self.min != self.max:
+            percent = (((self.current_data.value - self.min) / float(self.max -
+                    self.min)) * 100).num
+        return percent
 
     def print_to_window(self, window, row, started_time):
         width = window.getmaxyx()[1]
         window.addstr(row, 0, self.current_data.name)
         if self.current_data is not None:
-            if hasattr(self.measurement_type, 'valid_range'):
-                # TODO leaking the unit class member here
-                percent = ((self.current_data.value.num -
-                    self.measurement_type.valid_range.min) /
-                        float(self.measurement_type.valid_range.spread)) * 100
-                chunks = int((percent - .1) * .1)
+            percentage = self.percentage()
+            if percentage is not None:
+                chunks = int((percentage - .1) * .1)
                 graph = "*%s|%s*" % ("-" * chunks, "-" * (10 - chunks))
                 window.addstr(row, 30, graph)
 

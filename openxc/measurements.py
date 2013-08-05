@@ -139,6 +139,10 @@ class NumericMeasurement(NamedMeasurement):
     """
     valid_range = None
 
+    def percentage_within_range(self):
+        return ((self.value.num - self.valid_range.min) /
+                float(self.valid_range.spread)) * 100
+
     def within_range(self):
         return self.valid_range.within_range(self.value.num)
 
