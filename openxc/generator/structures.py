@@ -169,7 +169,7 @@ class Signal(object):
         self.max_frequency = 0
         self.send_same = True
         self.force_send_changed = False
-        self.writable=False
+        self.writable = False
         self.enabled = True
         self.ignore = False
         self.states = states or []
