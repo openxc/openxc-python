@@ -205,21 +205,26 @@ values from the CAN message (usually an integer). The raw values are specified
 as a list to accommodate multiple raw states being coalesced into a single final
 state (e.g. key off and key removed both mapping to just "off").
 
-``send_frequency`` - (default: 1) Some CAN signals are sent at a very high
-frequency, likely more often than will ever be useful to an application. The
-value of this attribute is used as the denominator in the ratio ``1/x`` to
-determine the percentage of the signals that will be let through. The default
-value (``1``) means that ``1/1`` (i.e. 100%) of the signal values received will
-be translated. Increasing the value will reduce the number of messages that are
-sent - a value of ``10`` means that only ``1/10`` messages (i.e. every 10th
-message) is processed. You don't want to combine this attribute with
-``send_same`` or else you risk missing a status change message if wasn't one of
-the messages the VI decided to let through.
+``max_frequency`` - (default: 0, no limit) Some CAN signals are sent at a very
+high frequency, likely more often than will ever be useful to an application.
+This attribute sets the maximum frequency (Hz) that the signal will be processed
+and let through. The defualt value (``0``) means that all values will be
+processed, and there is no limit imposed by the firmware. If you want to make
+sure you don't miss a change in value even when dropping messages, see the
+``force_send_changed`` attribute. You probably don't want to combine this
+attribute with ``send_same`` or else you risk missing a status change message if
+wasn't one of the messages the VI decided to let through.
 
 ``send_same`` - (default: ``true``) By default, all signals are translated every
 time they are received from the CAN bus. By setting this to ``false``, you can
 force a signal to be sent only if the value has actually changed. This works
 best with boolean and state based signals.
+
+``force_send_changed`` - (default: ``false``) Meant to be used in cojunction
+with ``max_frequency``, if this is true a signal will be sent regardeless of the
+given frequency if the value has changed. This is useful for state-based and
+boolean states, where the state change is the most important thing and you don't
+want that message to be dropped.
 
 ``writable`` - (default: ``false``) Set this attribute to ``true`` to allow this
 signal to be written back to the CAN bus by an application. OpenXC

@@ -4,6 +4,8 @@ OpenXC Python Library Changelog
 v0.9.5-dev
 ----------
 
+* Updated to work with v5.x of VI firmware.
+
 v0.9.4
 ----------
 

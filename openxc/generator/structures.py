@@ -47,6 +47,7 @@ class Message(object):
                 data.get('bit_numbering_inverted', None))
         self.handlers.extend(data.get('handlers', []))
         # Support deprecated single 'handler' field
+        # TODO add a deprecation warning
         if 'handler' in data:
             self.handlers.append(data.get('handler'))
         if self.enabled is None:
@@ -165,8 +166,9 @@ class Signal(object):
         self.offset = 0
         self.min_value = 0.0
         self.max_value = 0.0
-        self.send_frequency = 1
+        self.max_frequency = 0
         self.send_same = True
+        self.force_send_changed = False
         self.writable=False
         self.enabled = True
         self.ignore = False
@@ -188,13 +190,15 @@ class Signal(object):
         self.writable = data.get('writable', self.writable)
         self.write_handler = data.get('write_handler', self.write_handler)
         self.send_same = data.get('send_same', self.send_same)
+        self.force_send_changed = data.get('force_send_changed',
+                self.force_send_changed)
         self.ignore = data.get('ignore', self.ignore)
-        # the frequency determines how often the message should be propagated. a
-        # frequency of 1 means that every time the signal it is received we will
-        # try to handle it. a frequency of 2 means that every other signal
-        # will be handled (and the other half is ignored). This is useful for
-        # trimming down the data rate of the stream over USB.
-        self.send_frequency = data.get('send_frequency', self.send_frequency)
+        self.max_frequency = data.get('max_frequency', self.max_frequency)
+
+        if 'send_frequency' in data:
+            LOG.warning("The 'send_frequency' attribute in the signal " +
+                    "%s is deprecated and has no effect " % self.generic_name +
+                    " - see the replacement, max_frequency")
 
     @property
     def handler(self):
@@ -246,11 +250,11 @@ class Signal(object):
         return translated_value
 
     def validate(self):
-        if self.send_same is False and self.send_frequency != 1:
+        if self.send_same is False and self.max_frequency > 0:
             LOG.warning("Signal %s combines send_same and " % self.generic_name +
-                    "send_frequency - this is not recommended")
+                    "max_frequency - this is not recommended")
         if self.bit_position == None or self.bit_size == None:
-            LOG.warning("%s (generic name: %s) is incomplete\n" %
+            LOG.error("%s (generic name: %s) is incomplete\n" %
                     (self.name, self.generic_name))
             return False
         return True
@@ -281,12 +285,13 @@ class Signal(object):
 
     def __str__(self):
         result =  ("{&CAN_MESSAGES[%d][%d], \"%s\", %s, %d, %f, %f, %f, %f, "
-                    "%d, %s, false, " % (
+                    "%d, %s, %s, " % (
                 self.message_set.index,
                 self.message_set.lookup_message_index(self.message),
                 self.generic_name, self.bit_position, self.bit_size,
                 self.factor, self.offset, self.min_value, self.max_value,
-                self.send_frequency, str(self.send_same).lower()))
+                self.max_frequency, str(self.send_same).lower(),
+                str(self.force_send_changed).lower()))
         if len(self.states) > 0:
             result += "SIGNAL_STATES[%d][%d], %d" % (self.message_set.index,
                     self.states_index, len(self.states))
