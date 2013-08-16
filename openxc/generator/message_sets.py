@@ -35,7 +35,7 @@ class MessageSet(object):
                 yield message
 
     def all_messages(self):
-        for bus in self.valid_buses():
+        for bus in self.buses.values():
             for message in bus.sorted_messages():
                 yield message
 
@@ -63,9 +63,9 @@ class MessageSet(object):
 
     def validate_messages(self):
         valid = True
-        for message in self.all_messages():
+        for message in self.active_messages():
             valid = valid and message.validate()
-        for signal in self.all_signals():
+        for signal in self.active_signals():
             valid = valid and signal.validate()
         return valid
 
@@ -80,8 +80,11 @@ class MessageSet(object):
             if candidate.id == message.id:
                 return i
 
+    def lookup_bus(self, bus_name):
+        return self.buses.get(bus_name, None)
+
     def lookup_bus_index(self, bus_name):
-        bus = self.buses.get(bus_name, None)
+        bus = self.lookup_bus(bus_name)
         if bus and bus.controller is not None:
             for index, candidate_bus_address in enumerate(CanBus.VALID_BUS_ADDRESSES):
                 if candidate_bus_address == bus.controller:
@@ -170,6 +173,13 @@ class JsonMessageSet(MessageSet):
             elif bus_name not in self.buses:
                 fatal_error("Bus '%s' (from mapping %s) is not defined" %
                         (bus_name, mapping['mapping']))
+            elif not self.buses[bus_name].valid():
+                LOG.warning("Mapping '%s' is disabled because bus '%s' " % (
+                    mapping['mapping'], bus_name) +
+                        "is not associated with a CAN controller")
+                mapping['enabled'] = False
+                if skip_disabled_mappings:
+                    continue
 
             mapping_data = load_json_from_search_path(mapping['mapping'],
                     search_paths)

@@ -58,6 +58,18 @@ class Message(object):
         if 'signals' in data:
             self.merge_signals(data['signals'])
 
+        if getattr(self, 'message_set'):
+            self.bus = self.message_set.lookup_bus(self.bus_name)
+            if not self.bus.valid():
+                self.enabled = False
+                msg = ""
+                if self.bus is None:
+                    msg = "Bus '%s' is invalid, only %s are defined" % (
+                            self.bus_name, list(self.message_set.valid_buses()))
+                else:
+                    msg = "Bus '%s' is disabled" % self.bus_name
+                LOG.warning("%s - message 0x%x will be disabled" % (msg, self.id))
+
     def merge_signals(self, data):
         for signal_name, signal_data in data.items():
             states = []
@@ -103,8 +115,14 @@ class Message(object):
             return "{&CAN_BUSES[%d][%d], 0x%x}, // %s" % (
                     self.message_set.index, bus_index, self.id, self.name)
         else:
-            LOG.warning("Bus address '%s' is invalid, only %s are allowed - message 0x%x will be disabled\n" %
-                    (self.bus_name, CanBus.VALID_BUS_ADDRESSES, self.id))
+            bus = self.message_set.lookup_bus(self.bus_name)
+            msg = ""
+            if bus is None:
+                msg = "Bus '%s' is invalid, only %s are defined" % (
+                        self.bus_name, list(self.message_set.valid_buses()))
+            else:
+                msg = "Bus '%s' is disabled" % self.bus_name
+            LOG.warning("%s - message 0x%x will be disabled\n" % (msg, self.id))
         return ""
 
 class CanBus(object):
