@@ -78,6 +78,8 @@ class Controller(object):
             value = True
         elif value == "false":
             value = False
+        elif value[0] == '"' and value[-1] == '"':
+            value = value[1:-1]
         else:
             try:
                 value = float(value)
