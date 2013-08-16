@@ -190,6 +190,7 @@ class Signal(object):
         self.writable = False
         self.enabled = True
         self.ignore = False
+        self.bit_numbering_inverted = None
         self.states = states or []
 
         self.merge_signal(kwargs)
@@ -212,6 +213,8 @@ class Signal(object):
                 self.force_send_changed)
         self.ignore = data.get('ignore', self.ignore)
         self.max_frequency = data.get('max_frequency', self.max_frequency)
+        self.bit_numbering_inverted = data.get('bit_numbering_inverted',
+                self.bit_numbering_inverted)
 
         if 'send_frequency' in data:
             LOG.warning("The 'send_frequency' attribute in the signal " +
@@ -279,8 +282,9 @@ class Signal(object):
 
     @property
     def bit_position(self):
-        if getattr(self, '_bit_position', None) is not None and getattr(
-                self.message, 'bit_numbering_inverted', False):
+        if (getattr(self, '_bit_position', None) is not None and getattr(
+                self.message, 'bit_numbering_inverted', False) and
+                self.bit_numbering_inverted in [None, True]):
             return self._invert_bit_index(self._bit_position, self.bit_size)
         else:
             return self._bit_position
