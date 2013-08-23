@@ -26,6 +26,7 @@ def reset(controller):
 
 
 def write_file(controller, filename, raw=False):
+    first_timestamp = None
     with open(filename, "r") as output_file:
         corrupt_entries = 0
         message_count = 0
@@ -43,10 +44,12 @@ def write_file(controller, filename, raw=False):
                 # elapsed in receiving the trace - need to implement
                 # batching to speed this up. right now this will never sleep
                 # because it's always behind.
-                if 'timestamp' in parsed_message:
-                    time.sleep(max(.0002, (
-                        parsed_message['timestamp'] + start_time)
-                        - time.time()))
+                timestamp = parsed_message.get('timestamp', None)
+                # TODO this duplicates some code from sources/trace.py
+                if timestamp is not None:
+                    first_timestamp = first_timestamp or timestamp
+                    target_time = start_time + (timestamp - first_timestamp)
+                    time.sleep(max(.0002, target_time - time.time()))
 
                 message_count += 1
                 controller.write(raw=raw, **parsed_message)
