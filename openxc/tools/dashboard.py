@@ -6,13 +6,11 @@ this module are internal only.
 """
 from __future__ import absolute_import
 
-import numbers
 import argparse
 import curses
 from datetime import datetime
 
 from .common import device_options, configure_logging, select_device
-import openxc.units as units
 from openxc.vehicle import Vehicle
 from openxc.measurements import EventedMeasurement, Measurement
 
