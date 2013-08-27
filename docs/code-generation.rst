@@ -8,7 +8,7 @@ generate a valid ``signals.cpp`` file for the `OpenXC vehicle interface firmware
 boilerplate C++ and C-structs by hand, you can maintain the CAN message
 definitions in a much easier to read and modify JSON format. The input format is
 a JSON object like the one found in `signals.json.example
-<https://github.com/openxc/cantranslator/blob/master/src/signals.json.example>`_.
+<https://github.com/openxc/vi-firmware/blob/master/src/signals.json.example>`_.
 
 You must know the CAN message formats of the vehicle you want to use with the
 vehicle interface, as you cannot create these input files without that
@@ -30,7 +30,7 @@ Once you've defined your message set in a JSON file, run the
 
 .. code-block:: sh
 
-    cantranslator/ $ openxc-generate-firmware-code --message-set mycar.json > src/signals.cpp
+    vi-firmware/ $ openxc-generate-firmware-code --message-set mycar.json > src/signals.cpp
 
 Message Set Name
 ================
@@ -337,7 +337,7 @@ readability.
 
 For an example of a message set using mappings, see the
 `mapped-signals.json.example
-<https://github.com/openxc/cantranslator/blob/master/src/mapped-signals.json.example>`_
+<https://github.com/openxc/vi-firmware/blob/master/src/mapped-signals.json.example>`_
 file in the repository.
 
 The ``mappings`` field must be a list of JSON objects with:

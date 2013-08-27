@@ -57,9 +57,9 @@ must also install a native USB backend - ``libusb-1.0`` is the recommended libra
 - **Cygwin in Windows**
 
     Install ``libusb-win32`` from the Cygwin ``setup.exe`` and the USB driver
-    from the `cantranslator repository`_.
+    from the `vi-firmware repository`_.
 
-.. _`cantranslator repository`: https://github.com/openxc/cantranslator/tree/master/conf/windows-driver
+.. _`vi-firmware repository`: https://github.com/openxc/vi-firmware/tree/master/conf/windows-driver
 
 Serial Backend
 --------------
@@ -121,7 +121,7 @@ VI Firmware Code Generation
 
 For information on the code generation tools for the `OpenXC vehicle interface
 firmware <http://vi-firmware.openxcplatform.com>`_ (previous a part of the
-`cantranslator <https://github.com/openxc/cantranslator>`_ repository), see the
+`vi-firmware <https://github.com/openxc/vi-firmware>`_ repository), see the
 :doc:`code generation documentation <code-generation>`.
 
 .. toctree::
