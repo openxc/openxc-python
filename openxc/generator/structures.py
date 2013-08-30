@@ -205,7 +205,10 @@ class Signal(object):
         self.offset = data.get('offset', self.offset)
         self.min_value = data.get('min_value', self.min_value)
         self.max_value = data.get('max_value', self.max_value)
-        self.handler = data.get('handler', self.handler)
+        # Kind of nasty, but we want to avoid actually setting one of the
+        # implicit handlers on the object (and then later on, assuming that it
+        # was set explicitly)
+        self.handler = data.get('handler', getattr(self, '_handler', None))
         self.writable = data.get('writable', self.writable)
         self.write_handler = data.get('write_handler', self.write_handler)
         self.send_same = data.get('send_same', self.send_same)
