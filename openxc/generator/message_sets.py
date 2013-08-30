@@ -196,7 +196,7 @@ class JsonMessageSet(MessageSet):
                 all_extra_sources.update(
                         set(mapping_data.get('extra_sources', set())))
 
-            messages = mapping_data.get('messages', [])
+            messages = mapping_data.get('messages', {})
             if len(messages) == 0:
                 LOG.warning("Mapping file '%s' doesn't define any messages"
                         % mapping['mapping'])
