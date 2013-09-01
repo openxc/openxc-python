@@ -165,6 +165,7 @@ class JsonMessageSet(MessageSet):
                 LOG.warning("Mapping '%s' is disabled" % mapping['mapping'])
                 if skip_disabled_mappings:
                     continue
+            LOG.warning("Adding mapping '%s'" % mapping['mapping'])
 
             bus_name = mapping.get('bus', None)
             if bus_name is None:
