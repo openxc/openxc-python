@@ -310,7 +310,7 @@ class Signal(object):
 
     def __str__(self):
         result =  ("{&CAN_MESSAGES[%d][%d], \"%s\", %s, %d, %f, %f, %f, %f, "
-                    "%d, %s, %s, " % (
+                    "{%d}, %s, %s, " % (
                 self.message_set.index,
                 self.message_set.lookup_message_index(self.message),
                 self.generic_name, self.bit_position, self.bit_size,
