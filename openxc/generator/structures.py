@@ -46,10 +46,12 @@ class Message(object):
         self.bit_numbering_inverted = (self.bit_numbering_inverted or
                 data.get('bit_numbering_inverted', None))
         self.handlers.extend(data.get('handlers', []))
-        # Support deprecated single 'handler' field
-        # TODO add a deprecation warning
         if 'handler' in data:
+            # Support deprecated single 'handler' field
             self.handlers.append(data.get('handler'))
+            LOG.warning("The 'handler' attribute on the message " +
+                    "%s is deprecated but will still work for " % self.name +
+                    "now - the replacement is a 'handlers' array")
         if self.enabled is None:
             self.enabled = data.get('enabled', True)
         else:
