@@ -336,8 +336,8 @@ class CodeGenerator(object):
         lines.extend(self._message_set_switcher(block))
 
         if self._max_message_count() == 0:
-            lines.append("    openxc::can::read::passthroughMessage(pipeline, "
-                    "id, data);")
+            lines.append("    openxc::can::read::passthroughMessage("
+                    "id, data, getMessages(), getMessageCount(), pipeline);")
 
         lines.append("}")
         lines.append("")

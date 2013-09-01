@@ -6,6 +6,14 @@ int openxc::signals::getCommandCount() {
     return getActiveMessageSet()->commandCount;
 }
 
+CanMessage* openxc::signals::getMessages() {
+    return CAN_MESSAGES[getActiveMessageSet()->index];
+}
+
+int openxc::signals::getMessageCount() {
+    return getActiveMessageSet()->messageCount;
+}
+
 CanSignal* openxc::signals::getSignals() {
     return SIGNALS[getActiveMessageSet()->index];
 }
@@ -28,6 +36,10 @@ CanMessageSet* openxc::signals::getActiveMessageSet() {
 
 CanMessageSet* openxc::signals::getMessageSets() {
     return MESSAGE_SETS;
+}
+
+int openxc::signals::getMessageSetCount() {
+    return MESSAGE_SET_COUNT;
 }
 
 #endif // CAN_EMULATOR
