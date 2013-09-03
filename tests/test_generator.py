@@ -8,7 +8,7 @@ from openxc.generator.coder import CodeGenerator
 
 class CodeGeneratorTests(unittest.TestCase):
 
-    def _validate(self, filename):
+    def _generate(self, filename):
         search_paths = [os.path.dirname(__file__)]
         generator = CodeGenerator(search_paths)
 
@@ -19,14 +19,23 @@ class CodeGeneratorTests(unittest.TestCase):
         ok_(message_set.validate())
 
         generator.message_sets.append(message_set)
-        output = generator.build_source()
+        return message_set, generator.build_source()
 
+    def _validate(self, filename):
+        message_set, output = self._generate(filename)
         for signal in message_set.active_signals():
             ok_(signal.generic_name in output)
 
         for message in message_set.active_messages():
             ok_(message.name in output)
             ok_(("0x%x" % message.id) in output)
+
+    def test_ignore_flag(self):
+        message_set, output = self._generate('signals.json.example')
+        for signal in message_set.active_signals():
+            if signal.ignore:
+                eq_(output.count(signal.name), 1)
+
 
     def test_non_mapped(self):
         self._validate('signals.json.example')
