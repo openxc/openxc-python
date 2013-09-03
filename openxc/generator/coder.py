@@ -316,7 +316,7 @@ class CodeGenerator(object):
                                 "getSignalCount(), pipeline);")
                     for signal in sorted((s for s in message.signals.values()),
                             key=operator.attrgetter('generic_name')):
-                        if not signal.enabled:
+                        if not signal.enabled or signal.ignore:
                             continue
                         line = " " * 16
                         line += ("can::read::translateSignal(pipeline, "

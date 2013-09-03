@@ -43,7 +43,11 @@
                     "bit_size": 12},
                 "EngSpd": {
                     "generic_name": "engine_speed",
-                    "send_frequency": 15,
+                    "ignore": true,
+                    "bit_position": 12,
+                    "bit_size": 8},
+                "SomethingWeDontWant": {
+                    "generic_name": "dont_want",
                     "bit_position": 12,
                     "bit_size": 8},
                 "GrshftPos": {
