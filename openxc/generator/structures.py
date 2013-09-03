@@ -27,6 +27,7 @@ class Message(object):
         self.handlers = handlers or []
         self.enabled = enabled
         self.max_frequency = 0
+        self.force_send_changed = False
         self.signals = defaultdict(Signal)
 
     @property
@@ -47,6 +48,8 @@ class Message(object):
         self.bit_numbering_inverted = (self.bit_numbering_inverted or
                 data.get('bit_numbering_inverted', None))
         self.max_frequency = data.get('max_frequency', self.max_frequency)
+        self.force_send_changed = data.get('force_send_changed',
+                self.force_send_changed)
         self.handlers.extend(data.get('handlers', []))
         if 'handler' in data:
             # Support deprecated single 'handler' field
@@ -116,9 +119,11 @@ class Message(object):
     def __str__(self):
         bus_index = self.message_set.lookup_bus_index(self.bus_name)
         if bus_index is not None:
-            return "{&CAN_BUSES[%d][%d], 0x%x, {%d}}, // %s" % (
+            return "{&CAN_BUSES[%d][%d], 0x%x, 0, {%d}, %s}, // %s" % (
                     self.message_set.index, bus_index, self.id,
-                    self.max_frequency, self.name)
+                    self.max_frequency,
+                    str(self.force_send_changed).lower(),
+                    self.name)
         else:
             bus = self.message_set.lookup_bus(self.bus_name)
             msg = ""
@@ -191,7 +196,7 @@ class Signal(object):
         self.max_value = 0.0
         self.max_frequency = None
         self.send_same = True
-        self.force_send_changed = False
+        self.force_send_changed = None
         self.writable = False
         self.enabled = True
         self.ignore = False
@@ -250,6 +255,10 @@ class Signal(object):
             return self.message.enabled and signal_enabled
         return signal_enabled
 
+    @enabled.setter
+    def enabled(self, value):
+        self._enabled = value
+
     @property
     def max_frequency(self):
         max_freq = getattr(self, '_max_frequency', None)
@@ -261,9 +270,16 @@ class Signal(object):
     def max_frequency(self, value):
         self._max_frequency = value
 
-    @enabled.setter
-    def enabled(self, value):
-        self._enabled = value
+    @property
+    def force_send_changed(self):
+        force_send = getattr(self, '_force_send_changed', None)
+        if force_send is None and self.message is not None:
+            force_send = self.message.force_send_changed
+        return force_send
+
+    @force_send_changed.setter
+    def force_send_changed(self, value):
+        self._force_send_changed = value
 
     @property
     def sorted_states(self):

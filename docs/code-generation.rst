@@ -127,6 +127,24 @@ with the firmware and should be applied to the entire raw message value (see
 CAN message. By default, a message is enabled. If this flag is false, the CAN
 message and all its signals will be left out of the generated source code.
 
+``max_frequency`` - (default: 0, no limit) If sending raw CAN messages to the
+output interfaces, this controls the maximum frequency (in Hz) that the message
+will be process and let through. If using translated signals, setting a max
+frequency on the message will cascade down to all of the signals within the
+message (unless overridden). The default value (``0``) means that all messages
+will be processed, and there is no limit imposed by the firmware. See the
+``max_frequency`` flag documentation for the signal mapping for more
+information. If you want to make sure you don't miss a change in value even when
+dropping messages, see the ``force_send_changed`` attribute.
+
+``force_send_changed`` - (default: ``false``) Meant to be used in conjunction
+with ``max_frequency``, if this is true a raw CAN message will be sent
+regardless of the given frequency if the value has changed (when using raw CAN
+passthrough). If using translated signals, setting this value on a message will
+cascade down to all of the signals within the message (unless overridden). See
+the ``force_send_changed`` flag documentation for the signal mapping for more
+information.
+
 .. _message-handlers:
 
 Message Handlers
@@ -220,8 +238,8 @@ time they are received from the CAN bus. By setting this to ``false``, you can
 force a signal to be sent only if the value has actually changed. This works
 best with boolean and state based signals.
 
-``force_send_changed`` - (default: ``false``) Meant to be used in cojunction
-with ``max_frequency``, if this is true a signal will be sent regardeless of the
+``force_send_changed`` - (default: ``false``) Meant to be used in conjunction
+with ``max_frequency``, if this is true a signal will be sent regardless of the
 given frequency if the value has changed. This is useful for state-based and
 boolean states, where the state change is the most important thing and you don't
 want that message to be dropped.

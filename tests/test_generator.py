@@ -90,4 +90,34 @@ class CodeGeneratorTests(unittest.TestCase):
                 found = True
         ok_(found)
 
+    def test_force_send_on_message_cascades(self):
+        message_set, output = self._generate('signals.json.example')
+        message = [
+                message for message in message_set.all_messages()
+                if message.id == 0x121][0]
+        ok_(message.force_send_changed)
 
+        signal_with_overridden_flag = message.signals['TurnSignalLeft']
+        ok_(not signal_with_overridden_flag.force_send_changed)
+
+        signal_with_cascaded_flag = message.signals['TurnSignalRight']
+        ok_(signal_with_cascaded_flag.force_send_changed)
+
+    def test_default_force_send(self):
+        message_set, output = self._generate('signals.json.example')
+        message = [message for message in message_set.all_messages()
+                if message.id == 0x128][0]
+        ok_(not message.force_send_changed)
+
+    def test_force_send_in_output(self):
+        message_set, output = self._generate('signals.json.example')
+        message = [message for message in message_set.all_messages()
+                if message.id == 0x121][0]
+
+        found = False
+        for line in output.split("\n"):
+            if "CAN_BUSES" in line and message.name in line:
+                # this isn't a very particular test, but it works for now
+                ok_(("%s" % str(message.force_send_changed).lower()) in line)
+                found = True
+        ok_(found)
