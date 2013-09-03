@@ -36,7 +36,6 @@ class CodeGeneratorTests(unittest.TestCase):
             if signal.ignore:
                 eq_(output.count(signal.name), 1)
 
-
     def test_non_mapped(self):
         self._validate('signals.json.example')
 
@@ -56,3 +55,39 @@ class CodeGeneratorTests(unittest.TestCase):
             pass
         else:
             self.fail("")
+
+    def test_max_frequency_on_message_cascades(self):
+        message_set, output = self._generate('signals.json.example')
+        message_with_frequency = [
+                message for message in message_set.all_messages()
+                if message.id == 0x121][0]
+        eq_(message_with_frequency.max_frequency, 10)
+
+        signal_with_cascaded_frequency = message_with_frequency.signals['TurnSignalRight']
+        eq_(signal_with_cascaded_frequency.max_frequency, 10)
+
+        signal_with_overridden_frequency = message_with_frequency.signals['TurnSignalLeft']
+        eq_(signal_with_overridden_frequency.max_frequency, 5)
+
+    def test_default_max_frequency(self):
+        message_set, output = self._generate('signals.json.example')
+        message = [message for message in message_set.all_messages()
+                if message.id == 0x128][0]
+        eq_(message.max_frequency, 0)
+
+    def test_message_frequency_in_output(self):
+        message_set, output = self._generate('signals.json.example')
+        message_with_frequency = [
+                message for message in message_set.all_messages()
+                if message.id == 0x121][0]
+
+        found = False
+        for line in output.split("\n"):
+            if "CAN_BUSES" in line and message_with_frequency.name in line:
+                ok_(("{%d}" % message_with_frequency.max_frequency) in line,
+                        "Frequency %d should be in output: %s" %
+                        (message_with_frequency.max_frequency, line))
+                found = True
+        ok_(found)
+
+

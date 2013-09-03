@@ -87,6 +87,7 @@
         "0x121": {
             "name": "Cluster",
             "bus": "hs",
+            "max_frequency": 10,
             "signals": {
                 "TurnSignalLeft": {
                     "generic_name": "turn_signal_left",
@@ -94,6 +95,7 @@
                     "bit_position": 0,
                     "bit_size": 0,
                     "writable": true,
+                    "max_frequency": 5,
                     "write_handler": "booleanWriter"
                 },
                 "TurnSignalRight": {

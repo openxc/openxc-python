@@ -26,6 +26,7 @@ class Message(object):
         self.bit_numbering_inverted = bit_numbering_inverted
         self.handlers = handlers or []
         self.enabled = enabled
+        self.max_frequency = 0
         self.signals = defaultdict(Signal)
 
     @property
@@ -45,6 +46,7 @@ class Message(object):
         self.name = self.name or data.get('name', None)
         self.bit_numbering_inverted = (self.bit_numbering_inverted or
                 data.get('bit_numbering_inverted', None))
+        self.max_frequency = data.get('max_frequency', self.max_frequency)
         self.handlers.extend(data.get('handlers', []))
         if 'handler' in data:
             # Support deprecated single 'handler' field
@@ -114,8 +116,9 @@ class Message(object):
     def __str__(self):
         bus_index = self.message_set.lookup_bus_index(self.bus_name)
         if bus_index is not None:
-            return "{&CAN_BUSES[%d][%d], 0x%x}, // %s" % (
-                    self.message_set.index, bus_index, self.id, self.name)
+            return "{&CAN_BUSES[%d][%d], 0x%x, {%d}}, // %s" % (
+                    self.message_set.index, bus_index, self.id,
+                    self.max_frequency, self.name)
         else:
             bus = self.message_set.lookup_bus(self.bus_name)
             msg = ""
@@ -186,7 +189,7 @@ class Signal(object):
         self.offset = 0
         self.min_value = 0.0
         self.max_value = 0.0
-        self.max_frequency = 0
+        self.max_frequency = None
         self.send_same = True
         self.force_send_changed = False
         self.writable = False
@@ -246,6 +249,17 @@ class Signal(object):
         if self.message is not None:
             return self.message.enabled and signal_enabled
         return signal_enabled
+
+    @property
+    def max_frequency(self):
+        max_freq = getattr(self, '_max_frequency', None)
+        if max_freq is None and self.message is not None:
+            max_freq = self.message.max_frequency
+        return max_freq
+
+    @max_frequency.setter
+    def max_frequency(self, value):
+        self._max_frequency = value
 
     @enabled.setter
     def enabled(self, value):
