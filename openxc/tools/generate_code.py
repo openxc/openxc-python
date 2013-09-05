@@ -14,6 +14,7 @@ import argparse
 import logging
 
 from openxc.generator.coder import CodeGenerator
+from openxc.generator.coder_py import CodeGeneratorPython
 from openxc.generator.message_sets import JsonMessageSet
 from openxc.utils import fatal_error, load_json_from_search_path
 from .common import configure_logging
@@ -21,7 +22,6 @@ from .common import configure_logging
 LOG = logging.getLogger(__name__)
 
 DEFAULT_SEARCH_PATH = "."
-
 
 def parse_options():
     parser = argparse.ArgumentParser(description="Generate C++ source code "
@@ -48,6 +48,8 @@ def parse_options():
             metavar="PATH",
             help="add directories to the search path when using relative paths")
 
+    parser.add_argument('--py', action='store_true')
+
     return parser.parse_args()
 
 
@@ -68,7 +70,10 @@ def main():
                     super_set_data.get('name', 'unknown'))
         message_sets.extend(super_set_message_sets)
 
-    generator = CodeGenerator(search_paths)
+    if arguments.py:
+        generator = CodeGeneratorPython(search_paths)
+    else:
+        generator = CodeGenerator(search_paths)
     for filename in message_sets:
         message_set = JsonMessageSet.parse(filename, search_paths=search_paths,
                 skip_disabled_mappings=True)
