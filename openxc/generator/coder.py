@@ -181,7 +181,7 @@ class CodeGenerator(object):
                 self.MAX_SIGNAL_STATES)
         lines.append("const int MAX_SIGNAL_COUNT = %d;" %
                 self._max_signal_count())
-        lines.append("CanSignalState SIGNAL_STATES[]"
+        lines.append("const CanSignalState SIGNAL_STATES[]"
                 "[MAX_SIGNAL_COUNT][MAX_SIGNAL_STATES] = {")
 
         def block(message_set, **kwargs):
