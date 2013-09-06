@@ -32,7 +32,8 @@ USB Backend
 -------------
 
 If you intend to use the library to connect to a CAN translator via USB, you
-must also install a native USB backend - ``libusb-1.0`` is the recommended library.
+must also install a native USB backend - ``libusb-1.0`` is the recommended
+library (`libusb-win32` on Cygwin, **not** `libusb`).
 
 - **Mac OS X**
 
@@ -57,7 +58,10 @@ must also install a native USB backend - ``libusb-1.0`` is the recommended libra
 - **Cygwin in Windows**
 
     Install ``libusb-win32`` from the Cygwin ``setup.exe`` and the USB driver
-    from the `vi-firmware repository`_.
+    from the `vi-firmware repository`_. If you get the error ``Skipping USB
+    device: [Errno 88] Operation not supported or unimplemented on this
+    platform`` make sure you **do not** have the ``libusb`` package installed as
+    well - that one is explicitly not compatible.
 
 .. _`vi-firmware repository`: https://github.com/openxc/vi-firmware/tree/master/conf/windows-driver
 
