@@ -95,7 +95,7 @@ class CodeGenerator(object):
         lines = []
         lines.append("const int MAX_MESSAGE_COUNT = %d;" %
                 self._max_message_count())
-        lines.append("CanMessage CAN_MESSAGES[][MAX_MESSAGE_COUNT] = {")
+        lines.append("CanMessageDefinition CAN_MESSAGES[][MAX_MESSAGE_COUNT] = {")
 
         def block(message_set):
             lines = []

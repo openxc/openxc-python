@@ -6,7 +6,7 @@ int openxc::signals::getCommandCount() {
     return getActiveMessageSet()->commandCount;
 }
 
-CanMessage* openxc::signals::getMessages() {
+CanMessageDefinition* openxc::signals::getMessages() {
     return CAN_MESSAGES[getActiveMessageSet()->index];
 }
 
