@@ -70,8 +70,8 @@ Serial Backend
 
 If you intend to use the library with Python 3 and you want to connect to a CAN
 translator via a USB-Serial or other UART connection, you must install the
-``pyserial`` Python library manually. There is an [outstanding
-bug](https://github.com/openxc/openxc-python/issues/1) in the ``pyserial`` library
+``pyserial`` Python library manually. There is an `outstanding bug
+<https://github.com/openxc/openxc-python/issues/1`_ in the ``pyserial`` library
 that blocks installation as a dependency in Python 3. It works fine if you
 install it manually:
 
