@@ -1,0 +1,15 @@
+def decodeCanMessage(id, data):
+    json = []
+    if CAN_MESSAGES.has_key(id):
+        message = CAN_MESSAGES[id]
+        for signal in message['signals']:
+            json.append(translateSignal(signal, data))
+    return '\n'.join(json)
+
+def getMessageList():  #necessary for consumer of this module to setup CAN filtering on their specific hardware
+    message_list = []
+    for key in CAN_MESSAGES:
+        message_list.append(key)
+    return message_list
+   
+   
