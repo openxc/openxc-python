@@ -35,7 +35,7 @@
                     "bit_size": 12,
                     "factor": 0.15392,
                     "offset": 0,
-                    "handler": "handleInvertedSteeringWheel"},
+                    "handler": "handleInverted"},
                 "StrAnglSign": {
                     "generic_name": "steering_angle_sign",
                     "handler": "ignoreHandler",

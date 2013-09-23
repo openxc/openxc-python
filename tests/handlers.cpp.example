@@ -7,7 +7,7 @@ void handleSteeringWheelMessage(int messageId, uint64_t data, CanSignal* signals
     sendNumericalMessage("latitude", 42.0, pipeline);
 }
 
-float handleInvertedSteeringWheel(CanSignal* signal, CanSignal* signals,
+float handleInverted(CanSignal* signal, CanSignal* signals,
         int signalCount, float value, bool* send) {
     return value * -1;
 }
