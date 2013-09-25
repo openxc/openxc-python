@@ -88,10 +88,20 @@ class Measurement(AgingData):
             data (dict): the data for the new measurement, including at least a
                 name and value.
         """
-        measurement_class = cls._class_from_name(data['name'])
-        args = [data['value']]
-        if measurement_class == Measurement:
-            args.insert(0, data['name'])
+
+        args = []
+
+        if 'id' in data and 'data' in data:
+            measurement_class = CanMessage
+            args.append("Bus %s: %s" % (data.get('bus', '?'), str(data['id'])))
+            args.append(data['data'])
+            # TODO grab bus
+        else:
+            measurement_class = cls._class_from_name(data['name'])
+            if measurement_class == Measurement:
+                args.append(data['name'])
+            args.append(data['value'])
+
         return measurement_class(*args, event=data.get('event', None),
                 override_unit=True)
 
@@ -277,5 +287,11 @@ class DoorStatus(EventedMeasurement):
     states = ['driver', 'rear_left', 'rear_right', 'passenger']
 
 
+class CanMessage(Measurement):
+    name = 'can_message'
+
+
 class UnrecognizedMeasurementError(Exception):
     pass
+
+
