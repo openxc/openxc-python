@@ -93,7 +93,7 @@ class Measurement(AgingData):
 
         if 'id' in data and 'data' in data:
             measurement_class = CanMessage
-            args.append("Bus %s: %s" % (data.get('bus', '?'), str(data['id'])))
+            args.append("Bus %s: 0x%x" % (data.get('bus', '?'), data['id']))
             args.append(data['data'])
             # TODO grab bus
         else:
