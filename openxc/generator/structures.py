@@ -141,11 +141,13 @@ class CanBus(object):
     # plugged into the CAN1 controller and 0x102 into CAN2.
     VALID_BUS_ADDRESSES = (1, 2)
 
-    def __init__(self, name=None, speed=None, controller=None, **kwargs):
+    def __init__(self, name=None, speed=None, controller=None,
+            max_message_frequency=0, **kwargs):
         self.name = name
         self.speed = speed
         self.messages = defaultdict(Message)
         self.controller = controller
+        self.max_message_frequency = max_message_frequency
 
     def valid(self):
         return self.controller in self.VALID_BUS_ADDRESSES
@@ -167,12 +169,13 @@ class CanBus(object):
         self.messages.append(message)
 
     def __str__(self):
-        result = """        {{ {bus_speed}, {controller}, can{controller},
+        result = """        {{ {bus_speed}, {controller}, can{controller}, {max_message_frequency},
             #ifdef __PIC32__
             handleCan{controller}Interrupt,
             #endif // __PIC32__
         }},"""
-        return result.format(bus_speed=self.speed, controller=self.controller)
+        return result.format(bus_speed=self.speed, controller=self.controller,
+                max_message_frequency=self.max_message_frequency)
 
 
 class BitInversionError(Exception):

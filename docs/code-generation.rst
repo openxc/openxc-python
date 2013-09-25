@@ -90,6 +90,10 @@ quickly).
 
 ``speed`` - The CAN bus speed in Kbps, most often 125000 or 500000.
 
+``max_message_frequency`` - The default maximum frequency for all CAN messages
+when using the raw passthrough mode. To put no limit on the frequency, set this
+to 0 or leave it out.
+
 .. _messages:
 
 CAN Messages
