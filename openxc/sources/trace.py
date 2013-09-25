@@ -115,7 +115,7 @@ class TraceDataSource(BytestreamDataSource):
             ``True`` if the message contains at least a ``name`` and ``value``.
         """
         valid = False
-        if(('name' in message and 'key' in message) or
+        if(('name' in message and 'value' in message) or
                 ('id' in message and 'data' in message)):
             valid = True
         return valid
