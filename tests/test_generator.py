@@ -88,9 +88,27 @@ class CodeGeneratorTests(unittest.TestCase):
         eq_(signal_with_overridden_frequency.max_frequency, 5)
 
     def test_default_max_frequency(self):
+        message_set, output = self._generate('mapped_signal_set.json.example')
+        message = [message for message in message_set.all_messages()
+                if message.id == 0x128][0]
+        eq_(message.max_frequency, 0)
+
+    def test_max_frequency_on_set_cascades(self):
         message_set, output = self._generate('signals.json.example')
         message = [message for message in message_set.all_messages()
                 if message.id == 0x128][0]
+        eq_(message.max_frequency, 5)
+
+    def test_override_max_frequency_on_bus(self):
+        message_set, output = self._generate('signals.json.example')
+        message = [message for message in message_set.all_messages()
+                if message.id == 0x49][0]
+        eq_(message.max_frequency, 2)
+
+    def test_max_frequency_on_bus_cascades(self):
+        message_set, output = self._generate('signals.json.example')
+        message = [message for message in message_set.all_messages()
+                if message.id == 0x200][0]
         eq_(message.max_frequency, 0)
 
     def test_message_frequency_in_output(self):

@@ -26,7 +26,7 @@ class Message(object):
         self.bit_numbering_inverted = bit_numbering_inverted
         self.handlers = handlers or []
         self.enabled = enabled
-        self.max_frequency = 0
+        self.max_frequency = None
         self.max_signal_frequency = 0
         self.force_send_changed = True
         self.force_send_changed_signals = False

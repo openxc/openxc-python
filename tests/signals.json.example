@@ -78,6 +78,7 @@
         "0x49": {
             "name": "BrkSt",
             "bus": "hs",
+            "max_frequency": 2,
             "signals": {
                 "BrakePedalPosition": {
                     "generic_name": "brake_pedal_status",
