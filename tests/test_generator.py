@@ -79,7 +79,7 @@ class CodeGeneratorTests(unittest.TestCase):
         message_with_frequency = [
                 message for message in message_set.all_messages()
                 if message.id == 0x121][0]
-        eq_(message_with_frequency.max_frequency, 10)
+        eq_(message_with_frequency.max_signal_frequency, 10)
 
         signal_with_cascaded_frequency = message_with_frequency.signals['TurnSignalRight']
         eq_(signal_with_cascaded_frequency.max_frequency, 10)
@@ -113,7 +113,7 @@ class CodeGeneratorTests(unittest.TestCase):
         message = [
                 message for message in message_set.all_messages()
                 if message.id == 0x121][0]
-        ok_(message.force_send_changed)
+        ok_(message.force_send_changed_signals)
 
         signal_with_overridden_flag = message.signals['TurnSignalLeft']
         ok_(not signal_with_overridden_flag.force_send_changed)
@@ -125,7 +125,7 @@ class CodeGeneratorTests(unittest.TestCase):
         message_set, output = self._generate('signals.json.example')
         message = [message for message in message_set.all_messages()
                 if message.id == 0x128][0]
-        ok_(not message.force_send_changed)
+        ok_(not message.force_send_changed_signals)
 
     def test_force_send_in_output(self):
         message_set, output = self._generate('signals.json.example')
@@ -136,6 +136,6 @@ class CodeGeneratorTests(unittest.TestCase):
         for line in output.split("\n"):
             if "CAN_BUSES" in line and message.name in line:
                 # this isn't a very particular test, but it works for now
-                ok_(("%s" % str(message.force_send_changed).lower()) in line)
+                ok_(("%s" % str(message.force_send_changed_signals).lower()) in line)
                 found = True
         ok_(found)

@@ -27,7 +27,9 @@ class Message(object):
         self.handlers = handlers or []
         self.enabled = enabled
         self.max_frequency = 0
-        self.force_send_changed = False
+        self.max_signal_frequency = 0
+        self.force_send_changed = True
+        self.force_send_changed_signals = False
         self.signals = defaultdict(Signal)
 
     @property
@@ -43,13 +45,34 @@ class Message(object):
 
     def merge_message(self, data):
         self.bus_name = self.bus_name or data.get('bus', None)
+
+        if getattr(self, 'message_set'):
+            self.bus = self.message_set.lookup_bus(self.bus_name)
+            if not self.bus.valid():
+                self.enabled = False
+                msg = ""
+                if self.bus is None:
+                    msg = "Bus '%s' is invalid, only %s are defined" % (
+                            self.bus_name, list(self.message_set.valid_buses()))
+                else:
+                    msg = "Bus '%s' is disabled" % self.bus_name
+                LOG.warning("%s - message 0x%x will be disabled" % (msg, self.id))
+
         self.id = self.id or data.get('id')
         self.name = self.name or data.get('name', None)
         self.bit_numbering_inverted = (self.bit_numbering_inverted or
                 data.get('bit_numbering_inverted', None))
+
         self.max_frequency = data.get('max_frequency', self.max_frequency)
+        if self.max_frequency is None:
+            self.max_frequency = self.bus.max_raw_can_frequency
+
+        self.max_signal_frequency = data.get('max_signal_frequency',
+                self.max_signal_frequency)
         self.force_send_changed = data.get('force_send_changed',
                 self.force_send_changed)
+        self.force_send_changed_signals = data.get('force_send_changed_signals',
+                self.force_send_changed_signals)
         self.handlers.extend(data.get('handlers', []))
         if 'handler' in data:
             # Support deprecated single 'handler' field
@@ -64,18 +87,6 @@ class Message(object):
 
         if 'signals' in data:
             self.merge_signals(data['signals'])
-
-        if getattr(self, 'message_set'):
-            self.bus = self.message_set.lookup_bus(self.bus_name)
-            if not self.bus.valid():
-                self.enabled = False
-                msg = ""
-                if self.bus is None:
-                    msg = "Bus '%s' is invalid, only %s are defined" % (
-                            self.bus_name, list(self.message_set.valid_buses()))
-                else:
-                    msg = "Bus '%s' is disabled" % self.bus_name
-                LOG.warning("%s - message 0x%x will be disabled" % (msg, self.id))
 
     def merge_signals(self, data):
         for signal_name, signal_data in data.items():
@@ -273,7 +284,7 @@ class Signal(object):
     def max_frequency(self):
         max_freq = getattr(self, '_max_frequency', None)
         if max_freq is None and self.message is not None:
-            max_freq = self.message.max_frequency
+            max_freq = self.message.max_signal_frequency
         return max_freq
 
     @max_frequency.setter
@@ -284,7 +295,7 @@ class Signal(object):
     def force_send_changed(self):
         force_send = getattr(self, '_force_send_changed', None)
         if force_send is None and self.message is not None:
-            force_send = self.message.force_send_changed
+            force_send = self.message.force_send_changed_signals
         return force_send
 
     @force_send_changed.setter

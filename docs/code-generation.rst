@@ -43,8 +43,8 @@ vehicle platform. The ``name`` field is required.
 the default :ref:`bit numbering <bit-numbering>` for all messages included in this message set.
 You can override the bit numbering for any particular message or mapping, too.
 
-``max_raw_can_frequency`` - Set a default value for all buses for this attribute - see
-the Can Bus section for a description.
+``max_raw_can_frequency`` - Set a default value for all buses for this attribute
+- see the Can Bus section for a description.
 
 ``raw_can_mode`` - Set a default value for all buses for this attribute - see
 the Can Bus section for a description.
@@ -99,7 +99,9 @@ quickly).
 ``max_raw_can_frequency`` - The default maximum frequency for all CAN messages
 when using the raw passthrough mode. To put no limit on the frequency, set this
 to 0 or leave it out. If this attribute is set on a CAN bus object, it will
-override any default set at the message set level.
+override any default set at the message set level. This value cascades to all
+CAN message objects for their ``max_frequency`` attribute, which can also be
+overridden at the message level.
 
 ``raw_can_mode`` - Controls sending raw CAN messages (encoded as JSON objects)
 from the bus over the output channel. Valid modes are ``off`` (the default if
@@ -149,21 +151,28 @@ message and all its signals will be left out of the generated source code.
 
 ``max_frequency`` - (default: 0, no limit) If sending raw CAN messages to the
 output interfaces, this controls the maximum frequency (in Hz) that the message
-will be process and let through. If using translated signals, setting a max
-frequency on the message will cascade down to all of the signals within the
-message (unless overridden). The default value (``0``) means that all messages
-will be processed, and there is no limit imposed by the firmware. See the
-``max_frequency`` flag documentation for the signal mapping for more
-information. If you want to make sure you don't miss a change in value even when
-dropping messages, see the ``force_send_changed`` attribute.
+will be process and let through. The default value (``0``) means that all
+messages will be processed, and there is no limit imposed by the firmware. If
+you want to make sure you don't miss a change in value even when rate limiting,
+see the ``force_send_changed`` attribute.
 
-``force_send_changed`` - (default: ``false``) Meant to be used in conjunction
+``max_signal_frequency`` - (default: 0, no limit) Setting the max signal
+frequency at the message level will cascade down to all of the signals within
+the message (unless overridden). The default value (``0``) means that all
+signals will be processed, and there is no limit imposed by the firmware. See
+the ``max_frequency`` flag documentation for the signal mapping for more
+information. If you want to make sure you don't miss a change in value even when
+rate limiting, see the ``force_send_changed_signals`` attribute.
+
+``force_send_changed`` - (default: ``true``) Meant to be used in conjunction
 with ``max_frequency``, if this is true a raw CAN message will be sent
 regardless of the given frequency if the value has changed (when using raw CAN
-passthrough). If using translated signals, setting this value on a message will
-cascade down to all of the signals within the message (unless overridden). See
-the ``force_send_changed`` flag documentation for the signal mapping for more
-information.
+passthrough).
+
+``force_send_changed_signals`` - (default: ``false``) Setting this value on a
+message will cascade down to all of the signals within the message (unless
+overridden). See the ``force_send_changed`` flag documentation for the signal
+mapping for more information.
 
 .. _message-handlers:
 

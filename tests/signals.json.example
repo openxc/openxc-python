@@ -95,8 +95,8 @@
         "0x121": {
             "name": "Cluster",
             "bus": "hs",
-            "max_frequency": 10,
-            "force_send_changed": true,
+            "max_signal_frequency": 10,
+            "force_send_changed_signals": true,
             "signals": {
                 "TurnSignalLeft": {
                     "generic_name": "turn_signal_left",
