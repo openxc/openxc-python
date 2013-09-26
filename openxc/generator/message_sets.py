@@ -117,7 +117,7 @@ class JsonMessageSet(MessageSet):
         message_set.loopers = data.get('loopers', [])
         message_set.buses = cls._parse_buses(data)
         message_set.bit_numbering_inverted = data.get(
-                'bit_numbering_inverted', True)
+                'bit_numbering_inverted', None)
         message_set.extra_sources = set(data.get('extra_sources', set()))
 
         mapping_config = message_set._parse_mappings(data, search_paths,
@@ -210,6 +210,13 @@ class JsonMessageSet(MessageSet):
                                 find_file(mapping['database'], search_paths),
                                 messages)['messages'],
                             messages)
+                if mapping.get('bit_numbering_inverted', None) is None:
+                    LOG.warning("The bit number inversion setting is undefined "
+                            "for the mapping '%s', but it " % mapping['mapping'] +
+                            "is database-backed - assuming inverted")
+                    for message in messages.values():
+                        message.setdefault('bit_numbering_inverted',
+                                True)
 
             for message_id, message in messages.items():
                 message['id'] = message_id

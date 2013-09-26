@@ -39,9 +39,10 @@ Each JSON mapping file defines a "message set," and it should have a name.
 Typically this identifies a particular model year vehicle, or possibly a broader
 vehicle platform. The ``name`` field is required.
 
-``bit_numbering_inverted`` - (optional, ``true`` by default) This flag controls
-the default :ref:`bit numbering <bit-numbering>` for all messages included in this message set.
-You can override the bit numbering for any particular message or mapping, too.
+``bit_numbering_inverted`` - (optional, ``false`` by default, ``true`` by
+default for database-backed mappings) This flag controls the default :ref:`bit
+numbering <bit-numbering>` for all messages included in this message set. You
+can override the bit numbering for any particular message or mapping, too.
 
 ``max_message_frequency`` - Set a default value for all buses for this attribute
 - see the Can Bus section for a description.
@@ -129,8 +130,9 @@ The attributes of each message object are:
 ``bus`` - The name of one of the previously defined CAN buses where this message
 can be found.
 
-``bit_numbering_inverted`` - (optional, defaults to the value of the message set)
-This flag controls the default :ref:`bit numbering <bit-numbering>` for the signals in this message.
+``bit_numbering_inverted`` - (optional, defaults to the value of the mapping,
+then default of the message set) This flag controls the default :ref:`bit
+numbering <bit-numbering>` for the signals in this message.
 
 ``signals`` - A list of CAN signal objects (described in the :ref:`signal`
 section) that are in this message, with the name of the signal as the key. If
@@ -406,9 +408,10 @@ position, bit size, factor, offset, max and min values out of the ``mapping``
 file - they will be picked up automatically from the database.
 
 ``bit_numbering_inverted`` - (optional, defaults to the value of the message
-set) This flag controls the default :ref:`bit numbering <bit-numbering>` for the
-messages contained in this mapping. Messages in the mapping can override the bit
-numbering by explicitly specifying their own value for this flag.
+set, or ``true`` if this mapping is database-backed) This flag controls the
+default :ref:`bit numbering <bit-numbering>` for the messages contained in this
+mapping. Messages in the mapping can override the bit numbering by explicitly
+specifying their own value for this flag.
 
 ``enabled`` - (optional, true by default) Enable or disable all processing of
 the CAN messages in a mapping. By default, a mapping is enabled; if this flag is
@@ -503,5 +506,6 @@ non-inverted bit numbering.
 
 When using JSON mapping format and the code generation tools, you can control
 the bit numbering with the ``bit_numbering_inverted`` flag. By default it
-assumes inverted bit ordering (since the most common use case for the mappings
-up until now is the pull data from DBC files).
+assumes normal bit ordering **unless** you are using a database-backed mapping,
+in which case it defaults to ``true`` - the DBC files we've seen so far have all
+stored signal information in the inverted format.

@@ -157,3 +157,8 @@ class CodeGeneratorTests(unittest.TestCase):
                 ok_(("%s" % str(message.force_send_changed_signals).lower()) in line)
                 found = True
         ok_(found)
+
+    def test_bit_numbering_default(self):
+        message_set, output = self._generate('signals.json.example')
+        for message in message_set.all_messages():
+            ok_(not message.bit_numbering_inverted)

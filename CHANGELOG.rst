@@ -5,6 +5,8 @@ v0.9.5-dev
 ----------
 
 * Updated to work with v5.x of VI firmware.
+* Default to inverted bit mapping for code generation only if using a
+  database-backed mapping.
 
 v0.9.4
 ----------
