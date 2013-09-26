@@ -43,6 +43,9 @@ vehicle platform. The ``name`` field is required.
 the default :ref:`bit numbering <bit-numbering>` for all messages included in this message set.
 You can override the bit numbering for any particular message or mapping, too.
 
+``max_raw_can_frequency`` - Set a default value for all buses for this attribute - see
+the Can Bus section for a description.
+
 ``raw_can_mode`` - Set a default value for all buses for this attribute - see
 the Can Bus section for a description.
 
@@ -93,9 +96,10 @@ quickly).
 
 ``speed`` - The CAN bus speed in Kbps, most often 125000 or 500000.
 
-``max_message_frequency`` - The default maximum frequency for all CAN messages
+``max_raw_can_frequency`` - The default maximum frequency for all CAN messages
 when using the raw passthrough mode. To put no limit on the frequency, set this
-to 0 or leave it out.
+to 0 or leave it out. If this attribute is set on a CAN bus object, it will
+override any default set at the message set level.
 
 ``raw_can_mode`` - Controls sending raw CAN messages (encoded as JSON objects)
 from the bus over the output channel. Valid modes are ``off`` (the default if
