@@ -13,7 +13,7 @@ class CodeGeneratorTests(unittest.TestCase):
         generator = CodeGenerator(search_paths)
 
         message_set = JsonMessageSet.parse(
-                os.path.join(os.path.dirname(__file__), 'signals.json.example'),
+                os.path.join(os.path.dirname(__file__), filename),
                 search_paths=search_paths,
             skip_disabled_mappings=True)
         ok_(message_set.validate())
@@ -40,7 +40,20 @@ class CodeGeneratorTests(unittest.TestCase):
         self._validate('signals.json.example')
 
     def test_mapped(self):
-        self._validate('signals-mapped.json.example')
+        self._validate('mapped_signal_set.json.example')
+
+    def test_raw_can_mode(self):
+        message_set, output = self._generate('signals.json.example')
+        eq_(list(message_set.valid_buses())[0].raw_can_mode, "filtered")
+        eq_(list(message_set.valid_buses())[1].raw_can_mode, "off")
+        eq_(output.count("passthrough"), 1)
+
+    def test_unfiltered_raw_can_mode(self):
+        message_set, output = self._generate('mapped_signal_set.json.example')
+        eq_(list(message_set.valid_buses())[0].raw_can_mode, "off")
+        eq_(list(message_set.valid_buses())[1].raw_can_mode, "unfiltered")
+        eq_(output.count("passthrough"), 1)
+        ok_("FILTERS[0] = {0, 0x400, 1}" not in output)
 
     def test_bit_inversion(self):
 

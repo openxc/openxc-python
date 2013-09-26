@@ -161,11 +161,14 @@ class CodeGenerator(object):
             lines.append("        switch(address) {")
             for bus in message_set.valid_buses():
                 lines.append("        case %s:" % bus.controller)
-                lines.append("            *count = %d;" % len(
-                        list(bus.active_messages())))
-                for i, message in enumerate(bus.active_messages()):
-                    lines.append("            FILTERS[%d] = {%d, 0x%x, %d};" % (
-                            i, i, message.id, 1))
+                if bus.raw_can_mode == "unfiltered":
+                    lines.append("            *count = 0;")
+                else:
+                    lines.append("            *count = %d;" % len(
+                            list(bus.active_messages())))
+                    for i, message in enumerate(bus.active_messages()):
+                        lines.append("            FILTERS[%d] = {%d, 0x%x, %d};" % (
+                                i, i, message.id, 1))
                 lines.append("            break;")
             lines.append("        }")
             return lines
@@ -329,15 +332,15 @@ class CodeGenerator(object):
                         lines.append(line)
                     lines.append("                break;")
                 lines.append("            }")
+                if (len(list(bus.active_messages())) == 0 or
+                        bus.raw_can_mode != "off"):
+                    lines.append(" " * 12 + "openxc::can::read::passthroughMessage("
+                            "bus, id, data, getMessages(), getMessageCount(), pipeline);")
                 lines.append("            break;")
             lines.append("        }")
             return lines
 
         lines.extend(self._message_set_switcher(block))
-
-        if self._max_message_count() == 0:
-            lines.append("    openxc::can::read::passthroughMessage("
-                    "bus, id, data, getMessages(), getMessageCount(), pipeline);")
 
         lines.append("}")
         lines.append("")

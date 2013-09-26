@@ -1,0 +1,35 @@
+{   "name": "example_platform",
+    "initializers": [
+        "initializeMyStuff",
+        "initializeOtherStuff"
+    ],
+    "loopers": [
+        "myLooper"
+    ],
+    "buses": {
+        "hs": {
+            "controller": 1,
+            "speed": 500000
+        },
+        "info": {
+            "controller": 2,
+            "raw_can_mode": "unfiltered",
+            "speed": 500000
+        }
+    },
+    "commands": [
+        { "name": "turn_signal_status",
+            "handler": "handleTurnSignalCommand"
+        }
+    ],
+    "mappings": [
+        {"mapping": "mapped_signals.json.example",
+            "bus": "hs"}
+    ],
+    "messages": {
+        "0x400": {
+            "name": "MessageOnInfo",
+            "bus": "info"
+        }
+    }
+}

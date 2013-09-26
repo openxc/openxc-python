@@ -143,7 +143,9 @@ class JsonMessageSet(MessageSet):
     def _parse_buses(cls, data):
         buses = {}
         for bus_name, bus_data in data.get('buses', {}).items():
-            buses[bus_name] = CanBus(name=bus_name, **bus_data)
+            buses[bus_name] = CanBus(name=bus_name,
+                    default_raw_can_mode=data.get('raw_can_mode', "off"),
+                    **bus_data)
             if buses[bus_name].speed is None:
                 fatal_error("Bus %s is missing the 'speed' attribute" %
                         bus_name)

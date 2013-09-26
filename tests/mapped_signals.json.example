@@ -1,35 +1,7 @@
-{   "name": "example_messages",
-    "raw_can_mode": "filtered",
-    "extra_sources": [
-        "handlers.cpp.example"
-    ],
-    "initializers": [
-        "initializeMyStuff",
-        "initializeOtherStuff"
-    ],
-    "loopers": [
-        "myLooper"
-    ],
-    "buses": {
-        "hs": {
-            "controller": 1,
-            "speed": 500000
-        },
-        "ms": {
-            "controller": 2,
-            "raw_can_mode": "off",
-            "speed": 125000
-        }
-    },
-    "commands": [
-        { "name": "turn_signal_status",
-            "handler": "handleTurnSignalCommand"
-        }
-    ],
+{
     "messages": {
         "0x128": {
             "name": "ECM_z_5D2",
-            "bus": "hs",
             "signals": {
                 "StrAnglAct": {
                     "generic_name": "SteeringWheelAngle",
@@ -37,7 +9,7 @@
                     "bit_size": 12,
                     "factor": 0.15392,
                     "offset": 0,
-                    "handler": "handleInverted"},
+                    "handler": "handleInvertedSteeringWheel"},
                 "StrAnglSign": {
                     "generic_name": "steering_angle_sign",
                     "handler": "ignoreHandler",
@@ -45,11 +17,7 @@
                     "bit_size": 12},
                 "EngSpd": {
                     "generic_name": "engine_speed",
-                    "ignore": true,
-                    "bit_position": 12,
-                    "bit_size": 8},
-                "SomethingWeDontWant": {
-                    "generic_name": "dont_want",
+                    "send_frequency": 15,
                     "bit_position": 12,
                     "bit_size": 8},
                 "GrshftPos": {
@@ -71,11 +39,10 @@
                     "bit_size": 12
                 }
             },
-            "handlers": ["handleSteeringWheelMessage"]
+            "handler": "handleSteeringWheelMessage"
         },
         "0x49": {
             "name": "BrkSt",
-            "bus": "hs",
             "signals": {
                 "BrakePedalPosition": {
                     "generic_name": "brake_pedal_status",
@@ -86,15 +53,8 @@
                 }
             }
         },
-        "0x200": {
-            "name": "MessageOnMS",
-            "bus": "ms"
-        },
         "0x121": {
             "name": "Cluster",
-            "bus": "hs",
-            "max_frequency": 10,
-            "force_send_changed": true,
             "signals": {
                 "TurnSignalLeft": {
                     "generic_name": "turn_signal_left",
@@ -102,8 +62,6 @@
                     "bit_position": 0,
                     "bit_size": 0,
                     "writable": true,
-                    "max_frequency": 5,
-                    "force_send_changed": false,
                     "write_handler": "booleanWriter"
                 },
                 "TurnSignalRight": {

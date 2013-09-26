@@ -142,12 +142,14 @@ class CanBus(object):
     VALID_BUS_ADDRESSES = (1, 2)
 
     def __init__(self, name=None, speed=None, controller=None,
-            max_message_frequency=0, **kwargs):
+            max_message_frequency=0, default_raw_can_mode=None,
+            raw_can_mode=None, **kwargs):
         self.name = name
         self.speed = speed
         self.messages = defaultdict(Message)
         self.controller = controller
         self.max_message_frequency = max_message_frequency
+        self.raw_can_mode = raw_can_mode or default_raw_can_mode
 
     def valid(self):
         return self.controller in self.VALID_BUS_ADDRESSES

@@ -32,7 +32,7 @@ Once you've defined your message set in a JSON file, run the
 
     vi-firmware/ $ openxc-generate-firmware-code --message-set mycar.json > src/signals.cpp
 
-Message Set Name
+Message Set
 ================
 
 Each JSON mapping file defines a "message set," and it should have a name.
@@ -42,6 +42,9 @@ vehicle platform. The ``name`` field is required.
 ``bit_numbering_inverted`` - (optional, ``true`` by default) This flag controls
 the default :ref:`bit numbering <bit-numbering>` for all messages included in this message set.
 You can override the bit numbering for any particular message or mapping, too.
+
+``raw_can_mode`` - Set a default value for all buses for this attribute - see
+the Can Bus section for a description.
 
 Parent Message Sets
 ===================
@@ -93,6 +96,15 @@ quickly).
 ``max_message_frequency`` - The default maximum frequency for all CAN messages
 when using the raw passthrough mode. To put no limit on the frequency, set this
 to 0 or leave it out.
+
+``raw_can_mode`` - Controls sending raw CAN messages (encoded as JSON objects)
+from the bus over the output channel. Valid modes are ``off`` (the default if
+you don't specify this attribute), ``filtered`` (if messages are defined for the
+bus, will enable CAN filters and only transmit those messages), or
+``unfiltered`` (disable acceptance filters and send all received CAN messages).
+If this attribute is set on a CAN bus object, it will override any default set
+at the message set level (e.g. you can have all buses configured to send
+``filtered`` raw CAN messages, but override one to send ``unfiltered``).
 
 .. _messages:
 
