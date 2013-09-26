@@ -9,6 +9,7 @@ from __future__ import absolute_import
 import argparse
 import curses
 from datetime import datetime
+from threading import Lock
 
 from .common import device_options, configure_logging, select_device
 from openxc.vehicle import Vehicle
@@ -112,6 +113,8 @@ class Dashboard(object):
     def __init__(self, window, vehicle):
         self.window = window
         self.elements = {}
+        self.scroll_position = 0
+        self.screen_lock = Lock()
         vehicle.listen(Measurement, self.receive)
 
         self.started_time = datetime.now()
@@ -136,10 +139,11 @@ class Dashboard(object):
 
 
     def _redraw(self):
+        self.screen_lock.acquire()
         self.window.erase()
         max_rows = self.window.getmaxyx()[0] - 4
         for row, element in enumerate(sorted(self.elements.values(),
-                key=lambda elt: elt.current_data.name)):
+                key=lambda elt: elt.current_data.name)[self.scroll_position:]):
             if row > max_rows:
                 break
             element.print_to_window(self.window, row, self.started_time)
@@ -156,6 +160,18 @@ class Dashboard(object):
                     + 0.1)),
              curses.A_REVERSE)
         self.window.refresh()
+        self.screen_lock.release()
+
+    def scroll_down(self, lines):
+        self.screen_lock.acquire()
+        self.scroll_position = min(self.window.getmaxyx()[1],
+                self.scroll_position + lines)
+        self.screen_lock.release()
+
+    def scroll_up(self, lines):
+        self.screen_lock.acquire()
+        self.scroll_position = max(0, self.scroll_position - lines)
+        self.screen_lock.release()
 
 
 def run_dashboard(window, source_class, source_kwargs):
@@ -164,9 +180,18 @@ def run_dashboard(window, source_class, source_kwargs):
     dashboard.source = source_class(**source_kwargs)
     vehicle.add_source(dashboard.source)
 
+    window.scrollok(True)
     while True:
-        import time
-        time.sleep(5)
+        c = window.getch()
+        if c == curses.KEY_DOWN:
+            dashboard.scroll_down(1)
+        elif c == curses.KEY_UP:
+            dashboard.scroll_up(1)
+        elif c == curses.KEY_NPAGE:
+            dashboard.scroll_down(25)
+        elif c == curses.KEY_PPAGE:
+            dashboard.scroll_up(25)
+
 
 
 def parse_options():
