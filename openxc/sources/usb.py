@@ -65,8 +65,11 @@ class UsbDataSource(BytestreamDataSource):
             LOG.warn("Can't read from USB, IN endpoint is %s", self.in_endpoint)
             return ""
         else:
-            return self.in_endpoint.read(self.DEFAULT_READ_REQUEST_SIZE,
-                    timeout).tostring()
+            try:
+                return self.in_endpoint.read(self.DEFAULT_READ_REQUEST_SIZE,
+                        timeout).tostring()
+            except usb.core.USBError as e:
+                raise DataSourceError("USB device couldn't be read", e)
 
     @staticmethod
     def _connect_in_endpoint(device):

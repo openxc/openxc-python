@@ -1,8 +1,10 @@
 """Abstract base interface for vehicle data sources."""
 import threading
+import logging
 
 from openxc.formats.json import JsonFormatter
 
+LOG = logging.getLogger(__name__)
 
 class DataSource(threading.Thread):
     """Interface for all vehicle data sources. This inherits from Thread and
@@ -56,7 +58,12 @@ class BytestreamDataSource(DataSource):
         """
         message_buffer = b""
         while True:
-            message_buffer += self._read()
+            try:
+                message_buffer += self._read()
+            except DataSourceError as e:
+                LOG.warn("Can't read from data source -- stopping: %s", e)
+                break
+
             while True:
                 message, message_buffer, byte_count = self._parse_message(
                         message_buffer)
