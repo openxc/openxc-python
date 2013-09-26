@@ -145,7 +145,7 @@ class JsonMessageSet(MessageSet):
         for bus_name, bus_data in data.get('buses', {}).items():
             buses[bus_name] = CanBus(name=bus_name,
                     default_raw_can_mode=data.get('raw_can_mode', "off"),
-                    default_max_raw_can_frequency=data.get('max_raw_can_frequency', 0),
+                    default_max_message_frequency=data.get('max_message_frequency', 0),
                     **bus_data)
             if buses[bus_name].speed is None:
                 fatal_error("Bus %s is missing the 'speed' attribute" %

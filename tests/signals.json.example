@@ -1,6 +1,6 @@
 {   "name": "example_messages",
     "raw_can_mode": "filtered",
-    "max_raw_can_frequency": 5,
+    "max_message_frequency": 5,
     "extra_sources": [
         "handlers.cpp.example"
     ],
@@ -19,7 +19,7 @@
         "ms": {
             "controller": 2,
             "raw_can_mode": "off",
-            "max_raw_can_frequency": 0,
+            "max_message_frequency": 0,
             "speed": 125000
         }
     },
