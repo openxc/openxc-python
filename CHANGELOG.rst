@@ -1,12 +1,25 @@
 OpenXC Python Library Changelog
 ===============================
 
-v0.9.5-dev
+v0.9.5
 ----------
 
+* Improve screen width detection in openxc-dashboard
+* Add veritcal keyboard scrolling to openxc-dashboard
+* Support displaying raw CAN messages in openxc-dashboard
+* Allow registering a listener for all measurements
+* Fix non-looping trace file playback
+* Allow playing back raw CAN trace files.
 * Updated to work with v5.x of VI firmware.
-* Default to inverted bit mapping for code generation only if using a
-  database-backed mapping.
+  * Allow a message to have multiple handlers
+  * Fix a bug that disallowed ignoring a signal with states defined
+  * Add max_message_frequency and force_send_changed_signals to messages
+  * Add max_frequency and force_send_changed to signals
+  * Allow overriding bit inversion on a per-signal basis
+  * Define as many things const as possible to save memory in VI
+  * Add 'unfiltered' and 'filtered' raw CAN modes
+  * Allow setting max CAN message freq for all buses.
+  * Default to inverted bit mapping only if using a database-backed mapping.
 
 v0.9.4
 ----------
