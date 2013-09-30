@@ -13,9 +13,7 @@ For each message type, the dashboard displays:
 
 * Message name
 * Last received value
-* A simple graph of the current value and the pre-defined range
-* A count of invalid data per message (e.g. out of range or incorrectly typed
-  values)
+* A simple graph of the current value and the range seen
 * Total number received since the program started
 * A rough calculation of the frequency the message is sent in Hz
 
@@ -30,9 +28,17 @@ The dashboard also displays some overall summary data:
 * Total amount of data received over the source interface
 * Average data rate since the program started
 
+If the number of message types is large, you can scroll up and down the list
+with the arrow keys or Page Up / Page Down keys.
+
 This is a screenshot of the dashboard showing all possible columns of data.
 
 .. image:: /_static/dashboard.png
+
+This screenshot shows the dashboard displaying raw CAN messages (the vehicle
+interface must have CAN passthrough enabled).
+
+.. image:: /_static/dashboard-raw.png
 
 Basic use
 =========
