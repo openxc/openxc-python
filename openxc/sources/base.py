@@ -1,7 +1,9 @@
 """Abstract base interface for vehicle data sources."""
 import threading
 import logging
+import google.protobuf.message
 
+from openxc import openxc_pb2
 from openxc.formats.json import JsonFormatter
 
 LOG = logging.getLogger(__name__)
@@ -92,15 +94,18 @@ class BytestreamDataSource(DataSource):
         parsed_message = None
         remainder = message_buffer
         message = ""
-        if b"\n" in message_buffer:
-            message, _, remainder = message_buffer.partition(b"\n")
+        if b"\r\n" in message_buffer:
+            message_data, _, remainder = message_buffer.partition(b"\r\n")
+            message = openxc_pb2.VehicleMessage()
             try:
-                parsed_message = JsonFormatter.deserialize(message)
-                if not isinstance(parsed_message, dict):
-                    raise ValueError()
-            except ValueError:
-                pass
-        return parsed_message, remainder, len(message)
+                message.ParseFromString(message_data)
+            except google.protobuf.message.DecodeError as e:
+                print(e)
+            except UnicodeDecodeError as e:
+                print(e)
+            if message.type == message.RAW:
+                print("Raw ID: %s" %  message.raw_message.message_id)
+        return parsed_message, remainder, len(message_data)
 
 
 class DataSourceError(Exception):
