@@ -49,7 +49,7 @@ class DataPoint(object):
         self.min = None
         self.max = None
         self.last_update_time = None
-        self.average_time_since_update = 0
+        self.average_time_since_update = None
 
     def update(self, measurement):
         self.messages_received += 1
@@ -57,9 +57,12 @@ class DataPoint(object):
 
         if self.last_update_time is not None:
             time_since_update = total_seconds(datetime.now() - self.last_update_time)
-            self.average_time_since_update = ((self.AVERAGE_FREQUENCY_ALPHA *
-                    time_since_update) + (1 - self.AVERAGE_FREQUENCY_ALPHA) *
-                    self.average_time_since_update)
+            if self.average_time_since_update is None:
+                self.average_time_since_update = time_since_update
+            else:
+                self.average_time_since_update = ((self.AVERAGE_FREQUENCY_ALPHA *
+                        time_since_update) + (1 - self.AVERAGE_FREQUENCY_ALPHA) *
+                        self.average_time_since_update)
         self.last_update_time = datetime.now()
 
         if getattr(self.current_data.value, 'unit', None) == self.current_data.unit:
