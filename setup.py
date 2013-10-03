@@ -11,7 +11,8 @@ except ImportError:
 
 long_description = open('README.rst').read()
 
-install_reqs = ['pyusb==1.0.0a3', 'units >= 0.5', 'argparse', 'requests==1.1.0',]
+install_reqs = ['pyusb==1.0.0a3', 'units >= 0.5', 'argparse', 'requests==1.1.0',
+        'protobuf==2.5.0']
 
 setup(name='openxc',
     version=get_version(),
