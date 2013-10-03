@@ -9,6 +9,7 @@ from __future__ import division
 
 import argparse
 import curses
+import math
 from datetime import datetime
 from threading import Lock
 
@@ -119,7 +120,7 @@ class DataPoint(object):
 
         if width >= 115 and self.average_time_since_update > 0:
             window.addstr(row, 100, "Freq. (Hz): %d" %
-                    (1 / self.average_time_since_update))
+                    math.ceil((1 / self.average_time_since_update)))
 
 
 class Dashboard(object):
