@@ -93,8 +93,8 @@ class BytestreamDataSource(DataSource):
             message_buffer = message_buffer.encode("utf-8")
         parsed_message = None
         remainder = message_buffer
-        message = ""
-        if b"\r\n" in message_buffer:
+        message_data = ""
+        if b"\0" in message_buffer:
             message_data, _, remainder = message_buffer.partition(b"\r\n")
             message = openxc_pb2.VehicleMessage()
             try:
@@ -106,7 +106,6 @@ class BytestreamDataSource(DataSource):
             if message.type == message.RAW:
                 print("Raw ID: %s" %  message.raw_message.message_id)
         return parsed_message, remainder, len(message_data)
-
 
 class DataSourceError(Exception):
     pass
