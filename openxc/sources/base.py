@@ -81,8 +81,11 @@ class BytestreamDataSource(DataSource):
 
                 self.bytes_received += byte_count
                 if self.callback is not None:
+                    # TODO when using protobufs we have to leave the NULL
+                    # termiantor in the buffer with the current parsing
+                    # algorithm, but it's really empty
                     self.callback(message,
-                            data_remaining=len(message_buffer) > 0)
+                            data_remaining=len(message_buffer) > 2)
 
     def _parse_message(self, message_buffer):
         """If a message can be parsed from the given buffer, return it and
@@ -96,6 +99,13 @@ class BytestreamDataSource(DataSource):
         parsed_message = None
         remainder = message_buffer
         message_data = ""
+        # TODO I think a more elegant approach (and a more pythonic approach) is
+        # to sort of duck type this stream:
+        # 1. decode a varint from the top of the stream
+        # 2. using that as the length, if there's enough in the buffer, try and
+        #       decode try and decode a VehicleMessage after the varint
+        # 3. if it worked, great, we're oriented in the stream - continue
+        # 4. if either couldn't be parsed, skip to the next byte and repeat
         footer_index = message_buffer.find(b"\0")
         if footer_index > -1 and footer_index + 1 < len(message_buffer):
             message_length, message_start = _DecodeVarint(message_buffer,
