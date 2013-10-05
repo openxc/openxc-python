@@ -8,6 +8,34 @@ from openxc.formats.json import JsonFormatter
 
 LOG = logging.getLogger(__name__)
 
+def _VarintDecoder(mask):
+    '''Like _VarintDecoder() but decodes signed values.'''
+
+    local_ord = ord
+    def DecodeVarint(buffer, pos):
+        result = 0
+        shift = 0
+        while 1:
+            b = local_ord(buffer[pos])
+            result |= ((b & 0x7f) << shift)
+            pos += 1
+            if not (b & 0x80):
+                if result > 0x7fffffffffffffff:
+                    result -= (1 << 64)
+                    result |= ~mask
+                else:
+                    result &= mask
+                    return (result, pos)
+            shift += 7
+            if shift >= 64:
+                ## need to create (and also catch) this exception class...
+                raise _DecodeError('Too many bytes when decoding varint.')
+    return DecodeVarint
+
+## get a 64bit varint decoder
+decoder = _VarintDecoder((1<<64) - 1)
+
+
 class DataSource(threading.Thread):
     """Interface for all vehicle data sources. This inherits from Thread and
     when a source is added to a vehicle it attempts to call the ``start()``
@@ -95,16 +123,38 @@ class BytestreamDataSource(DataSource):
         remainder = message_buffer
         message_data = ""
         if b"\0" in message_buffer:
-            message_data, _, remainder = message_buffer.partition(b"\r\n")
+            message_data, _, remainder = message_buffer.partition(b"\0")
             message = openxc_pb2.VehicleMessage()
             try:
                 message.ParseFromString(message_data)
             except google.protobuf.message.DecodeError as e:
-                print(e)
+                #print(e)
+                pass
             except UnicodeDecodeError as e:
                 print(e)
+            parsed_message = {}
             if message.type == message.RAW:
-                print("Raw ID: %s" %  message.raw_message.message_id)
+                if message.raw_message.HasField('bus'):
+                    parsed_message['bus'] = message.raw_message.bus
+                if message.raw_message.HasField('message_id'):
+                    parsed_message['id'] = message.raw_message.message_id
+                if message.raw_message.HasField('data'):
+                    parsed_message['data'] = "0x%x" % message.raw_message.data
+            else:
+                parsed_message['name'] = message.translated_message.name
+                if message.translated_message.HasField('numerical_value'):
+                    parsed_message['value'] = message.translated_message.numerical_value
+                elif message.translated_message.HasField('boolean_value'):
+                    parsed_message['value'] = message.translated_message.boolean_value
+                elif message.translated_message.HasField('string_value'):
+                    parsed_message['value'] = message.translated_message.string_value
+
+                if message.translated_message.HasField('numerical_event'):
+                    parsed_message['event'] = message.translated_message.numerical_event
+                elif message.translated_message.HasField('boolean_event'):
+                    parsed_message['event'] = message.translated_message.boolean_event
+                elif message.translated_message.HasField('string_event'):
+                    parsed_message['event'] = message.translated_message.string_event
         return parsed_message, remainder, len(message_data)
 
 class DataSourceError(Exception):

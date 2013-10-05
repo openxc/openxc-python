@@ -13,7 +13,7 @@ from google.protobuf import descriptor_pb2
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='openxc.proto',
   package='openxc',
-  serialized_pb='\n\x0copenxc.proto\x12\x06openxc\"\xc5\x02\n\x0eVehicleMessage\x12)\n\x04type\x18\x01 \x01(\x0e\x32\x1b.openxc.VehicleMessage.Type\x12\'\n\x0braw_message\x18\x02 \x01(\x0b\x32\x12.openxc.RawMessage\x12\x37\n\x0estring_message\x18\x03 \x01(\x0b\x32\x1f.openxc.TranslatedStringMessage\x12;\n\x11numerical_message\x18\x04 \x01(\x0b\x32 .openxc.TranslatedNumericMessage\x12\x39\n\x0f\x62oolean_message\x18\x05 \x01(\x0b\x32 .openxc.TranslatedBooleanMessage\".\n\x04Type\x12\x07\n\x03RAW\x10\x01\x12\n\n\x06STRING\x10\x02\x12\x07\n\x03NUM\x10\x03\x12\x08\n\x04\x42OOL\x10\x04\".\n\nRawMessage\x12\x12\n\nmessage_id\x18\x01 \x01(\r\x12\x0c\n\x04\x64\x61ta\x18\x02 \x01(\x01\"6\n\x17TranslatedStringMessage\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t\"7\n\x18TranslatedNumericMessage\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\x01\"7\n\x18TranslatedBooleanMessage\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\x08')
+  serialized_pb='\n\x0copenxc.proto\x12\x06openxc\"\xbc\x01\n\x0eVehicleMessage\x12)\n\x04type\x18\x01 \x01(\x0e\x32\x1b.openxc.VehicleMessage.Type\x12\'\n\x0braw_message\x18\x02 \x01(\x0b\x32\x12.openxc.RawMessage\x12\x35\n\x12translated_message\x18\x03 \x01(\x0b\x32\x19.openxc.TranslatedMessage\"\x1f\n\x04Type\x12\x07\n\x03RAW\x10\x01\x12\x0e\n\nTRANSLATED\x10\x02\";\n\nRawMessage\x12\x0b\n\x03\x62us\x18\x01 \x01(\x05\x12\x12\n\nmessage_id\x18\x02 \x01(\r\x12\x0c\n\x04\x64\x61ta\x18\x03 \x01(\x12\"\xad\x01\n\x11TranslatedMessage\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x14\n\x0cstring_value\x18\x02 \x01(\t\x12\x17\n\x0fnumerical_value\x18\x03 \x01(\x01\x12\x15\n\rboolean_value\x18\x04 \x01(\x08\x12\x14\n\x0cstring_event\x18\x05 \x01(\t\x12\x17\n\x0fnumerical_event\x18\x06 \x01(\x01\x12\x15\n\rboolean_event\x18\x07 \x01(\x08')
 
 
 
@@ -28,22 +28,14 @@ _VEHICLEMESSAGE_TYPE = _descriptor.EnumDescriptor(
       options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='STRING', index=1, number=2,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='NUM', index=2, number=3,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='BOOL', index=3, number=4,
+      name='TRANSLATED', index=1, number=2,
       options=None,
       type=None),
   ],
   containing_type=None,
   options=None,
-  serialized_start=304,
-  serialized_end=350,
+  serialized_start=182,
+  serialized_end=213,
 )
 
 
@@ -69,22 +61,8 @@ _VEHICLEMESSAGE = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='string_message', full_name='openxc.VehicleMessage.string_message', index=2,
+      name='translated_message', full_name='openxc.VehicleMessage.translated_message', index=2,
       number=3, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='numerical_message', full_name='openxc.VehicleMessage.numerical_message', index=3,
-      number=4, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='boolean_message', full_name='openxc.VehicleMessage.boolean_message', index=4,
-      number=5, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -100,7 +78,7 @@ _VEHICLEMESSAGE = _descriptor.Descriptor(
   is_extendable=False,
   extension_ranges=[],
   serialized_start=25,
-  serialized_end=350,
+  serialized_end=213,
 )
 
 
@@ -112,15 +90,22 @@ _RAWMESSAGE = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='message_id', full_name='openxc.RawMessage.message_id', index=0,
-      number=1, type=13, cpp_type=3, label=1,
+      name='bus', full_name='openxc.RawMessage.bus', index=0,
+      number=1, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='data', full_name='openxc.RawMessage.data', index=1,
-      number=2, type=1, cpp_type=5, label=1,
+      name='message_id', full_name='openxc.RawMessage.message_id', index=1,
+      number=2, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='data', full_name='openxc.RawMessage.data', index=2,
+      number=3, type=18, cpp_type=2, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -134,98 +119,63 @@ _RAWMESSAGE = _descriptor.Descriptor(
   options=None,
   is_extendable=False,
   extension_ranges=[],
-  serialized_start=352,
-  serialized_end=398,
+  serialized_start=215,
+  serialized_end=274,
 )
 
 
-_TRANSLATEDSTRINGMESSAGE = _descriptor.Descriptor(
-  name='TranslatedStringMessage',
-  full_name='openxc.TranslatedStringMessage',
+_TRANSLATEDMESSAGE = _descriptor.Descriptor(
+  name='TranslatedMessage',
+  full_name='openxc.TranslatedMessage',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='name', full_name='openxc.TranslatedStringMessage.name', index=0,
+      name='name', full_name='openxc.TranslatedMessage.name', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=unicode("", "utf-8"),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='value', full_name='openxc.TranslatedStringMessage.value', index=1,
+      name='string_value', full_name='openxc.TranslatedMessage.string_value', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=unicode("", "utf-8"),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  extension_ranges=[],
-  serialized_start=400,
-  serialized_end=454,
-)
-
-
-_TRANSLATEDNUMERICMESSAGE = _descriptor.Descriptor(
-  name='TranslatedNumericMessage',
-  full_name='openxc.TranslatedNumericMessage',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
     _descriptor.FieldDescriptor(
-      name='name', full_name='openxc.TranslatedNumericMessage.name', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=unicode("", "utf-8"),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='value', full_name='openxc.TranslatedNumericMessage.value', index=1,
-      number=2, type=1, cpp_type=5, label=1,
+      name='numerical_value', full_name='openxc.TranslatedMessage.numerical_value', index=2,
+      number=3, type=1, cpp_type=5, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  extension_ranges=[],
-  serialized_start=456,
-  serialized_end=511,
-)
-
-
-_TRANSLATEDBOOLEANMESSAGE = _descriptor.Descriptor(
-  name='TranslatedBooleanMessage',
-  full_name='openxc.TranslatedBooleanMessage',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
     _descriptor.FieldDescriptor(
-      name='name', full_name='openxc.TranslatedBooleanMessage.name', index=0,
-      number=1, type=9, cpp_type=9, label=1,
+      name='boolean_value', full_name='openxc.TranslatedMessage.boolean_value', index=3,
+      number=4, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='string_event', full_name='openxc.TranslatedMessage.string_event', index=4,
+      number=5, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=unicode("", "utf-8"),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='value', full_name='openxc.TranslatedBooleanMessage.value', index=1,
-      number=2, type=8, cpp_type=7, label=1,
+      name='numerical_event', full_name='openxc.TranslatedMessage.numerical_event', index=5,
+      number=6, type=1, cpp_type=5, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='boolean_event', full_name='openxc.TranslatedMessage.boolean_event', index=6,
+      number=7, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -239,21 +189,17 @@ _TRANSLATEDBOOLEANMESSAGE = _descriptor.Descriptor(
   options=None,
   is_extendable=False,
   extension_ranges=[],
-  serialized_start=513,
-  serialized_end=568,
+  serialized_start=277,
+  serialized_end=450,
 )
 
 _VEHICLEMESSAGE.fields_by_name['type'].enum_type = _VEHICLEMESSAGE_TYPE
 _VEHICLEMESSAGE.fields_by_name['raw_message'].message_type = _RAWMESSAGE
-_VEHICLEMESSAGE.fields_by_name['string_message'].message_type = _TRANSLATEDSTRINGMESSAGE
-_VEHICLEMESSAGE.fields_by_name['numerical_message'].message_type = _TRANSLATEDNUMERICMESSAGE
-_VEHICLEMESSAGE.fields_by_name['boolean_message'].message_type = _TRANSLATEDBOOLEANMESSAGE
+_VEHICLEMESSAGE.fields_by_name['translated_message'].message_type = _TRANSLATEDMESSAGE
 _VEHICLEMESSAGE_TYPE.containing_type = _VEHICLEMESSAGE;
 DESCRIPTOR.message_types_by_name['VehicleMessage'] = _VEHICLEMESSAGE
 DESCRIPTOR.message_types_by_name['RawMessage'] = _RAWMESSAGE
-DESCRIPTOR.message_types_by_name['TranslatedStringMessage'] = _TRANSLATEDSTRINGMESSAGE
-DESCRIPTOR.message_types_by_name['TranslatedNumericMessage'] = _TRANSLATEDNUMERICMESSAGE
-DESCRIPTOR.message_types_by_name['TranslatedBooleanMessage'] = _TRANSLATEDBOOLEANMESSAGE
+DESCRIPTOR.message_types_by_name['TranslatedMessage'] = _TRANSLATEDMESSAGE
 
 class VehicleMessage(_message.Message):
   __metaclass__ = _reflection.GeneratedProtocolMessageType
@@ -267,23 +213,11 @@ class RawMessage(_message.Message):
 
   # @@protoc_insertion_point(class_scope:openxc.RawMessage)
 
-class TranslatedStringMessage(_message.Message):
+class TranslatedMessage(_message.Message):
   __metaclass__ = _reflection.GeneratedProtocolMessageType
-  DESCRIPTOR = _TRANSLATEDSTRINGMESSAGE
+  DESCRIPTOR = _TRANSLATEDMESSAGE
 
-  # @@protoc_insertion_point(class_scope:openxc.TranslatedStringMessage)
-
-class TranslatedNumericMessage(_message.Message):
-  __metaclass__ = _reflection.GeneratedProtocolMessageType
-  DESCRIPTOR = _TRANSLATEDNUMERICMESSAGE
-
-  # @@protoc_insertion_point(class_scope:openxc.TranslatedNumericMessage)
-
-class TranslatedBooleanMessage(_message.Message):
-  __metaclass__ = _reflection.GeneratedProtocolMessageType
-  DESCRIPTOR = _TRANSLATEDBOOLEANMESSAGE
-
-  # @@protoc_insertion_point(class_scope:openxc.TranslatedBooleanMessage)
+  # @@protoc_insertion_point(class_scope:openxc.TranslatedMessage)
 
 
 # @@protoc_insertion_point(module_scope)
