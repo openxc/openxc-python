@@ -7,6 +7,9 @@ About
 
 .. include:: ../README.rst
 
+This Python package works with Python 2.6 and 2.7. Unfortunately we had to drop support
+for Python 3 when we added the protobuf library as a dependency.
+
 Installation
 ============
 
@@ -163,7 +166,7 @@ Test Suite
 ----------
 
 The ``openxc-python`` repository contains a test suite that can be run with the
-``tox`` tool, which attemps to run the test suite in Python 2.6, 2.7 and 3.3. If
+``tox`` tool, which attemps to run the test suite in Python 2.7. If
 you wish to just run the test suite in your primary Python version, run
 
 .. code-block:: sh
