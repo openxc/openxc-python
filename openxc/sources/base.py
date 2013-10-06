@@ -113,15 +113,21 @@ class BytestreamDataSource(DataSource):
             parsed_message = None
         return parsed_message
 
-    def _parse_message(self, message_buffer):
-        """If a message can be parsed from the given buffer, return it and
-        remove it.
+    def _parse_json_message(self, message_buffer):
+        parsed_message = None
+        remainder = message_buffer
+        message = ""
+        if b"\n" in message_buffer:
+            message, _, remainder = message_buffer.partition(b"\n")
+            try:
+                parsed_message = JsonFormatter.deserialize(message)
+                if not isinstance(parsed_message, dict):
+                    raise ValueError()
+            except ValueError:
+                pass
+        return parsed_message, remainder, len(message)
 
-        Returns the message if one could be parsed, otherwise None, and the
-        remainder of the buffer.
-        """
-        if not isinstance(message_buffer, bytes):
-            message_buffer = message_buffer.encode("utf-8")
+    def _parse_protobuf_message(self, message_buffer):
         parsed_message = None
         remainder = message_buffer
         message_data = ""
@@ -161,6 +167,23 @@ class BytestreamDataSource(DataSource):
         if parsed_message is not None:
             bytes_received = len(message_data)
         return parsed_message, remainder, bytes_received
+
+    def _parse_message(self, message_buffer):
+        """If a message can be parsed from the given buffer, return it and
+        remove it.
+
+        Returns the message if one could be parsed, otherwise None, and the
+        remainder of the buffer.
+        """
+        if not isinstance(message_buffer, bytes):
+            message_buffer = message_buffer.encode("utf-8")
+
+        try:
+            message_buffer.decode('ascii')
+        except UnicodeDecodeError:
+            return self._parse_protobuf_message(message_buffer)
+        else:
+            return self._parse_json_message(message_buffer)
 
 class DataSourceError(Exception):
     pass
