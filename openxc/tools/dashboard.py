@@ -5,9 +5,11 @@ program.
 this module are internal only.
 """
 from __future__ import absolute_import
+from __future__ import division
 
 import argparse
 import curses
+import math
 from datetime import datetime
 from threading import Lock
 
@@ -37,6 +39,7 @@ def sizeof_fmt(num):
 
 
 class DataPoint(object):
+    AVERAGE_FREQUENCY_ALPHA = 0.1
 
     def __init__(self, measurement_type):
         self.event = ''
@@ -46,10 +49,22 @@ class DataPoint(object):
         self.measurement_type = measurement_type
         self.min = None
         self.max = None
+        self.last_update_time = None
+        self.average_time_since_update = None
 
     def update(self, measurement):
         self.messages_received += 1
         self.current_data = measurement
+
+        if self.last_update_time is not None:
+            time_since_update = total_seconds(datetime.now() - self.last_update_time)
+            if self.average_time_since_update is None:
+                self.average_time_since_update = time_since_update
+            else:
+                self.average_time_since_update = ((self.AVERAGE_FREQUENCY_ALPHA *
+                        time_since_update) + (1 - self.AVERAGE_FREQUENCY_ALPHA) *
+                        self.average_time_since_update)
+        self.last_update_time = datetime.now()
 
         if getattr(self.current_data.value, 'unit', None) == self.current_data.unit:
             if self.min is None or self.current_data.value < self.min:
@@ -103,10 +118,9 @@ class DataPoint(object):
             window.addstr(row, 80, "Messages: " + str(self.messages_received),
                     message_count_color)
 
-        if width >= 115:
+        if width >= 115 and self.average_time_since_update > 0:
             window.addstr(row, 100, "Freq. (Hz): %d" %
-                    (self.messages_received /
-                        (total_seconds(datetime.now() - started_time) + 0.1)))
+                    math.ceil((1 / self.average_time_since_update)))
 
 
 class Dashboard(object):
