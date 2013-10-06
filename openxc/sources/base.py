@@ -50,6 +50,8 @@ class BytestreamDataSource(DataSource):
     Subclasses of this class need only to implement the ``_read`` method.
     """
 
+    MAX_PROTOBUF_MESSAGE_LENGTH = 200
+
     def __init__(self, callback=None):
         super(BytestreamDataSource, self).__init__(callback)
         self.bytes_received = 0
@@ -81,11 +83,34 @@ class BytestreamDataSource(DataSource):
 
                 self.bytes_received += byte_count
                 if self.callback is not None:
-                    # TODO when using protobufs we have to leave the NULL
-                    # termiantor in the buffer with the current parsing
-                    # algorithm, but it's really empty
                     self.callback(message,
-                            data_remaining=len(message_buffer) > 2)
+                            data_remaining=len(message_buffer) > 0)
+
+    def _protobuf_to_dict(self, message):
+        parsed_message = {}
+        if message.type == message.RAW:
+            if message.raw_message.HasField('bus'):
+                parsed_message['bus'] = message.raw_message.bus
+            if message.raw_message.HasField('message_id'):
+                parsed_message['id'] = message.raw_message.message_id
+            if message.raw_message.HasField('data'):
+                parsed_message['data'] = "0x%x" % message.raw_message.data
+        else:
+            parsed_message['name'] = message.translated_message.name
+            if message.translated_message.HasField('numerical_value'):
+                parsed_message['value'] = message.translated_message.numerical_value
+            elif message.translated_message.HasField('boolean_value'):
+                parsed_message['value'] = message.translated_message.boolean_value
+            elif message.translated_message.HasField('string_value'):
+                parsed_message['value'] = message.translated_message.string_value
+
+            if message.translated_message.HasField('numerical_event'):
+                parsed_message['event'] = message.translated_message.numerical_event
+            elif message.translated_message.HasField('boolean_event'):
+                parsed_message['event'] = message.translated_message.boolean_event
+            elif message.translated_message.HasField('string_event'):
+                parsed_message['event'] = message.translated_message.string_event
+        return parsed_message
 
     def _parse_message(self, message_buffer):
         """If a message can be parsed from the given buffer, return it and
@@ -99,53 +124,40 @@ class BytestreamDataSource(DataSource):
         parsed_message = None
         remainder = message_buffer
         message_data = ""
-        # TODO I think a more elegant approach (and a more pythonic approach) is
-        # to sort of duck type this stream:
+
         # 1. decode a varint from the top of the stream
         # 2. using that as the length, if there's enough in the buffer, try and
         #       decode try and decode a VehicleMessage after the varint
         # 3. if it worked, great, we're oriented in the stream - continue
         # 4. if either couldn't be parsed, skip to the next byte and repeat
-        footer_index = message_buffer.find(b"\0")
-        if footer_index > -1 and footer_index + 1 < len(message_buffer):
-            message_length, message_start = _DecodeVarint(message_buffer,
-                    footer_index + 1)
-            message_data = message_buffer[message_start:message_start + message_length]
-            # TODO if we don't put the footer in the remainder, we miss the next
-            # message...not sure if the consequences of that
-            remainder = message_buffer[message_start + message_length:]
-            if len(message_data) > 1:
-                message = openxc_pb2.VehicleMessage()
-                try:
-                    message.ParseFromString(message_data)
-                except google.protobuf.message.DecodeError as e:
-                    LOG.warn("Unable to parse protobuf: %s", e)
-                except UnicodeDecodeError as e:
-                    LOG.warn("Unable to parse protobuf: %s", e)
-                else:
-                    parsed_message = {}
-                    if message.type == message.RAW:
-                        if message.raw_message.HasField('bus'):
-                            parsed_message['bus'] = message.raw_message.bus
-                        if message.raw_message.HasField('message_id'):
-                            parsed_message['id'] = message.raw_message.message_id
-                        if message.raw_message.HasField('data'):
-                            parsed_message['data'] = "0x%x" % message.raw_message.data
-                    else:
-                        parsed_message['name'] = message.translated_message.name
-                        if message.translated_message.HasField('numerical_value'):
-                            parsed_message['value'] = message.translated_message.numerical_value
-                        elif message.translated_message.HasField('boolean_value'):
-                            parsed_message['value'] = message.translated_message.boolean_value
-                        elif message.translated_message.HasField('string_value'):
-                            parsed_message['value'] = message.translated_message.string_value
+        while parsed_message is None and len(message_buffer) > 1:
+            message_length, message_start = _DecodeVarint(message_buffer, 0)
+            # sanity check to make sure we didn't parse some huge number that's
+            # clearly not the length prefix
+            if message_length > self.MAX_PROTOBUF_MESSAGE_LENGTH:
+                message_data = ""
+                message_buffer = message_buffer[1:]
+                message = None
+                continue
 
-                        if message.translated_message.HasField('numerical_event'):
-                            parsed_message['event'] = message.translated_message.numerical_event
-                        elif message.translated_message.HasField('boolean_event'):
-                            parsed_message['event'] = message.translated_message.boolean_event
-                        elif message.translated_message.HasField('string_event'):
-                            parsed_message['event'] = message.translated_message.string_event
+            if message_start + message_length >= len(message_buffer):
+                break
+
+            message_data = message_buffer[message_start:message_start + message_length]
+            remainder = message_buffer[message_start + message_length:]
+
+            message = openxc_pb2.VehicleMessage()
+            try:
+                message.ParseFromString(message_data)
+            except google.protobuf.message.DecodeError as e:
+                # skip ahead one byte
+                message_data = ""
+                message_buffer = message_buffer[1:]
+                message = None
+            except UnicodeDecodeError as e:
+                LOG.warn("Unable to parse protobuf: %s", e)
+            else:
+                parsed_message = self._protobuf_to_dict(message)
         return parsed_message, remainder, len(message_data)
 
 class DataSourceError(Exception):
