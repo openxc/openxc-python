@@ -83,19 +83,18 @@ class BytestreamDataSource(DataSource):
 
                 self.bytes_received += byte_count
                 if self.callback is not None:
-                    self.callback(message,
-                            data_remaining=len(message_buffer) > 0)
+                    self.callback(message)
 
     def _protobuf_to_dict(self, message):
         parsed_message = {}
-        if message.type == message.RAW:
+        if message.type == message.RAW and message.HasField('raw_message'):
             if message.raw_message.HasField('bus'):
                 parsed_message['bus'] = message.raw_message.bus
             if message.raw_message.HasField('message_id'):
                 parsed_message['id'] = message.raw_message.message_id
             if message.raw_message.HasField('data'):
                 parsed_message['data'] = "0x%x" % message.raw_message.data
-        else:
+        elif message.type == message.TRANSLATED and message.HasField('translated_message'):
             parsed_message['name'] = message.translated_message.name
             if message.translated_message.HasField('numerical_value'):
                 parsed_message['value'] = message.translated_message.numerical_value
@@ -110,6 +109,8 @@ class BytestreamDataSource(DataSource):
                 parsed_message['event'] = message.translated_message.boolean_event
             elif message.translated_message.HasField('string_event'):
                 parsed_message['event'] = message.translated_message.string_event
+        else:
+            parsed_message = None
         return parsed_message
 
     def _parse_message(self, message_buffer):
@@ -135,9 +136,7 @@ class BytestreamDataSource(DataSource):
             # sanity check to make sure we didn't parse some huge number that's
             # clearly not the length prefix
             if message_length > self.MAX_PROTOBUF_MESSAGE_LENGTH:
-                message_data = ""
                 message_buffer = message_buffer[1:]
-                message = None
                 continue
 
             if message_start + message_length >= len(message_buffer):
@@ -150,15 +149,18 @@ class BytestreamDataSource(DataSource):
             try:
                 message.ParseFromString(message_data)
             except google.protobuf.message.DecodeError as e:
-                # skip ahead one byte
-                message_data = ""
                 message_buffer = message_buffer[1:]
-                message = None
             except UnicodeDecodeError as e:
                 LOG.warn("Unable to parse protobuf: %s", e)
             else:
                 parsed_message = self._protobuf_to_dict(message)
-        return parsed_message, remainder, len(message_data)
+                if parsed_message is None:
+                    message_buffer = message_buffer[1:]
+
+        bytes_received = 0
+        if parsed_message is not None:
+            bytes_received = len(message_data)
+        return parsed_message, remainder, bytes_received
 
 class DataSourceError(Exception):
     pass

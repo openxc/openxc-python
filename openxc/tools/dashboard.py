@@ -125,18 +125,15 @@ class Dashboard(object):
         curses.init_pair(2, curses.COLOR_GREEN, -1)
         curses.init_pair(3, curses.COLOR_YELLOW, -1)
 
-    def receive(self, measurement, data_remaining=False, **kwargs):
+    def receive(self, measurement, **kwargs):
         if self.messages_received == 0:
             self.started_time = datetime.now()
         self.messages_received += 1
 
-
         if measurement.name not in self.elements:
             self.elements[measurement.name] = DataPoint(measurement.__class__)
         self.elements[measurement.name].update(measurement)
-        if not data_remaining:
-            self._redraw()
-
+        self._redraw()
 
     def _redraw(self):
         self.screen_lock.acquire()
