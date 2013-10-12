@@ -5,29 +5,6 @@ from .structures import Signal, Message
 
 LOG = logging.getLogger(__name__)
 
-try:
-  from lxml import etree
-except ImportError:
-  LOG.warning("Install the 'lxml' Python package to speed up CAN database parsing")
-  try:
-    # Python 2.5
-    import xml.etree.cElementTree as etree
-  except ImportError:
-    try:
-      # Python 2.5
-      import xml.etree.ElementTree as etree
-    except ImportError:
-      try:
-        # normal cElementTree install
-        import cElementTree as etree
-      except ImportError:
-        try:
-          # normal ElementTree install
-          import elementtree.ElementTree as etree
-        except ImportError:
-          fatal_error("Failed to import ElementTree from any known place")
-
-
 class Network(object):
     """Represents all the messages on a single bus in an XML-backed database."""
 
@@ -89,6 +66,27 @@ class XMLBackedSignal(Signal):
 
 
 def parse_database(database_filename):
+    try:
+      from lxml import etree
+    except ImportError:
+      LOG.warning("Install the 'lxml' Python package to speed up CAN database parsing")
+      try:
+        # Python 2.5
+        import xml.etree.cElementTree as etree
+      except ImportError:
+        try:
+          # Python 2.5
+          import xml.etree.ElementTree as etree
+        except ImportError:
+          try:
+            # normal cElementTree install
+            import cElementTree as etree
+          except ImportError:
+            try:
+              # normal ElementTree install
+              import elementtree.ElementTree as etree
+            except ImportError:
+              fatal_error("Failed to import ElementTree from any known place")
     return etree.parse(database_filename)
 
 
