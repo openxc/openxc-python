@@ -1,6 +1,12 @@
 OpenXC Python Library Changelog
 ===============================
 
+v0.9.6-dev
+----------
+
+* Significant speedup in VI firmware code generation with simple parsed XML
+  caching
+
 v0.9.5
 ----------
 
