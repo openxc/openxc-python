@@ -8,7 +8,7 @@ from collections import defaultdict
 import operator
 import logging
 
-from .xml_to_json import merge_database_into_mapping
+from .xml_to_json import merge_database_into_mapping, parse_database
 from .structures import Command, CanBus
 from openxc.utils import fatal_error, merge, find_file, \
         load_json_from_search_path
@@ -152,6 +152,15 @@ class JsonMessageSet(MessageSet):
                         bus_name)
         return buses
 
+    @classmethod
+    def _parse_database(self, database_filename):
+        if getattr(self, '_database_cache', None) is None:
+                self._database_cache = {}
+        if self._database_cache.get(database_filename, None) is None:
+            self._database_cache[database_filename] = parse_database(
+                    database_filename)
+        return database_filename, self._database_cache[database_filename]
+
     def _parse_mappings(self, data, search_paths, skip_disabled_mappings):
         all_messages = []
         all_commands = []
@@ -206,10 +215,10 @@ class JsonMessageSet(MessageSet):
                         % mapping['mapping'])
 
             if 'database' in mapping:
-                messages = merge(merge_database_into_mapping(
-                                find_file(mapping['database'], search_paths),
-                                messages)['messages'],
-                            messages)
+                database_filename, database_tree = self._parse_database(
+                                find_file(mapping['database'], search_paths))
+                messages = merge(merge_database_into_mapping(database_filename,
+                    database_tree, messages)['messages'], messages)
                 if mapping.get('bit_numbering_inverted', None) is None:
                     LOG.warning("The bit number inversion setting is undefined "
                             "for the mapping '%s', but it " % mapping['mapping'] +

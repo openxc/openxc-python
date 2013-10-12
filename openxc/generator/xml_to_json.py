@@ -88,11 +88,13 @@ class XMLBackedSignal(Signal):
                 max_value=float(node.find("Maximum").text))
 
 
+def parse_database(database_filename):
+    return etree.parse(database_filename)
 
-def merge_database_into_mapping(database_filename, messages):
+
+def merge_database_into_mapping(database_filename, database_tree, messages):
     if len(messages) == 0:
         LOG.warning("No messages specified for mapping from XML")
         return {}
     else:
-        tree = etree.parse(database_filename)
-        return Network(database_filename, tree, messages).to_dict()
+        return Network(database_filename, database_tree, messages).to_dict()
