@@ -25,7 +25,7 @@ def reset(controller):
     version(controller)
 
 
-def write_file(controller, filename, raw=False):
+def write_file(controller, filename):
     first_timestamp = None
     with open(filename, "r") as output_file:
         corrupt_entries = 0
@@ -52,28 +52,18 @@ def write_file(controller, filename, raw=False):
                     time.sleep(max(.0002, target_time - time.time()))
 
                 message_count += 1
-                controller.write(raw=raw, **parsed_message)
+                controller.write(**parsed_message)
         print("%d lines sent" % message_count)
         if corrupt_entries > 0:
             print("%d invalid lines in the data file were not sent" %
                     corrupt_entries)
 
 
-def write(controller, name, value, event=None, raw=False):
-    print("Sending command %s: %s %s" % (name, value, event))
-    if raw:
-        method = controller.write_raw
-    else:
-        method = controller.write
-    method(name=name, value=value, event=event, raw=raw)
-    print("Done.")
-
-
 def parse_options():
     parser = argparse.ArgumentParser(description="Send control messages to an "
             "attached OpenXC CAN translator", parents=[device_options()])
     parser.add_argument("command", type=str,
-            choices=['version', 'reset', 'write', 'writeraw'])
+            choices=['version', 'reset', 'write'])
     write_group = parser.add_mutually_exclusive_group()
     write_group.add_argument("--name", action="store", dest="write_name",
             help="name for message write request")
@@ -104,27 +94,20 @@ def main():
     elif arguments.command == "reset":
         reset(controller)
     elif arguments.command.startswith("write"):
-        name = value = None
         if arguments.command == "write":
-            raw = False
             if arguments.write_name:
-                name = arguments.write_name
-                value = arguments.write_value
-                event = arguments.write_event
-        elif arguments.command == "writeraw":
-            raw = True
-            if arguments.write_id:
+                controller.write(name=arguments.write_name,
+                        value=arguments.write_value,
+                        event=arguments.write_event)
+            elif arguments.write_id:
                 if not arguments.write_data:
                     sys.exit("%s requires an id and data" % arguments.command)
-                name = arguments.write_id
-                value = arguments.write_data
-                event = None
-
-        if name:
-            write(controller, name, value, event, raw)
-        elif arguments.write_input_file:
-            write_file(controller, arguments.write_input_file, raw=raw)
-        else:
-            sys.exit("%s requires a name or filename" % arguments.command)
+                # TODO add bus
+                controller.write(id=arguments.write_id,
+                        data=arguments.write_data)
+            elif arguments.write_input_file:
+                write_file(controller, arguments.write_input_file)
+            else:
+                sys.exit("%s requires a signal name, message ID or filename" % arguments.command)
     else:
         print("Unrecognized command \"%s\"" % arguments.command)

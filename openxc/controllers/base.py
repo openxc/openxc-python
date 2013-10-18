@@ -13,12 +13,12 @@ class Controller(object):
     ``reset`` methods.
     """
 
-    def write(self, raw=False, **kwargs):
-        if raw:
+    def write(self, **kwargs):
+        if 'id' in kwargs and 'data' in kwargs:
             result = self.write_raw(kwargs['id'], kwargs['data'])
         else:
             result = self.write_translated(kwargs['name'], kwargs['value'],
-                    kwargs['event'])
+                    kwargs.get('event', None))
         return result
 
     def write_translated(self, name, value, event):
@@ -74,17 +74,18 @@ class Controller(object):
         """Convert string values from command-line arguments into first-order
         Python boolean and float objects, if applicable.
         """
-        if value == "true":
-            value = True
-        elif value == "false":
-            value = False
-        elif value[0] == '"' and value[-1] == '"':
-            value = value[1:-1]
-        else:
-            try:
-                value = float(value)
-            except ValueError:
-                pass
+        if not isinstance(value, numbers.Number):
+            if value == "true":
+                value = True
+            elif value == "false":
+                value = False
+            elif value[0] == '"' and value[-1] == '"':
+                value = value[1:-1]
+            else:
+                try:
+                    value = float(value)
+                except ValueError:
+                    pass
         return value
 
 
