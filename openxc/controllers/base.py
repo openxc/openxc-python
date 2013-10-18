@@ -15,7 +15,8 @@ class Controller(object):
 
     def write(self, **kwargs):
         if 'id' in kwargs and 'data' in kwargs:
-            result = self.write_raw(kwargs['id'], kwargs['data'])
+            result = self.write_raw(kwargs['id'], kwargs['data'],
+                    bus=kwargs.get('bus', None))
         else:
             result = self.write_translated(kwargs['name'], kwargs['value'],
                     kwargs.get('event', None))
@@ -36,7 +37,7 @@ class Controller(object):
         assert bytes_written == len(message) + 1
         return bytes_written
 
-    def write_raw(self, message_id, data):
+    def write_raw(self, message_id, data, bus=None):
         """Format the given CAN ID and data into a JSON message
         and write it out to the controller interface as bytes, ending with a
         \0 character.
@@ -49,8 +50,10 @@ class Controller(object):
                 message_id = int(message_id, 0)
             except ValueError:
                 raise ValueError("ID must be numerical")
-
-        message = JsonFormatter.serialize({'id': message_id, 'data': data})
+        data = {'id': message_id, 'data': data}
+        if bus is not None:
+            data['bus'] = bus
+        message = JsonFormatter.serialize(data)
         bytes_written = self.write_bytes(message + "\x00")
         assert bytes_written == len(message) + 1
         return bytes_written

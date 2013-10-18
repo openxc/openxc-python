@@ -67,6 +67,8 @@ def parse_options():
     write_group = parser.add_mutually_exclusive_group()
     write_group.add_argument("--name", action="store", dest="write_name",
             help="name for message write request")
+    write_group.add_argument("--bus", action="store", dest="write_bus",
+            help="bus number for raw message write request")
     write_group.add_argument("--id", action="store", dest="write_id",
             help="ID for raw message write request")
     parser.add_argument("--value", action="store", dest="write_value",
@@ -102,8 +104,8 @@ def main():
             elif arguments.write_id:
                 if not arguments.write_data:
                     sys.exit("%s requires an id and data" % arguments.command)
-                # TODO add bus
-                controller.write(id=arguments.write_id,
+                controller.write(bus=arguments.bus,
+                        id=arguments.write_id,
                         data=arguments.write_data)
             elif arguments.write_input_file:
                 write_file(controller, arguments.write_input_file)
