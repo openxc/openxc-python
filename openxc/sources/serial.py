@@ -40,7 +40,7 @@ class SerialDataSource(BytestreamDataSource):
 
         try:
             self.device = serial.Serial(port, baudrate, rtscts=True)
-        except serial.SerialException as e:
+        except (OSError, serial.SerialException) as e:
             raise DataSourceError("Unable to open serial device at port "
                     "%s: %s" % (port, e))
         else:
