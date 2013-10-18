@@ -77,9 +77,10 @@ def parse_options():
             help="optional event for message write request")
     parser.add_argument("--data", action="store", dest="write_data",
             help="data for raw message write request")
-    write_group.add_argument("-f", "--file", action="store",
+    write_group.add_argument("-f", "--write-input-file", action="store",
             dest="write_input_file",
-            help="path to a file with a list of message requests")
+            help="the path to a file with a list of raw or translated "
+                    "messages to write to the selected vehicle interface")
 
     return parser.parse_args()
 

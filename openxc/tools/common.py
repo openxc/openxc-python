@@ -14,7 +14,8 @@ def device_options():
     device_group.add_argument("--serial", action="store_true",
             dest="use_serial",
             help="use a serial-connected CAN translator as the data source")
-    device_group.add_argument("--trace", action="store", dest="trace_file")
+    device_group.add_argument("--trace", action="store", dest="trace_file",
+            help="use a pre-recorded OpenXC JSON trace file as the data source")
     parser.add_argument("--usb-vendor",
             action="store",
             dest="usb_vendor",
