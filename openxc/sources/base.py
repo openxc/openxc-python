@@ -2,6 +2,7 @@
 import threading
 import logging
 import google.protobuf.message
+import string
 from google.protobuf.internal.decoder import _DecodeVarint
 
 from openxc import openxc_pb2
@@ -191,12 +192,10 @@ class BytestreamDataSource(DataSource):
         if not isinstance(message_buffer, bytes):
             message_buffer = message_buffer.encode("utf-8")
 
-        try:
-            message_buffer.decode('ascii')
-        except UnicodeDecodeError:
-            return self._parse_protobuf_message(message_buffer)
-        else:
+        if all((char in string.printable for char in message_buffer)):
             return self._parse_json_message(message_buffer)
+        else:
+            return self._parse_protobuf_message(message_buffer)
 
 class DataSourceError(Exception):
     pass
