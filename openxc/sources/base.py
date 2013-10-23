@@ -94,21 +94,33 @@ class BytestreamDataSource(DataSource):
                 parsed_message['id'] = message.raw_message.message_id
             if message.raw_message.HasField('data'):
                 parsed_message['data'] = "0x%x" % message.raw_message.data
-        elif message.type == message.TRANSLATED and message.HasField('translated_message'):
-            parsed_message['name'] = message.translated_message.name
-            if message.translated_message.HasField('numerical_value'):
-                parsed_message['value'] = message.translated_message.numerical_value
-            elif message.translated_message.HasField('boolean_value'):
-                parsed_message['value'] = message.translated_message.boolean_value
-            elif message.translated_message.HasField('string_value'):
-                parsed_message['value'] = message.translated_message.string_value
-
-            if message.translated_message.HasField('numerical_event'):
-                parsed_message['event'] = message.translated_message.numerical_event
-            elif message.translated_message.HasField('boolean_event'):
-                parsed_message['event'] = message.translated_message.boolean_event
-            elif message.translated_message.HasField('string_event'):
-                parsed_message['event'] = message.translated_message.string_event
+        elif message.type == message.NUM and message.HasField(
+                'numeric_message'):
+            parsed_message['name'] = message.numeric_message.name
+            parsed_message['value'] = message.numeric_message.value
+        elif message.type == message.BOOL and message.HasField(
+                'boolean_message'):
+            parsed_message['name'] = message.boolean_message.name
+            parsed_message['value'] = message.boolean_message.value
+        elif message.type == message.STRING and message.HasField(
+                'string_message'):
+            parsed_message['name'] = message.string_message.name
+            parsed_message['value'] = message.string_message.value
+        elif message.type == message.EVENTED_NUM and message.HasField(
+                'evented_numeric_message'):
+            parsed_message['name'] = message.evented_numeric_message.name
+            parsed_message['value'] = message.evented_numeric_message.value
+            parsed_message['event'] = message.evented_numeric_message.event
+        elif message.type == message.EVENTED_STRING and message.HasField(
+                'evented_string_message'):
+            parsed_message['name'] = message.evented_string_message.name
+            parsed_message['value'] = message.evented_string_message.value
+            parsed_message['event'] = message.evented_string_message.event
+        elif message.type == message.EVENTED_BOOL and message.HasField(
+                'evented_boolean_message'):
+            parsed_message['name'] = message.evented_boolean_message.name
+            parsed_message['value'] = message.evented_boolean_message.value
+            parsed_message['event'] = message.evented_boolean_message.event
         else:
             parsed_message = None
         return parsed_message
@@ -148,7 +160,8 @@ class BytestreamDataSource(DataSource):
             if message_start + message_length >= len(message_buffer):
                 break
 
-            message_data = message_buffer[message_start:message_start + message_length]
+            message_data = message_buffer[message_start:message_start +
+                    message_length]
             remainder = message_buffer[message_start + message_length:]
 
             message = openxc_pb2.VehicleMessage()
