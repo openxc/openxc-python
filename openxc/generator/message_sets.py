@@ -218,7 +218,7 @@ class JsonMessageSet(MessageSet):
                 database_filename, database_tree = self._parse_database(
                                 find_file(mapping['database'], search_paths))
                 messages = merge(merge_database_into_mapping(database_filename,
-                    database_tree, messages)['messages'], messages)
+                    database_tree, messages).get('messages', {}), messages)
                 if mapping.get('bit_numbering_inverted', None) is None:
                     LOG.warning("The bit number inversion setting is undefined "
                             "for the mapping '%s', but it " % mapping['mapping'] +
