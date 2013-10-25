@@ -7,14 +7,14 @@ About
 
 .. include:: ../README.rst
 
-This Python package works with Python 2.6 and 2.7. Unfortunately we had to drop support
-for Python 3 when we added the protobuf library as a dependency.
+This Python package works with Python 2.6 and 2.7. Unfortunately we had to drop
+support for Python 3 when we added the protobuf library as a dependency.
 
 Installation
 ============
 
-You can install OpenXC either via the Python Package Index (PyPI) or from
-source. You will also need to install a :ref:`USB backend <usb>`.
+You can install the OpenXC library from the Python Package Index (PyPI) with
+``easy_install`` or ``pip`` at the command line:
 
 To install using ``pip``:
 
@@ -22,21 +22,25 @@ To install using ``pip``:
 
     $ [sudo] pip install -U openxc
 
-If you are using Cygwin, install the ``python`` and ``python-setuptools``
-packages and then you can run:
+If you are using Cygwin in Windows, select the ``python`` and
+``python-setuptools`` packages from the Cygwin installer and then use
+``easy_install`` to grab the OpenXC library:
 
 .. code-block:: sh
 
     $ [sudo] easy_install -U openxc
+
+If you plan to connect to a vehicle interface via USB, you will also need to
+install a :ref:`USB backend <usb>`.
 
 .. _usb:
 
 USB Backend
 -------------
 
-If you intend to use the library to connect to a CAN translator via USB, you
+If you intend to use the library to connect to a vehicle interface via USB, you
 must also install a native USB backend - ``libusb-1.0`` is the recommended
-library (`libusb-win32` on Cygwin, **not** `libusb`).
+library (it's called ``libusb-win32`` on Cygwin - **don't install** ``libusb``).
 
 - **Mac OS X**
 
@@ -63,54 +67,25 @@ library (`libusb-win32` on Cygwin, **not** `libusb`).
     Install ``libusb-win32`` from the Cygwin ``setup.exe`` and the USB driver
     from the `vi-firmware repository`_. If you get the error ``Skipping USB
     device: [Errno 88] Operation not supported or unimplemented on this
-    platform`` make sure you **do not** have the ``libusb`` package installed as
-    well - that one is explicitly not compatible.
+    platform`` when you run any of the OpenXC Python tools, make sure you **do
+    not** have the ``libusb`` package installed as well - that one is explicitly
+    not compatible.
 
 .. _`vi-firmware repository`: https://github.com/openxc/vi-firmware/tree/master/conf/windows-driver
-
-Serial Backend
---------------
-
-If you intend to use the library with Python 3 and you want to connect to a CAN
-translator via a USB-Serial or other UART connection, you must install the
-``pyserial`` Python library manually. There is an `outstanding bug
-<https://github.com/openxc/openxc-python/issues/1`_ in the ``pyserial`` library
-that blocks installation as a dependency in Python 3. It works fine if you
-install it manually:
-
-.. code-block:: sh
-
-    $ [sudo] pip install pyserial
-
-Downloading and installing from source
---------------------------------------
-
-Download the latest version of the OpenXC Python library from
-http://pypi.python.org/pypi/openxc/
-
-You can install it by doing the following
-
-.. code-block:: sh
-
-    $ tar xvfz openxc-0.0.0.tar.gz
-    $ cd openxc-0.0.0
-    $ python setup.py build
-    # python setup.py install
-
-The last command must be executed as a privileged user if you are not currently
-using a virtualenv.
 
 Using the development version
 -----------------------------
 
-You can clone the repository by doing the following
+You can clone the repository and install the development version like so:
 
 .. code-block:: sh
 
     $ git clone https://github.com/openxc/openxc-python
     $ cd openxc-python
-    $ python setup.py develop
+    $ pip install -e .
 
+Any time you update the clone if the Git repository, all of the Python tools
+will be updated too.
 
 Documentation
 =============
