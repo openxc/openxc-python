@@ -311,25 +311,27 @@ class CodeGenerator(object):
                 lines.append(" " * 8 + "case %s:" % bus.controller)
                 lines.append(" " * 12 + "switch (id) {")
                 for message in bus.active_messages():
-                    lines.append(" " * 12 + "case 0x%x: // %s" % (message.id,
-                            message.name))
-                    for handler in message.handlers:
-                        lines.append(" " * 16 + "%s(id, data, SIGNALS[%d], " % (
-                            handler, message_set.index) +
-                                "getSignalCount(), pipeline);")
-                    for signal in sorted((s for s in message.signals.values()),
-                            key=operator.attrgetter('generic_name')):
-                        if not signal.enabled or signal.ignore:
-                            continue
-                        line = " " * 16
-                        line += ("can::read::translateSignal(pipeline, "
-                                    "&SIGNALS[%d][%d], data, " %
-                                    (message_set.index, signal.array_index))
-                        if signal.handler:
-                            line += "&%s, " % signal.handler
-                        line += ("SIGNALS[%d], getSignalCount()); // %s" % (
-                            message_set.index, signal.name))
-                        lines.append(line)
+                    if (len(list(message.active_signals())) > 0 and
+                            len(message.handlers) > 0):
+                        lines.append(" " * 12 + "case 0x%x: // %s" % (message.id,
+                                message.name))
+                        for handler in message.handlers:
+                            lines.append(" " * 16 + "%s(id, data, SIGNALS[%d], " % (
+                                handler, message_set.index) +
+                                    "getSignalCount(), pipeline);")
+                        for signal in sorted((s for s in message.signals.values()),
+                                key=operator.attrgetter('generic_name')):
+                            if not signal.enabled or signal.ignore:
+                                continue
+                            line = " " * 16
+                            line += ("can::read::translateSignal(pipeline, "
+                                        "&SIGNALS[%d][%d], data, " %
+                                        (message_set.index, signal.array_index))
+                            if signal.handler:
+                                line += "&%s, " % signal.handler
+                            line += ("SIGNALS[%d], getSignalCount()); // %s" % (
+                                message_set.index, signal.name))
+                            lines.append(line)
                     lines.append("                break;")
                 lines.append("            }")
                 if (len(list(bus.active_messages())) == 0 or
