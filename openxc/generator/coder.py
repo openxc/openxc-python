@@ -334,8 +334,7 @@ class CodeGenerator(object):
                             lines.append(line)
                     lines.append("                break;")
                 lines.append("            }")
-                if (len(list(bus.active_messages())) == 0 or
-                        bus.raw_can_mode != "off"):
+                if bus.raw_can_mode != "off":
                     lines.append(" " * 12 + "openxc::can::read::passthroughMessage("
                             "bus, id, data, getMessages(), getMessageCount(), pipeline);")
                 lines.append("            break;")

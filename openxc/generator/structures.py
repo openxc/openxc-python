@@ -117,10 +117,14 @@ class Message(object):
         return True
 
     def sorted_signals(self):
-        for signal in sorted(self.signals.values(),
+        for signal in sorted(self.active_signals(),
                 key=operator.attrgetter('generic_name')):
             yield signal
 
+    def active_signals(self):
+        for signal in self.signals.values():
+            if signal.enabled:
+                yield signal
 
     def to_dict(self):
         return {"name": self.name,
@@ -176,6 +180,11 @@ class CanBus(object):
         for message in self.sorted_messages():
             if message.enabled:
                 yield message
+
+    def active_signals(self):
+        for message in self.active_messages():
+            for signal in message.active_signals():
+                yield signal
 
     def sorted_messages(self):
         for message in sorted(self.messages.values(),
