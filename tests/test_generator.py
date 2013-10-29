@@ -23,7 +23,7 @@ class CodeGeneratorTests(unittest.TestCase):
 
     def _validate(self, filename):
         message_set, output = self._generate(filename)
-        for signal in message_set.active_signals():
+        for signal in message_set.enabled_signals():
             ok_(signal.generic_name in output)
 
         for message in message_set.active_messages():
@@ -32,7 +32,7 @@ class CodeGeneratorTests(unittest.TestCase):
 
     def test_ignore_flag(self):
         message_set, output = self._generate('signals.json.example')
-        for signal in message_set.active_signals():
+        for signal in message_set.enabled_signals():
             if signal.ignore:
                 eq_(output.count(signal.name), 1)
 

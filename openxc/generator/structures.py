@@ -33,6 +33,11 @@ class Message(object):
         self.signals = defaultdict(Signal)
 
     @property
+    def active(self):
+        return self.enabled and (len(list(self.enabled_signals())) > 0
+                or len(self.handlers) > 0)
+
+    @property
     def id(self):
         return getattr(self, '_id', None)
 
@@ -117,13 +122,21 @@ class Message(object):
         return True
 
     def sorted_signals(self):
-        for signal in sorted(self.active_signals(),
+        for signal in sorted(self.enabled_signals(),
                 key=operator.attrgetter('generic_name')):
             yield signal
 
-    def active_signals(self):
+    def enabled_signals(self):
         for signal in self.signals.values():
             if signal.enabled:
+                yield signal
+
+    def active_signals(self):
+        """An active signal is one that's enabled and not ignored, i.e. it
+        should be translated.
+        """
+        for signal in self.sorted_signals():
+            if not signal.ignore:
                 yield signal
 
     def to_dict(self):
@@ -178,12 +191,12 @@ class CanBus(object):
 
     def active_messages(self):
         for message in self.sorted_messages():
-            if message.enabled:
+            if message.active:
                 yield message
 
-    def active_signals(self):
+    def enabled_signals(self):
         for message in self.active_messages():
-            for signal in message.active_signals():
+            for signal in message.enabled_signals():
                 yield signal
 
     def sorted_messages(self):

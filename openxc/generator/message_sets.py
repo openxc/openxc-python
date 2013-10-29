@@ -31,7 +31,7 @@ class MessageSet(object):
 
     def active_messages(self):
         for message in self.all_messages():
-            if message.enabled:
+            if message.active:
                 yield message
 
     def all_messages(self):
@@ -39,7 +39,7 @@ class MessageSet(object):
             for message in bus.sorted_messages():
                 yield message
 
-    def active_signals(self):
+    def enabled_signals(self):
         for signal in self.all_signals():
             if signal.enabled:
                 yield signal
@@ -65,7 +65,7 @@ class MessageSet(object):
         valid = True
         for message in self.active_messages():
             valid = valid and message.validate()
-        for signal in self.active_signals():
+        for signal in self.enabled_signals():
             valid = valid and signal.validate()
         return valid
 
