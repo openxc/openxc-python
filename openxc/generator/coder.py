@@ -311,7 +311,7 @@ class CodeGenerator(object):
                 lines.append(" " * 8 + "case %s:" % bus.controller)
                 lines.append(" " * 12 + "switch (id) {")
                 for message in bus.active_messages():
-                    if (len(list(message.active_signals())) > 0 and
+                    if (len(list(message.active_signals())) > 0 or
                             len(message.handlers) > 0):
                         lines.append(" " * 12 + "case 0x%x: // %s" % (message.id,
                                 message.name))
