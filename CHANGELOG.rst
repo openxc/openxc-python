@@ -1,11 +1,15 @@
 OpenXC Python Library Changelog
 ===============================
 
-v0.9.6-dev
+v0.10
 ----------
 
+* Dropped support for Python 3 - needed to add protobuf dependency, which
+  doesn't work with Python 3 yet.
 * Significant speedup in VI firmware code generation with simple parsed XML
   caching
+* Parse binary output payload from a vehicle interface (experimental)
+* Small bug fixes and efficiency improvements with code generation.
 
 v0.9.5
 ----------
