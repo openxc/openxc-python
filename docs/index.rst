@@ -110,6 +110,8 @@ firmware <http://vi-firmware.openxcplatform.com>`_ (previous a part of the
     :maxdepth: 2
 
     code-generation
+    config-examples
+    config-write-examples
 
 Tools
 ------

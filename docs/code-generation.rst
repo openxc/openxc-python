@@ -97,13 +97,6 @@ quickly).
 
 ``speed`` - The CAN bus speed in Kbps, most often 125000 or 500000.
 
-``max_message_frequency`` - The default maximum frequency for all CAN messages
-when using the raw passthrough mode. To put no limit on the frequency, set this
-to 0 or leave it out. If this attribute is set on a CAN bus object, it will
-override any default set at the message set level. This value cascades to all
-CAN message objects for their ``max_frequency`` attribute, which can also be
-overridden at the message level.
-
 ``raw_can_mode`` - Controls sending raw CAN messages (encoded as JSON objects)
 from the bus over the output channel. Valid modes are ``off`` (the default if
 you don't specify this attribute), ``filtered`` (if messages are defined for the
@@ -112,6 +105,19 @@ bus, will enable CAN filters and only transmit those messages), or
 If this attribute is set on a CAN bus object, it will override any default set
 at the message set level (e.g. you can have all buses configured to send
 ``filtered`` raw CAN messages, but override one to send ``unfiltered``).
+
+``max_message_frequency`` - The default maximum frequency for all CAN messages
+when using the raw passthrough mode. To put no limit on the frequency, set this
+to 0 or leave it out. If this attribute is set on a CAN bus object, it will
+override any default set at the message set level. This value cascades to all
+CAN message objects for their ``max_frequency`` attribute, which can also be
+overridden at the message level.
+
+``force_send_changed`` - (default: ``true``) Meant to be used in conjunction
+with ``max_message_frequency``, if this is true a raw CAN message will be sent
+regardless of the given frequency if the value has changed (when using raw CAN
+passthrough). Setting the value here, on the CAN bus object, will cascade down
+to all CAN messages unless overridden.
 
 .. _messages:
 
