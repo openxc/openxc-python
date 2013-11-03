@@ -1,4 +1,4 @@
-=======================================
+======================================
 Vehicle Interface (VI) Code Generation
 =======================================
 
@@ -13,6 +13,11 @@ a JSON object like the one found in `signals.json.example
 You must know the CAN message formats of the vehicle you want to use with the
 vehicle interface, as you cannot create these input files without that
 knowledge.
+
+There are many configuration options - we recommend looking for your use case in
+the list of :doc:`read <config-examples>` or :doc:`write
+<config-write-examples>` to find a starting point, and refer to this section as
+a reference on particular configuration options.
 
 The root level JSON object maps CAN bus addresses to CAN bus objects,  CAN
 message IDs to CAN message objects in each bus, and CAN signal name to signal
