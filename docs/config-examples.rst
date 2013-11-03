@@ -376,6 +376,8 @@ state change before knowing any values. For that reason, we've moved away from
 using this for most firmware (using a combination of a ``max_frequency`` of 1Hz
 and ``force_send_changed == true``) but the option is still available.
 
+.. _custom-transformed:
+
 Custom Transformed Numeric Signal
 =================================
 
@@ -614,8 +616,8 @@ In ``my_handlers.cpp``:
      * minutes and fractional minutes) into 1 output message: latitude in
      * degrees with with decimal precision.
      *
-     * The following signals must be defined in the signal array, and they must all
-     * be contained in the same CAN message:
+     * The following signals must be defined in the signal array, and they must
+     * all be contained in the same CAN message:
      *
      *      * latitude_degrees
      *      * latitude_minutes
