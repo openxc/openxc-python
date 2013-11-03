@@ -19,8 +19,8 @@ bus, so you are strongly encouraged to read, understand and try the
 
 .. _translated-write:
 
-Translated Written Signal
-==========================
+Translated Numeric Signal Write Request
+=======================================
 
 We want to send a single numeric value to the VI, and have it translated back
 into a CAN signal in a message on a high speed bus attached to controller 1. The
@@ -55,6 +55,90 @@ with the addition of the ``writable`` flag to the signal. When this flag is
 true, an OpenXC message sent back to the VI from an app with the name
 ``my_openxc_measurement`` will be translated to a CAN signal in a new message
 and written to the bus.
+
+Translated Boolean Signal Write Request
+=======================================
+
+We want to send a single boolean value to the VI, and have it translated back
+into a CAN signal in a message on a high speed bus attached to controller 1. The
+signal is 1 bits wide, starting from bit 3 in message ID ``0x201``. We want the
+name of the signal that will be sent to the VI to be ``my_boolean_request``.
+
+.. code-block:: sh
+
+   {   "buses": {
+           "hs": {
+               "controller": 1,
+               "speed": 500000
+           }
+       },
+       "messages": {
+           "0x102": {
+               "bus": "hs",
+               "signals": {
+                   "My_Signal": {
+                       "generic_name": "my_boolean_request",
+                       "bit_position": 3,
+                       "bit_size": 1,
+                       "writable": true,
+                       "write_handler": "booleanWriter"
+                   }
+               }
+           }
+       }
+   }
+
+In addition to setting ``writable`` to true, We set the ``write_handler`` for
+the signal to the built-in ``booleanWriter``. This will handle converting a
+``true`` or ``false`` value from the user back to a 1 or 0 in the outgoing CAN
+message.
+
+Translated State-based Signal Write Request
+===========================================
+
+We want to send a state as a string to the VI, and have it translated back into
+a numeric CAN signal in a message on a high speed bus attached to controller 1.
+As in :ref:`state-based`, the signal is 3 bits wide, starting from bit 28 in
+message ID ``0x104``. We want the name of the signal for OpenXC app developers
+to be ``active_state``. There are 6 valid states from 0-5 in the CAN signal, but
+we want the app developer to send the strings ``a`` through ``f`` to the VI.
+
+.. code-block:: sh
+
+   {   "buses": {
+           "hs": {
+               "controller": 1,
+               "speed": 500000
+           }
+       },
+       "messages": {
+           "0x102": {
+               "bus": "hs",
+               "signals": {
+                   "My_Signal": {
+                       "generic_name": "my_state_request",
+                       "bit_position": 28,
+                       "bit_size": 3,
+                       "states": {
+                           "a": [0],
+                           "b": [1],
+                           "c": [2],
+                           "d": [3],
+                           "e": [4],
+                           "f": [5]
+                       },
+                       "writable": true
+                   }
+               }
+           }
+       }
+   }
+
+The ``writable`` field is all that is required - the signal will be
+automatically configured to use the built-in ``stateWriter`` as its
+``write_handler`` because the signal has a ``states`` array. If a user sends the
+VI the value ``c`` in a write request with the name ``my_state_request``, it
+will be encoded as ``2`` in the CAN signal in the outgoing message.
 
 Translated, Transformed Written Signal
 =======================================
