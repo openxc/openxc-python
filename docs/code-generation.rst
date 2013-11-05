@@ -111,6 +111,12 @@ If this attribute is set on a CAN bus object, it will override any default set
 at the message set level (e.g. you can have all buses configured to send
 ``filtered`` raw CAN messages, but override one to send ``unfiltered``).
 
+``raw_writable`` - Controls whether or not raw CAN messages from the user can be
+written back to this bus, without any sort of translation. This is false by
+default. Even when this is false, messages may still be written to the bus if a
+signal is configured as ``writable``, but they will translated from the user's
+input first.
+
 ``max_message_frequency`` - The default maximum frequency for all CAN messages
 when using the raw passthrough mode. To put no limit on the frequency, set this
 to 0 or leave it out. If this attribute is set on a CAN bus object, it will
