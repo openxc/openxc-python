@@ -1,5 +1,5 @@
 ===============================================
-openxc - Python Library for the OpenXC Platform
+OpenXC for Python
 ===============================================
 
 .. image:: /_static/logo.png

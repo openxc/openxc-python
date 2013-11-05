@@ -41,7 +41,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'OpenXC for Python'
-copyright = u'2012, Christopher Peplin'
+copyright = u'2013, Ford Motor Company'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the

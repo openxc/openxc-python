@@ -2,6 +2,11 @@
 Vehicle Interface (VI) Code Generation
 =======================================
 
+For information on the code generation tools for the `OpenXC vehicle interface
+firmware <http://vi-firmware.openxcplatform.com>`_ (previous a part of the
+`vi-firmware <https://github.com/openxc/vi-firmware>`_ repository), see the
+:doc:`code generation documentation <code-generation>`.
+
 The code generation utilities in the OpenXC Python library are intended to
 generate a valid ``signals.cpp`` file for the `OpenXC vehicle interface firmware
 <http://vi-firmware.openxcplatform.com>`_. Instead of implementing all of the
@@ -36,6 +41,12 @@ Once you've defined your message set in a JSON file, run the
 .. code-block:: sh
 
     vi-firmware/ $ openxc-generate-firmware-code --message-set mycar.json > src/signals.cpp
+
+.. toctree::
+    :maxdepth: 1
+
+    config-examples
+    config-write-examples
 
 Message Set
 ============
