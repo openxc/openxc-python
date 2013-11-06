@@ -1,6 +1,11 @@
 OpenXC Python Library Changelog
 ===============================
 
+v0.10.1
+----------
+
+* Rename and supported 'raw_writable' flag on CAN bus in VI configuration.
+
 v0.10
 ----------
 
