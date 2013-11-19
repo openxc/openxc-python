@@ -84,11 +84,9 @@ class MessageSet(object):
         return self.buses.get(bus_name, None)
 
     def lookup_bus_index(self, bus_name):
-        bus = self.lookup_bus(bus_name)
-        if bus and bus.controller is not None:
-            for index, candidate_bus_address in enumerate(CanBus.VALID_BUS_ADDRESSES):
-                if candidate_bus_address == bus.controller:
-                    return index
+        for index, bus in enumerate(self.valid_buses()):
+            if bus_name == bus.name:
+                return index
         return None
 
     def _message_count(self):
