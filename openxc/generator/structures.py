@@ -273,8 +273,7 @@ class Signal(object):
                 self.force_send_changed)
         self.ignore = data.get('ignore', self.ignore)
         self.max_frequency = data.get('max_frequency', self.max_frequency)
-        self.bit_numbering_inverted = data.get('bit_numbering_inverted',
-                self.bit_numbering_inverted)
+        self.bit_numbering_inverted = data.get('bit_numbering_inverted')
 
         if 'send_frequency' in data:
             LOG.warning("The 'send_frequency' attribute in the signal " +
@@ -364,9 +363,8 @@ class Signal(object):
 
     @property
     def bit_position(self):
-        if (getattr(self, '_bit_position', None) is not None and getattr(
-                self.message, 'bit_numbering_inverted', False) and
-                self.bit_numbering_inverted in [None, True]):
+        if (getattr(self, '_bit_position', None) is not None and
+                self.bit_numbering_inverted):
             return self._invert_bit_index(self._bit_position, self.bit_size)
         else:
             return self._bit_position
@@ -374,6 +372,17 @@ class Signal(object):
     @bit_position.setter
     def bit_position(self, value):
         self._bit_position = value
+
+    @property
+    def bit_numbering_inverted(self):
+        if getattr(self, '_bit_numbering_inverted', None) is None:
+            return getattr(self.message, 'bit_numbering_inverted', False)
+        return self._bit_numbering_inverted
+
+    @bit_numbering_inverted.setter
+    def bit_numbering_inverted(self, value):
+        if value != None:
+            self._bit_numbering_inverted = value
 
     @classmethod
     def _invert_bit_index(cls, bit_index, length):
@@ -383,7 +392,7 @@ class Signal(object):
         if inverted_index < 0:
             raise BitInversionError("Bit index %d with length %d cannot be " %
                         (bit_index, length) +
-                    "inverted - you probably have need the "
+                    "inverted - you probably need to disable the "
                     "'bit_numbering_inverted' flag in your JSON mapping")
         return inverted_index
 

@@ -71,7 +71,12 @@
                     "generic_name": "steering_wheel_angle_error",
                     "bit_position": 44,
                     "bit_size": 12
-                }
+                },
+                "SomethingInvertedForcefully": {
+                    "generic_name": "inverted",
+                    "bit_numbering_inverted": true,
+                    "bit_position": 12,
+                    "bit_size": 8}
             },
             "handlers": ["handleSteeringWheelMessage"]
         },
@@ -92,6 +97,18 @@
         "0x200": {
             "name": "MessageOnMS",
             "bus": "ms"
+        },
+        "0x202": {
+            "name": "InvertedMessage",
+            "bus": "hs",
+            "bit_numbering_inverted": true,
+            "signals": {
+                "InvertedOnMessage": {
+                    "generic_name": "inverted",
+                    "bit_position": 12,
+                    "bit_size": 8
+                }
+            }
         },
         "0x121": {
             "name": "Cluster",

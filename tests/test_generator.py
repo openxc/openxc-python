@@ -160,5 +160,28 @@ class CodeGeneratorTests(unittest.TestCase):
 
     def test_bit_numbering_default(self):
         message_set, output = self._generate('signals.json.example')
+        message = [message for message in message_set.all_messages()
+                if message.id == 0x128][0]
+        signal = message.signals['StrAnglErr']
+        ok_(not signal.bit_numbering_inverted)
+        ok_(signal.bit_position == 44)
+
         for message in message_set.all_messages():
-            ok_(not message.bit_numbering_inverted)
+            if message.id != 0x202:
+                ok_(not message.bit_numbering_inverted)
+
+    def test_bit_numbering_override(self):
+        message_set, output = self._generate('signals.json.example')
+        message = [message for message in message_set.all_messages()
+                if message.id == 0x128][0]
+        signal = message.signals['SomethingInvertedForcefully']
+        ok_(signal.bit_numbering_inverted)
+        ok_(signal.bit_position != 12)
+
+    def test_bit_numbering_on_message(self):
+        message_set, output = self._generate('signals.json.example')
+        message = [message for message in message_set.all_messages()
+                if message.id == 0x202][0]
+        signal = message.signals['InvertedOnMessage']
+        ok_(signal.bit_numbering_inverted)
+        ok_(signal.bit_position != 12)
