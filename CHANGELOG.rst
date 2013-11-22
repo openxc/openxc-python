@@ -1,8 +1,11 @@
 OpenXC Python Library Changelog
 ===============================
 
-v0.10.2-dev
+v0.10.2
 ----------
+
+* Fix bit_numbering_inverted flag override in code generation.
+* Fix using only 1 CAN bus with code generation.
 
 v0.10.1
 ----------
