@@ -41,6 +41,11 @@ class UsbControllerMixin(Controller):
                 self.VERSION_CONTROL_COMMAND, 0, 0, 100)
         return ''.join([chr(x) for x in raw_version])
 
+    def device_id(self):
+        raw_device_id = self.device.ctrl_transfer(0xC0,
+                self.DEVICE_ID_CONTROL_COMMAND, 0, 0, 20)
+        return ''.join([chr(x) for x in raw_device_id])
+
     def reset(self):
         self.device.ctrl_transfer(0x40, self.RESET_CONTROL_COMMAND, 0, 0)
 

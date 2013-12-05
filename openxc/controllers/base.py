@@ -9,8 +9,8 @@ from openxc.formats.json import JsonFormatter
 class Controller(object):
     """A Controller is a physical vehicle interface that accepts commands to be
     send back to the vehicle. This class is abstract, and implemtnations of the
-    interface must define at least the ``write_bytes``, ``version``, or
-    ``reset`` methods.
+    interface must define at least the ``write_bytes``, ``version``,
+    ``device_id``, or ``reset`` methods.
     """
 
     def write(self, **kwargs):
@@ -61,6 +61,11 @@ class Controller(object):
     def write_bytes(self, data):
         """Write the bytes in ``data`` out to the controller interface."""
         raise NotImplementedError("Don't use Controller directly")
+
+    def device_id(self):
+        """Request and return the ID of the vehicle interface."""
+        raise NotImplementedError("%s cannot be used with control commands" %
+                type(self).__name__)
 
     def version(self):
         """Request and return the version of the vehicle interface."""

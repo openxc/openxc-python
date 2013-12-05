@@ -18,6 +18,7 @@ class UsbDataSource(BytestreamDataSource):
 
     VERSION_CONTROL_COMMAND = 0x80
     RESET_CONTROL_COMMAND = 0x81
+    DEVICE_ID_CONTROL_COMMAND = 0x82
 
     def __init__(self, callback=None, vendor_id=None, product_id=None):
         """Initialize a connection to the USB device's IN endpoint.

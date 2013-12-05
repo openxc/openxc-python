@@ -18,11 +18,15 @@ from .common import device_options, configure_logging, select_device
 def version(controller):
     print("Device is running version %s" % controller.version())
 
+def device_id(controller):
+    print("Device ID is %s" % controller.device_id())
+
 
 def reset(controller):
     print("Resetting device...")
     controller.reset()
     version(controller)
+    device_id(controller)
 
 
 def write_file(controller, filename):
@@ -63,7 +67,7 @@ def parse_options():
     parser = argparse.ArgumentParser(description="Send control messages to an "
             "attached OpenXC CAN translator", parents=[device_options()])
     parser.add_argument("command", type=str,
-            choices=['version', 'reset', 'write'])
+            choices=['version', 'reset', 'write', 'id'])
     write_group = parser.add_mutually_exclusive_group()
     write_group.add_argument("--name", action="store", dest="write_name",
             help="name for message write request")
@@ -94,6 +98,8 @@ def main():
 
     if arguments.command == "version":
         version(controller)
+    elif arguments.command == "id":
+        device_id(controller)
     elif arguments.command == "reset":
         reset(controller)
     elif arguments.command.startswith("write"):
