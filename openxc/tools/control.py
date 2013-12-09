@@ -65,7 +65,7 @@ def write_file(controller, filename):
 
 def parse_options():
     parser = argparse.ArgumentParser(description="Send control messages to an "
-            "attached OpenXC CAN translator", parents=[device_options()])
+            "attached OpenXC vehicle interface", parents=[device_options()])
     parser.add_argument("command", type=str,
             choices=['version', 'reset', 'write', 'id'])
     write_group = parser.add_mutually_exclusive_group()

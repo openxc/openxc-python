@@ -11,39 +11,39 @@ def device_options():
     device_group = parser.add_mutually_exclusive_group()
     device_group.add_argument("--usb", action="store_true", dest="use_usb",
             default=True,
-            help="use a USB-connected CAN translator as the data source")
+            help="use a USB-connected vehicle interface as the data source")
     device_group.add_argument("--serial", action="store_true",
             dest="use_serial",
-            help="use a serial-connected CAN translator as the data source")
+            help="use a serial-connected vehicle interface as the data source")
     device_group.add_argument("--network", action="store_true",
             dest="use_network",
-            help="use a network-connected CAN translator as the data source")
+            help="use a network-connected vehicle interface as the data source")
     device_group.add_argument("--trace", action="store", dest="trace_file",
             help="use a pre-recorded OpenXC JSON trace file as the data source")
     parser.add_argument("--usb-vendor",
             action="store",
             dest="usb_vendor",
-            help="USB vendor ID for the CAN translator")
+            help="USB vendor ID for the vehicle interface")
     parser.add_argument("--usb-product",
             action="store",
             dest="usb_product",
-            help="USB product ID for the CAN translator")
+            help="USB product ID for the vehicle interface")
     parser.add_argument("--serial-port",
             action="store",
             dest="serial_port",
-            help="virutal COM port path for serial CAN translator")
+            help="virutal COM port path for serial vehicle interface")
     parser.add_argument("--serial-baudrate",
             action="store",
             dest="baudrate",
-            help="baudrate for serial-connected CAN translator")
+            help="baudrate for serial-connected vehicle interface")
     parser.add_argument("--network-host",
             action="store",
             dest="network_host",
-            help="host for networked CAN translator")
+            help="host for networked vehicle interface")
     parser.add_argument("--network-port",
             action="store",
             dest="network_port",
-            help="network port for networked CAN translator")
+            help="network port for networked vehicle interface")
     return parser
 
 
