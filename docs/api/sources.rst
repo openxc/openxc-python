@@ -17,3 +17,7 @@ Data Sources
 .. automodule:: openxc.sources.trace
     :members:
     :undoc-members:
+
+.. automodule:: openxc.sources.socket
+    :members:
+    :undoc-members:
