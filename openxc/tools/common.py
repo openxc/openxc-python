@@ -2,7 +2,8 @@ import argparse
 import logging
 
 from openxc.sources.trace import TraceDataSource
-from openxc.interface import SerialVehicleInterface, UsbVehicleInterface
+from openxc.interface import SerialVehicleInterface, UsbVehicleInterface, \
+        NetworkVehicleInterface
 
 
 def device_options():
@@ -14,6 +15,9 @@ def device_options():
     device_group.add_argument("--serial", action="store_true",
             dest="use_serial",
             help="use a serial-connected CAN translator as the data source")
+    device_group.add_argument("--network", action="store_true",
+            dest="use_network",
+            help="use a network-connected CAN translator as the data source")
     device_group.add_argument("--trace", action="store", dest="trace_file",
             help="use a pre-recorded OpenXC JSON trace file as the data source")
     parser.add_argument("--usb-vendor",
@@ -32,6 +36,14 @@ def device_options():
             action="store",
             dest="baudrate",
             help="baudrate for serial-connected CAN translator")
+    parser.add_argument("--network-host",
+            action="store",
+            dest="network_host",
+            help="host for networked CAN translator")
+    parser.add_argument("--network-port",
+            action="store",
+            dest="network_port",
+            help="network port for networked CAN translator")
     return parser
 
 
@@ -48,6 +60,10 @@ def select_device(arguments):
     elif arguments.trace_file:
         source_class = TraceDataSource
         source_kwargs = dict(filename=arguments.trace_file)
+    elif arguments.use_network:
+        source_class = NetworkVehicleInterface
+        source_kwargs = dict(host=arguments.network_host,
+                port=arguments.network_port)
     else:
         source_class = UsbVehicleInterface
         source_kwargs = dict(vendor_id=arguments.usb_vendor,

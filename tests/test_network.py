@@ -2,18 +2,18 @@ from nose.tools import eq_, ok_
 import unittest
 
 import openxc.measurements
-from openxc.sources import SocketDataSource
+from openxc.sources import NetworkDataSource
 from openxc.sources import DataSourceError
 
-class SocketDataSourceTests(unittest.TestCase):
+class NetworkDataSourceTests(unittest.TestCase):
     def setUp(self):
-        super(SocketDataSourceTests, self).setUp()
+        super(NetworkDataSourceTests, self).setUp()
 
     def test_create(self):
         def callback(message):
             pass
 
         try:
-            s = SocketDataSource(callback)
+            s = NetworkDataSource(callback)
         except DataSourceError as e:
             pass
