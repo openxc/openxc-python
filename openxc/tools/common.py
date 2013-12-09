@@ -31,7 +31,7 @@ def device_options():
     parser.add_argument("--serial-port",
             action="store",
             dest="serial_port",
-            help="virutal COM port path for serial vehicle interface")
+            help="virtual COM port path for serial vehicle interface")
     parser.add_argument("--serial-baudrate",
             action="store",
             dest="baudrate",
