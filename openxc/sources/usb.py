@@ -16,9 +16,14 @@ class UsbDataSource(BytestreamDataSource):
     DEFAULT_READ_REQUEST_SIZE = 512
     DEFAULT_READ_TIMEOUT = 1000000
 
+    DEFAULT_INTERFACE_NUMBER = 0
+    TRANSLATED_IN_ENDPOINT = 0x1
+    LOG_IN_ENDPOINT = 0x3
+
     VERSION_CONTROL_COMMAND = 0x80
     RESET_CONTROL_COMMAND = 0x81
     DEVICE_ID_CONTROL_COMMAND = 0x82
+
 
     def __init__(self, callback=None, vendor_id=None, product_id=None):
         """Initialize a connection to the USB device's IN endpoint.
@@ -67,8 +72,9 @@ class UsbDataSource(BytestreamDataSource):
             return ""
         else:
             try:
-                return self.in_endpoint.read(self.DEFAULT_READ_REQUEST_SIZE,
-                        timeout).tostring()
+                return self.device.read(0x80 + self.TRANSLATED_IN_ENDPOINT,
+                        self.DEFAULT_READ_REQUEST_SIZE,
+                        self.DEFAULT_INTERFACE_NUMBER, timeout).tostring()
             except usb.core.USBError as e:
                 raise DataSourceError("USB device couldn't be read", e)
 
