@@ -1,8 +1,12 @@
 """Abstract base interface for vehicle data sources."""
+from __future__ import print_function
+
 import threading
 import logging
 import google.protobuf.message
 import string
+import sys
+import datetime
 from google.protobuf.internal.decoder import _DecodeVarint
 
 from openxc import openxc_pb2
@@ -20,7 +24,7 @@ class DataSource(threading.Thread):
     A data source requires a callback method to be specified. Whenever new data
     is received, it will pass it to that callback.
     """
-    def __init__(self, callback=None):
+    def __init__(self, callback=None, log_mode=None):
         """Construct a new DataSource.
 
         By default, DataSource threads are marked as ``daemon`` threads, so they
@@ -33,8 +37,13 @@ class DataSource(threading.Thread):
         super(DataSource, self).__init__()
         self.callback = callback
         self.daemon = True
+        self.logger = SourceLogger(self, log_mode)
 
-    def _read(self, timeout=None):
+    def start(self):
+        self.logger.start()
+        super(DataSource, self).start()
+
+    def read(self, timeout=None):
         """Read data from the source.
 
         Kwargs:
@@ -43,18 +52,65 @@ class DataSource(threading.Thread):
         """
         raise NotImplementedError("Don't use DataSource directly")
 
+    def read_logs(self, timeout=None):
+        """Read log data from the source.
+
+        Kwargs:
+            timeout (float) - if the source implementation could potentially
+                block, timeout after this number of seconds.
+        """
+        raise NotImplementedError("Don't use DataSource directly")
+
+
+class SourceLogger(threading.Thread):
+    FILENAME_TEMPLATE = "%d-%m-%Y.%H-%M-%S"
+
+    def __init__(self, source, mode="off"):
+        super(SourceLogger, self).__init__()
+        self.daemon = True
+        self.source = source
+        self.mode = mode
+        self.file = None
+
+        if self.mode == "file":
+            filename = "openxc-logs-%s.txt" % datetime.datetime.now().strftime(
+                    self.FILENAME_TEMPLATE)
+            self.file = open(filename, 'wa')
+
+    def record(self, message):
+        if len(message) > 0:
+            if self.mode == "stderr":
+                print("LOG: %s" % message, file=sys.stderr, end='')
+            elif self.mode == "file" and self.file is not None:
+                self.file.write(message)
+
+    def run(self):
+        """Continuously read data from the source and attempt to parse a valid
+        message from the buffer of bytes. When a message is parsed, passes it
+        off to the callback if one is set.
+        """
+        while True:
+            try:
+                self.record(self.source.read_logs())
+            except DataSourceError as e:
+                LOG.warn("Can't read from data source -- stopping: %s", e)
+                break
+            except NotImplementedError as e:
+                LOG.info("%s doesn't support logging" % self)
+                break
+
 
 class BytestreamDataSource(DataSource):
     """A source that receives data is a series of bytes, with discrete messages
     separated by a newline character.
 
-    Subclasses of this class need only to implement the ``_read`` method.
+    Subclasses of this class need only to implement the ``read`` method.
     """
 
     MAX_PROTOBUF_MESSAGE_LENGTH = 200
 
-    def __init__(self, callback=None):
-        super(BytestreamDataSource, self).__init__(callback)
+    def __init__(self, callback=None, log_mode=None):
+        super(BytestreamDataSource, self).__init__(callback, log_mode)
         self.bytes_received = 0
         self.corrupted_messages = 0
 
@@ -66,7 +122,7 @@ class BytestreamDataSource(DataSource):
         message_buffer = b""
         while True:
             try:
-                message_buffer += self._read()
+                message_buffer += self.read()
             except DataSourceError as e:
                 LOG.warn("Can't read from data source -- stopping: %s", e)
                 break

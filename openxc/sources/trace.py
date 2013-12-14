@@ -15,7 +15,8 @@ class TraceDataSource(BytestreamDataSource):
     http://openxcplatform.com/android/testing.html.
     """
 
-    def __init__(self, callback=None, filename=None, realtime=True, loop=True):
+    def __init__(self, callback=None, filename=None, realtime=True, loop=True,
+            **kwargs):
         """Construct the source and attempt to open the trace file.
 
         Kwargs:
@@ -38,7 +39,7 @@ class TraceDataSource(BytestreamDataSource):
             starting_time = time.time()
 
             while True:
-                line = self._read()
+                line = self.read()
                 if line == '':
                     break
 
@@ -76,7 +77,7 @@ class TraceDataSource(BytestreamDataSource):
             LOG.debug("Storing %d as the first timestamp of the trace file %s",
                     self.first_timestamp, self.filename)
 
-    def _read(self):
+    def read(self):
         """Read a line of data from the input source at a time."""
         return self.trace_file.readline()
 

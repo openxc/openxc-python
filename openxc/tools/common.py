@@ -44,6 +44,12 @@ def device_options():
             action="store",
             dest="network_port",
             help="network port for networked vehicle interface")
+    parser.add_argument("--log-mode",
+            action="store",
+            default="off",
+            choices=["off", "stderr", "file"],
+            dest="log_mode",
+            help="record logs to a file or stderr, if available from the interface")
     return parser
 
 
@@ -69,4 +75,5 @@ def select_device(arguments):
         source_kwargs = dict(vendor_id=arguments.usb_vendor,
                 product_id=arguments.usb_product)
 
+    source_kwargs['log_mode'] = arguments.log_mode
     return source_class, source_kwargs

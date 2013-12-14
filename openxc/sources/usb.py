@@ -17,15 +17,16 @@ class UsbDataSource(BytestreamDataSource):
     DEFAULT_READ_TIMEOUT = 1000000
 
     DEFAULT_INTERFACE_NUMBER = 0
-    TRANSLATED_IN_ENDPOINT = 0x1
-    LOG_IN_ENDPOINT = 0x3
+    TRANSLATED_IN_ENDPOINT = 2
+    LOG_IN_ENDPOINT = 11
 
     VERSION_CONTROL_COMMAND = 0x80
     RESET_CONTROL_COMMAND = 0x81
     DEVICE_ID_CONTROL_COMMAND = 0x82
 
 
-    def __init__(self, callback=None, vendor_id=None, product_id=None):
+    def __init__(self, callback=None, vendor_id=None, product_id=None,
+            log_mode=None):
         """Initialize a connection to the USB device's IN endpoint.
 
         Kwargs:
@@ -37,11 +38,14 @@ class UsbDataSource(BytestreamDataSource):
                 ID we will attempt to connect to, if not using the OpenXC
                 hardware.
 
+            log_mode - optionally record or print logs from the USB device, which
+                are on a separate channel.
+
         Raises:
             DataSourceError if the USB device with the given vendor ID is not
             connected.
         """
-        super(UsbDataSource, self).__init__(callback)
+        super(UsbDataSource, self).__init__(callback, log_mode)
         if vendor_id is not None and not isinstance(vendor_id, int):
             vendor_id = int(vendor_id, 0)
         self.vendor_id = vendor_id or self.DEFAULT_VENDOR_ID
@@ -59,42 +63,22 @@ class UsbDataSource(BytestreamDataSource):
             except usb.core.USBError as e:
                 LOG.warn("Skipping USB device: %s", e)
             else:
-                self.in_endpoint = self._connect_in_endpoint(self.device)
                 return
 
         raise DataSourceError("Couldn't find a USB product 0x%x from vendor 0x%x"
                 % (self.product_id, self.vendor_id))
 
-    def _read(self, timeout=None):
+    def read(self, timeout=None):
+        return self._read(self.TRANSLATED_IN_ENDPOINT, timeout)
+
+    def read_logs(self, timeout=None):
+        return self._read(self.LOG_IN_ENDPOINT, timeout)
+
+    def _read(self, endpoint_address, timeout=None):
         timeout = timeout or self.DEFAULT_READ_TIMEOUT
-        if self.in_endpoint is None:
-            LOG.warn("Can't read from USB, IN endpoint is %s", self.in_endpoint)
-            return ""
-        else:
-            try:
-                return self.device.read(0x80 + self.TRANSLATED_IN_ENDPOINT,
-                        self.DEFAULT_READ_REQUEST_SIZE,
-                        self.DEFAULT_INTERFACE_NUMBER, timeout).tostring()
-            except usb.core.USBError as e:
-                raise DataSourceError("USB device couldn't be read", e)
-
-    @staticmethod
-    def _connect_in_endpoint(device):
-        """Open a reference to the USB device's only IN endpoint. This method
-        assumes that the USB device configuration has already been set.
-        """
-        config = device.get_active_configuration()
-        interface_number = config[(0, 0)].bInterfaceNumber
-        interface = usb.util.find_descriptor(config,
-                bInterfaceNumber=interface_number)
-
-        in_endpoint = usb.util.find_descriptor(interface,
-                custom_match = \
-                        lambda e: \
-                        usb.util.endpoint_direction(e.bEndpointAddress) == \
-                        usb.util.ENDPOINT_IN)
-
-        if not in_endpoint:
-            raise DataSourceError("Couldn't find IN endpoint on the USB device")
-        return in_endpoint
-
+        try:
+            return self.device.read(0x80 + endpoint_address,
+                    self.DEFAULT_READ_REQUEST_SIZE,
+                    self.DEFAULT_INTERFACE_NUMBER, timeout).tostring()
+        except usb.core.USBError as e:
+            raise DataSourceError("USB device couldn't be read", e)

@@ -46,5 +46,5 @@ class SerialDataSource(BytestreamDataSource):
         else:
             LOG.debug("Opened serial device at %s", port)
 
-    def _read(self):
+    def read(self):
         return self.device.readline()

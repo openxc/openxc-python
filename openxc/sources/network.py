@@ -40,7 +40,7 @@ class NetworkDataSource(BytestreamDataSource):
         else:
             LOG.debug("Opened socket connection at %s:%s", self.host, self.port)
 
-    def _read(self):
+    def read(self):
         try:
             line = self.stream.readline()
         except (OSError, socket.error) as e:
