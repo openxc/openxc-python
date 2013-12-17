@@ -93,7 +93,7 @@ class SourceLogger(threading.Thread):
             try:
                 self.record(self.source.read_logs())
             except DataSourceError as e:
-                LOG.warn("Can't read from data source -- stopping: %s", e)
+                LOG.warn("Can't read logs from data source -- stopping: %s", e)
                 break
             except NotImplementedError as e:
                 LOG.info("%s doesn't support logging" % self)

@@ -80,5 +80,5 @@ class UsbDataSource(BytestreamDataSource):
             return self.device.read(0x80 + endpoint_address,
                     self.DEFAULT_READ_REQUEST_SIZE,
                     self.DEFAULT_INTERFACE_NUMBER, timeout).tostring()
-        except usb.core.USBError as e:
+        except (usb.core.USBError, AttributeError) as e:
             raise DataSourceError("USB device couldn't be read", e)
