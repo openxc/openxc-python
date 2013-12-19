@@ -102,10 +102,12 @@ class SourceLogger(threading.Thread):
                 LOG.info("%s doesn't support logging" % self)
                 break
 
-            records = message_buffer.split("\r\n")
-            if len(records) > 1:
-                for record in records:
-                    self.record(record)
+            while True:
+                if "\r\n" not in message_buffer:
+                    break
+                record, _, remainder = message_buffer.partition(b"\r\n")
+                self.record(record)
+                message_buffer = remainder
 
 class BytestreamDataSource(DataSource):
     """A source that receives data is a series of bytes, with discrete messages
