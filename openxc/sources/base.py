@@ -79,19 +79,22 @@ class SourceLogger(threading.Thread):
 
     def record(self, message):
         if len(message) > 0:
+            log_file = None
             if self.mode == "stderr":
-                print("LOG: %s" % message, file=sys.stderr, end='')
+                log_file = sys.stderr
             elif self.mode == "file" and self.file is not None:
-                self.file.write(message)
+                log_file = self.file
+            print("LOG: %s" % message, file=log_file)
 
     def run(self):
         """Continuously read data from the source and attempt to parse a valid
         message from the buffer of bytes. When a message is parsed, passes it
         off to the callback if one is set.
         """
+        message_buffer = b""
         while True:
             try:
-                self.record(self.source.read_logs())
+                message_buffer += self.source.read_logs()
             except DataSourceError as e:
                 LOG.warn("Can't read logs from data source -- stopping: %s", e)
                 break
@@ -99,6 +102,10 @@ class SourceLogger(threading.Thread):
                 LOG.info("%s doesn't support logging" % self)
                 break
 
+            records = message_buffer.split("\r\n")
+            if len(records) > 1:
+                for record in records:
+                    self.record(record)
 
 class BytestreamDataSource(DataSource):
     """A source that receives data is a series of bytes, with discrete messages
