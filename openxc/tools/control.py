@@ -74,6 +74,7 @@ def parse_options():
     write_group.add_argument("--id", action="store", dest="write_id",
             help="ID for raw message write request")
     parser.add_argument("--bus", action="store", dest="write_bus",
+            default=1,
             help="bus number for raw message write request")
     parser.add_argument("--value", action="store", dest="write_value",
             help="optional value for message write request")
