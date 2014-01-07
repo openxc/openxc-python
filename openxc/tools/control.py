@@ -96,6 +96,7 @@ def main():
 
     controller_class, controller_kwargs = select_device(arguments)
     controller = controller_class(**controller_kwargs)
+    controller.start()
 
     if arguments.command == "version":
         version(controller)
@@ -121,3 +122,7 @@ def main():
                 sys.exit("%s requires a signal name, message ID or filename" % arguments.command)
     else:
         print("Unrecognized command \"%s\"" % arguments.command)
+
+    # TODO need a better way to wait for log messages after writing
+    import time
+    time.sleep(1)
