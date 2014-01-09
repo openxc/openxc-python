@@ -36,7 +36,6 @@ class CodeGenerator(object):
         lines.extend(self._build_loop())
         lines.extend(self._build_commands())
         lines.extend(self._build_decoder())
-        lines.extend(self._build_filters())
 
         with open(os.path.join(os.path.dirname(__file__),
                 'signals.cpp.footer')) as footer:
@@ -142,40 +141,6 @@ class CodeGenerator(object):
         lines.append("};")
         lines.append("")
 
-        return lines
-
-    def _build_filters(self):
-        # These arrays can't be initialized when we create the variables or else
-        # they end up in the .data portion of the compiled program, and it
-        # becomes too big for the microcontroller. Initializing them at runtime
-        # gets around that problem.
-        lines = []
-        lines.append("CanFilter FILTERS[MAX_MESSAGE_COUNT];")
-
-        lines.append("")
-        lines.append("CanFilter* openxc::signals::initializeFilters("
-                "uint64_t address, int* count) {")
-
-        def block(message_set):
-            lines = []
-            lines.append("        switch(address) {")
-            for bus in message_set.valid_buses():
-                lines.append("        case %s:" % bus.controller)
-                if bus.raw_can_mode == "unfiltered":
-                    lines.append("            *count = 0;")
-                else:
-                    lines.append("            *count = %d;" % len(
-                            list(bus.active_messages())))
-                    for i, message in enumerate(bus.active_messages()):
-                        lines.append("            FILTERS[%d] = {%d, 0x%x, %d};" % (
-                                i, i, message.id, 1))
-                lines.append("            break;")
-            lines.append("        }")
-            return lines
-
-        lines.extend(self._message_set_switcher(block))
-        lines.append("    return FILTERS;")
-        lines.append("}")
         return lines
 
     def _build_signal_states(self):

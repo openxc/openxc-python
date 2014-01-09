@@ -58,7 +58,6 @@ class CodeGeneratorTests(unittest.TestCase):
         eq_(list(message_set.valid_buses())[0].raw_can_mode, "off")
         eq_(list(message_set.valid_buses())[1].raw_can_mode, "unfiltered")
         eq_(output.count("passthrough"), 1)
-        ok_("FILTERS[0] = {0, 0x400, 1}" not in output)
 
     def test_bit_inversion(self):
 
