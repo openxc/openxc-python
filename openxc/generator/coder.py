@@ -267,27 +267,27 @@ class CodeGenerator(object):
     def _build_decoder(self):
         lines = []
         lines.append("void openxc::signals::decodeCanMessage("
-                "Pipeline* pipeline, CanBus* bus, int id, uint64_t data) {")
+                "Pipeline* pipeline, CanBus* bus, CanMessage* message) {")
 
         def block(message_set):
             lines = []
             lines.append(" " * 8 + "switch(bus->address) {")
             for bus in message_set.valid_buses():
                 lines.append(" " * 8 + "case %s:" % bus.controller)
-                lines.append(" " * 12 + "switch (id) {")
+                lines.append(" " * 12 + "switch (message->id) {")
                 for message in bus.active_messages():
                     if (len(list(message.active_signals())) > 0 or
                             len(list(message.handlers)) > 0):
                         lines.append(" " * 12 + "case 0x%x: // %s" % (message.id,
                                 message.name))
                         for handler in message.handlers:
-                            lines.append(" " * 16 + "%s(id, data, SIGNALS[%d], " % (
+                            lines.append(" " * 16 + "%s(message->id, message->data, SIGNALS[%d], " % (
                                 handler, message_set.index) +
                                     "getSignalCount(), pipeline);")
                         for signal in message.active_signals():
                             line = " " * 16
                             line += ("can::read::translateSignal(pipeline, "
-                                        "&SIGNALS[%d][%d], data, " %
+                                        "&SIGNALS[%d][%d], message->data, " %
                                         (message_set.index, signal.array_index))
                             if signal.handler:
                                 line += "&%s, " % signal.handler
@@ -298,7 +298,7 @@ class CodeGenerator(object):
                 lines.append("            }")
                 if bus.raw_can_mode != "off":
                     lines.append(" " * 12 + "openxc::can::read::passthroughMessage("
-                            "bus, id, data, getMessages(), getMessageCount(), pipeline);")
+                            "bus, message, getMessages(), getMessageCount(), pipeline);")
                 lines.append("            break;")
             lines.append("        }")
             return lines
