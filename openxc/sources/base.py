@@ -123,6 +123,15 @@ class BytestreamDataSource(DataSource):
         self.bytes_received = 0
         self.corrupted_messages = 0
 
+    def _message_valid(self, message):
+        if not hasattr(message, '__iter__'):
+            return False
+        if not ('name' in message and 'value' in message or
+                    ('id' in message and 'data' in message) or
+                    ('id' in message and 'bus' in message)):
+            return False
+        return True
+
     def run(self):
         """Continuously read data from the source and attempt to parse a valid
         message from the buffer of bytes. When a message is parsed, passes it
@@ -141,9 +150,7 @@ class BytestreamDataSource(DataSource):
                         message_buffer)
                 if message is None:
                     break
-                if not hasattr(message, '__iter__') or not (
-                        ('name' in message and 'value' in message) or (
-                        'id' in message and 'data' in message)):
+                if not self._message_valid(message):
                     self.corrupted_messages += 1
                     break
 
