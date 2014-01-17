@@ -78,7 +78,7 @@ class SourceLogger(threading.Thread):
             self.file = open(filename, 'wa')
 
     def record(self, message):
-        if len(message) > 0:
+        if self.mode != "off" and len(message) > 0:
             log_file = None
             if self.mode == "stderr":
                 log_file = sys.stderr
@@ -108,6 +108,7 @@ class SourceLogger(threading.Thread):
                 record, _, remainder = message_buffer.partition(b"\r\n")
                 self.record(record)
                 message_buffer = remainder
+
 
 class BytestreamDataSource(DataSource):
     """A source that receives data is a series of bytes, with discrete messages
