@@ -28,6 +28,14 @@
             "handler": "handleTurnSignalCommand"
         }
     ],
+    "diagnostic_messages": [
+        {"bus": "hs",
+          "generic_name": "obd2_engine_speed",
+          "id": 2015,
+          "mode": 1,
+          "pid": 12,
+          "frequency": 1}
+    ],
     "messages": {
         "0x128": {
             "name": "ECM_z_5D2",

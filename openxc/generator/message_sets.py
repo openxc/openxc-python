@@ -9,7 +9,7 @@ import operator
 import logging
 
 from .xml_to_json import merge_database_into_mapping, parse_database
-from .structures import Command, CanBus
+from .structures import Command, CanBus, DiagnosticMessage
 from openxc.utils import fatal_error, merge, find_file, \
         load_json_from_search_path
 
@@ -29,9 +29,19 @@ class MessageSet(object):
         valid_buses = [bus for bus in self.buses.values() if bus.valid()]
         return sorted(valid_buses, key=operator.attrgetter('controller'))
 
+    def active_diagnostic_messages(self):
+        for message in self.all_diagnostic_messages():
+            if message.enabled:
+                yield message
+
+    def all_diagnostic_messages(self):
+        for message in sorted(self.diagnostic_messages,
+                key=lambda x: (x.id, x.mode, x.pid)):
+            yield message
+
     def active_messages(self):
-        for message in self.all_messages():
-            if message.active:
+        for bus in self.buses.values():
+            for message in bus.active_messages():
                 yield message
 
     def all_messages(self):
@@ -123,9 +133,16 @@ class JsonMessageSet(MessageSet):
         message_set.initializers.extend(mapping_config['initializers'])
         message_set.loopers.extend(mapping_config['loopers'])
         message_set.extra_sources.update(mapping_config['extra_sources'])
+
+        # TODO could we parse the top level config file as if it were a mapping
+        # and avoid duplicating this code?
         for message_id, message in data.get('messages', {}).items():
             message['id'] = message_id
             mapping_config['messages'].append(message)
+
+        mapping_config['diagnostic_messages'].extend(data.get('diagnostic_messages', []))
+        message_set.diagnostic_messages = cls._parse_diagnostic_messages(
+                message_set, mapping_config['diagnostic_messages'])
 
         mapping_config['commands'].extend(data.get('commands', []))
         message_set.commands = cls._parse_commands(mapping_config['commands'])
@@ -136,6 +153,11 @@ class JsonMessageSet(MessageSet):
     @classmethod
     def _parse_commands(cls, commands):
         return [Command(**command_data) for command_data in commands]
+
+    @classmethod
+    def _parse_diagnostic_messages(cls, message_set, messages):
+        return [DiagnosticMessage(message_set, **message_data)
+                for message_data in messages]
 
     @classmethod
     def _parse_buses(cls, data):
@@ -161,6 +183,7 @@ class JsonMessageSet(MessageSet):
 
     def _parse_mappings(self, data, search_paths, skip_disabled_mappings):
         all_messages = []
+        all_diagnostic_messages = []
         all_commands = []
         all_extra_sources = set()
         all_initializers = []
@@ -201,6 +224,12 @@ class JsonMessageSet(MessageSet):
                     command['enabled'] = False
             all_commands.extend(commands)
 
+            diagnostic_messages = mapping_data.get('diagnostic_messages', [])
+            if not mapping_enabled:
+                for message in diagnostic_messages:
+                    message['enabled'] = False
+            all_diagnostic_messages.extend(diagnostic_messages)
+
             if mapping_enabled:
                 all_initializers.extend(mapping_data.get('initializers', []))
                 all_loopers.extend(mapping_data.get('loopers', []))
@@ -233,6 +262,7 @@ class JsonMessageSet(MessageSet):
 
         return {'messages': all_messages,
                 'commands': all_commands,
+                'diagnostic_messages': all_diagnostic_messages,
                 'initializers': all_initializers,
                 'extra_sources': all_extra_sources,
                 'loopers': all_loopers}

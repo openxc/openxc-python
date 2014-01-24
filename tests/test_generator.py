@@ -184,3 +184,9 @@ class CodeGeneratorTests(unittest.TestCase):
         signal = message.signals['InvertedOnMessage']
         ok_(signal.bit_numbering_inverted)
         ok_(signal.bit_position != 12)
+
+    def test_includes_diagnostics(self):
+        message_set, output = self._generate('signals.json.example')
+        ok_(len(list(message_set.all_diagnostic_messages())) > 0)
+        for diagnostic_request in message_set.all_diagnostic_messages():
+            ok_(diagnostic_request.generic_name in output)

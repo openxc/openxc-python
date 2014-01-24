@@ -17,6 +17,37 @@ class Command(object):
         return "{ \"%s\", %s }," % (self.name, self.handler)
 
 
+class DiagnosticMessage(object):
+    def __init__(self, message_set, enabled=True, **kwargs):
+        self.message_set = message_set
+        self.enabled = enabled
+        self.id = kwargs['id']
+        self.bus = kwargs['bus']
+        self.generic_name = kwargs.get('generic_name', None)
+        self.decoder = kwargs.get('decoder', None)
+        self.mode = kwargs['mode']
+        self.pid = kwargs.get('pid', 0)
+        # TODO document that we're doing this
+        if self.pid != 0 and 'pid_length' not in kwargs:
+            if self.mode == 0x1:
+                self.pid_length = 1
+            else:
+                self.pid_length = 2
+        self.frequency = kwargs.get('frequency', 0)
+
+    def __str__(self):
+        if self.generic_name:
+            name = "\"%s\"" % self.generic_name
+        else:
+            name = "NULL"
+        return "addDiagnosticRequest(diagnosticsManager, &getCanBuses()[%d], 0x%x, 0x%x, 0x%x, %d, NULL, 0, %s, %s, %d);" % (
+                    self.message_set.lookup_bus_index(self.bus),
+                    self.id, self.mode, self.pid, self.pid_length,
+                    name,
+                    self.decoder or "NULL",
+                    self.frequency)
+
+
 class Message(object):
     def __init__(self, bus_name=None, id=None, name=None,
             bit_numbering_inverted=None, handlers=None, enabled=True):

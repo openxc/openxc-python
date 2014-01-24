@@ -226,12 +226,16 @@ class CodeGenerator(object):
 
     def _build_initializers(self):
         lines = []
-        lines.append("void openxc::signals::initialize() {")
+        lines.append("void openxc::signals::initialize(DiagnosticsManager* diagnosticsManager) {")
 
         def block(message_set):
-            return ["        %s();" % initializer
+            init_lines = ["        %s();" % initializer
                 for initializer in message_set.initializers]
+            init_lines.extend(["        %s" % message
+                for message in message_set.active_diagnostic_messages()])
+            return init_lines
         lines.extend(self._message_set_switcher(block))
+
         lines.append("}")
         lines.append("")
         return lines

@@ -5,6 +5,7 @@
  */
 #ifndef CAN_EMULATOR
 
+#include "diagnostics.h"
 #include "can/canread.h"
 #include "can/canwrite.h"
 #include "signals.h"
@@ -23,6 +24,8 @@ using openxc::can::read::ignoreHandler;
 using openxc::can::write::booleanWriter;
 using openxc::can::write::stateWriter;
 using openxc::can::write::numberWriter;
+using openxc::diagnostics::addDiagnosticRequest;
+using openxc::diagnostics::DiagnosticsManager;
 using namespace openxc::signals::handlers;
 
 #ifdef __LPC17XX__
