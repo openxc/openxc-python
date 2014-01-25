@@ -219,9 +219,8 @@ class JsonMessageSet(MessageSet):
                     search_paths)
 
             commands = mapping_data.get('commands', [])
-            if not mapping_enabled:
-                for command in commands:
-                    command['enabled'] = False
+            for command in commands:
+                command.setdefault('enabled', mapping_enabled)
             all_commands.extend(commands)
 
             diagnostic_messages = mapping_data.get('diagnostic_messages', [])
