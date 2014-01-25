@@ -24,7 +24,7 @@ class DiagnosticMessage(object):
         self.id = kwargs['id']
         self.bus = kwargs['bus']
         self.generic_name = kwargs.get('generic_name', None)
-        self.decoder = kwargs.get('decoder', None)
+        self.handler = kwargs.get('handler', None)
         self.mode = kwargs['mode']
         self.pid = kwargs.get('pid', 0)
         # TODO document that we're doing this
@@ -44,7 +44,7 @@ class DiagnosticMessage(object):
                     self.message_set.lookup_bus_index(self.bus),
                     self.id, self.mode, self.pid, self.pid_length,
                     name,
-                    self.decoder or "NULL",
+                    self.handler or "NULL",
                     self.frequency)
 
 
