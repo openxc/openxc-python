@@ -225,9 +225,9 @@ class JsonMessageSet(MessageSet):
             all_commands.extend(commands)
 
             diagnostic_messages = mapping_data.get('diagnostic_messages', [])
-            if not mapping_enabled:
-                for message in diagnostic_messages:
-                    message['enabled'] = False
+            for message in diagnostic_messages:
+                message.setdefault('bus', bus_name)
+                message.setdefault('enabled', mapping_enabled)
             all_diagnostic_messages.extend(diagnostic_messages)
 
             if mapping_enabled:
