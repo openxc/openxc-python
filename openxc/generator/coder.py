@@ -26,12 +26,12 @@ class CodeGenerator(object):
     def build_source(self):
         lines = []
         lines.extend(self._build_header())
-        lines.extend(self._build_extra_sources())
         lines.extend(self._build_message_sets())
         lines.extend(self._build_buses())
         lines.extend(self._build_messages())
         lines.extend(self._build_signal_states())
         lines.extend(self._build_signals())
+        lines.extend(self._build_extra_sources())
         lines.extend(self._build_initializers())
         lines.extend(self._build_loop())
         lines.extend(self._build_commands())
