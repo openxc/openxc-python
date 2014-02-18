@@ -1,8 +1,14 @@
 OpenXC Python Library Changelog
 ===============================
 
-v0.10.3-dev
+v0.10.4-dev
 ----------
+
+v0.10.3
+----------
+
+* In generated code, include the extra sources after messages and signals so
+  they are already defined.
 
 v0.10.2
 ----------
