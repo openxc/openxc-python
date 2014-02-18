@@ -20,11 +20,6 @@ class UsbDataSource(BytestreamDataSource):
     TRANSLATED_IN_ENDPOINT = 2
     LOG_IN_ENDPOINT = 11
 
-    VERSION_CONTROL_COMMAND = 0x80
-    RESET_CONTROL_COMMAND = 0x81
-    DEVICE_ID_CONTROL_COMMAND = 0x82
-
-
     def __init__(self, callback=None, vendor_id=None, product_id=None,
             log_mode=None):
         """Initialize a connection to the USB device's IN endpoint.
@@ -65,8 +60,7 @@ class UsbDataSource(BytestreamDataSource):
             else:
                 return
 
-        raise DataSourceError("Couldn't find a USB product 0x%x from vendor 0x%x"
-                % (self.product_id, self.vendor_id))
+        raise DataSourceError("No USB vehicle interface detected - is plugged in?")
 
     def read(self, timeout=None):
         return self._read(self.TRANSLATED_IN_ENDPOINT, timeout)

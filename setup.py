@@ -46,6 +46,7 @@ setup(name='openxc',
             'openxc-gps = openxc.tools.gps:main',
             'openxc-trace-split = openxc.tools.tracesplit:main',
             'openxc-generate-firmware-code = openxc.tools.generate_code:main',
+            'openxc-diag = openxc.tools.diagnostics:main',
         ]
     },
 )

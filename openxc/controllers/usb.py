@@ -1,6 +1,7 @@
 """Controller implementation for an OpenXC USB device."""
 from __future__ import absolute_import
 
+import json
 import logging
 import usb.core
 
@@ -19,6 +20,10 @@ class UsbControllerMixin(Controller):
     TODO bah, this is kind of weird. refactor the relationship between
     sources/controllers.
     """
+    VERSION_CONTROL_COMMAND = 0x80
+    RESET_CONTROL_COMMAND = 0x81
+    DEVICE_ID_CONTROL_COMMAND = 0x82
+    DIAGNOSTIC_CONTROL_COMMAND = 0x83
 
     @property
     def out_endpoint(self):
@@ -45,6 +50,10 @@ class UsbControllerMixin(Controller):
         raw_device_id = self.device.ctrl_transfer(0xC0,
                 self.DEVICE_ID_CONTROL_COMMAND, 0, 0, 20)
         return ''.join([chr(x) for x in raw_device_id])
+
+    def diagnostic_request(self, request):
+        self.device.ctrl_transfer(0x40, self.DIAGNOSTIC_CONTROL_COMMAND, 0, 0,
+                json.dumps(request))
 
     def reset(self):
         self.device.ctrl_transfer(0x40, self.RESET_CONTROL_COMMAND, 0, 0)
