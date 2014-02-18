@@ -42,6 +42,8 @@ class UsbControllerMixin(Controller):
             return self.out_endpoint.write(data.encode("utf8"))
 
     def version(self):
+        # TODO is 0xC0 correct for IN control transfers? if I clear the in
+        # endpoint on the VI it dies, but if I clear the OUT, it works.
         raw_version = self.device.ctrl_transfer(0xC0,
                 self.VERSION_CONTROL_COMMAND, 0, 0, 100)
         return ''.join([chr(x) for x in raw_version])
