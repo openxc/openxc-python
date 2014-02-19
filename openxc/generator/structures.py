@@ -24,6 +24,8 @@ class DiagnosticMessage(object):
         self.id = kwargs['id']
         self.bus = kwargs['bus']
         self.generic_name = kwargs.get('generic_name', None)
+        self.factor = kwargs.get('factor', 1)
+        self.offset = kwargs.get('offset', 0)
         self.handler = kwargs.get('handler', None)
         self.mode = kwargs['mode']
         self.pid = kwargs.get('pid', 0)
@@ -40,10 +42,12 @@ class DiagnosticMessage(object):
             name = "\"%s\"" % self.generic_name
         else:
             name = "NULL"
-        return "addDiagnosticRequest(diagnosticsManager, &getCanBuses()[%d], 0x%x, 0x%x, 0x%x, %d, NULL, 0, %s, %s, %d);" % (
+        return "addDiagnosticRequest(diagnosticsManager, &getCanBuses()[%d], 0x%x, 0x%x, 0x%x, %d, NULL, 0, %s, %f, %f, %s, %d);" % (
                     self.message_set.lookup_bus_index(self.bus),
                     self.id, self.mode, self.pid, self.pid_length,
                     name,
+                    self.factor,
+                    self.offset,
                     self.handler or "NULL",
                     self.frequency)
 
