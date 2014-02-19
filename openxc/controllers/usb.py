@@ -46,9 +46,6 @@ class UsbControllerMixin(Controller):
                 self.DEVICE_ID_CONTROL_COMMAND, 0, 0, 20)
         return ''.join([chr(x) for x in raw_device_id])
 
-    def reset(self):
-        self.device.ctrl_transfer(0x40, self.RESET_CONTROL_COMMAND, 0, 0)
-
     @staticmethod
     def _connect_out_endpoint(device):
         """Open a reference to the USB device's only OUT endpoint. This method

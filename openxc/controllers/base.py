@@ -10,7 +10,7 @@ class Controller(object):
     """A Controller is a physical vehicle interface that accepts commands to be
     send back to the vehicle. This class is abstract, and implemtnations of the
     interface must define at least the ``write_bytes``, ``version``,
-    ``device_id``, or ``reset`` methods.
+    ``device_id`` methods.
     """
 
     def write(self, **kwargs):
@@ -69,11 +69,6 @@ class Controller(object):
 
     def version(self):
         """Request and return the version of the vehicle interface."""
-        raise NotImplementedError("%s cannot be used with control commands" %
-                type(self).__name__)
-
-    def reset(self):
-        """Reset the vehicle interface."""
         raise NotImplementedError("%s cannot be used with control commands" %
                 type(self).__name__)
 

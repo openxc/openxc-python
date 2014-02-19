@@ -21,7 +21,6 @@ class UsbDataSource(BytestreamDataSource):
     LOG_IN_ENDPOINT = 11
 
     VERSION_CONTROL_COMMAND = 0x80
-    RESET_CONTROL_COMMAND = 0x81
     DEVICE_ID_CONTROL_COMMAND = 0x82
 
 
