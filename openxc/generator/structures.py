@@ -34,8 +34,7 @@ class Message(object):
 
     @property
     def active(self):
-        return self.enabled and (len(list(self.enabled_signals())) > 0
-                or len(self.handlers) > 0)
+        return self.enabled
 
     @property
     def id(self):
