@@ -100,8 +100,10 @@ class CodeGenerator(object):
             lines = []
             for message_index, message in enumerate(message_set.all_messages()):
                 if not message.active:
-                    LOG.warning("Skipping disabled message %s (0x%x)" %
-                            (message.name, message.id))
+                    msg = "Skipping disabled message 0x%x" % message.id
+                    if message.name is not None:
+                        msg += " (%s)" % message.name
+                    LOG.warning(msg)
                     continue
                 LOG.info("Added message '%s'" % message.name)
                 lines.append("        %s" % message)
