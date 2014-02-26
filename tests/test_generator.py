@@ -47,6 +47,7 @@ class CodeGeneratorTests(unittest.TestCase):
         eq_(list(message_set.valid_buses())[0].raw_can_mode, "filtered")
         eq_(list(message_set.valid_buses())[1].raw_can_mode, "off")
         eq_(output.count("passthrough"), 1)
+        eq_(output.count("0x200"), 1)
 
     def test_max_message_frequency(self):
         message_set, output = self._generate('signals.json.example')
