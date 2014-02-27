@@ -22,13 +22,6 @@ def device_id(controller):
     print("Device ID is %s" % controller.device_id())
 
 
-def reset(controller):
-    print("Resetting device...")
-    controller.reset()
-    version(controller)
-    device_id(controller)
-
-
 def write_file(controller, filename):
     first_timestamp = None
     with open(filename, "r") as output_file:
@@ -67,7 +60,7 @@ def parse_options():
     parser = argparse.ArgumentParser(description="Send control messages to an "
             "attached OpenXC vehicle interface", parents=[device_options()])
     parser.add_argument("command", type=str,
-            choices=['version', 'reset', 'write', 'id'])
+            choices=['version', 'write', 'id'])
     write_group = parser.add_mutually_exclusive_group()
     write_group.add_argument("--name", action="store", dest="write_name",
             help="name for message write request")
@@ -102,8 +95,6 @@ def main():
         version(controller)
     elif arguments.command == "id":
         device_id(controller)
-    elif arguments.command == "reset":
-        reset(controller)
     elif arguments.command.startswith("write"):
         if arguments.command == "write":
             if arguments.write_name:

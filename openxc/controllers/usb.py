@@ -21,7 +21,6 @@ class UsbControllerMixin(Controller):
     sources/controllers.
     """
     VERSION_CONTROL_COMMAND = 0x80
-    RESET_CONTROL_COMMAND = 0x81
     DEVICE_ID_CONTROL_COMMAND = 0x82
     DIAGNOSTIC_CONTROL_COMMAND = 0x83
 
@@ -56,9 +55,6 @@ class UsbControllerMixin(Controller):
     def diagnostic_request(self, request):
         self.device.ctrl_transfer(0x40, self.DIAGNOSTIC_CONTROL_COMMAND, 0, 0,
                 json.dumps(request))
-
-    def reset(self):
-        self.device.ctrl_transfer(0x40, self.RESET_CONTROL_COMMAND, 0, 0)
 
     @staticmethod
     def _connect_out_endpoint(device):

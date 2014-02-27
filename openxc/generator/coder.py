@@ -26,12 +26,12 @@ class CodeGenerator(object):
     def build_source(self):
         lines = []
         lines.extend(self._build_header())
-        lines.extend(self._build_extra_sources())
         lines.extend(self._build_message_sets())
         lines.extend(self._build_buses())
         lines.extend(self._build_messages())
         lines.extend(self._build_signal_states())
         lines.extend(self._build_signals())
+        lines.extend(self._build_extra_sources())
         lines.extend(self._build_initializers())
         lines.extend(self._build_loop())
         lines.extend(self._build_commands())
@@ -100,8 +100,10 @@ class CodeGenerator(object):
             lines = []
             for message_index, message in enumerate(message_set.all_messages()):
                 if not message.active:
-                    LOG.warning("Skipping disabled message %s (0x%x)" %
-                            (message.name, message.id))
+                    msg = "Skipping disabled message 0x%x" % message.id
+                    if message.name is not None:
+                        msg += " (%s)" % message.name
+                    LOG.warning(msg)
                     continue
                 LOG.info("Added message '%s'" % message.name)
                 lines.append("        %s" % message)
