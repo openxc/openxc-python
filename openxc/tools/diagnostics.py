@@ -47,7 +47,7 @@ class ResponseHandler(object):
         if arguments.pid is not None:
             request['request']['pid'] = int(arguments.pid, 0)
         if arguments.frequency is not None:
-            request['frequency'] = int(arguments.frequency, 0)
+            request['request']['frequency'] = int(arguments.frequency, 0)
 
         controller.diagnostic_request(request)
 
