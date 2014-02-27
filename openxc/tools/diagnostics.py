@@ -40,13 +40,14 @@ class ResponseHandler(object):
         }
 
         if arguments.diagnostic_mode is not None:
-            request['request']['mode'] = arguments.diagnostic_mode
+            request['request']['mode'] = int(arguments.diagnostic_mode, 0)
         if arguments.payload is not None:
+            # TODO what format is the payload going to be? hex?
             request['request']['payload'] = arguments.payload
         if arguments.pid is not None:
-            request['request']['pid'] = arguments.pid
+            request['request']['pid'] = int(arguments.pid, 0)
         if arguments.frequency is not None:
-            request['frequency'] = arguments.frequency
+            request['frequency'] = int(arguments.frequency, 0)
 
         controller.diagnostic_request(request)
 
