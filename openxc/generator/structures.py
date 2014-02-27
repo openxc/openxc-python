@@ -55,7 +55,7 @@ class DiagnosticMessage(object):
                 offset = 0
 
 
-            result += "        addDiagnosticRequest(diagnosticsManager, &getCanBuses()[%d], &request, %s, %f, %f, %s, %d);\n        }\n" % (
+            result += "        addDiagnosticRequest(diagnosticsManager, &getCanBuses()[%d], &request, %s, %f, %f, %s, %f);\n        }\n" % (
                     self.message_set.lookup_bus_index(self.bus),
                     name,
                     factor,
@@ -63,7 +63,7 @@ class DiagnosticMessage(object):
                     self.handler or "NULL",
                     self.frequency)
         else:
-            result += "        addDiagnosticRequest(diagnosticsManager, &getCanBuses()[%d], &request, %d);\n        }\n" % (
+            result += "        addDiagnosticRequest(diagnosticsManager, &getCanBuses()[%d], &request, %f);\n        }\n" % (
                     self.message_set.lookup_bus_index(self.bus), self.frequency)
         return result
 
