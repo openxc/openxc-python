@@ -47,6 +47,7 @@ class CodeGeneratorTests(unittest.TestCase):
         eq_(list(message_set.valid_buses())[0].raw_can_mode, "filtered")
         eq_(list(message_set.valid_buses())[1].raw_can_mode, "off")
         eq_(output.count("passthrough"), 1)
+        eq_(output.count("0x200"), 1)
 
     def test_max_message_frequency(self):
         message_set, output = self._generate('signals.json.example')
@@ -119,8 +120,8 @@ class CodeGeneratorTests(unittest.TestCase):
         found = False
         for line in output.split("\n"):
             if "CAN_BUSES" in line and message_with_frequency.name in line:
-                ok_(("{%d}" % message_with_frequency.max_frequency) in line,
-                        "Frequency %d should be in output: %s" %
+                ok_(("{%f}" % message_with_frequency.max_frequency) in line,
+                        "Frequency %f should be in output: %s" %
                         (message_with_frequency.max_frequency, line))
                 found = True
         ok_(found)

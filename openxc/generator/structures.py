@@ -85,8 +85,7 @@ class Message(object):
 
     @property
     def active(self):
-        return self.enabled and (len(list(self.enabled_signals())) > 0
-                or len(self.handlers) > 0)
+        return self.enabled
 
     @property
     def id(self):
@@ -198,7 +197,7 @@ class Message(object):
     def __str__(self):
         bus_index = self.message_set.lookup_bus_index(self.bus_name)
         if bus_index is not None:
-            return "{&CAN_BUSES[%d][%d], 0x%x, {%d}, %s}, // %s" % (
+            return "{&CAN_BUSES[%d][%d], 0x%x, {%f}, %s}, // %s" % (
                     self.message_set.index, bus_index, self.id,
                     self.max_frequency,
                     str(self.force_send_changed).lower(),
@@ -449,7 +448,7 @@ class Signal(object):
 
     def __str__(self):
         result =  ("{&CAN_MESSAGES[%d][%d], \"%s\", %s, %d, %f, %f, %f, %f, "
-                    "{%d}, %s, %s, " % (
+                    "{%f}, %s, %s, " % (
                 self.message_set.index,
                 self.message_set.lookup_message_index(self.message),
                 self.generic_name, self.bit_position, self.bit_size,
