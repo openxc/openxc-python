@@ -74,5 +74,7 @@ def main():
     controller = controller_class(**controller_kwargs)
     controller.start()
 
+    import time
+    time.sleep(.1)
     response_handler = ResponseHandler()
     response_handler.request(arguments, controller)
