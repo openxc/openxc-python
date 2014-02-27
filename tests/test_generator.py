@@ -120,8 +120,8 @@ class CodeGeneratorTests(unittest.TestCase):
         found = False
         for line in output.split("\n"):
             if "CAN_BUSES" in line and message_with_frequency.name in line:
-                ok_(("{%d}" % message_with_frequency.max_frequency) in line,
-                        "Frequency %d should be in output: %s" %
+                ok_(("{%f}" % message_with_frequency.max_frequency) in line,
+                        "Frequency %f should be in output: %s" %
                         (message_with_frequency.max_frequency, line))
                 found = True
         ok_(found)
