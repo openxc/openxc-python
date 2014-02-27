@@ -60,7 +60,7 @@ class UsbDataSource(BytestreamDataSource):
             else:
                 return
 
-        raise DataSourceError("No USB vehicle interface detected - is plugged in?")
+        raise DataSourceError("No USB vehicle interface detected - is one plugged in?")
 
     def read(self, timeout=None):
         return self._read(self.TRANSLATED_IN_ENDPOINT, timeout)
