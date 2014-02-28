@@ -90,17 +90,7 @@ class DataPoint(object):
 
     def print_to_window(self, window, row, started_time):
         width = window.getmaxyx()[1]
-        window.addstr(row, 0, self.current_data.name)
         if self.current_data is not None:
-            value_indent = 0
-            if width > 60:
-                percentage = self.percentage()
-                value_indent = 15
-                if percentage is not None:
-                    chunks = int((percentage - .1) * .1)
-                    graph = "%s=%s" % ("-" * chunks, "-" * (10 - chunks))
-                    window.addstr(row, 30, graph)
-
             if len(self.events) == 0:
                 value = str(self.current_data)
             else:
@@ -111,15 +101,16 @@ class DataPoint(object):
                 value = result
 
             value_color = curses.color_pair(2)
-            window.addstr(row, 30 + value_indent, value, value_color)
+            window.addstr(row, 0, "{:>22} %s".format(value), value_color)
+        window.addstr(row, 23, self.current_data.name)
 
-        if width > 90:
+        if width > 60:
             message_count_color = curses.color_pair(3)
-            window.addstr(row, 80, "Messages: " + str(self.messages_received),
+            window.addstr(row, 50, "Msgs: " + str(self.messages_received),
                     message_count_color)
 
-        if width >= 115 and self.average_time_since_update > 0:
-            window.addstr(row, 100, "Freq. (Hz): %d" %
+        if width > 75 and self.average_time_since_update > 0:
+            window.addstr(row, 61, "Freq. (Hz): %d" %
                     math.ceil((1 / self.average_time_since_update)))
 
 
