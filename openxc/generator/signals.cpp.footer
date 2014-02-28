@@ -42,4 +42,4 @@ int openxc::signals::getMessageSetCount() {
     return MESSAGE_SET_COUNT;
 }
 
-#endif // CAN_EMULATOR
+#endif // EMULATE_VEHICLE_DATA
