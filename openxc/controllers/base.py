@@ -33,7 +33,7 @@ class Controller(object):
         if event is not None:
             data['event'] = self._massage_write_value(event);
         message = JsonFormatter.serialize(data)
-        bytes_written = self.write_bytes(message + "\x00")
+        bytes_written = self.write_bytes(message)
         assert bytes_written == len(message) + 1
         return bytes_written
 
@@ -54,7 +54,7 @@ class Controller(object):
         if bus is not None:
             data['bus'] = bus
         message = JsonFormatter.serialize(data)
-        bytes_written = self.write_bytes(message + "\x00")
+        bytes_written = self.write_bytes(message)
         assert bytes_written == len(message) + 1
         return bytes_written
 
