@@ -1,5 +1,6 @@
 """Controller implementation for a virtual serial device."""
 from __future__ import absolute_import
+import time
 
 from .base import Controller
 
@@ -14,5 +15,13 @@ class SerialControllerMixin(Controller):
     TODO bah, this is kind of weird. refactor the relatinoship between
     sources/controllers.
     """
-    def write_bytes(self, data):
-        return self.device.write(data)
+
+    WAITIED_FOR_CONNECTION = False
+
+    def complex_request(self, request, blocking=True):
+        if not self.WAITIED_FOR_CONNECTION:
+            # TODO need to wait until device is connected or errors out
+            # that may be a bug in the bluetooth stack, see
+            # https://bugzilla.redhat.com/show_bug.cgi?id=1060457
+            time.sleep(2)
+        return super(SerialControllerMixin, self).complex_request(request, blocking)

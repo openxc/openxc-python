@@ -130,7 +130,8 @@ class BytestreamDataSource(DataSource):
             return False
         if not ('name' in message and 'value' in message or
                     ('id' in message and 'data' in message) or
-                    ('id' in message and 'bus' in message)):
+                    ('id' in message and 'bus' in message) or
+                    'command_response' in message):
             return False
         return True
 
@@ -159,6 +160,8 @@ class BytestreamDataSource(DataSource):
                 self.bytes_received += byte_count
                 if self.callback is not None:
                     self.callback(message)
+                if "command_response" in message:
+                    self._receive_command_response(message)
 
     def _protobuf_to_dict(self, message):
         parsed_message = {}
@@ -207,6 +210,16 @@ class BytestreamDataSource(DataSource):
         else:
             parsed_message = None
         return parsed_message
+
+    def _receive_command_response(self, message):
+        # TODO the controller/source are getting a litlte mixed up since the
+        # controller now needs to receive responses from the soruce side, maybe
+        # just mix them again. the only exception to being both is a trace
+        # source, and we can just leave the controller methods on that
+        # unimplemented
+        self.open_requests = getattr(self, 'open_requests', [])
+        for open_request in self.open_requests:
+            open_request.put(message)
 
     def _parse_json_message(self, message_buffer):
         parsed_message = None

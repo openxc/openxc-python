@@ -17,6 +17,8 @@ class ResponseHandler(object):
     def receive(message, **kwargs):
         self.response_lock.acquire()
 
+        # TODO may want to move this logic into controllers.base so it can be
+        # used programatically instead of from the command line only
         if (message.get('bus') == self.request.bus and
                 message.get('id') == self.request.id and
                 message.get('mode') == self.request.mode):
@@ -49,7 +51,7 @@ class ResponseHandler(object):
         if arguments.frequency is not None:
             request['request']['frequency'] = int(arguments.frequency, 0)
 
-        controller.diagnostic_request(request)
+        controller.complex_request(request)
 
         self.response_lock.wait(1)
 

@@ -15,14 +15,14 @@ from openxc.formats.json import JsonFormatter
 from .common import device_options, configure_logging, select_device
 
 
-def version(controller):
-    print("Device is running version %s" % controller.version())
+def version(interface):
+    print("Device is running version %s" % interface.version())
 
-def device_id(controller):
-    print("Device ID is %s" % controller.device_id())
+def device_id(interface):
+    print("Device ID is %s" % interface.device_id())
 
 
-def write_file(controller, filename):
+def write_file(interface, filename):
     first_timestamp = None
     with open(filename, "r") as output_file:
         corrupt_entries = 0
@@ -49,7 +49,7 @@ def write_file(controller, filename):
                     time.sleep(max(.0002, target_time - time.time()))
 
                 message_count += 1
-                controller.write(**parsed_message)
+                interface.write(**parsed_message)
         print("%d lines sent" % message_count)
         if corrupt_entries > 0:
             print("%d invalid lines in the data file were not sent" %
@@ -87,28 +87,28 @@ def main():
     configure_logging()
     arguments = parse_options()
 
-    controller_class, controller_kwargs = select_device(arguments)
-    controller = controller_class(**controller_kwargs)
-    controller.start()
+    interface_class, interface_kwargs = select_device(arguments)
+    interface = interface_class(**interface_kwargs)
+    interface.start()
 
     if arguments.command == "version":
-        version(controller)
+        version(interface)
     elif arguments.command == "id":
-        device_id(controller)
+        device_id(interface)
     elif arguments.command.startswith("write"):
         if arguments.command == "write":
             if arguments.write_name:
-                controller.write(name=arguments.write_name,
+                interface.write(name=arguments.write_name,
                         value=arguments.write_value,
                         event=arguments.write_event)
             elif arguments.write_id:
                 if not arguments.write_data:
                     sys.exit("%s requires an id and data" % arguments.command)
-                controller.write(bus=int(arguments.write_bus),
+                interface.write(bus=int(arguments.write_bus),
                         id=arguments.write_id,
                         data=arguments.write_data)
             elif arguments.write_input_file:
-                write_file(controller, arguments.write_input_file)
+                write_file(interface, arguments.write_input_file)
             else:
                 sys.exit("%s requires a signal name, message ID or filename" % arguments.command)
     else:

@@ -2,9 +2,29 @@
 interface.
 """
 import numbers
+import threading
+
+try:
+    from Queue import Queue
+except ImportError:
+    # Python 3
+    from queue import Queue
 
 from openxc.formats.json import JsonFormatter
 
+class CommandResponseReceiver(object):
+    def __init__(self, queue, request):
+        self.request = request
+        self.queue = queue
+        self.response = None
+
+    def wait_for_command_response(self):
+        response_received = False
+        while not response_received:
+            self.response = self.queue.get()
+            if self.response['command_response'] == self.request['command']:
+                response_received = True
+            self.queue.task_done()
 
 class Controller(object):
     """A Controller is a physical vehicle interface that accepts commands to be
@@ -12,6 +32,42 @@ class Controller(object):
     interface must define at least the ``write_bytes``, ``version``,
     ``device_id`` methods.
     """
+    # TODO need to support writing protobuf
+
+
+    def complex_request(self, request, blocking=True):
+        self.write_bytes(JsonFormatter.serialize(request))
+        queue = Queue()
+
+        self.open_requests = getattr(self, 'open_requests', [])
+        self.open_requests.append(queue)
+
+        receiver = CommandResponseReceiver(queue, request)
+        t = threading.Thread(target=receiver.wait_for_command_response)
+        t.daemon = True
+        t.start()
+
+        # TODO if it wasn't a blocking request, how would you get the response?
+        # maybe you use non-blocking when you don't care about the response
+        if blocking:
+            t.join()
+
+        result = "Unknown"
+        if receiver.response is not None:
+            result = receiver.response.get('message', "Unknown")
+        return result
+
+    def version(self):
+        request = {
+            "command": "version"
+        }
+        return self.complex_request(request)
+
+    def device_id(self):
+        request = {
+            "command": "device_id"
+        }
+        return self.complex_request(request)
 
     def write(self, **kwargs):
         if 'id' in kwargs and 'data' in kwargs:
@@ -61,16 +117,6 @@ class Controller(object):
     def write_bytes(self, data):
         """Write the bytes in ``data`` out to the controller interface."""
         raise NotImplementedError("Don't use Controller directly")
-
-    def device_id(self):
-        """Request and return the ID of the vehicle interface."""
-        raise NotImplementedError("%s cannot be used with control commands" %
-                type(self).__name__)
-
-    def version(self):
-        """Request and return the version of the vehicle interface."""
-        raise NotImplementedError("%s cannot be used with control commands" %
-                type(self).__name__)
 
     def diagnostic_request(self, request):
         """Request a diagnostic message from the vehicle interface."""
