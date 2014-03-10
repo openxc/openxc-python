@@ -34,6 +34,7 @@ class Controller(object):
     """
     # TODO need to support writing protobuf
 
+    COMMAND_RESPONSE_TIMEOUT_S = 5
 
     def complex_request(self, request, blocking=True):
         self.write_bytes(JsonFormatter.serialize(request))
@@ -50,7 +51,7 @@ class Controller(object):
         # TODO if it wasn't a blocking request, how would you get the response?
         # maybe you use non-blocking when you don't care about the response
         if blocking:
-            t.join()
+            t.join(self.COMMAND_RESPONSE_TIMEOUT_S)
 
         result = "Unknown"
         if receiver.response is not None:
