@@ -79,9 +79,9 @@ class Controller(object):
             t.start()
             t.join(self.COMMAND_RESPONSE_TIMEOUT_S)
 
-        result = "No response"
+        result = None
         if receiver.response is not None:
-            result = receiver.response.get('message', result)
+            result = receiver.response.get('message', "Unknown")
         return result
 
     @classmethod

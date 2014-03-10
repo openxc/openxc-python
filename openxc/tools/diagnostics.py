@@ -1,11 +1,8 @@
 from __future__ import absolute_import
 
 import argparse
-import sys
 import time
-import threading
 
-from openxc.formats.json import JsonFormatter
 from .common import device_options, configure_logging, select_device
 
 

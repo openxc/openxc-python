@@ -47,6 +47,7 @@ setup(name='openxc',
             'openxc-trace-split = openxc.tools.tracesplit:main',
             'openxc-generate-firmware-code = openxc.tools.generate_code:main',
             'openxc-diag = openxc.tools.diagnostics:main',
+            'openxc-scanner = openxc.tools.scanner:main',
         ]
     },
 )
