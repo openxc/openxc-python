@@ -115,5 +115,4 @@ def main():
         print("Unrecognized command \"%s\"" % arguments.command)
 
     # TODO need a better way to wait for log messages after writing
-    import time
     time.sleep(1)
