@@ -12,7 +12,7 @@ class SerialControllerMixin(Controller):
     This class acts as a mixin, and expects ``self.device`` to be an instance
     of ``serial.Serial``.
 
-    TODO bah, this is kind of weird. refactor the relatinoship between
+    TODO Bah, this is kind of weird. refactor the relationship between
     sources/controllers.
     """
 

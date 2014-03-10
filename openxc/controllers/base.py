@@ -29,33 +29,42 @@ class CommandResponseReceiver(object):
 class Controller(object):
     """A Controller is a physical vehicle interface that accepts commands to be
     send back to the vehicle. This class is abstract, and implementations of the
-    interface must define at least the ``write_bytes``, ``version``,
-    ``device_id`` methods.
+    interface must define at least the ``write_bytes`` method.
     """
-    # TODO need to support writing protobuf
 
     COMMAND_RESPONSE_TIMEOUT_S = 5
 
-    def complex_request(self, request, blocking=True):
+    def complex_request(self, request, wait_for_response=True):
+        """Send a compound command request to the interface over the normal data
+        channel.
+
+        request - A dict storing the request to send to the VI. It will be
+            encoded as JSON currently, as that is the only supported format for
+            commands.
+        wait_for_response - If true, this function will block waiting for a
+            response from the VI and return it to the caller. Otherwise, it will
+            send the command and return immediately and any response will be
+            lost.
+
+        Only JSON formatted commands are supported right now.
+        """
         self.write_bytes(JsonFormatter.serialize(request))
-        queue = Queue()
 
-        self.open_requests = getattr(self, 'open_requests', [])
-        self.open_requests.append(queue)
+        if wait_for_response:
+            queue = Queue()
 
-        receiver = CommandResponseReceiver(queue, request)
-        t = threading.Thread(target=receiver.wait_for_command_response)
-        t.daemon = True
-        t.start()
+            self.open_requests = getattr(self, 'open_requests', [])
+            self.open_requests.append(queue)
 
-        # TODO if it wasn't a blocking request, how would you get the response?
-        # maybe you use non-blocking when you don't care about the response
-        if blocking:
+            receiver = CommandResponseReceiver(queue, request)
+            t = threading.Thread(target=receiver.wait_for_command_response)
+            t.daemon = True
+            t.start()
             t.join(self.COMMAND_RESPONSE_TIMEOUT_S)
 
-        result = "Unknown"
+        result = "No response"
         if receiver.response is not None:
-            result = receiver.response.get('message', "Unknown")
+            result = receiver.response.get('message', result)
         return result
 
     def version(self):
@@ -98,9 +107,6 @@ class Controller(object):
         """Format the given CAN ID and data into a JSON message
         and write it out to the controller interface as bytes, ending with a
         \0 character.
-
-        TODO this could write to a separate USB endpoint that is expecting
-        raw-style JSON messages.
         """
         if not isinstance(message_id, numbers.Number):
             try:
