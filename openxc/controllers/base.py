@@ -150,7 +150,7 @@ class Controller(object):
             data['event'] = self._massage_write_value(event);
         message = JsonFormatter.serialize(data)
         bytes_written = self.write_bytes(message)
-        assert bytes_written == len(message) + 1
+        assert bytes_written == len(message)
         return bytes_written
 
     def write_raw(self, message_id, data, bus=None):
@@ -168,7 +168,7 @@ class Controller(object):
             data['bus'] = bus
         message = JsonFormatter.serialize(data)
         bytes_written = self.write_bytes(message)
-        assert bytes_written == len(message) + 1
+        assert bytes_written == len(message)
         return bytes_written
 
     def write_bytes(self, data):
