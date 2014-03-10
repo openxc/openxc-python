@@ -18,6 +18,9 @@ class SerialControllerMixin(Controller):
 
     WAITIED_FOR_CONNECTION = False
 
+    def write_bytes(self, data):
+        return self.device.write(data)
+
     def complex_request(self, request, blocking=True):
         if not self.WAITIED_FOR_CONNECTION:
             # TODO need to wait until device is connected or errors out
