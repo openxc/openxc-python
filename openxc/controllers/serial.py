@@ -26,5 +26,5 @@ class SerialControllerMixin(Controller):
             # TODO need to wait until device is connected or errors out
             # that may be a bug in the bluetooth stack, see
             # https://bugzilla.redhat.com/show_bug.cgi?id=1060457
-            time.sleep(2)
+            time.sleep(5)
         return super(SerialControllerMixin, self).complex_request(request, blocking)
