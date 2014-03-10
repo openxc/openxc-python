@@ -12,7 +12,7 @@ except ImportError:
 
 from openxc.formats.json import JsonFormatter
 
-class CommandResponseReceiver(object):
+class ResponseReceiver(object):
     def __init__(self, queue, request):
         self.request = request
         self.queue = queue
@@ -22,9 +22,22 @@ class CommandResponseReceiver(object):
         response_received = False
         while not response_received:
             self.response = self.queue.get()
-            if self.response['command_response'] == self.request['command']:
+            if self._response_matches_request(self.response):
                 response_received = True
             self.queue.task_done()
+
+class CommandResponseReceiver(object):
+    def _response_matches_request(self, response):
+        return self.response['command_response'] == self.request['command']
+
+class DiagnosticResponseReceiver(ResponseReceiver):
+    def _response_matches_request(self, response):
+        # TODO need to handle negative responses, which may not include the PID
+        # echo
+        return (response.get('bus') == self.request.bus and
+                response.get('id') == self.request.id and
+                response.get('mode') == self.request.mode and
+                response.get('pid', None) == self.request.pid)
 
 class Controller(object):
     """A Controller is a physical vehicle interface that accepts commands to be
@@ -56,7 +69,11 @@ class Controller(object):
             self.open_requests = getattr(self, 'open_requests', [])
             self.open_requests.append(queue)
 
-            receiver = CommandResponseReceiver(queue, request)
+            if request['command'] == "diagnostic_request":
+                receiver = DiagnosticResponseReceiver(queue, request)
+            else:
+                receiver = CommandResponseReceiver(queue, request)
+
             t = threading.Thread(target=receiver.wait_for_command_response)
             t.daemon = True
             t.start()
@@ -66,6 +83,39 @@ class Controller(object):
         if receiver.response is not None:
             result = receiver.response.get('message', result)
         return result
+
+    @classmethod
+    def _build_diagnostic_request(cls, message_id, mode, bus=None, pid=None,
+            frequency=None, payload=None):
+        request = {
+            'command': "diagnostic_request",
+            'request': {
+                'id': message_id
+            }
+        }
+
+        if bus is not None:
+            request['request']['bus'] = bus
+        if mode is not None:
+            request['request']['mode'] = mode
+        if payload is not None:
+            # TODO what format is the payload going to be? hex?
+            request['request']['payload'] = payload
+        if pid is not None:
+            request['request']['pid'] = pid
+        if frequency is not None:
+            request['request']['frequency'] = frequnecy
+
+        return request
+
+    def diagnostic_request(self, message_id, mode, bus=None, pid=None,
+            frequency=None, payload=None, wait_for_first_response=False):
+        # TODO currently this is going to exit after the first response.
+        # what about broadcast requests? we may just need to stay alive for
+        # 1 second
+        request = self._build_diagnostic_request(message_id, mode, bus, pid,
+                frequency, payload)
+        self.complex_request(request, wait_for_first_response)
 
     def version(self):
         request = {
@@ -124,11 +174,6 @@ class Controller(object):
     def write_bytes(self, data):
         """Write the bytes in ``data`` out to the controller interface."""
         raise NotImplementedError("Don't use Controller directly")
-
-    def diagnostic_request(self, request):
-        """Request a diagnostic message from the vehicle interface."""
-        raise NotImplementedError("%s cannot be used with control commands" %
-                type(self).__name__)
 
     @classmethod
     def _massage_write_value(cls, value):

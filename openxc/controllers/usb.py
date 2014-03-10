@@ -22,7 +22,7 @@ class UsbControllerMixin(Controller):
     """
     VERSION_CONTROL_COMMAND = 0x80
     DEVICE_ID_CONTROL_COMMAND = 0x82
-    DIAGNOSTIC_CONTROL_COMMAND = 0x83
+    COMPLEX_CONTROL_COMMAND = 0x83
 
     @property
     def out_endpoint(self):
@@ -52,8 +52,12 @@ class UsbControllerMixin(Controller):
                 self.DEVICE_ID_CONTROL_COMMAND, 0, 0, 20)
         return ''.join([chr(x) for x in raw_device_id])
 
-    def diagnostic_request(self, request):
-        self.device.ctrl_transfer(0x40, self.DIAGNOSTIC_CONTROL_COMMAND, 0, 0,
+    def diagnostic_request(self, message_id, mode, bus=None, pid=None,
+            frequency=None, payload=None, wait_for_first_response=False):
+        # TODO this is hard coded to work only with JSON right now
+        request = self._build_diagnostic_request(message_id, mode, bus, pid,
+                frequency, payload)
+        self.device.ctrl_transfer(0x40, self.COMPLEX_CONTROL_COMMAND, 0, 0,
                 json.dumps(request))
 
     @staticmethod
