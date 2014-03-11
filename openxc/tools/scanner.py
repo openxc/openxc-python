@@ -26,9 +26,8 @@ def scan(controller, bus=None, message_id=None):
         response = controller.diagnostic_request(arb_id, TESTER_PRESENT_MODE,
                 bus=bus, wait_for_first_response=True)
         # TODO if we send requests too quickly we get a pipe error from USB -
-        # why? bad cable? i can't tell why i would have to reset the receiving
-        # end, it's just a passthrough receiving messages as usual
-        time.sleep(.3)
+        # why?
+        time.sleep(.01)
         if response is not None:
             active_modules.append(arb_id)
 
