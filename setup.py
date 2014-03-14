@@ -48,6 +48,7 @@ setup(name='openxc',
             'openxc-generate-firmware-code = openxc.tools.generate_code:main',
             'openxc-diag = openxc.tools.diagnostics:main',
             'openxc-scanner = openxc.tools.scanner:main',
+            'openxc-obd2scanner = openxc.tools.obd2scanner:main',
         ]
     },
 )
