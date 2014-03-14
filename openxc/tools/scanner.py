@@ -24,7 +24,7 @@ def scan(controller, bus=None, message_id=None):
     # using 11-bit IDs
     for arb_id in range(0, 0x7ff):
         response = controller.diagnostic_request(arb_id, TESTER_PRESENT_MODE,
-                bus=bus, wait_for_first_response=True)
+                bus=bus, wait_for_first_response=True, pid=0)
         # TODO if we send requests too quickly we get a pipe error from USB -
         # why?
         time.sleep(.01)
