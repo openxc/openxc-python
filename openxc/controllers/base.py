@@ -43,16 +43,13 @@ class DiagnosticResponseReceiver(ResponseReceiver):
         self.diagnostic_request = request['request']
 
     def _response_matches_request(self, response):
-        # TODO need to handle negative responses, which may not include the PID
-        # echo
-        # TODO need to handle broadcast responses, where ID will be different
         if 'bus' in self.diagnostic_request and response.get('bus', None) != self.diagnostic_request['bus']:
             return False
         if (self.diagnostic_request['id'] != 0x7df and
                 response.get('id', None) == self.diagnostic_request['id']):
             return False
 
-        if response.get('success', True) and response.get('pid', None) != self.diagnostic_request['pid']:
+        if response.get('success', True) and response.get('pid', None) != self.diagnostic_request.get('pid', None):
             return False
 
         return response.get('mode', None) == self.diagnostic_request['mode']
@@ -64,7 +61,7 @@ class Controller(object):
     interface must define at least the ``write_bytes`` method.
     """
 
-    COMMAND_RESPONSE_TIMEOUT_S = .15
+    COMMAND_RESPONSE_TIMEOUT_S = .11
 
     def _wait_for_response(self, request):
         queue = Queue()
@@ -126,7 +123,7 @@ class Controller(object):
         if pid is not None:
             request['request']['pid'] = pid
         if frequency is not None:
-            request['request']['frequency'] = frequnecy
+            request['request']['frequency'] = frequency
 
         return request
 
