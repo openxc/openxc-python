@@ -19,7 +19,7 @@ TESTER_PRESENT_MODE = 0x3e
 
 def scan(controller, bus=None, message_id=None):
 
-    # Scan for active modules by sending each a tester presnet
+    print("Sending tester present message to find valid modules arb IDs")
     active_modules = set()
     # using 11-bit IDs
     for arb_id in range(0, 0x7ff):
@@ -29,9 +29,13 @@ def scan(controller, bus=None, message_id=None):
         # why?
         time.sleep(.01)
         if response is not None:
+            print("0x%x responded to tester present" % arb_id)
             active_modules.append(arb_id)
+        else:
+            print("0x%x did not respond" % arb_id)
 
     # Scan for active services on each active module by sending blank requests
+    print("Scanning for services on active modules")
     active_modes = defaultdict(list)
     for active_module in active_modules:
         controller.diagnostic_request(arb_id, TESTER_PRESENT_MODE, bus=bus,
@@ -40,6 +44,7 @@ def scan(controller, bus=None, message_id=None):
         for mode in range(1, 0xff):
             response = controller.diagnostic_request(arb_id, mode, bus=bus)
             if response is not None:
+                print("0x%x responded on service 0x%x" % (arb_id, mode))
                 # TODO make sure response isn't negative
                 active_modules[arb_id].append(mode)
 
@@ -48,6 +53,7 @@ def scan(controller, bus=None, message_id=None):
 
     # Scan for what each mode can do and what data it can return by fuzzing the
     # payloads
+    print("Fuzzing the valid modes on acitve modules to see what happens")
     for arb_id, active_modes in active_modes.iteritems():
         controller.diagnostic_request(arb_id, TESTER_PRESENT_MODE, bus=bus,
                 frequency=1)
@@ -59,7 +65,7 @@ def scan(controller, bus=None, message_id=None):
                 if response is not None:
                     # TODO make sure response isn't negative
                     # TODO print out something?
-                    pass
+                    print("0x%x responded to mode 0x%x request with payload 0x%x with: %s" % (arb_id, mode, payload, response))
 
         controller.diagnostic_request(arb_id, TESTER_PRESENT_MODE, bus=bus,
                 frequency=0)

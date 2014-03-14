@@ -64,7 +64,7 @@ class Controller(object):
     interface must define at least the ``write_bytes`` method.
     """
 
-    COMMAND_RESPONSE_TIMEOUT_S = 1
+    COMMAND_RESPONSE_TIMEOUT_S = .15
 
     def _wait_for_response(self, request):
         queue = Queue()
