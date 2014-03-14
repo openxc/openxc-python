@@ -6,9 +6,11 @@ import threading
 
 try:
     from Queue import Queue
+    from Queue import Empty
 except ImportError:
     # Python 3
     from queue import Queue
+    from queue import Empty
 
 from openxc.formats.json import JsonFormatter
 
@@ -21,11 +23,14 @@ class ResponseReceiver(object):
     def wait_for_command_response(self):
         response_received = False
         while not response_received:
-            self.response = self.queue.get(
-                    timeout=Controller.COMMAND_RESPONSE_TIMEOUT_S)
-            if self._response_matches_request(self.response):
-                response_received = True
-            self.queue.task_done()
+            try:
+                self.response = self.queue.get(
+                        timeout=Controller.COMMAND_RESPONSE_TIMEOUT_S)
+                if self._response_matches_request(self.response):
+                    response_received = True
+                self.queue.task_done()
+            except Empty:
+                break
 
 class CommandResponseReceiver(object):
     def _response_matches_request(self, response):
