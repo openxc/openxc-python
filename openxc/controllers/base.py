@@ -45,16 +45,34 @@ class Controller(object):
     interface must define at least the ``write_bytes`` method.
     """
 
-    COMMAND_RESPONSE_TIMEOUT_S = 5
+    COMMAND_RESPONSE_TIMEOUT_S = .2
 
-    def complex_request(self, request, wait_for_response=True):
+    def _wait_for_response(self, request):
+        queue = Queue()
+
+        self.open_requests = getattr(self, 'open_requests', [])
+        self.open_requests.append(queue)
+
+        if request['command'] == "diagnostic_request":
+            receiver = DiagnosticResponseReceiver(queue, request)
+        else:
+            receiver = CommandResponseReceiver(queue, request)
+
+        t = threading.Thread(target=receiver.wait_for_command_response)
+        t.daemon = True
+        t.start()
+        t.join(self.COMMAND_RESPONSE_TIMEOUT_S)
+
+        return receiver
+
+    def complex_request(self, request, wait_for_first_response=True):
         """Send a compound command request to the interface over the normal data
         channel.
 
         request - A dict storing the request to send to the VI. It will be
             encoded as JSON currently, as that is the only supported format for
             commands.
-        wait_for_response - If true, this function will block waiting for a
+        wait_for_first_response - If true, this function will block waiting for a
             response from the VI and return it to the caller. Otherwise, it will
             send the command and return immediately and any response will be
             lost.
@@ -63,25 +81,11 @@ class Controller(object):
         """
         self.write_bytes(JsonFormatter.serialize(request))
 
-        if wait_for_response:
-            queue = Queue()
-
-            self.open_requests = getattr(self, 'open_requests', [])
-            self.open_requests.append(queue)
-
-            if request['command'] == "diagnostic_request":
-                receiver = DiagnosticResponseReceiver(queue, request)
-            else:
-                receiver = CommandResponseReceiver(queue, request)
-
-            t = threading.Thread(target=receiver.wait_for_command_response)
-            t.daemon = True
-            t.start()
-            t.join(self.COMMAND_RESPONSE_TIMEOUT_S)
-
         result = None
-        if receiver.response is not None:
-            result = receiver.response.get('message', "Unknown")
+        if wait_for_first_response:
+            receiver = self._wait_for_response(request)
+            if receiver.response is not None:
+                result = receiver.response.get('message', "Unknown")
         return result
 
     @classmethod

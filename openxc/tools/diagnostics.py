@@ -23,9 +23,10 @@ def diagnostic_request(arguments, controller):
         frequency = int(arguments.frequency, 0)
 
     # TODO what format is the payload going to be? hex string?
-    controller.diagnostic_request(message, mode, bus=bus, pid=pid,
+    response = controller.diagnostic_request(message, mode, bus=bus, pid=pid,
             frequency=frequency, payload=arguments.payload,
             wait_for_first_response=True)
+    print(response)
 
 
 def parse_options():

@@ -59,6 +59,12 @@ class UsbControllerMixin(Controller):
                 frequency, payload)
         self.device.ctrl_transfer(0x40, self.COMPLEX_CONTROL_COMMAND, 0, 0,
                 json.dumps(request))
+        result = None
+        if wait_for_first_response:
+            receiver = self._wait_for_response(request)
+            if receiver.response is not None:
+                result = receiver.response.get('message', "Unknown")
+        return result
 
     @staticmethod
     def _connect_out_endpoint(device):
