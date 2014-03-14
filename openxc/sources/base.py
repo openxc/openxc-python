@@ -160,8 +160,7 @@ class BytestreamDataSource(DataSource):
                 self.bytes_received += byte_count
                 if self.callback is not None:
                     self.callback(message)
-                if "command_response" in message:
-                    self._receive_command_response(message)
+                self._receive_command_response(message)
 
     def _protobuf_to_dict(self, message):
         parsed_message = {}

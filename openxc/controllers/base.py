@@ -21,23 +21,37 @@ class ResponseReceiver(object):
     def wait_for_command_response(self):
         response_received = False
         while not response_received:
-            self.response = self.queue.get()
+            self.response = self.queue.get(
+                    timeout=Controller.COMMAND_RESPONSE_TIMEOUT_S)
             if self._response_matches_request(self.response):
                 response_received = True
             self.queue.task_done()
 
 class CommandResponseReceiver(object):
     def _response_matches_request(self, response):
-        return self.response['command_response'] == self.request['command']
+        return self.response.get(
+                'command_response', None) == self.request['command']
 
 class DiagnosticResponseReceiver(ResponseReceiver):
+    def __init__(self, queue, request):
+        super(DiagnosticResponseReceiver, self).__init__(queue, request)
+        self.diagnostic_request = request['request']
+
     def _response_matches_request(self, response):
         # TODO need to handle negative responses, which may not include the PID
         # echo
-        return (response.get('bus') == self.request.bus and
-                response.get('id') == self.request.id and
-                response.get('mode') == self.request.mode and
-                response.get('pid', None) == self.request.pid)
+        # TODO need to handle broadcast responses, where ID will be different
+        if 'bus' in self.diagnostic_request and response.get('bus', None) != self.diagnostic_request['bus']:
+            return False
+        if (self.diagnostic_request['id'] != 0x7df and
+                response.get('id', None) == self.diagnostic_request['id']):
+            return False
+
+        if response.get('success', True) and response.get('pid', None) != self.diagnostic_request['pid']:
+            return False
+
+        return response.get('mode', None) == self.diagnostic_request['mode']
+
 
 class Controller(object):
     """A Controller is a physical vehicle interface that accepts commands to be
@@ -45,7 +59,7 @@ class Controller(object):
     interface must define at least the ``write_bytes`` method.
     """
 
-    COMMAND_RESPONSE_TIMEOUT_S = .2
+    COMMAND_RESPONSE_TIMEOUT_S = 1
 
     def _wait_for_response(self, request):
         queue = Queue()
@@ -59,7 +73,6 @@ class Controller(object):
             receiver = CommandResponseReceiver(queue, request)
 
         t = threading.Thread(target=receiver.wait_for_command_response)
-        t.daemon = True
         t.start()
         t.join(self.COMMAND_RESPONSE_TIMEOUT_S)
 
