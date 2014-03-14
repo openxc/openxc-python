@@ -62,8 +62,7 @@ class UsbControllerMixin(Controller):
         result = None
         if wait_for_first_response:
             receiver = self._wait_for_response(request)
-            if receiver.response is not None:
-                result = receiver.response.get('message', "Unknown")
+            result = receiver.response
         return result
 
     @staticmethod

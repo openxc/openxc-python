@@ -3,13 +3,7 @@ from __future__ import absolute_import
 import argparse
 import time
 
-from openxc.formats.json import JsonFormatter
 from .common import device_options, configure_logging, select_device
-
-def receive(message, **kwargs):
-    message['timestamp'] = time.time()
-    print(JsonFormatter.serialize(message))
-
 
 def diagnostic_request(arguments, controller):
     message = int(arguments.message, 0)
@@ -53,7 +47,7 @@ def main():
     arguments = parse_options()
 
     controller_class, controller_kwargs = select_device(arguments)
-    controller = controller_class(receive, **controller_kwargs)
+    controller = controller_class(**controller_kwargs)
     controller.start()
 
     # wait for the receiving thread to spin up
