@@ -15,6 +15,7 @@ from collections import defaultdict
 from .common import device_options, configure_logging, select_device
 
 TESTER_PRESENT_MODE = 0x3e
+TESTER_PRESENT_PAYLOAD = bytearray([0])
 
 def scan(controller, bus=None, message_id=None):
 
@@ -23,7 +24,8 @@ def scan(controller, bus=None, message_id=None):
     # using 11-bit IDs
     for arb_id in range(0, 0x7ff + 1):
         response = controller.diagnostic_request(arb_id, TESTER_PRESENT_MODE,
-                bus=bus, wait_for_first_response=True, pid=0)
+                bus=bus, wait_for_first_response=True,
+                payload=TESTER_PRESENT_PAYLOAD)
         if response is not None:
             print("0x%x responded to tester present: %s" % (arb_id, response))
             active_modules.add(arb_id)
@@ -33,7 +35,8 @@ def scan(controller, bus=None, message_id=None):
     active_modes = defaultdict(list)
     for active_module in active_modules:
         controller.diagnostic_request(active_module, TESTER_PRESENT_MODE, bus=bus,
-                frequency=1, wait_for_first_response=True, pid=0)
+                frequency=1, wait_for_first_response=True,
+                payload=TESTER_PRESENT_PAYLOAD)
         # TODO don't really care about response, but need to wait before sending
         # the next request or we will get a pipe error on USB
 
@@ -49,14 +52,14 @@ def scan(controller, bus=None, message_id=None):
                 active_modes[active_module].append(mode)
 
         controller.diagnostic_request(active_module, TESTER_PRESENT_MODE, bus=bus,
-                frequency=0, pid=0)
+                frequency=0)
 
     # Scan for what each mode can do and what data it can return by fuzzing the
     # payloads
     print("Fuzzing the valid modes on acitve modules to see what happens")
     for arb_id, active_modes in active_modes.iteritems():
         controller.diagnostic_request(arb_id, TESTER_PRESENT_MODE, bus=bus,
-                frequency=1, pid=0)
+                frequency=1, payload=TESTER_PRESENT_PAYLOAD)
 
         for mode in active_modes:
             # TODO how to support more payloads efficiently?
@@ -69,7 +72,7 @@ def scan(controller, bus=None, message_id=None):
                     print("0x%x responded to mode 0x%x request with payload 0x%x with: %s" % (arb_id, mode, payload, response))
 
         controller.diagnostic_request(arb_id, TESTER_PRESENT_MODE, bus=bus,
-                frequency=0, pid=0)
+                frequency=0)
 
 def parse_options():
     parser = argparse.ArgumentParser(description="Send diagnostic message requests to an attached VI",

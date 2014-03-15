@@ -3,6 +3,7 @@ interface.
 """
 import numbers
 import threading
+import binascii
 
 try:
     from Queue import Queue
@@ -118,8 +119,8 @@ class Controller(object):
         if mode is not None:
             request['request']['mode'] = mode
         if payload is not None:
-            # TODO what format is the payload going to be? hex?
-            request['request']['payload'] = payload
+            # payload must be a bytearray
+            request['request']['payload'] = "0x%s" % binascii.hexlify(payload)
         if pid is not None:
             request['request']['pid'] = pid
         if frequency is not None:
@@ -129,9 +130,6 @@ class Controller(object):
 
     def diagnostic_request(self, message_id, mode, bus=None, pid=None,
             frequency=None, payload=None, wait_for_first_response=False):
-        # TODO currently this is going to exit after the first response.
-        # what about broadcast requests? we may just need to stay alive for
-        # 1 second
         request = self._build_diagnostic_request(message_id, mode, bus, pid,
                 frequency, payload)
         self.complex_request(request, wait_for_first_response)

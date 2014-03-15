@@ -1,5 +1,6 @@
 from __future__ import absolute_import
 
+import binascii
 import argparse
 import time
 
@@ -21,9 +22,12 @@ def diagnostic_request(arguments, controller):
     if arguments.frequency is not None:
         frequency = int(arguments.frequency, 0)
 
-    # TODO what format is the payload going to be? hex string?
+    payload = bytearray()
+    if arguments.payload is not None:
+        payload = binascii.unhexlify(arguments.payload.split("0x")[1])
+
     response = controller.diagnostic_request(message, mode, bus=bus, pid=pid,
-            frequency=frequency, payload=arguments.payload,
+            frequency=frequency, payload=payload,
             wait_for_first_response=True)
     print(response)
 
@@ -36,7 +40,7 @@ def parse_options():
     parser.add_argument("--mode", required=True)
     parser.add_argument("--bus")
     parser.add_argument("--pid")
-    parser.add_argument("--payload")
+    parser.add_argument("--payload", help="A hex string describing the payload")
     parser.add_argument("--frequency")
 
     return parser.parse_args()
