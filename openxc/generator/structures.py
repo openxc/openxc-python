@@ -23,8 +23,9 @@ class DiagnosticMessage(object):
         self.enabled = enabled
         self.id = kwargs['id']
         self.bus = kwargs['bus']
-        self.generic_name = kwargs.get('generic_name', None)
+        self.name = kwargs.get('name', None)
         self.parse_payload = kwargs.get('parse_payload', False)
+        self.multiple_responses = kwargs.get('multiple_responses', False)
         self.factor = kwargs.get('factor', None)
         self.offset = kwargs.get('offset', None)
         self.handler = kwargs.get('handler', None)
@@ -38,33 +39,31 @@ class DiagnosticMessage(object):
                 self.id, self.mode, str(self.pid > 0).lower(), self.pid,
                 self.pid_length)
 
-        if self.generic_name or self.handler or self.factor or self.offset or self.parse_payload:
-            if self.generic_name:
-                name = "\"%s\"" % self.generic_name
-            else:
-                name = "NULL"
-
-            if self.factor is not None:
-                factor = self.factor
-            else:
-                factor = 1.0
-
-            if self.offset is not None:
-                offset = self.offset
-            else:
-                offset = 0
-
-
-            result += "        addDiagnosticRequest(diagnosticsManager, &getCanBuses()[%d], &request, %s, %f, %f, %s, %f);\n        }\n" % (
-                    self.message_set.lookup_bus_index(self.bus),
-                    name,
-                    factor,
-                    offset,
-                    self.handler or "NULL",
-                    self.frequency)
+        if self.name:
+            name = "\"%s\"" % self.name
         else:
-            result += "        addDiagnosticRequest(diagnosticsManager, &getCanBuses()[%d], &request, %f);\n        }\n" % (
-                    self.message_set.lookup_bus_index(self.bus), self.frequency)
+            name = "NULL"
+
+        if self.factor is not None:
+            factor = self.factor
+        else:
+            factor = 1.0
+
+        if self.offset is not None:
+            offset = self.offset
+        else:
+            offset = 0
+
+
+        result += "        addDiagnosticRequest(diagnosticsManager, &getCanBuses()[%d], &request, %s, %s, %f, %f, %s, %f, %s);\n        }\n" % (
+                self.message_set.lookup_bus_index(self.bus),
+                name,
+                str(self.parse_payload).lower(),
+                factor,
+                offset,
+                self.handler or "NULL",
+                self.frequency,
+                str(self.multiple_responses).lower())
         return result
 
 
