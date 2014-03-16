@@ -190,4 +190,4 @@ class CodeGeneratorTests(unittest.TestCase):
         message_set, output = self._generate('signals.json.example')
         ok_(len(list(message_set.all_diagnostic_messages())) > 0)
         for diagnostic_request in message_set.all_diagnostic_messages():
-            ok_(diagnostic_request.generic_name in output)
+            ok_(diagnostic_request.name in output)

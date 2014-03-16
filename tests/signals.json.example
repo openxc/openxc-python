@@ -30,7 +30,7 @@
     ],
     "diagnostic_messages": [
         {"bus": "hs",
-          "generic_name": "obd2_engine_speed",
+          "name": "obd2_engine_speed",
           "id": 2015,
           "mode": 1,
           "pid": 12,
