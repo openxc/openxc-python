@@ -55,7 +55,7 @@ class DiagnosticMessage(object):
             offset = 0
 
 
-        result += "        addDiagnosticRequest(diagnosticsManager, &getCanBuses()[%d], &request, %s, %s, %f, %f, %s, %f, %s);\n        }\n" % (
+        result += "        addRecurringRequest(diagnosticsManager, &getCanBuses()[%d], &request, %s, %s, %f, %f, %s, %f, %s);\n        }\n" % (
                 self.message_set.lookup_bus_index(self.bus),
                 name,
                 str(self.parse_payload).lower(),
