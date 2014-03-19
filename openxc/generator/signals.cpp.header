@@ -3,7 +3,6 @@
  *
  * Generated for v{0} of the OpenXC VI firmware.
  */
-#ifndef EMULATE_VEHICLE_DATA
 
 #include "diagnostics.h"
 #include "can/canread.h"
