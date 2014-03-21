@@ -24,23 +24,26 @@ class UsbControllerMixin(Controller):
     DEVICE_ID_CONTROL_COMMAND = 0x82
     COMPLEX_CONTROL_COMMAND = 0x83
 
-    @property
-    def out_endpoint(self):
-        if getattr(self, '_out_endpoint', None) is None:
-            self._out_endpoint = self._connect_out_endpoint(self.device)
-        return self._out_endpoint
-
     def write_bytes(self, data):
-        if self.out_endpoint is None:
+        if self._out_endpoint is None:
             LOG.warn("Can't write \"%s\" to USB, OUT endpoint is %x", data,
-                    self.out_endpoint)
+                    self._out_endpoint)
             return 0
         else:
             # See upstream issue in pyusb on why we have to manually encode
             # here: https://github.com/walac/pyusb/issues/8
-            return self.out_endpoint.write(data.encode("utf8"))
+            return self._out_endpoint.write(data.encode("utf8"))
+
+    @property
+    def _out_endpoint(self):
+        if getattr(self, '_out_endpoint', None) is None:
+            self._out_endpoint = self._connect_out_endpoint(self.device)
+        return self._out_endpoint
 
     def version(self):
+        """Request the firmware version identifier from the VI via USB control
+        request.
+        """
         # TODO is 0xC0 correct for IN control transfers? if I clear the in
         # endpoint on the VI it dies, but if I clear the OUT, it works.
         raw_version = self.device.ctrl_transfer(0xC0,
@@ -48,13 +51,17 @@ class UsbControllerMixin(Controller):
         return ''.join([chr(x) for x in raw_version])
 
     def device_id(self):
+        """Request the unique device ID of the attached VI with a USB control
+        request.
+        """
         raw_device_id = self.device.ctrl_transfer(0xC0,
                 self.DEVICE_ID_CONTROL_COMMAND, 0, 0, 20)
         return ''.join([chr(x) for x in raw_device_id])
 
     def diagnostic_request(self, message_id, mode, bus=None, pid=None,
             frequency=None, payload=None, wait_for_first_response=False):
-        # TODO this is hard coded to work only with JSON right now
+        """Send a new diagnostic request to the VI with a USB control request.
+        """
         request = self._build_diagnostic_request(message_id, mode, bus, pid,
                 frequency, payload)
         self.device.ctrl_transfer(0x40, self.COMPLEX_CONTROL_COMMAND, 0, 0,
