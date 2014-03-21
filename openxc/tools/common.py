@@ -1,3 +1,6 @@
+"""Common functions for parsing command line arguments, shared with all openxc
+command line utilities.
+"""
 import argparse
 import logging
 

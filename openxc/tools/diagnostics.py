@@ -1,3 +1,10 @@
+"""
+This module contains the methods for the ``openxc-diag`` command line
+program.
+
+`main` is executed when ``openxc-diag`` is run, and all other callables in
+this module are internal only.
+"""
 from __future__ import absolute_import
 
 import binascii
@@ -34,14 +41,16 @@ def diagnostic_request(arguments, controller):
 
 def parse_options():
     parser = argparse.ArgumentParser(
-            description="Send diagnostic message requests to an attached VI",
+            description="Sends a diagnostic message request to a vehicle interface",
             parents=[device_options()])
-    parser.add_argument("--message", required=True)
-    parser.add_argument("--mode", required=True)
-    parser.add_argument("--bus")
-    parser.add_argument("--pid")
-    parser.add_argument("--payload", help="A hex string describing the payload")
-    parser.add_argument("--frequency")
+    # TODO need to be able to specify name, factor, offset. Needs to be
+    # supported in the controller, too.
+    parser.add_argument("--message", required=True, help="CAN message ID for the request")
+    parser.add_argument("--mode", required=True, help="Diagnostic mode (or service) number")
+    parser.add_argument("--bus", help="CAN bus controller address to send on")
+    parser.add_argument("--pid", help="Parameter ID (e.g. for Mode 1 request")
+    parser.add_argument("--payload", help="A byte array as a hex string to send as payload, e.g. 0x123")
+    parser.add_argument("--frequency", help="Frequency (Hz) to repeat this request. If omitted or 0, it will be a one-time request.")
 
     return parser.parse_args()
 

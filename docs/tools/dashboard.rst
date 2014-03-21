@@ -55,7 +55,7 @@ Use a custom USB device:
 
     $ openxc-dashboard --usb-vendor 4424
 
-Use a a CAN translator connected via serial instead of USB:
+Use a a vehicle interface connected via serial instead of USB:
 
 .. code-block:: bash
 

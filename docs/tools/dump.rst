@@ -3,7 +3,7 @@
 =====================================
 
 :program:`openxc-dump` is a command-line tool to view the raw data stream from
-an attached CAN translator or trace file. It attempts to read OpenXC messages
+an attached vehicle interface or trace file. It attempts to read OpenXC messages
 from the interface specified at the command line (USB, serial or a trace file)
 and prints each message received to ``stdout``.
 
@@ -29,7 +29,7 @@ Use a custom USB device:
 
     $ openxc-dump --usb-vendor 4424
 
-Use a a CAN translator connected via serial instead of USB:
+Use a a vehicle interface connected via serial instead of USB:
 
 .. code-block:: bash
 

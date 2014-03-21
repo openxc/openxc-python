@@ -19,7 +19,7 @@ Convert a previously recorded OpenXC JSON trace file to GPX:
 
     $ openxc-gps --trace trace.json > trace.gpx
 
-Convert a real-time stream from a USB CAN translator to GPX in real-time (using
+Convert a real-time stream from a USB vehicle interface to GPX in real-time (using
 all defaults, and printing to `stdout`):
 
 .. code-block:: bash

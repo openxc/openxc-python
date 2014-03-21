@@ -3,7 +3,7 @@
 ========================================
 
 :program:`openxc-control` is a command-line tool that can send control messages
-to an attached CAN translator.
+to an attached vehicle interface.
 
 Basic use
 =========
@@ -29,7 +29,7 @@ translator:
 reset
 --------
 
-Reset and re-initialize the attached CAN translator.
+Reset and re-initialize the attached vehicle interface.
 
 .. code-block:: bash
 
@@ -43,7 +43,7 @@ Reset and re-initialize the attached CAN translator.
 write
 ------
 
-Send a request to the CAN translator to write a message back to the CAN bus. The
+Send a request to the vehicle interface to write a message back to the CAN bus. The
 ``--name`` and ``--value`` options are required when using this command.
 
 .. code-block:: bash
@@ -56,7 +56,7 @@ Send a request to the CAN translator to write a message back to the CAN bus. The
 
 .. note::
 
-    The CAN translator must be running firmware that supports CAN writes, and
+    The vehicle interface must be running firmware that supports CAN writes, and
     must allow writing the specific message that you request with
     ``openxc-control``.
 
@@ -68,17 +68,17 @@ A quick overview of all possible command line options can be found via
 
 .. cmdoption:: --name <name>
 
-    The name of a message to write to the CAN translator. This is required when
+    The name of a message to write to the vehicle interface. This is required when
     the ``write`` command is used, in addition to ``--value``
 
 .. cmdoption:: --value <value>
 
-    The value of a message to write to the CAN translator. This is required when
+    The value of a message to write to the vehicle interface. This is required when
     the ``write`` command is used, in addition to ``--name``.
 
 .. cmdoption:: --file <input_file>
 
-    The path to a file of OpenXC JSON messages to write to the CAN translator.
+    The path to a file of OpenXC JSON messages to write to the vehicle interface.
     The messages should be separated by newlines
 
 .. include:: ../_shared/common_cmdoptions.rst

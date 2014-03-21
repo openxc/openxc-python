@@ -1,11 +1,9 @@
-"""Diagnostic Scantool
+"""
+This module contains the methods for the ``openxc-scanner`` command line
+program.
 
-    * for each active module
-       * add a 1hz recurring tester present
-       * for each active service on that module
-            * for every possible payload
-                * send a request, see what it does - print status
-       * add a 1hz recurring tester present
+`main` is executed when ``openxc-scanner`` is run, and all other callables in this
+module are internal only.
 """
 from __future__ import absolute_import
 
@@ -18,11 +16,16 @@ TESTER_PRESENT_MODE = 0x3e
 TESTER_PRESENT_PAYLOAD = bytearray([0])
 
 def scan(controller, bus=None, message_id=None):
+    message_ids = []
+    if message_id is not None:
+        message_ids.append(message_id)
+    else:
+        # using 11-bit IDs
+        message_ids = range(0, 0x7ff + 1)
 
     print("Sending tester present message to find valid modules arb IDs")
     active_modules = set()
-    # using 11-bit IDs
-    for arb_id in range(0, 0x7ff + 1):
+    for arb_id in message_ids:
         response = controller.diagnostic_request(arb_id, TESTER_PRESENT_MODE,
                 bus=bus, wait_for_first_response=True,
                 payload=TESTER_PRESENT_PAYLOAD)
@@ -77,8 +80,8 @@ def scan(controller, bus=None, message_id=None):
 def parse_options():
     parser = argparse.ArgumentParser(description="Send diagnostic message requests to an attached VI",
             parents=[device_options()])
-    parser.add_argument("--bus")
-    parser.add_argument("--message")
+    parser.add_argument("--bus", help="CAN bus controller address to send on")
+    parser.add_argument("--message", help="CAN message ID for the request")
 
     return parser.parse_args()
 

@@ -31,8 +31,7 @@ class ResponseReceiver(object):
     def __init__(self, queue, request):
         """Construct a new ResponseReceiver.
 
-        queue - A multithreading queue that this receiver will pull potential
-                responses from.
+        queue - A multithreading queue that this receiver will pull potential responses from.
         request - The request we are trying to match up with a response.
         """
         self.request = request

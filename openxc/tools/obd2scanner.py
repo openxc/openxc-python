@@ -1,3 +1,10 @@
+"""
+This module contains the methods for the ``openxc-obd2scanner`` command line
+program.
+
+`main` is executed when ``openxc-obd2scanner`` is run, and all other callables in this
+module are internal only.
+"""
 from __future__ import absolute_import
 
 import argparse
@@ -6,6 +13,8 @@ from .common import device_options, configure_logging, select_device
 
 def scan(controller, bus=None):
 
+    # TODO could read the response from the "PIDs supported" requests to see
+    # what the vehicle reports that it *should* support.
     print("Beginning sequential scan of all OBD-II PIDs")
     for pid in range(0, 0x88):
         response = controller.diagnostic_request(0x7df, mode=0x1, bus=bus,
