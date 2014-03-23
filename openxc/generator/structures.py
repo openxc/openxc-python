@@ -28,11 +28,18 @@ class DiagnosticMessage(object):
         self.multiple_responses = kwargs.get('multiple_responses', False)
         self.factor = kwargs.get('factor', None)
         self.offset = kwargs.get('offset', None)
-        self.handler = kwargs.get('handler', None)
+        self.decoder = kwargs.get('decoder', None)
+        self.callback = kwargs.get('callback', None)
         self.mode = kwargs['mode']
         self.pid = kwargs.get('pid', 0)
         self.pid_length = kwargs.get('pid_length', 0)
-        self.frequency = kwargs.get('frequency', 0)
+
+        try:
+            self.frequency = kwargs['frequency']
+        except KeyError:
+            raise ConfigurationError("Frequency must be specified for "
+                "pre-configured diagnostic request (bus: "
+                "%s, id: %d, mode: %d, pid: %d" % (self.bus, self.id, self.mode, self.pid))
 
     def __str__(self):
         result = "{\n        DiagnosticRequest request = {arbitration_id: 0x%x, mode: 0x%x, has_pid: %s, pid: 0x%x, pid_length: %d};\n" % (
@@ -55,15 +62,16 @@ class DiagnosticMessage(object):
             offset = 0
 
 
-        result += "        addRecurringRequest(diagnosticsManager, &getCanBuses()[%d], &request, %s, %s, %f, %f, %s, %f, %s);\n        }\n" % (
+        result += "        addRecurringRequest(diagnosticsManager, &getCanBuses()[%d], &request, %s, %s, %s, %f, %f, %s, %s, %f);\n        }\n" % (
                 self.message_set.lookup_bus_index(self.bus),
                 name,
                 str(self.parse_payload).lower(),
+                str(self.multiple_responses).lower(),
                 factor,
                 offset,
-                self.handler or "NULL",
-                self.frequency,
-                str(self.multiple_responses).lower())
+                self.decoder or "NULL",
+                self.callback or "NULL",
+                self.frequency)
         return result
 
 
@@ -270,6 +278,9 @@ class CanBus(object):
                 max_message_frequency=self.max_message_frequency,
                 raw_writable=str(self.raw_writable).lower())
 
+
+class ConfigurationError(Exception):
+    pass
 
 class BitInversionError(Exception):
     pass
