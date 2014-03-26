@@ -24,7 +24,6 @@ class DiagnosticMessage(object):
         self.id = kwargs['id']
         self.bus = kwargs['bus']
         self.name = kwargs.get('name', None)
-        self.parse_payload = kwargs.get('parse_payload', False)
         self.multiple_responses = kwargs.get('multiple_responses', False)
         self.factor = kwargs.get('factor', None)
         self.offset = kwargs.get('offset', None)
@@ -62,10 +61,9 @@ class DiagnosticMessage(object):
             offset = 0
 
 
-        result += "        addRecurringRequest(diagnosticsManager, &getCanBuses()[%d], &request, %s, %s, %s, %f, %f, %s, %s, %f);\n        }\n" % (
+        result += "        addRecurringRequest(diagnosticsManager, &getCanBuses()[%d], &request, %s, %s, %f, %f, %s, %s, %f);\n        }\n" % (
                 self.message_set.lookup_bus_index(self.bus),
                 name,
-                str(self.parse_payload).lower(),
                 str(self.multiple_responses).lower(),
                 factor,
                 offset,
