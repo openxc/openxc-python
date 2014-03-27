@@ -45,7 +45,7 @@ class TraceDataSource(BytestreamDataSource):
                 if line == '':
                     break
 
-                message, _, byte_count = self._parse_message(line)
+                message, _, byte_count = self._parse_message(line + '\x00')
                 if message is None:
                     continue
 

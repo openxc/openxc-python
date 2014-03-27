@@ -104,9 +104,9 @@ class SourceLogger(threading.Thread):
                 break
 
             while True:
-                if "\r\n" not in message_buffer:
+                if "\x00" not in message_buffer:
                     break
-                record, _, remainder = message_buffer.partition(b"\r\n")
+                record, _, remainder = message_buffer.partition(b"\x00")
                 self.record(record)
                 message_buffer = remainder
 
@@ -224,8 +224,8 @@ class BytestreamDataSource(DataSource):
         parsed_message = None
         remainder = message_buffer
         message = ""
-        if b"\n" in message_buffer:
-            message, _, remainder = message_buffer.partition(b"\n")
+        if b"\x00" in message_buffer:
+            message, _, remainder = message_buffer.partition(b"\x00")
             try:
                 parsed_message = JsonFormatter.deserialize(message)
                 if not isinstance(parsed_message, dict):
@@ -286,7 +286,9 @@ class BytestreamDataSource(DataSource):
         if not isinstance(message_buffer, bytes):
             message_buffer = message_buffer.encode("utf-8")
 
-        if all((char in string.printable for char in message_buffer)):
+        json_chars = ['\x00']
+        json_chars.extend(string.printable)
+        if all((char in json_chars for char in message_buffer)):
             return self._parse_json_message(message_buffer)
         else:
             return self._parse_protobuf_message(message_buffer)
