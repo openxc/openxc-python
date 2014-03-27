@@ -157,7 +157,7 @@ class Controller(object):
 
         result = None
         if wait_for_first_response:
-            repsonse = self._wait_for_response(request)
+            response = self._wait_for_response(request)
             if response is not None:
                 result = response.get('message', "Unknown")
         return result

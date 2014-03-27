@@ -68,8 +68,7 @@ class UsbControllerMixin(Controller):
                 json.dumps(request))
         result = None
         if wait_for_first_response:
-            receiver = self._wait_for_response(request)
-            result = receiver.response
+            result = self._wait_for_response(request)
         return result
 
     @staticmethod
