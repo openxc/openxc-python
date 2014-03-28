@@ -100,7 +100,7 @@ class DiagnosticResponseReceiver(ResponseReceiver):
                 response.get('bus', None) != self.diagnostic_request['bus']):
             return False
         if (self.diagnostic_request['id'] != 0x7df and
-                response.get('id', None) == self.diagnostic_request['id']):
+                response.get('id', None) != self.diagnostic_request['id']):
             return False
 
         if (response.get('success', True) and
