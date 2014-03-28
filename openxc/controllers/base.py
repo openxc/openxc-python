@@ -176,7 +176,7 @@ class Controller(object):
             request['request']['bus'] = bus
         if mode is not None:
             request['request']['mode'] = mode
-        if payload is not None:
+        if payload is not None and len(payload) > 0:
             # payload must be a bytearray
             request['request']['payload'] = "0x%s" % binascii.hexlify(payload)
         if pid is not None:
