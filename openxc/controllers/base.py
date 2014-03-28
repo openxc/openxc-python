@@ -157,12 +157,10 @@ class Controller(object):
         """
         self.write_bytes(JsonFormatter.serialize(request))
 
-        result = None
+        response = None
         if wait_for_first_response:
             response = self._wait_for_response(request)
-            if response is not None:
-                result = response.get('message', "Unknown")
-        return result
+        return response
 
     @classmethod
     def _build_diagnostic_request(cls, message_id, mode, bus=None, pid=None,
@@ -218,7 +216,11 @@ class Controller(object):
 
         request = self._build_diagnostic_request(message_id, mode, bus, pid,
                 frequency, payload)
-        return self.complex_request(request, wait_for_first_response)
+        response = self.complex_request(request, wait_for_first_response)
+        result = None
+        if response is not None:
+            result = response.get('message')
+        return result
 
     def version(self):
         """Request a firmware version identifier from the VI.
@@ -226,7 +228,13 @@ class Controller(object):
         request = {
             "command": "version"
         }
-        return self.complex_request(request)
+        response = self.complex_request(request)
+        result = None
+        if response is not None:
+            result = response.get('message')
+        return result
+
+
 
     def device_id(self):
         """Request the unique device ID of the attached VI.
@@ -234,7 +242,11 @@ class Controller(object):
         request = {
             "command": "device_id"
         }
-        return self.complex_request(request)
+        response = self.complex_request(request)
+        result = None
+        if response is not None:
+            result = response.get('message')
+        return result
 
     def write(self, **kwargs):
         """Serialize a raw or translated write request as JSON and send it to
