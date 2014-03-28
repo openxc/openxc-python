@@ -25,20 +25,14 @@ class UsbControllerMixin(Controller):
     COMPLEX_CONTROL_COMMAND = 0x83
 
     def write_bytes(self, data):
-        if self._out_endpoint is None:
+        if self.out_endpoint is None:
             LOG.warn("Can't write \"%s\" to USB, OUT endpoint is %x", data,
-                    self._out_endpoint)
+                    self.out_endpoint)
             return 0
         else:
             # See upstream issue in pyusb on why we have to manually encode
             # here: https://github.com/walac/pyusb/issues/8
-            return self._out_endpoint.write(data.encode("utf8"))
-
-    @property
-    def _out_endpoint(self):
-        if getattr(self, '_out_endpoint', None) is None:
-            self._out_endpoint = self._connect_out_endpoint(self.device)
-        return self._out_endpoint
+            return self.out_endpoint.write(data.encode("utf8"))
 
     def version(self):
         """Request the firmware version identifier from the VI via USB control
@@ -71,23 +65,24 @@ class UsbControllerMixin(Controller):
             result = self._wait_for_response(request)
         return result
 
-    @staticmethod
-    def _connect_out_endpoint(device):
+    @property
+    def out_endpoint(self):
         """Open a reference to the USB device's only OUT endpoint. This method
         assumes that the USB device configuration has already been set.
         """
-        config = device.get_active_configuration()
-        interface_number = config[(0, 0)].bInterfaceNumber
-        interface = usb.util.find_descriptor(config,
-                bInterfaceNumber=interface_number)
+        if getattr(self, '_out_endpoint', None) is None:
+            config = self.device.get_active_configuration()
+            interface_number = config[(0, 0)].bInterfaceNumber
+            interface = usb.util.find_descriptor(config,
+                    bInterfaceNumber=interface_number)
 
-        out_endpoint = usb.util.find_descriptor(interface,
-                custom_match = \
-                        lambda e: \
-                        usb.util.endpoint_direction(e.bEndpointAddress) == \
-                        usb.util.ENDPOINT_OUT)
+            self._out_endpoint = usb.util.find_descriptor(interface,
+                    custom_match = \
+                            lambda e: \
+                            usb.util.endpoint_direction(e.bEndpointAddress) == \
+                            usb.util.ENDPOINT_OUT)
 
-        if not out_endpoint:
-            raise ControllerError(
-                    "Couldn't find OUT endpoint on the USB device")
-        return out_endpoint
+            if not self._out_endpoint:
+                raise ControllerError(
+                        "Couldn't find OUT endpoint on the USB device")
+        return self._out_endpoint
