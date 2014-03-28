@@ -37,6 +37,7 @@ class ResponseReceiver(object):
         self.request = request
         self.queue = queue
         self.response = None
+        self.running = True
 
     def _response_matches_request(self, response):
         """Inspect the given response and return true if it's a response to this
@@ -59,7 +60,7 @@ class ResponseReceiver(object):
         is stored at self.response and also returned from this function.
         """
         response_received = False
-        while not response_received:
+        while self.running and not response_received:
             try:
                 self.response = self.queue.get(
                         timeout=Controller.COMMAND_RESPONSE_TIMEOUT_S)
@@ -138,6 +139,7 @@ class Controller(object):
         t = threading.Thread(target=receiver.wait_for_command_response)
         t.start()
         t.join(self.COMMAND_RESPONSE_TIMEOUT_S)
+        receiver.running = False
 
         return receiver.response
 
