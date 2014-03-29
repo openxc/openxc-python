@@ -81,7 +81,7 @@ def parse_options():
     parser = argparse.ArgumentParser(description="Send diagnostic message requests to an attached VI",
             parents=[device_options()])
     parser.add_argument("--bus", help="CAN bus controller address to send on")
-    parser.add_argument("--message", help="CAN message ID for the request")
+    parser.add_argument("--message-id", help="CAN message ID for the request")
 
     return parser.parse_args()
 

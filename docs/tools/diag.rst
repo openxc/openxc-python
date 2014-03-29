@@ -10,7 +10,7 @@ Make a single diagnostic request
 
 This example will create a new one-time diagnostic request - it will be sent
 once, and any respones will be printed to the terminal via stdout. The
-``--message`` and ``--mode`` options are required. This sends a functional
+``--message-id`` and ``--mode`` options are required. This sends a functional
 broadcast request (ID ``0x7df``) for the mode 3 service, to store a "freeze
 frame". See the Unified Diagnostics Service and On-Board Diagnostics standards
 for more information on valid modes.
@@ -20,7 +20,7 @@ default CAN bus if one is not specified.
 
 .. code-block:: bash
 
-    $ openxc-diag --message 0x7df --mode 0x3
+    $ openxc-diag --message-id 0x7df --mode 0x3
 
 .. note::
 
@@ -37,7 +37,7 @@ responses.
 
 .. code-block:: bash
 
-    $ openxc-diag --message 0x7df --mode 0x1 --pid 0xc --frequency 1
+    $ openxc-diag --message-id 0x7df --mode 0x1 --pid 0xc --frequency 1
 
 
 Command-line options

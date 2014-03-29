@@ -35,7 +35,7 @@ If you wish to scan only a single message ID, you can skip right to it:
 
 .. code-block:: bash
 
-    $ openxc-scanner --message 0x7e0
+    $ openxc-scanner --message-id 0x7e0
 
 Command-line options
 ====================
