@@ -202,8 +202,12 @@ class Message(object):
     def __str__(self):
         bus_index = self.message_set.lookup_bus_index(self.bus_name)
         if bus_index is not None:
-            return "{&CAN_BUSES[%d][%d], 0x%x, {%f}, %s}, // %s" % (
+            id_format = "STANDARD";
+            if self.id > 2047:
+                id_format = "EXTENDED";
+            return "{&CAN_BUSES[%d][%d], 0x%x, %s, {%f}, %s}, // %s" % (
                     self.message_set.index, bus_index, self.id,
+                    id_format,
                     self.max_frequency,
                     str(self.force_send_changed).lower(),
                     self.name)
