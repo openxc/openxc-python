@@ -269,7 +269,7 @@ class CodeGenerator(object):
     def _build_decoder(self):
         lines = []
         lines.append("void openxc::signals::decodeCanMessage("
-                "Pipeline* pipeline, CanBus* bus, int id, uint64_t data) {")
+                "Pipeline* pipeline, CanBus* bus, int id, CanMessageFormat format, uint64_t data) {")
 
         def block(message_set):
             lines = []
@@ -300,7 +300,7 @@ class CodeGenerator(object):
                 lines.append("            }")
                 if bus.raw_can_mode != "off":
                     lines.append(" " * 12 + "openxc::can::read::passthroughMessage("
-                            "bus, id, data, getMessages(), getMessageCount(), pipeline);")
+                            "bus, id, format, data, getMessages(), getMessageCount(), pipeline);")
                 lines.append("            break;")
             lines.append("        }")
             return lines
