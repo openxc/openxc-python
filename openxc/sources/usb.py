@@ -66,13 +66,14 @@ class UsbDataSource(BytestreamDataSource):
         return self._read(self.TRANSLATED_IN_ENDPOINT, timeout)
 
     def read_logs(self, timeout=None):
-        return self._read(self.LOG_IN_ENDPOINT, timeout)
+        return self._read(self.LOG_IN_ENDPOINT, timeout, 64)
 
-    def _read(self, endpoint_address, timeout=None):
+    def _read(self, endpoint_address, timeout=None,
+            read_size=DEFAULT_READ_REQUEST_SIZE):
         timeout = timeout or self.DEFAULT_READ_TIMEOUT
         try:
             return self.device.read(0x80 + endpoint_address,
-                    self.DEFAULT_READ_REQUEST_SIZE,
-                    self.DEFAULT_INTERFACE_NUMBER, timeout).tostring()
+                    read_size, self.DEFAULT_INTERFACE_NUMBER, timeout
+                    ).tostring()
         except (usb.core.USBError, AttributeError) as e:
             raise DataSourceError("USB device couldn't be read", e)
