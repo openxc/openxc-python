@@ -295,8 +295,6 @@ class CodeGenerator(object):
                             line += ("can::read::translateSignal(pipeline, "
                                         "&SIGNALS[%d][%d], message->data, " %
                                         (message_set.index, signal.array_index))
-                            if signal.handler:
-                                line += "&%s, " % signal.handler
                             line += ("SIGNALS[%d], getSignalCount()); // %s" % (
                                 message_set.index, signal.name))
                             lines.append(line)

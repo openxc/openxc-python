@@ -297,8 +297,8 @@ class Signal(object):
         self.generic_name = None
         self.bit_position = None
         self.bit_size = None
-        self.handler = None
-        self.write_handler = None
+        self.decoder = None
+        self.encoder = None
         self.factor = 1
         self.offset = 0
         self.min_value = 0.0
@@ -327,9 +327,9 @@ class Signal(object):
         # Kind of nasty, but we want to avoid actually setting one of the
         # implicit handlers on the object (and then later on, assuming that it
         # was set explicitly)
-        self.handler = data.get('handler', getattr(self, '_handler', None))
+        self.decoder = data.get('decoder', getattr(self, '_decoder', None))
         self.writable = data.get('writable', self.writable)
-        self.write_handler = data.get('write_handler', self.write_handler)
+        self.encoder = data.get('encoder', self.encoder)
         self.send_same = data.get('send_same', self.send_same)
         self.force_send_changed = data.get('force_send_changed',
                 self.force_send_changed)
@@ -343,18 +343,18 @@ class Signal(object):
                     " - see the replacement, max_frequency")
 
     @property
-    def handler(self):
-        handler = getattr(self, '_handler', None)
-        if handler is None:
+    def decoder(self):
+        decoder = getattr(self, '_decoder', None)
+        if decoder is None:
             if self.ignore:
-                handler = "ignoreHandler"
+                decoder = "ignoreDecoder"
             elif len(self.states) > 0:
-                handler = "stateHandler"
-        return handler
+                decoder = "stateDecoder"
+        return decoder
 
-    @handler.setter
-    def handler(self, value):
-        self._handler = value
+    @decoder.setter
+    def decoder(self, value):
+        self._decoder = value
 
     @property
     def enabled(self):
@@ -472,8 +472,9 @@ class Signal(object):
                     self.states_index, len(self.states))
         else:
             result += "NULL, 0"
-        result += ", %s, %s" % (str(self.writable).lower(),
-                self.write_handler or "NULL")
+        result += ", %s, %s, %s" % (str(self.writable).lower(),
+                self.decoder or "NULL",
+                self.encoder or "NULL")
         result += "}, // %s" % self.name
         return result
 

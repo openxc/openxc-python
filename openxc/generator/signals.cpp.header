@@ -17,9 +17,9 @@ namespace can = openxc::can;
 using openxc::util::log::debug;
 using openxc::pipeline::Pipeline;
 using openxc::config::getConfiguration;
-using openxc::can::read::booleanHandler;
-using openxc::can::read::stateHandler;
-using openxc::can::read::ignoreHandler;
+using openxc::can::read::booleanDecoder;
+using openxc::can::read::stateDecoder;
+using openxc::can::read::ignoreDecoder;
 using namespace openxc::signals::handlers;
 
 #ifdef __LPC17XX__
