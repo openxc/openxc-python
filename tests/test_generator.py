@@ -36,6 +36,14 @@ class CodeGeneratorTests(unittest.TestCase):
             if signal.ignore:
                 eq_(output.count(signal.name), 1)
 
+    def test_ignore_with_states(self):
+        message_set, output = self._generate('signals.json.example')
+        for line in output.split("\n"):
+            if 'IgnoredPos' in line and 'GearshiftPosition' in line:
+                ok_('ignoreDecoder' in line)
+            if 'GrshftPos' in line and 'GearshiftPosition' in line:
+                ok_('stateDecoder' in line)
+
     def test_non_mapped(self):
         self._validate('signals.json.example')
 

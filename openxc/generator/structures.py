@@ -14,7 +14,7 @@ class Command(object):
         self.enabled = enabled
 
     def __str__(self):
-        return "{ \"%s\", %s }," % (self.name, self.handler)
+        return "{ genericName: \"%s\", handler: %s }," % (self.name, self.handler)
 
 
 class DiagnosticMessage(object):
@@ -205,7 +205,7 @@ class Message(object):
             id_format = "STANDARD";
             if self.id > 2047:
                 id_format = "EXTENDED";
-            return "{&CAN_BUSES[%d][%d], 0x%x, %s, {%f}, %s}, // %s" % (
+            return "{ bus: &CAN_BUSES[%d][%d], id: 0x%x, format: %s, frequencyClock: {%f}, forceSendChanged: %s}, // %s" % (
                     self.message_set.index, bus_index, self.id,
                     id_format,
                     self.max_frequency,
@@ -270,10 +270,10 @@ class CanBus(object):
         self.messages.append(message)
 
     def __str__(self):
-        result = """        {{ {bus_speed}, {controller}, can{controller},
-            {max_message_frequency}, {raw_writable},
+        result = """        {{ speed: {bus_speed}, address: {controller}, controller: can{controller},
+            maxMessageFrequency: {max_message_frequency}, rawWritable: {raw_writable},
             #ifdef __PIC32__
-            handleCan{controller}Interrupt,
+            interruptHandler: handleCan{controller}Interrupt,
             #endif // __PIC32__
         }},"""
         return result.format(bus_speed=self.speed, controller=self.controller,
@@ -459,8 +459,7 @@ class Signal(object):
         return inverted_index
 
     def __str__(self):
-        result =  ("{&CAN_MESSAGES[%d][%d], \"%s\", %s, %d, %f, %f, %f, %f, "
-                    "{%f}, %s, %s, " % (
+        result =  ("{message: &CAN_MESSAGES[%d][%d], genericName: \"%s\", bitPosition: %s, bitSize: %d, factor: %f, offset: %f, minValue: %f, maxValue: %f, frequencyClock: {%f}, sendSame: %s, forceSendChanged: %s, " % (
                 self.message_set.index,
                 self.message_set.lookup_message_index(self.message),
                 self.generic_name, self.bit_position, self.bit_size,
@@ -468,11 +467,11 @@ class Signal(object):
                 self.max_frequency, str(self.send_same).lower(),
                 str(self.force_send_changed).lower()))
         if len(self.states) > 0:
-            result += "SIGNAL_STATES[%d][%d], %d" % (self.message_set.index,
+            result += "states: SIGNAL_STATES[%d][%d], stateCount: %d" % (self.message_set.index,
                     self.states_index, len(self.states))
         else:
-            result += "NULL, 0"
-        result += ", %s, %s, %s" % (str(self.writable).lower(),
+            result += "states: NULL, stateCount: 0"
+        result += ", writable: %s, decoder: %s, encoder: %s" % (str(self.writable).lower(),
                 self.decoder or "NULL",
                 self.encoder or "NULL")
         result += "}, // %s" % self.name
@@ -485,4 +484,4 @@ class SignalState(object):
         self.name = name
 
     def __str__(self):
-        return "{%d, \"%s\"}" % (self.value, self.name)
+        return "{value: %d, name: \"%s\"}" % (self.value, self.name)
