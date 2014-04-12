@@ -287,15 +287,15 @@ class CodeGenerator(object):
                         lines.append(" " * 12 + "case 0x%x: // %s" % (message.id,
                                 message.name))
                         for handler in message.handlers:
-                            lines.append(" " * 16 + "%s(message->id, message->data, SIGNALS[%d], " % (
+                            lines.append(" " * 16 + "%s(message, SIGNALS[%d], " % (
                                 handler, message_set.index) +
                                     "getSignalCount(), pipeline);")
                         for signal in message.active_signals():
                             line = " " * 16
-                            line += ("can::read::translateSignal(pipeline, "
-                                        "&SIGNALS[%d][%d], message->data, " %
+                            line += ("can::read::translateSignal("
+                                        "&SIGNALS[%d][%d], message, " %
                                         (message_set.index, signal.array_index))
-                            line += ("SIGNALS[%d], getSignalCount()); // %s" % (
+                            line += ("SIGNALS[%d], getSignalCount(), pipeline); // %s" % (
                                 message_set.index, signal.name))
                             lines.append(line)
                         lines.append("                break;")
