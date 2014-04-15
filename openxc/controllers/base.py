@@ -218,8 +218,8 @@ class Controller(object):
                 frequency, payload)
         response = self.complex_request(request, wait_for_first_response)
         result = None
-        if response is not None:
-            result = response.get('message')
+        if wait_for_first_response:
+            result = response
         return result
 
     def version(self):
