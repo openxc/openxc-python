@@ -17,7 +17,7 @@ class CodeGenerator(object):
     """
 
     MAX_SIGNAL_STATES = 12
-    GENERATED_CODE_VERSION = "5.x"
+    GENERATED_CODE_VERSION = "6.x"
 
     def __init__(self, search_paths):
         self.search_paths = search_paths

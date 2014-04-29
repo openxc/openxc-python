@@ -1,8 +1,18 @@
 OpenXC Python Library Changelog
 ===============================
 
-v0.10.4-dev
+v0.11.0
 ----------
+
+* Support communicating with vi-firmware v6.x.
+* Support generating code for vi-firmware v6.x.
+* Support control commands over serial in additional to USB (version, device ID
+  diagnostics, raw CAN messages).
+* Read debug log data over USB from a VI (see the `log-mode` flag on the CLI
+  tools).
+* Support diagnostic request/response exchange with a v6.x VI.
+* Add `openxc-diag`, `openxc-scanner` and `openxc-obd2scanner` CLI tools.
+* Increase Bluetooth VI connection reliabilty when sending commands.
 
 v0.10.3
 ----------
