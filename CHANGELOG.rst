@@ -1,7 +1,7 @@
 OpenXC Python Library Changelog
 ===============================
 
-v0.11.0
+v0.11.1-dev
 ----------
 
 * Support communicating with vi-firmware v6.x.
