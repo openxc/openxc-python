@@ -149,10 +149,18 @@ class CodeGenerator(object):
         lines = []
         lines.append("const int MAX_SIGNAL_STATES = %d;" %
                 self.MAX_SIGNAL_STATES)
-        lines.append("const int MAX_SIGNAL_COUNT = %d;" %
-                self._max_signal_count())
+
+        signals_with_states = 0
+        for message_set in self.sorted_message_sets:
+            for signal in message_set.enabled_signals():
+                if len(signal.states) > 0:
+                    signals_with_states += 1
+
+        lines.append("const int MAX_SIGNALS_WITH_STATES_COUNT = %d;" %
+                signals_with_states)
+
         lines.append("const CanSignalState SIGNAL_STATES[]"
-                "[MAX_SIGNAL_COUNT][MAX_SIGNAL_STATES] = {")
+                "[MAX_SIGNALS_WITH_STATES_COUNT][MAX_SIGNAL_STATES] = {")
 
         def block(message_set, **kwargs):
             states_index = 0
@@ -167,26 +175,43 @@ class CodeGenerator(object):
                                         signal.generic_name))
                             break
                         line += "%s, " % state
+
+                    # TODO this is dumb, but we have to fill in a bunch of const
+                    # values for each signal state up to the array length
+                    for _ in range(state_count + 1, self.MAX_SIGNAL_STATES):
+                        line += "{ 0, NULL }, "
+
                     line += "},"
                     lines.append(line)
                     signal.states_index = states_index
                     states_index += 1
+            # TODO this is dumb, but we have to fill in a bunch of const values
+            for _ in range(len(list(message_set.enabled_signals())),
+                    signals_with_states):
+                line += "{ "
+                for _ in range(self.MAX_SIGNAL_STATES):
+                    line += "{ 0, NULL }, "
+                line += " },"
             return lines
 
-        lines.extend(self._message_set_lister(block))
+        # Since this is defined const, we can't include the interior array if
+        # it's going to empty
+        lines.extend(self._message_set_lister(block, always_include_braces=False))
 
         lines.append("};")
         lines.append("")
 
         return lines
 
-    def _message_set_lister(self, block, indent=4):
+    def _message_set_lister(self, block, indent=4, always_include_braces=True):
         lines = []
         whitespace = " " * indent
         for message_set in self.sorted_message_sets:
-            lines.append(whitespace + "{ // message set: %s" % message_set.name)
-            lines.extend(block(message_set))
-            lines.append(whitespace + "},")
+            interior = list(block(message_set))
+            if len(interior) > 0:
+                lines.append(whitespace + "{ // message set: %s" % message_set.name)
+                lines.extend(interior)
+                lines.append(whitespace + "},")
         return lines
 
     def _message_set_switcher(self, block, indent=4):
@@ -204,6 +229,8 @@ class CodeGenerator(object):
 
     def _build_signals(self):
         lines = []
+        lines.append("const int MAX_SIGNAL_COUNT = %d;" %
+                self._max_signal_count())
         lines.append("CanSignal SIGNALS[][MAX_SIGNAL_COUNT] = {")
 
         def block(message_set):
