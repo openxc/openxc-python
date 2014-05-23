@@ -12,7 +12,6 @@ class NetworkDataSource(BytestreamDataSource):
     """A data source reading from a network socket, as implemented
     in the openxc-vehicle-simulator .
     """
-    DEFAULT_HOST = socket.gethostbyname(socket.gethostname())
     DEFAULT_PORT = 50001
 
     def __init__(self, callback=None, host=None, port=None):
@@ -26,7 +25,7 @@ class NetworkDataSource(BytestreamDataSource):
             DataSourceError if the socket connection cannot be opened.
         """
         super(NetworkDataSource, self).__init__(callback)
-        self.host = host or self.DEFAULT_HOST
+        self.host = host or socket.gethostbyname(socket.gethostname())
         self.port = port or self.DEFAULT_PORT
         self.port = int(self.port)
 
