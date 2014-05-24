@@ -72,6 +72,6 @@ You can clone the repository and install the development version like so:
     $ cd openxc-python
     $ pip install -e .
 
-Any time you update the clone if the Git repository, all of the Python tools
+Any time you update the clone of the Git repository, all of the Python tools
 will be updated too.
 
