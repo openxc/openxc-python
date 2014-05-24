@@ -13,4 +13,4 @@ class NetworkControllerMixin(Controller):
 
     """
     def write_bytes(self, data):
-        return self.stream.write(data)
+        return self.socket.send(data)
