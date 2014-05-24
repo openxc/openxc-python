@@ -1,10 +1,11 @@
 OpenXC Python Library Changelog
 ===============================
 
-v0.11.1-dev
+v0.11.1
 ----------
 
 * Fixed receiving data from new network based VI using null delimiters
+* MAke sure const variables are initialized in generated firmware code.
 
 v0.11
 ----------
