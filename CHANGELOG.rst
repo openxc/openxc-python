@@ -4,6 +4,11 @@ OpenXC Python Library Changelog
 v0.11.1-dev
 ----------
 
+* Fixed receiving data from new network based VI using null delimiters
+
+v0.11
+----------
+
 * Support communicating with vi-firmware v6.x.
 * Support generating code for vi-firmware v6.x.
 * Support control commands over serial in additional to USB (version, device ID
