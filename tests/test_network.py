@@ -14,6 +14,6 @@ class NetworkDataSourceTests(unittest.TestCase):
             pass
 
         try:
-            s = NetworkDataSource(callback)
+            s = NetworkDataSource(callback, host='localhost')
         except DataSourceError as e:
             pass
