@@ -35,8 +35,6 @@ class DiagnosticMessage(object):
 
         self.name = kwargs.get('name', None)
         self.multiple_responses = kwargs.get('multiple_responses', False)
-        self.factor = kwargs.get('factor', None)
-        self.offset = kwargs.get('offset', None)
         self.decoder = kwargs.get('decoder', None)
         self.callback = kwargs.get('callback', None)
         self.mode = kwargs['mode']
@@ -61,23 +59,10 @@ class DiagnosticMessage(object):
         else:
             name = "NULL"
 
-        if self.factor is not None:
-            factor = self.factor
-        else:
-            factor = 1.0
-
-        if self.offset is not None:
-            offset = self.offset
-        else:
-            offset = 0
-
-
-        result += "        addRecurringRequest(diagnosticsManager, &getCanBuses()[%d], &request, %s, %s, %f, %f, %s, %s, %f);\n        }\n" % (
+        result += "        addRecurringRequest(diagnosticsManager, &getCanBuses()[%d], &request, %s, %s, %s, %s, %f);\n        }\n" % (
                 self.message_set.lookup_bus_index(self.bus_name),
                 name,
                 str(self.multiple_responses).lower(),
-                factor,
-                offset,
                 self.decoder or "NULL",
                 self.callback or "NULL",
                 self.frequency)
