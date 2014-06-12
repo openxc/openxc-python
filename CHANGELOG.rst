@@ -4,6 +4,9 @@ OpenXC Python Library Changelog
 v0.11.2-dev
 ----------
 
+* Fixed a code gen. regression where custom C++ functions were called before
+  being declared / defined.
+
 v0.11.1
 ----------
 
