@@ -8,6 +8,7 @@
 #include "can/canread.h"
 #include "can/canwrite.h"
 #include "signals.h"
+#include "obd2.h"
 #include "util/log.h"
 #include "config.h"
 #include "shared_handlers.h"
@@ -20,6 +21,7 @@ using openxc::config::getConfiguration;
 using openxc::can::read::booleanDecoder;
 using openxc::can::read::stateDecoder;
 using openxc::can::read::ignoreDecoder;
+using openxc::diagnostics::obd2::handleObd2Pid;
 using namespace openxc::signals::handlers;
 
 #ifdef __LPC17XX__
