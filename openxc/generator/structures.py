@@ -22,7 +22,17 @@ class DiagnosticMessage(object):
         self.message_set = message_set
         self.enabled = enabled
         self.id = kwargs['id']
-        self.bus = kwargs['bus']
+
+        self.bus_name = kwargs['bus']
+        if not isinstance(self.bus_name, unicode):
+            raise ConfigurationError("Bus name must be name of bus in "
+                    "config, was '%s'" % self.bus_name)
+
+        self.bus = self.message_set.lookup_bus_index(self.bus_name)
+        if self.bus is None:
+            raise ConfigurationError("Unable to find bus with name '%s'"
+                    % self.bus_name)
+
         self.name = kwargs.get('name', None)
         self.multiple_responses = kwargs.get('multiple_responses', False)
         self.factor = kwargs.get('factor', None)
@@ -38,7 +48,8 @@ class DiagnosticMessage(object):
         except KeyError:
             raise ConfigurationError("Frequency must be specified for "
                 "pre-configured diagnostic request (bus: "
-                "%s, id: %d, mode: %d, pid: %d" % (self.bus, self.id, self.mode, self.pid))
+                "%s, id: %d, mode: %d, pid: %d" % (self.bus_name,
+                        self.id, self.mode, self.pid))
 
     def __str__(self):
         result = "{\n        DiagnosticRequest request = {arbitration_id: 0x%x, mode: 0x%x, has_pid: %s, pid: 0x%x, pid_length: %d};\n" % (
@@ -62,7 +73,7 @@ class DiagnosticMessage(object):
 
 
         result += "        addRecurringRequest(diagnosticsManager, &getCanBuses()[%d], &request, %s, %s, %f, %f, %s, %s, %f);\n        }\n" % (
-                self.message_set.lookup_bus_index(self.bus),
+                self.message_set.lookup_bus_index(self.bus_name),
                 name,
                 str(self.multiple_responses).lower(),
                 factor,
@@ -107,7 +118,7 @@ class Message(object):
         self.bus_name = self.bus_name or data.get('bus', None)
 
         if getattr(self, 'message_set'):
-            self.bus = self.message_set.lookup_bus(self.bus_name)
+            self.bus = self.message_set.lookup_bus(name=self.bus_name)
             if not self.bus.valid():
                 self.enabled = False
                 msg = ""
@@ -212,7 +223,7 @@ class Message(object):
                     str(self.force_send_changed).lower(),
                     self.name)
         else:
-            bus = self.message_set.lookup_bus(self.bus_name)
+            bus = self.message_set.lookup_bus(name=self.bus_name)
             msg = ""
             if bus is None:
                 msg = "Bus '%s' is invalid, only %s are defined" % (

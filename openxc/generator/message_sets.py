@@ -90,8 +90,13 @@ class MessageSet(object):
             if candidate.id == message.id:
                 return i
 
-    def lookup_bus(self, bus_name):
-        return self.buses.get(bus_name, None)
+    def lookup_bus(self, name=None, controller=None):
+        if name is not None:
+            return self.buses.get(name, None)
+        else:
+            for bus in self.buses.values():
+                if bus.controller == controller:
+                    return bus
 
     def lookup_bus_index(self, bus_name):
         for index, bus in enumerate(self.valid_buses()):
