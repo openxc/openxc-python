@@ -59,7 +59,7 @@ library (it's called ``libusb-win32`` on Cygwin - **don't install** ``libusb``).
     not** have the ``libusb`` package installed as well - that one is explicitly
     not compatible.
 
-.. _`vi-firmware repository`: https://github.com/openxc/vi-firmware/tree/master/conf/windows-driver
+.. _`vi-firmware repository`: https://github.com/openxc/vi-windows-driver
 
 Using the development version
 -----------------------------
