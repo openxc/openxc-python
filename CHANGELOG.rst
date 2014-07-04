@@ -1,11 +1,16 @@
 OpenXC Python Library Changelog
 ===============================
 
-v0.11.2-dev
+v0.11.2
 ----------
 
+* Fixed parsing of v6.x style OpenXC messages from a network data source.
+* Fixed use of const variables in generated code.
 * Fixed a code gen. regression where custom C++ functions were called before
   being declared / defined.
+* Include OBD2 message handler in generated code so it can be used as a handler
+  without custom source code files.
+* Don't require a working network connection and DNS to run the test suite.
 
 v0.11.1
 ----------
