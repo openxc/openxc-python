@@ -52,11 +52,14 @@ library (it's called ``libusb-win32`` on Cygwin - **don't install** ``libusb``).
 
 - **Cygwin in Windows**
 
-    Install ``libusb-win32`` from the Cygwin ``setup.exe`` and the `OpenXC VI
-    USB driver`_. If you get the error ``Skipping USB device: [Errno 88]
-    Operation not supported or unimplemented on this platform`` when you run any
-    of the OpenXC Python tools, make sure you **do not** have the ``libusb``
-    package installed as well - that one is explicitly not compatible.
+    Uncheck the "Hide obsolete packages" button, then install ``libusb-win32``
+    from the Cygwin ``setup.exe``. If
+    you get the error ``Skipping USB device: [Errno 88] Operation not supported
+    or unimplemented on this platform`` when you run any of the OpenXC Python
+    tools, make sure you **do not** have the ``libusb`` package installed as
+    well - that one is explicitly not compatible.
+
+    Finally, install the `OpenXC VI USB driver`_.
 
 .. _`OpenXC VI USB driver`: https://github.com/openxc/vi-windows-driver
 
