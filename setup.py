@@ -16,7 +16,7 @@ install_reqs = ['pyusb==1.0.0a3', 'units >= 0.5', 'argparse', 'requests==1.1.0',
 
 setup(name='openxc',
     version=get_version(),
-    description='OpenXC is a platform for accessing vehicle data, and this is a library that is compatible with the CAN translator',
+    description='A Python library to connect to an OpenXC vehicle interface',
     long_description=long_description,
     author='Christopher Peplin',
     author_email='cpeplin@ford.com',
