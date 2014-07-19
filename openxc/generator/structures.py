@@ -266,11 +266,10 @@ class CanBus(object):
         self.messages.append(message)
 
     def __str__(self):
-        result = """        {{ speed: {bus_speed}, address: {controller}, controller: can{controller},
-            maxMessageFrequency: {max_message_frequency}, rawWritable: {raw_writable},
-            #ifdef __PIC32__
-            interruptHandler: handleCan{controller}Interrupt,
-            #endif // __PIC32__
+        result = """        {{ speed: {bus_speed},
+        address: {controller},
+        maxMessageFrequency: {max_message_frequency},
+        rawWritable: {raw_writable}
         }},"""
         return result.format(bus_speed=self.speed, controller=self.controller,
                 max_message_frequency=self.max_message_frequency,

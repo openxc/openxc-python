@@ -23,15 +23,3 @@ using openxc::can::read::stateDecoder;
 using openxc::can::read::ignoreDecoder;
 using openxc::diagnostics::obd2::handleObd2Pid;
 using namespace openxc::signals::handlers;
-
-#ifdef __LPC17XX__
-#define can1 LPC_CAN1
-#define can2 LPC_CAN2
-#endif // __LPC17XX__
-
-#ifdef __PIC32__
-extern void* can1;
-extern void* can2;
-extern void handleCan1Interrupt();
-extern void handleCan2Interrupt();
-#endif // __PIC32__
