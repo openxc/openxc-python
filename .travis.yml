@@ -5,6 +5,3 @@ python:
 before_install:
     - pip install pyserial
 script: python setup.py test
-notifications:
-  hipchat:
-    - secure: "BZngXh3bG4z7up90AGULP2uzNskfunXdT+E5MA59QLjdFBI/oDMxnudwuNyW\nCwfDdeDqEy6wd8+593AiFj1M1TWPEVvJyGApCMquovSHy13pyzgyJhSxPAaP\nv6vGB/96ChWycNmWy8nL35N4E+tNIp7LgNpAxhX/LebfHNkSkDo="
