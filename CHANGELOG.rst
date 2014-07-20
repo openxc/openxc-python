@@ -1,8 +1,12 @@
 OpenXC Python Library Changelog
 ===============================
 
-v0.11.3-dev
+v0.11.3
 ----------
+
+* Remove embedded platform-specific code from generated signals file for
+  firmware (to match vi-firmware v6.0.2).
+* Add documentation on installing in Windows without Cygwin.
 
 v0.11.2
 ----------
