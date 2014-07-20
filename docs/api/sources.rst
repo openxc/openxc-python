@@ -18,6 +18,6 @@ Data Sources
     :members:
     :undoc-members:
 
-.. automodule:: openxc.sources.socket
+.. automodule:: openxc.sources.network
     :members:
     :undoc-members:
