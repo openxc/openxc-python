@@ -12,3 +12,4 @@ openxc-*/
 *.json
 env
 *.gpx
+.coverage
