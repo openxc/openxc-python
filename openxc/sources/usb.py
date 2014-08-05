@@ -14,7 +14,13 @@ class UsbDataSource(BytestreamDataSource):
     DEFAULT_VENDOR_ID = 0x1bc4
     DEFAULT_PRODUCT_ID = 0x0001
     DEFAULT_READ_REQUEST_SIZE = 512
-    DEFAULT_READ_TIMEOUT = 1000000
+
+    # If we don't get DEFAULT_READ_REQUEST_SIZE bytes within this number of
+    # milliseconds, bail early and return whatever we have - could be zero,
+    # could be just less than 512. If data is really pumpin' we can get better
+    # throughput if the READ_REQUEST_SIZE is higher, but this delay has to be
+    # low enough that a single request isn't held back too long.
+    DEFAULT_READ_TIMEOUT = 200
 
     DEFAULT_INTERFACE_NUMBER = 0
     TRANSLATED_IN_ENDPOINT = 2

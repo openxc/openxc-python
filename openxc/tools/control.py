@@ -92,7 +92,7 @@ def main():
     interface.start()
 
     # wait for receiver thread to spool up and connect
-    time.sleep(.5)
+    time.sleep(.1)
 
     if arguments.command == "version":
         version(interface)
@@ -116,6 +116,3 @@ def main():
                 sys.exit("%s requires a signal name, message ID or filename" % arguments.command)
     else:
         print("Unrecognized command \"%s\"" % arguments.command)
-
-    # TODO need a better way to wait for log messages after writing
-    time.sleep(1)
