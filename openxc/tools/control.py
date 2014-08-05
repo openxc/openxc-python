@@ -91,9 +91,6 @@ def main():
     interface = interface_class(**interface_kwargs)
     interface.start()
 
-    # wait for receiver thread to spool up and connect
-    time.sleep(.1)
-
     if arguments.command == "version":
         version(interface)
     elif arguments.command == "id":

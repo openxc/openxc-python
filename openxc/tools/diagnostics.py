@@ -63,7 +63,4 @@ def main():
     controller = controller_class(**controller_kwargs)
     controller.start()
 
-    # wait for the receiving thread to spin up
-    time.sleep(.1)
-
     diagnostic_request(arguments, controller)
