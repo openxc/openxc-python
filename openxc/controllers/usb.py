@@ -58,6 +58,8 @@ class UsbControllerMixin(Controller):
         """
         request = self._build_diagnostic_request(message_id, mode, bus, pid,
                 frequency, payload)
+        self._prepare_response_receiver(request)
+
         self.device.ctrl_transfer(0x40, self.COMPLEX_CONTROL_COMMAND, 0, 0,
                 json.dumps(request))
         result = None
