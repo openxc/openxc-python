@@ -15,9 +15,8 @@ currently works with Python 2.6 and 2.7, but not Python 3.x.
 
 - **Windows**
 
-   #. Download and run the `Python 2.7.x MSI installer
-         <https://www.python.org/download/releases/2.7.8/>`_. Make sure to
-         select to option to ``Add python.exe to Path``.
+   #. Download and run the `Python 2.7.x MSI installer <https://www.python.org/download/releases/2.7.8>`_.
+      Make sure to select to option to ``Add python.exe to Path``.
    #. Add the Python Scripts directory your PATH:
       ``PATH=%PATH%;c:\Python27\Scripts``. If you aren't sure how to edit your
       ``PATH``, see `this guide for all versions of Windows
