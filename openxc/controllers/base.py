@@ -194,9 +194,8 @@ class Controller(object):
         return request
 
     def delete_diagnostic_request(self, message_id, mode, bus=None, pid=None):
-        request = self._build_diagnostic_request(message_id, mode, bus, pid,
-                frequency, payload)
-        request['action'] = 'delete'
+        request = self._build_diagnostic_request(message_id, mode, bus, pid)
+        request['action'] = 'cancel'
         responses = self.complex_request(request)
         if len(responses) > 0:
             response = responses[0]
