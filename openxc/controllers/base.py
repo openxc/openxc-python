@@ -198,7 +198,7 @@ class Controller(object):
         responses = self.complex_request(request)
         if len(responses) > 0:
             response = responses[0]
-            return response.get('success', False)
+            return response.get('status', False)
         return False
 
     def create_diagnostic_request(self, message_id, mode, bus=None, pid=None,
