@@ -75,3 +75,4 @@ def main():
     controller.start()
 
     diagnostic_request(arguments, controller)
+    controller.stop()

@@ -38,11 +38,16 @@ class DataSource(threading.Thread):
         super(DataSource, self).__init__()
         self.callback = callback
         self.daemon = True
+        self.running = True
         self.logger = SourceLogger(self, log_mode)
 
     def start(self):
         self.logger.start()
         super(DataSource, self).start()
+
+    def stop(self):
+        self.logger.stop()
+        self.running = False
 
     def read(self, timeout=None):
         """Read data from the source.
@@ -72,11 +77,15 @@ class SourceLogger(threading.Thread):
         self.source = source
         self.mode = mode
         self.file = None
+        self.running = True
 
         if self.mode == "file":
             filename = "openxc-logs-%s.txt" % datetime.datetime.now().strftime(
                     self.FILENAME_TEMPLATE)
             self.file = open(filename, 'wa')
+
+    def stop(self):
+        self.running = False
 
     def record(self, message):
         if self.mode != "off" and len(message) > 0:
@@ -93,11 +102,12 @@ class SourceLogger(threading.Thread):
         off to the callback if one is set.
         """
         message_buffer = b""
-        while True:
+        while self.running:
             try:
                 message_buffer += self.source.read_logs()
             except DataSourceError as e:
-                LOG.warn("Can't read logs from data source -- stopping: %s", e)
+                if self.running:
+                    LOG.warn("Can't read logs from data source -- stopping: %s", e)
                 break
             except NotImplementedError as e:
                 LOG.info("%s doesn't support logging" % self)
@@ -124,6 +134,7 @@ class BytestreamDataSource(DataSource):
         super(BytestreamDataSource, self).__init__(callback, log_mode)
         self.bytes_received = 0
         self.corrupted_messages = 0
+        self.running = True
 
     def _message_valid(self, message):
         if not hasattr(message, '__iter__'):
@@ -141,11 +152,12 @@ class BytestreamDataSource(DataSource):
         off to the callback if one is set.
         """
         message_buffer = b""
-        while True:
+        while self.running:
             try:
                 message_buffer += self.read()
             except DataSourceError as e:
-                LOG.warn("Can't read from data source -- stopping: %s", e)
+                if self.running:
+                    LOG.warn("Can't read from data source -- stopping: %s", e)
                 break
 
             while True:

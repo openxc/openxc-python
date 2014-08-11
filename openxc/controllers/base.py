@@ -304,6 +304,9 @@ class Controller(object):
         assert bytes_written == len(message)
         return bytes_written
 
+    def stop(self):
+        pass
+
     def write_bytes(self, data):
         """Write the bytes in ``data`` to the controller interface."""
         raise NotImplementedError("Don't use Controller directly")

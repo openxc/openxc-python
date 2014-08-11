@@ -3,6 +3,7 @@ from __future__ import absolute_import
 
 import logging
 import usb.core
+import usb.util
 
 from .base import BytestreamDataSource, DataSourceError
 
@@ -73,6 +74,10 @@ class UsbDataSource(BytestreamDataSource):
 
     def read_logs(self, timeout=None):
         return self._read(self.LOG_IN_ENDPOINT, timeout, 64)
+
+    def stop(self):
+        super(UsbDataSource, self).stop()
+        usb.util.dispose_resources(self.device)
 
     def _read(self, endpoint_address, timeout=None,
             read_size=DEFAULT_READ_REQUEST_SIZE):
