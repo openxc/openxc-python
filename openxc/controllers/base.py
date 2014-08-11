@@ -28,7 +28,7 @@ class ResponseReceiver(object):
     and the vehicle interface class puts newly received responses in the queues
     of ResponseReceivers as they arrive.
     """
-    def __init__(self, queue, request):
+    def __init__(self, queue, request, quit_after_first=True):
         """Construct a new ResponseReceiver.
 
         queue - A multithreading queue that this receiver will pull potential responses from.
@@ -36,8 +36,9 @@ class ResponseReceiver(object):
         """
         self.request = request
         self.queue = queue
-        self.response = None
+        self.responses = []
         self.running = True
+        self.quit_after_first = quit_after_first
 
     def _response_matches_request(self, response):
         """Inspect the given response and return true if it's a response to this
@@ -51,25 +52,25 @@ class ResponseReceiver(object):
         return True
 
     def wait_for_command_response(self):
-        """Block and wait for a response to this object's original request, or
+        """Block and wait for responses to this object's original request, or
         until a timeout (Controller.COMMAND_RESPONSE_TIMEOUT_S).
 
         This function is handy to use as the target function for a thread.
 
-        The response received (or None if none was received before the timeout)
-        is stored at self.response and also returned from this function.
+        The responses received (or None if none was received before the timeout)
+        is stored in a list at self.responses.
         """
-        response_received = False
-        while self.running and not response_received:
+        while self.running:
             try:
-                self.response = self.queue.get(
+                response = self.queue.get(
                         timeout=Controller.COMMAND_RESPONSE_TIMEOUT_S)
-                if self._response_matches_request(self.response):
-                    response_received = True
+                if self._response_matches_request(response):
+                    self.responses.append(response)
+                    if self.quit_after_first:
+                        self.running = False
                 self.queue.task_done()
             except Empty:
                 break
-        return self.response
 
 class CommandResponseReceiver(ResponseReceiver):
     """A receiver that matches the 'command' field in responses to the
@@ -97,6 +98,10 @@ class DiagnosticResponseReceiver(ResponseReceiver):
         id, mode match. If the request was successful, the PID echo is also
         checked.
         """
+        # Accept success/failure command responses
+        if super(DiagnosticResponseReceiver, self)._response_matches_request():
+            return True
+
         if ('bus' in self.diagnostic_request and
                 response.get('bus', None) != self.diagnostic_request['bus']):
             return False
@@ -141,7 +146,7 @@ class Controller(object):
         t.join(self.COMMAND_RESPONSE_TIMEOUT_S)
         receiver.running = False
 
-        return receiver.response
+        return receiver.responses
 
     def complex_request(self, request, wait_for_first_response=True):
         """Send a compound command request to the interface over the normal data
@@ -159,8 +164,8 @@ class Controller(object):
 
         response = None
         if wait_for_first_response:
-            response = self._wait_for_response(request)
-        return response
+            responses = self._wait_for_response(request)
+        return responses
 
     @classmethod
     def _build_diagnostic_request(cls, message_id, mode, bus=None, pid=None,
@@ -168,13 +173,13 @@ class Controller(object):
         request = {
             'command': "diagnostic_request",
             'request': {
-                'id': message_id
+                'id': message_id,
+                'mode': mode
             }
         }
 
         if bus is not None:
             request['request']['bus'] = bus
-        if mode is not None:
             request['request']['mode'] = mode
         if payload is not None and len(payload) > 0:
             # payload must be a bytearray
@@ -186,7 +191,17 @@ class Controller(object):
 
         return request
 
-    def diagnostic_request(self, message_id, mode, bus=None, pid=None,
+    def delete_diagnostic_request(self, message_id, mode, bus=None, pid=None):
+        request = self._build_diagnostic_request(message_id, mode, bus, pid,
+                frequency, payload)
+        request['action'] = 'delete'
+        responses = self.complex_request(request)
+        if len(responses) > 0:
+            response = responses[0]
+            return response.get('success', False)
+        return False
+
+    def create_diagnostic_request(self, message_id, mode, bus=None, pid=None,
             frequency=None, payload=None, wait_for_first_response=False):
         """Send a new diagnostic message request to the VI
 
@@ -202,7 +217,8 @@ class Controller(object):
         pid - The parameter ID, or PID, for the request (e.g. for a mode 1
             request).
         frequency - The frequency in hertz to add this as a recurring diagnostic
-            requests. If None or 0, it will be a one-time request.
+            requests. Must be greater than 0, or None if it is a one-time
+            request.
         payload - A bytearray to send as the request's optional payload. Only
             single frame diagnostic requests are supported by the VI firmware in
             the current version, so the payload has a maximum length of 6.
@@ -216,11 +232,8 @@ class Controller(object):
 
         request = self._build_diagnostic_request(message_id, mode, bus, pid,
                 frequency, payload)
-        response = self.complex_request(request, wait_for_first_response)
-        result = None
-        if wait_for_first_response:
-            result = response
-        return result
+        request['action'] = 'add'
+        return self.complex_request(request, wait_for_first_response)
 
     def version(self):
         """Request a firmware version identifier from the VI.

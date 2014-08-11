@@ -33,16 +33,27 @@ def diagnostic_request(arguments, controller):
     if arguments.payload is not None:
         payload = binascii.unhexlify(arguments.payload.split("0x")[1])
 
-    response = controller.diagnostic_request(message, mode, bus=bus, pid=pid,
-            frequency=frequency, payload=payload,
-            wait_for_first_response=True)
-    print(response)
+    if arguments.command == "add":
+        responses = controller.create_diagnostic_request(message, mode, bus=bus,
+                pid=pid, frequency=frequency, payload=payload,
+                wait_for_first_response=True)
+        if len(responses) == 0:
+            print("No response received before timeout")
+        for response in responses:
+            print("Response: %s" % response)
+    elif arguments.command == "cancel":
+        if controller.delete_diagnostic_request(message, mode, bus=bus,
+                pid=pid):
+            print("Diagnostic request deleted successfully")
+        else:
+            print("Error when attempting delete")
 
 
 def parse_options():
     parser = argparse.ArgumentParser(
             description="Sends a diagnostic message request to a vehicle interface",
             parents=[device_options()])
+    parser.add_argument("command", type=str, choices=['add', 'cancel'])
     # TODO need to be able to specify name, factor, offset. Needs to be
     # supported in the controller, too.
     parser.add_argument("--message", required=True, help="CAN message ID for the request")
