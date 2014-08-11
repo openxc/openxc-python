@@ -90,7 +90,8 @@ class DiagnosticResponseReceiver(ResponseReceiver):
     """
 
     def __init__(self, queue, request):
-        super(DiagnosticResponseReceiver, self).__init__(queue, request)
+        super(DiagnosticResponseReceiver, self).__init__(queue, request,
+                quit_after_first=False)
         self.diagnostic_request = request['request']
 
     def _response_matches_request(self, response):
@@ -99,7 +100,8 @@ class DiagnosticResponseReceiver(ResponseReceiver):
         checked.
         """
         # Accept success/failure command responses
-        if super(DiagnosticResponseReceiver, self)._response_matches_request():
+        if super(DiagnosticResponseReceiver,
+                self)._response_matches_request(response):
             return True
 
         if ('bus' in self.diagnostic_request and
@@ -162,7 +164,7 @@ class Controller(object):
         """
         self.write_bytes(JsonFormatter.serialize(request))
 
-        response = None
+        responses = []
         if wait_for_first_response:
             responses = self._wait_for_response(request)
         return responses
