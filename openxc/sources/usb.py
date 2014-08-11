@@ -87,4 +87,7 @@ class UsbDataSource(BytestreamDataSource):
                     read_size, self.DEFAULT_INTERFACE_NUMBER, timeout
                     ).tostring()
         except (usb.core.USBError, AttributeError) as e:
+            if e.errno == 110:
+                # Timeout, it may just not be sending
+                return ""
             raise DataSourceError("USB device couldn't be read", e)
