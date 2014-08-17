@@ -16,7 +16,12 @@ OpenXC for Python
 .. image:: https://travis-ci.org/openxc/openxc-python.svg?branch=master
     :target: https://travis-ci.org/openxc/openxc-python
 
-.. image:: https://coveralls.io/repos/openxc/openxc-python/badge.png?branch=master :target: https://coveralls.io/r/openxc/openxc-python?branch=master
+.. image:: https://coveralls.io/repos/openxc/openxc-python/badge.png?branch=master
+    :target: https://coveralls.io/r/openxc/openxc-python?branch=master
+
+.. image:: https://readthedocs.org/projects/openxc-python-library/badge/
+    :target: http://python.openxcplatform.com
+    :alt: Documentation Status
 
 The OpenXC Python library (for Python 2.6 or 2.7) provides an interface to
 vehicle data from the OpenXC Platform. The primary platform for OpenXC
