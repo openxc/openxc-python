@@ -2,7 +2,7 @@
 OpenXC for Python
 ===============================================
 
-.. image:: /_static/logo.png
+.. image:: /docs/_static/logo.png
 
 :Version: 0.11.4-dev
 :Web: http://openxcplatform.com
@@ -10,8 +10,6 @@ OpenXC for Python
 :Documentation: http://python.openxcplatform.com
 :Source: http://github.com/openxc/openxc-python/
 :Keywords: vehicle, openxc, python
-
---
 
 .. image:: https://travis-ci.org/openxc/openxc-python.svg?branch=master
     :target: https://travis-ci.org/openxc/openxc-python
