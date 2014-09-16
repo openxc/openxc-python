@@ -203,19 +203,25 @@ class BytestreamDataSource(DataSource):
         elif message.type == message.TRANSLATED:
             translated_message = message.translated_message
             parsed_message['name'] = translated_message.name
-            if translated_message.HasField('numeric_event'):
-                parsed_message['event'] = translated_message.numeric_event
-            elif translated_message.HasField('boolean_event'):
-                parsed_message['event'] = translated_message.boolean_event
-            elif translated_message.HasField('string_event'):
-                parsed_message['event'] = translated_message.string_event
+            if translated_message.HasField('event'):
+                event = translated_message.event
+                if event.HasField('numeric_value'):
+                    parsed_message['event'] = event.numeric_value
+                elif event.HasField('boolean_value'):
+                    parsed_message['event'] = event.boolean_value
+                elif event.HasField('string_value'):
+                    parsed_message['event'] = event.string_value
 
-            if translated_message.HasField('numeric_value'):
-                parsed_message['value'] = translated_message.numeric_value
-            elif translated_message.HasField('boolean_value'):
-                parsed_message['value'] = translated_message.boolean_value
-            elif translated_message.HasField('string_value'):
-                parsed_message['value'] = translated_message.string_value
+            if translated_message.HasField('value'):
+                value = translated_message.value
+                if value.HasField('numeric_value'):
+                    parsed_message['value'] = value.numeric_value
+                elif value.HasField('boolean_value'):
+                    parsed_message['value'] = value.boolean_value
+                elif value.HasField('string_value'):
+                    parsed_message['value'] = value.string_value
+                else:
+                    parsed_message = None
             else:
                 parsed_message = None
         else:
