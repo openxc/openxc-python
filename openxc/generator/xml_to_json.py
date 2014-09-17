@@ -23,6 +23,9 @@ class Network(object):
                 LOG.warning("Unable to find message ID 0x%x in %s" % (
                     numeric_message_id, database_name))
             else:
+                if 'signals' not in message:
+                    fatal_error("This message object is missing a "
+                        "top-level 'signals' field: %s" % message)
                 self.messages[numeric_message_id] = XMLBackedMessage.from_xml_node(
                     node, message_id, message['signals'])
 
