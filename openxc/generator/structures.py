@@ -265,15 +265,21 @@ class CanBus(object):
     def add_message(self, message):
         self.messages.append(message)
 
+    @property
+    def bypass_filters(self):
+        return self.raw_can_mode == "unfiltered"
+
     def __str__(self):
         result = """        {{ speed: {bus_speed},
         address: {controller},
         maxMessageFrequency: {max_message_frequency},
-        rawWritable: {raw_writable}
+        rawWritable: {raw_writable},
+        bypassFilters: {bypass_filters}
         }},"""
         return result.format(bus_speed=self.speed, controller=self.controller,
                 max_message_frequency=self.max_message_frequency,
-                raw_writable=str(self.raw_writable).lower())
+                raw_writable=str(self.raw_writable).lower(),
+                bypass_filters=str(self.bypass_filters).lower())
 
 
 class ConfigurationError(Exception):
