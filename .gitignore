@@ -13,3 +13,6 @@ openxc-*/
 env
 *.gpx
 .coverage
+coverage.xml
+diffcover.html
+htmlcov

@@ -78,6 +78,16 @@ def make_tag():
     return env.tag
 
 @task
+def coverage():
+    local('nosetests --with-coverage')
+
+@task
+def diffcover():
+    coverage()
+    local('coverage xml')
+    local('diff-cover --compare-branch=origin/next coverage.xml --html-report diffcover.html')
+
+@task
 def release():
     """
     Build, register and upload to PyPI
