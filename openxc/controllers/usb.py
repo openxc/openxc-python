@@ -1,7 +1,6 @@
 """Controller implementation for an OpenXC USB device."""
 from __future__ import absolute_import
 
-import json
 import logging
 import usb.core
 
@@ -59,7 +58,7 @@ class UsbControllerMixin(Controller):
         request = self._build_diagnostic_request(message_id, mode, bus, pid,
                 frequency, payload)
         self.device.ctrl_transfer(0x40, self.COMPLEX_CONTROL_COMMAND, 0, 0,
-                json.dumps(request))
+                self.formatter.serialize(request))
         result = None
         if wait_for_first_response:
             result = self._wait_for_response(request)
