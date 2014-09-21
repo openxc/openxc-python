@@ -85,8 +85,5 @@ def select_device(arguments):
                 product_id=arguments.usb_product)
 
     source_kwargs['log_mode'] = arguments.log_mode
-    if arguments.format == "json"
-        source_kwargs['formatter'] = JsonFormatter
-    elif arguments.format == "binary"
-        source_kwargs['formatter'] = BinaryFormatter
+    source_kwargs['format'] = arguments.format
     return source_class, source_kwargs

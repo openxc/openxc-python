@@ -7,6 +7,8 @@ import time
 
 from .base import DataSourceError, BytestreamDataSource
 
+from openxc.formats.json import JsonFormatter
+
 LOG = logging.getLogger(__name__)
 
 class TraceDataSource(BytestreamDataSource):
@@ -45,11 +47,11 @@ class TraceDataSource(BytestreamDataSource):
                 if line == '':
                     break
 
-                message, _, byte_count = self._parse_message(line + '\x00')
+                message = JsonFormatter.deserialize(line)
                 if message is None:
                     continue
 
-                self.bytes_received += byte_count
+                self.bytes_received += len(line)
                 if not self._validate(message):
                     continue
                 timestamp = message.get('timestamp', None)
