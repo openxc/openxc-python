@@ -2,6 +2,7 @@
 interface.
 """
 import numbers
+import time
 import threading
 import binascii
 
@@ -140,6 +141,8 @@ class Controller(object):
         self.receiver_thread = threading.Thread(
                 target=self.receiver.wait_for_command_response)
         self.receiver_thread.start()
+        # Give it a brief moment to get started so we make sure get the response
+        time.sleep(.2)
 
     def _wait_for_response(self, request):
         """Block the thread and wait for the response to the given request to
