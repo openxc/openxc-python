@@ -81,8 +81,7 @@ class CommandResponseReceiver(ResponseReceiver):
         """Return true if the 'command' field in the response matches the
         original request.
         """
-        return self.response.get(
-                'command_response', None) == self.request['command']
+        return response.get('command_response', None) == self.request['command']
 
 class DiagnosticResponseReceiver(ResponseReceiver):
     """A receiver that matches the bus, ID, mode and PID from a
@@ -127,28 +126,31 @@ class Controller(object):
 
     COMMAND_RESPONSE_TIMEOUT_S = .3
 
-    def _wait_for_response(self, request):
-        """Block the thread and wait for the response to the given request to
-        arrive from the VI. If no matching response is received in
-        COMMAND_RESPONSE_TIMEOUT_S seconds, returns anyway.
-        """
-
+    def _prepare_response_receiver(self, request):
         queue = Queue()
 
         self.open_requests = getattr(self, 'open_requests', [])
         self.open_requests.append(queue)
 
         if request['command'] == "diagnostic_request":
-            receiver = DiagnosticResponseReceiver(queue, request)
+            self.receiver = DiagnosticResponseReceiver(queue, request)
         else:
-            receiver = CommandResponseReceiver(queue, request)
+            self.receiver = CommandResponseReceiver(queue, request)
 
-        t = threading.Thread(target=receiver.wait_for_command_response)
-        t.start()
-        t.join(self.COMMAND_RESPONSE_TIMEOUT_S)
-        receiver.running = False
+        self.receiver_thread = threading.Thread(
+                target=self.receiver.wait_for_command_response)
+        self.receiver_thread.start()
 
-        return receiver.responses
+    def _wait_for_response(self, request):
+        """Block the thread and wait for the response to the given request to
+        arrive from the VI. If no matching response is received in
+        COMMAND_RESPONSE_TIMEOUT_S seconds, returns anyway.
+        """
+
+        self.receiver_thread.join(self.COMMAND_RESPONSE_TIMEOUT_S)
+        self.receiver.running = False
+
+        return self.receiver.responses
 
     def complex_request(self, request, wait_for_first_response=True):
         """Send a compound command request to the interface over the normal data
@@ -162,6 +164,7 @@ class Controller(object):
             will send the command and return immediately and any response will
             be lost.
         """
+        self._prepare_response_receiver(request)
         self.write_bytes(JsonFormatter.serialize(request))
 
         responses = []
@@ -242,13 +245,11 @@ class Controller(object):
         request = {
             "command": "version"
         }
-        response = self.complex_request(request)
+        responses = self.complex_request(request)
         result = None
-        if response is not None:
-            result = response.get('message')
+        if len(responses) > 0:
+            result = responses[0].get('message')
         return result
-
-
 
     def device_id(self):
         """Request the unique device ID of the attached VI.
@@ -256,10 +257,10 @@ class Controller(object):
         request = {
             "command": "device_id"
         }
-        response = self.complex_request(request)
+        responses = self.complex_request(request)
         result = None
-        if response is not None:
-            result = response.get('message')
+        if len(responses) > 0:
+            result = responses[0].get('message')
         return result
 
     def write(self, **kwargs):

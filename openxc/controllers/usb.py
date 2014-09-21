@@ -36,6 +36,7 @@ class UsbControllerMixin(Controller):
         """Send a request via the USB control request endpoint, rather than as a
         bulk transfer.
         """
+        self._prepare_response_receiver(request)
         self.device.ctrl_transfer(0x40, self.COMPLEX_CONTROL_COMMAND, 0, 0,
                 json.dumps(request))
         result = None
