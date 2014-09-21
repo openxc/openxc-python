@@ -21,7 +21,6 @@ class TraceDataSource(BytestreamDataSource):
             **kwargs):
         """Construct the source and attempt to open the trace file.
 
-        Kwargs:
             filename - the full absolute path to the trace file
 
             realtime - if ``True``, the trace will be replayed at approximately
@@ -32,7 +31,7 @@ class TraceDataSource(BytestreamDataSource):
             loop - if ``True``, the trace file will be looped and will provide
             data until the process exist or the source is stopped.
         """
-        super(TraceDataSource, self).__init__(callback)
+        super(TraceDataSource, self).__init__(callback, **kwargs)
         self.realtime = realtime
         self.loop = loop
         self.filename = filename

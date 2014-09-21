@@ -21,7 +21,8 @@ class SerialDataSource(BytestreamDataSource):
     DEFAULT_PORT = "/dev/ttyUSB0"
     DEFAULT_BAUDRATE = 230400
 
-    def __init__(self, callback=None, port=None, baudrate=None, log_mode=None):
+    def __init__(self, callback=None, port=None, baudrate=None, log_mode=None,
+            **kwargs):
         """Initialize a connection to the serial device.
 
         Kwargs:
@@ -31,7 +32,7 @@ class SerialDataSource(BytestreamDataSource):
         Raises:
             DataSourceError if the serial device cannot be opened.
         """
-        super(SerialDataSource, self).__init__(callback, log_mode)
+        super(SerialDataSource, self).__init__(callback, log_mode, **kwargs)
         port = port or self.DEFAULT_PORT
         baudrate = baudrate or self.DEFAULT_BAUDRATE
 

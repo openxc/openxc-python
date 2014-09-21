@@ -28,7 +28,7 @@ class UsbDataSource(BytestreamDataSource):
     LOG_IN_ENDPOINT = 11
 
     def __init__(self, callback=None, vendor_id=None, product_id=None,
-            log_mode=None):
+            log_mode=None, **kwargs):
         """Initialize a connection to the USB device's IN endpoint.
 
         Kwargs:
@@ -47,7 +47,7 @@ class UsbDataSource(BytestreamDataSource):
             DataSourceError if the USB device with the given vendor ID is not
             connected.
         """
-        super(UsbDataSource, self).__init__(callback, log_mode)
+        super(UsbDataSource, self).__init__(callback, log_mode, **kwargs)
         if vendor_id is not None and not isinstance(vendor_id, int):
             vendor_id = int(vendor_id, 0)
         self.vendor_id = vendor_id or self.DEFAULT_VENDOR_ID

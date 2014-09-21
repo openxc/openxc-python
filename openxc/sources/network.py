@@ -14,7 +14,8 @@ class NetworkDataSource(BytestreamDataSource):
     """
     DEFAULT_PORT = 50001
 
-    def __init__(self, callback=None, host=None, port=None, log_mode=None):
+    def __init__(self, callback=None, host=None, port=None, log_mode=None,
+            **kwargs):
         """Initialize a connection to the network socket.
 
         Kwargs:
@@ -25,7 +26,7 @@ class NetworkDataSource(BytestreamDataSource):
         Raises:
             DataSourceError if the socket connection cannot be opened.
         """
-        super(NetworkDataSource, self).__init__(callback, log_mode)
+        super(NetworkDataSource, self).__init__(callback, log_mode, **kwargs)
         self.host = host or socket.gethostbyname(socket.gethostname())
         self.port = port or self.DEFAULT_PORT
         self.port = int(self.port)
