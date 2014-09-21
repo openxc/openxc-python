@@ -43,13 +43,71 @@ class BaseStreamerTests(object):
         eq_(message['command'], "version")
 
 class BaseFormatterTests(object):
+    """A test for every format defined in the OpenXC Message Format
+    spec: https://github.com/openxc/openxc-message-format
+    """
 
     def _check_serialized_deserialize_equal(self, deserialized):
         serialized = self.formatter.serialize(deserialized)
         eq_(deserialized, self.formatter.deserialize(serialized))
 
-    def test_deserialize_serialized_equal(self):
+    def test_simple_vehicle_message(self):
         self._check_serialized_deserialize_equal({'name': "foo", 'value': 42})
 
-    def test_deserialize_serialized_command_equal(self):
+    def test_command(self):
         self._check_serialized_deserialize_equal({'command': "version"})
+        self._check_serialized_deserialize_equal({'command': "device_id"})
+
+    def test_command_response(self):
+        self._check_serialized_deserialize_equal({ "command_response":
+            "version", "message": "v6.0-dev (default)", "status": True})
+        self._check_serialized_deserialize_equal({ "command_response":
+            "device_id", "message": "v6.0-dev (default)", "status": True})
+        self._check_serialized_deserialize_equal({ "command_response":
+            "passthrough", "status": False})
+
+    def test_passthrough_command(self):
+        self._check_serialized_deserialize_equal({ "command": "passthrough",
+            "bus": 1,
+            "enabled": True
+        })
+
+    def test_evented(self):
+        self._check_serialized_deserialize_equal({"name": "button_event",
+            "value": "up", "event": "pressed"})
+
+    def test_can_message(self):
+        self._check_serialized_deserialize_equal({"bus": 1, "id": 1234,
+            "data": "0x12345678"})
+
+    def test_diagnostic_request(self):
+        self._check_serialized_deserialize_equal(
+                { "command": "diagnostic_request",
+                    "action": "add",
+                    "request": {
+                        "bus": 1,
+                        "id": 1234,
+                        "mode": 1,
+                        "pid": 5,
+                        "payload": "0x1234",
+                        "multiple_responses": False,
+                        "frequency": 1,
+                        "name": "my_pid"
+                    }
+                })
+
+    def test_diagnostic_response(self):
+        self._check_serialized_deserialize_equal({"bus": 1,
+            "id": 1234,
+            "mode": 1,
+            "pid": 5,
+            "success": True,
+            "payload": "0x1234",
+            "value": 4660})
+
+    def test_negative_diagnostic_response(self):
+        self._check_serialized_deserialize_equal({"bus": 1,
+            "id": 1234,
+            "mode": 1,
+            "success": False,
+            "negative_response_code": 17})

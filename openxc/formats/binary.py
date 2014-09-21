@@ -70,40 +70,110 @@ class BinaryFormatter(object):
         return cls._dict_to_protobuf(data).SerializeToString()
 
     @classmethod
+    def _command_string_to_protobuf(self, command_name):
+        if command_name == "version":
+            return openxc_pb2.ControlCommand.VERSION
+        elif command_name == "device_id":
+            return openxc_pb2.ControlCommand.DEVICE_ID
+        elif command_name == "diagnostic_request":
+            return openxc_pb2.ControlCommand.DIAGNOSTIC
+        elif command_name == "passthrough":
+            return openxc_pb2.ControlCommand.PASSTHROUGH
+
+    @classmethod
     def _dict_to_protobuf(cls, data):
         message = openxc_pb2.VehicleMessage()
         if 'command' in data:
             command_name = data['command']
             message.type = openxc_pb2.VehicleMessage.CONTROL_COMMAND
-            if command_name == "version":
-                message.control_command.type = openxc_pb2.ControlCommand.VERSION
-            elif command_name == "device_id":
-                message.control_command.type = openxc_pb2.ControlCommand.DEVICE_ID
-            elif command_name == "diagnostic_request":
-                message.control_command.type = openxc_pb2.ControlCommand.DIAGNOSTIC
-                # TODO
-            elif command_name == "passthrough":
-                message.control_command.type = openxc_pb2.ControlCommand.PASSTHROUGH
+            message.control_command.type = cls._command_string_to_protobuf(command_name)
+            if message.control_command.type == openxc_pb2.ControlCommand.PASSTHROUGH:
                 message.control_command.passthrough_mode_request.bus = data['bus']
                 message.control_command.passthrough_mode_request.enabled = data['enabled']
+            elif message.control_command.type == openxc_pb2.ControlCommand.DIAGNOSTIC:
+                request_command = message.control_command.diagnostic_request
+                action = data['action']
+                if action == "add":
+                    request_command.action = openxc_pb2.DiagnosticControlCommand.ADD
+                elif action == "cancel":
+                    request_command.action = openxc_pb2.DiagnosticControlCommand.CANCEL
+                request = request_command.request
+                request_data = data['request']
+                request.bus = request_data['bus']
+                request.message_id = request_data['id']
+                request.mode = request_data['mode']
+                if 'frequency' in request_data:
+                    request.frequency = request_data['frequency']
+                if 'name' in request_data:
+                    request.name = request_data['name']
+                if 'multiple_responses' in request_data:
+                    request.multiple_responses = request_data['multiple_responses']
+                if 'pid' in request_data:
+                    request.pid = request_data['pid']
+                if 'payload' in request_data:
+                    request.payload = binascii.unhexlify(request_data['payload'].split('0x')[1])
+        elif 'command_response' in data:
+            message.type = openxc_pb2.VehicleMessage.COMMAND_RESPONSE
+            message.command_response.type = cls._command_string_to_protobuf(data['command_response'])
+            if 'message' in data:
+                message.command_response.message = data['message']
+            message.command_response.status = data['status']
+        elif 'id' in data and 'data' in data:
+            message.type = openxc_pb2.VehicleMessage.RAW
+            if 'bus' in data:
+                message.raw_message.bus = data['bus']
+            message.raw_message.message_id = data['id']
+            message.raw_message.data = binascii.unhexlify(data['data'].split('0x')[1])
+        elif 'id' in data and 'bus' in data and 'mode' in data:
+            message.type = openxc_pb2.VehicleMessage.DIAGNOSTIC
+            response = message.diagnostic_response
+            response.bus = data['bus']
+            response.message_id = data['id']
+            response.mode = data['mode']
+            if 'pid' in data:
+                response.pid = data['pid']
+            if 'success' in data:
+                response.success = data['success']
+            if 'negative_response_code' in data:
+                response.negative_response_code = data['negative_response_code']
+            if 'value' in data:
+                response.value = data['value']
+            if 'payload' in data:
+                response.payload = binascii.unhexlify(data['payload'].split('0x')[1])
         elif 'name' in data and 'value' in data:
             message.type = openxc_pb2.VehicleMessage.TRANSLATED
             message.translated_message.name = data['name']
             value = data['value']
             if isinstance(value, bool):
                 message.translated_message.type = openxc_pb2.TranslatedMessage.BOOL
+                message.translated_message.value.type = openxc_pb2.DynamicField.BOOL
                 message.translated_message.value.boolean_value = value
             elif isinstance(value, str):
                 message.translated_message.type = openxc_pb2.TranslatedMessage.STRING
+                message.translated_message.value.type = openxc_pb2.DynamicField.STRING
                 message.translated_message.value.string_value = value
             elif isinstance(value, numbers.Number):
                 message.translated_message.type = openxc_pb2.TranslatedMessage.NUM
+                message.translated_message.value.type = openxc_pb2.DynamicField.NUM
                 message.translated_message.value.numeric_value = value
-            # TODO handle evented simple vehicle messages, too
 
-        else:
-            # TODO
-            pass
+            if 'event' in data:
+                event = data['event']
+                # TODO holy repeated code, batman. this will be easier to DRY
+                # when https://github.com/openxc/openxc-message-format/issues/19
+                # is resolved
+                if isinstance(event, bool):
+                    message.translated_message.type = openxc_pb2.TranslatedMessage.EVENTED_BOOL
+                    message.translated_message.event.type = openxc_pb2.DynamicField.BOOL
+                    message.translated_message.event.boolean_value = event
+                elif isinstance(event, str):
+                    message.translated_message.type = openxc_pb2.TranslatedMessage.EVENTED_STRING
+                    message.translated_message.event.type = openxc_pb2.DynamicField.STRING
+                    message.translated_message.event.string_value = event
+                elif isinstance(event, numbers.Number):
+                    message.translated_message.type = openxc_pb2.TranslatedMessage.EVENTED_NUM
+                    message.translated_message.event.type = openxc_pb2.DynamicField.NUM
+                    message.translated_message.event.numeric_value = event
         return message
 
     @classmethod
@@ -119,7 +189,7 @@ class BinaryFormatter(object):
                 if raw_message.HasField('data'):
                     parsed_message['data'] = "0x%s" % binascii.hexlify(raw_message.data)
             elif message.type == message.DIAGNOSTIC:
-                diagnostic_message = message.diagnostic_message
+                diagnostic_message = message.diagnostic_response
                 if diagnostic_message.HasField('bus'):
                     parsed_message['bus'] = diagnostic_message.bus
                 if diagnostic_message.HasField('message_id'):
@@ -130,6 +200,8 @@ class BinaryFormatter(object):
                     parsed_message['pid'] = diagnostic_message.pid
                 if diagnostic_message.HasField('success'):
                     parsed_message['success'] = diagnostic_message.success
+                if diagnostic_message.HasField('value'):
+                    parsed_message['value'] = diagnostic_message.value
                 if diagnostic_message.HasField('negative_response_code'):
                     parsed_message['negative_response_code'] = diagnostic_message.negative_response_code
                 if diagnostic_message.HasField('payload'):
@@ -166,9 +238,46 @@ class BinaryFormatter(object):
                     parsed_message['command'] = "device_id"
                 elif command.type == openxc_pb2.ControlCommand.DIAGNOSTIC:
                     parsed_message['command'] = "diagnostic_request"
+                    parsed_message['request'] = {}
+                    action = command.diagnostic_request.action
+                    if action == openxc_pb2.DiagnosticControlCommand.ADD:
+                        parsed_message['action'] = "add"
+                    elif action == openxc_pb2.DiagnosticControlCommand.CANCEL:
+                        parsed_message['action'] = "cancel"
+
+                    request = command.diagnostic_request.request
+                    parsed_message['request']['id'] = request.message_id
+                    parsed_message['request']['bus'] = request.bus
+                    parsed_message['request']['mode'] = request.mode
+
+                    if request.HasField('frequency'):
+                        parsed_message['request']['frequency'] = request.frequency
+                    if request.HasField('name'):
+                        parsed_message['request']['name'] = request.name
+                    if request.HasField('multiple_responses'):
+                        parsed_message['request']['multiple_responses'] = request.multiple_responses
+                    if request.HasField('pid'):
+                        parsed_message['request']['pid'] = request.pid
+                    if request.HasField('payload'):
+                        parsed_message['request']['payload'] = "0x%s" % binascii.hexlify(request.payload)
                 elif command.type == openxc_pb2.ControlCommand.PASSTHROUGH:
                     parsed_message['command'] = "passthrough"
-                # TODO the rest of the fields
+                    parsed_message['bus'] = command.passthrough_mode_request.bus
+                    parsed_message['enabled'] = command.passthrough_mode_request.enabled
+            elif message.type == message.COMMAND_RESPONSE:
+                response = message.command_response
+                if response.type == openxc_pb2.ControlCommand.VERSION:
+                    parsed_message['command_response'] = "version"
+                elif response.type == openxc_pb2.ControlCommand.DEVICE_ID:
+                    parsed_message['command_response'] = "device_id"
+                elif response.type == openxc_pb2.ControlCommand.DIAGNOSTIC:
+                    parsed_message['command_response'] = "diagnostic_request"
+                elif response.type == openxc_pb2.ControlCommand.PASSTHROUGH:
+                    parsed_message['command_response'] = "passthrough"
+
+                parsed_message['status'] = response.status
+                if response.HasField('message'):
+                    parsed_message['message'] = response.message
             else:
                 parsed_message = None
         return parsed_message
