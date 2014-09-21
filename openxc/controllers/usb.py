@@ -20,8 +20,6 @@ class UsbControllerMixin(Controller):
     TODO bah, this is kind of weird. refactor the relationship between
     sources/controllers.
     """
-    VERSION_CONTROL_COMMAND = 0x80
-    DEVICE_ID_CONTROL_COMMAND = 0x82
     COMPLEX_CONTROL_COMMAND = 0x83
 
     def write_bytes(self, data):
@@ -34,36 +32,26 @@ class UsbControllerMixin(Controller):
             # here: https://github.com/walac/pyusb/issues/8
             return self.out_endpoint.write(data.encode("utf8"))
 
-    def version(self):
-        """Request the firmware version identifier from the VI via USB control
-        request.
+    def complex_request(self, request, wait_for_first_response=True):
+        """Send a request via the USB control request endpoint, rather than as a
+        bulk transfer.
         """
-        # TODO is 0xC0 correct for IN control transfers? if I clear the in
-        # endpoint on the VI it dies, but if I clear the OUT, it works.
-        raw_version = self.device.ctrl_transfer(0xC0,
-                self.VERSION_CONTROL_COMMAND, 0, 0, 100)
-        return ''.join([chr(x) for x in raw_version])
-
-    def device_id(self):
-        """Request the unique device ID of the attached VI with a USB control
-        request.
-        """
-        raw_device_id = self.device.ctrl_transfer(0xC0,
-                self.DEVICE_ID_CONTROL_COMMAND, 0, 0, 20)
-        return ''.join([chr(x) for x in raw_device_id])
-
-    def diagnostic_request(self, message_id, mode, bus=None, pid=None,
-            frequency=None, payload=None, wait_for_first_response=False):
-        """Send a new diagnostic request to the VI with a USB control request.
-        """
-        request = self._build_diagnostic_request(message_id, mode, bus, pid,
-                frequency, payload)
+        self._prepare_response_receiver(request)
         self.device.ctrl_transfer(0x40, self.COMPLEX_CONTROL_COMMAND, 0, 0,
                 json.dumps(request))
         result = None
         if wait_for_first_response:
             result = self._wait_for_response(request)
         return result
+
+    def diagnostic_request(self, message_id, mode, bus=None, pid=None,
+            frequency=None, payload=None, wait_for_first_response=False):
+        """Send a new diagnostic request to the VI with a USB control request.
+        """
+        return self.complex_request(
+                self._build_diagnostic_request(message_id, mode, bus, pid,
+                    frequency, payload),
+                wait_for_first_response=wait_for_first_response)
 
     @property
     def out_endpoint(self):
