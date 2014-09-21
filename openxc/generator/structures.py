@@ -265,15 +265,21 @@ class CanBus(object):
     def add_message(self, message):
         self.messages.append(message)
 
+    @property
+    def passthrough(self):
+        return self.raw_can_mode != "off"
+
     def __str__(self):
         result = """        {{ speed: {bus_speed},
         address: {controller},
         maxMessageFrequency: {max_message_frequency},
-        rawWritable: {raw_writable}
+        rawWritable: {raw_writable},
+        passthroughCanMessages: {passthrough}
         }},"""
         return result.format(bus_speed=self.speed, controller=self.controller,
                 max_message_frequency=self.max_message_frequency,
-                raw_writable=str(self.raw_writable).lower())
+                raw_writable=str(self.raw_writable).lower(),
+                passthrough=str(self.passthrough).lower())
 
 
 class ConfigurationError(Exception):

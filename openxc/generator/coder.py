@@ -325,13 +325,10 @@ class CodeGenerator(object):
                             line += ("SIGNALS[%d], getSignalCount(), pipeline); // %s" % (
                                 message_set.index, signal.name))
                             lines.append(line)
-                        lines.append("                break;")
-                lines.append("            }")
-                if bus.raw_can_mode != "off":
-                    lines.append(" " * 12 + "openxc::can::read::passthroughMessage("
-                            "bus, message, getMessages(), getMessageCount(), pipeline);")
-                lines.append("            break;")
-            lines.append("        }")
+                        lines.append(" " * 16 + "break;")
+                lines.append(" " * 12 + "}")
+                lines.append(" " * 12 + "break;")
+            lines.append(" " * 8 + "}")
             return lines
 
         lines.extend(self._message_set_switcher(block))
