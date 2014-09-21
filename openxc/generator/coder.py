@@ -106,7 +106,7 @@ class CodeGenerator(object):
                     LOG.warning(msg)
                     continue
                 LOG.info("Added message '%s'" % message.name)
-                lines.append("        %s" % message)
+                lines.append(" " * 8 + "%s" % message)
             return lines
 
         lines.extend(self._message_set_lister(block))
@@ -167,7 +167,7 @@ class CodeGenerator(object):
             lines = []
             for signal in message_set.enabled_signals():
                 if len(signal.states) > 0:
-                    line = "        { "
+                    line = " " * 8 + "{ "
                     for state_count, state in enumerate(signal.sorted_states):
                         if state_count >= self.MAX_SIGNAL_STATES:
                             LOG.warning("Ignoring anything beyond %d states for %s" %
@@ -242,7 +242,7 @@ class CodeGenerator(object):
                         signal.generic_name, signal.message.id))
                     continue
                 signal.array_index = i - 1
-                lines.append("        %s" % signal)
+                lines.append(" " * 8 + "%s" % signal)
                 LOG.info("Added signal '%s'" % signal.generic_name)
                 i += 1
             return lines
@@ -258,9 +258,9 @@ class CodeGenerator(object):
         lines.append("void openxc::signals::initialize(openxc::diagnostics::DiagnosticsManager* diagnosticsManager) {")
 
         def block(message_set):
-            init_lines = ["        %s();" % initializer
+            init_lines = [" " * 8 + "%s();" % initializer
                 for initializer in message_set.initializers]
-            init_lines.extend(["        %s" % message
+            init_lines.extend([" " * 8 + "%s" % message
                 for message in message_set.active_diagnostic_messages()])
             return init_lines
         lines.extend(self._message_set_switcher(block))
@@ -273,7 +273,7 @@ class CodeGenerator(object):
         lines = []
         lines.append("void openxc::signals::loop() {")
         def block(message_set):
-            return ["        %s();" % looper for looper in message_set.loopers]
+            return [" " * 8 + "%s();" % looper for looper in message_set.loopers]
         lines.extend(self._message_set_switcher(block))
         lines.append("}")
         lines.append("")
@@ -290,7 +290,7 @@ class CodeGenerator(object):
                     LOG.warning("Skipping disabled Command %s" % command.name)
                     continue
                 LOG.info("Added command '%s'" % command.name)
-                yield "        %s" % command
+                yield " " * 8 + "%s" % command
         lines.extend(self._message_set_lister(block))
         lines.append("};")
         lines.append("")

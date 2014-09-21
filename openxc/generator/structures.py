@@ -59,7 +59,7 @@ class DiagnosticMessage(object):
         else:
             name = "NULL"
 
-        result += "        addRecurringRequest(diagnosticsManager, &getCanBuses()[%d], &request, %s, %s, %s, %s, %f);\n        }\n" % (
+        result += " " * 8 + "addRecurringRequest(diagnosticsManager, &getCanBuses()[%d], &request, %s, %s, %s, %s, %f);\n        }\n" % (
                 self.message_set.lookup_bus_index(self.bus_name),
                 name,
                 str(self.multiple_responses).lower(),
