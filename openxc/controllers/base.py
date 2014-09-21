@@ -13,8 +13,6 @@ except ImportError:
     from queue import Queue
     from queue import Empty
 
-from openxc.formats.json import JsonFormatter
-
 class ResponseReceiver(object):
     """All commands to a vehicle interface are asynchronous. This class is used to
     wait for the response for a particular request in a thread. Before making a
@@ -155,14 +153,13 @@ class Controller(object):
         channel.
 
         request - A dict storing the request to send to the VI. It will be
-            serialized to JSON, as that is the only supported format for
-            commands on the VI in the current firmware.
+            serialized to the currently selected output format.
         wait_for_first_response - If true, this function will block waiting for
             a response from the VI and return it to the caller. Otherwise, it
             will send the command and return immediately and any response will
             be lost.
         """
-        self.write_bytes(JsonFormatter.serialize(request))
+        self.write_bytes(self.formatter.serialize(request))
 
         responses = []
         if wait_for_first_response:
@@ -263,8 +260,8 @@ class Controller(object):
         return result
 
     def write(self, **kwargs):
-        """Serialize a raw or translated write request as JSON and send it to
-        the VI, following the OpenXC message format.
+        """Serialize a raw or translated write request and send it to the VI,
+        following the OpenXC message format.
         """
         if 'id' in kwargs and 'data' in kwargs:
             result = self.write_raw(kwargs['id'], kwargs['data'],
@@ -282,7 +279,7 @@ class Controller(object):
             data['value'] = self._massage_write_value(value)
         if event is not None:
             data['event'] = self._massage_write_value(event);
-        message = JsonFormatter.serialize(data)
+        message = self.formatter.serialize(data)
         bytes_written = self.write_bytes(message)
         assert bytes_written == len(message)
         return bytes_written
@@ -298,7 +295,7 @@ class Controller(object):
         data = {'id': message_id, 'data': data}
         if bus is not None:
             data['bus'] = bus
-        message = JsonFormatter.serialize(data)
+        message = self.formatter.serialize(data)
         bytes_written = self.write_bytes(message)
         assert bytes_written == len(message)
         return bytes_written

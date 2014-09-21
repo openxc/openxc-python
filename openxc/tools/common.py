@@ -53,6 +53,12 @@ def device_options():
             choices=["off", "stderr", "file"],
             dest="log_mode",
             help="record logs to a file or stderr, if available from the interface")
+    parser.add_argument("--format",
+            action="store",
+            default="json",
+            choices=["json", "binary"],
+            dest="format",
+            help="select the data format for sending and receiving with the VI")
     return parser
 
 
@@ -79,4 +85,8 @@ def select_device(arguments):
                 product_id=arguments.usb_product)
 
     source_kwargs['log_mode'] = arguments.log_mode
+    if arguments.format == "json"
+        source_kwargs['formatter'] = JsonFormatter
+    elif arguments.format == "binary"
+        source_kwargs['formatter'] = BinaryFormatter
     return source_class, source_kwargs
