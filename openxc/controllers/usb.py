@@ -37,7 +37,7 @@ class UsbControllerMixin(Controller):
         """
         self._prepare_response_receiver(request)
         self.device.ctrl_transfer(0x40, self.COMPLEX_CONTROL_COMMAND, 0, 0,
-                self.formatter.serialize(request))
+                self.streamer.serialize_for_stream(request))
         result = None
         if wait_for_first_response:
             result = self._wait_for_response(request)
