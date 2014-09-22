@@ -54,6 +54,7 @@ class CodeGeneratorTests(unittest.TestCase):
         message_set, output = self._generate('signals.json.example')
         eq_(list(message_set.valid_buses())[0].raw_can_mode, "filtered")
         eq_(list(message_set.valid_buses())[1].raw_can_mode, "off")
+        eq_(output.count("bypassFilters: false"), 2)
         eq_(output.count("0x200"), 1)
         eq_(output.count("passthroughCanMessages: true"), 1)
 
@@ -67,6 +68,7 @@ class CodeGeneratorTests(unittest.TestCase):
         eq_(list(message_set.valid_buses())[0].raw_can_mode, "off")
         eq_(list(message_set.valid_buses())[1].raw_can_mode, "unfiltered")
         eq_(output.count("passthroughCanMessages: true"), 1)
+        eq_(output.count("bypassFilters: true"), 1)
 
     def test_bit_inversion(self):
 
