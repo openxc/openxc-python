@@ -165,7 +165,7 @@ class Controller(object):
             be lost.
         """
         self._prepare_response_receiver(request)
-        self.write_bytes(self.formatter.serialize(request))
+        self.write_bytes(self.streamer.serialize_for_stream(request))
 
         responses = []
         if wait_for_first_response:
@@ -296,7 +296,7 @@ class Controller(object):
             data['value'] = self._massage_write_value(value)
         if event is not None:
             data['event'] = self._massage_write_value(event);
-        message = self.formatter.serialize(data)
+        message = self.streamer.serialize_for_stream(data)
         bytes_written = self.write_bytes(message)
         assert bytes_written == len(message)
         return bytes_written
@@ -312,7 +312,7 @@ class Controller(object):
         data = {'id': message_id, 'data': data}
         if bus is not None:
             data['bus'] = bus
-        message = self.formatter.serialize(data)
+        message = self.streamer.serialize_for_stream(data)
         bytes_written = self.write_bytes(message)
         assert bytes_written == len(message)
         return bytes_written
