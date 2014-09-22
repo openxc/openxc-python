@@ -63,7 +63,7 @@ def parse_options():
     parser = argparse.ArgumentParser(description="Send control messages to an "
             "attached OpenXC vehicle interface", parents=[device_options()])
     parser.add_argument("command", type=str,
-            choices=['version', 'write', 'id', 'passthrough'])
+            choices=['version', 'write', 'id', 'set'])
     write_group = parser.add_mutually_exclusive_group()
     write_group.add_argument("--name", action="store", dest="write_name",
             help="name for message write request")
@@ -82,9 +82,10 @@ def parse_options():
             dest="write_input_file",
             help="the path to a file with a list of raw or translated "
                     "messages to write to the selected vehicle interface")
-    parser.add_argument("--enabled", action="store", default=True,
-            dest="passthrough_enabled",
-            help="desired status of CAN message passthrough")
+    parser.add_argument("--passthrough", action="store_true", default=True,
+            dest="passthrough_enabled")
+    parser.add_argument("--no-passthrough", action="store_false", default=True,
+            dest="passthrough_enabled")
 
     return parser.parse_args()
 
@@ -101,7 +102,8 @@ def main():
         version(interface)
     elif arguments.command == "id":
         device_id(interface)
-    elif arguments.command == "passthrough":
+    elif arguments.command == "set":
+        # TODO eventually could support other config commands here
         passthrough(interface, int(arguments.bus), arguments.passthrough_enabled)
     elif arguments.command.startswith("write"):
         if arguments.command == "write":
