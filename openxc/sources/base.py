@@ -7,8 +7,8 @@ import string
 import sys
 import datetime
 
-from openxc.formats.binary import BinaryStreamer
-from openxc.formats.json import JsonStreamer
+from openxc.formats.binary import BinaryStreamer, BinaryFormatter
+from openxc.formats.json import JsonStreamer, JsonFormatter
 
 LOG = logging.getLogger(__name__)
 
@@ -39,8 +39,10 @@ class DataSource(threading.Thread):
 
         if format == "json":
             self.streamer = JsonStreamer()
+            self.formatter = JsonFormatter
         elif format == "binary":
             self.streamer = BinaryStreamer()
+            self.formatter = BinaryFormatter
 
         self.logger = SourceLogger(self, log_mode)
 
