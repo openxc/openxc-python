@@ -239,6 +239,19 @@ class Controller(object):
         request['action'] = 'add'
         return self.complex_request(request, wait_for_first_response)
 
+    def set_passthrough(self, bus, enabled):
+        """Control the status of CAN message passthrough for a bus.
+
+        Returns True if the command was successful.
+        """
+        request = {
+            "command": "passthrough",
+            "bus": bus,
+            "enabled": enabled
+        }
+        responses = self.complex_request(request)
+        return len(responses) > 0 and responses[0]['status']
+
     def version(self):
         """Request a firmware version identifier from the VI.
         """

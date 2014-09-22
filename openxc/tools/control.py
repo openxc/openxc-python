@@ -21,6 +21,9 @@ def version(interface):
 def device_id(interface):
     print("Device ID is %s" % interface.device_id())
 
+def passthrough(interface, bus, passthrough_enabled):
+    if interface.set_passthrough(bus, passthrough_enabled):
+        print("Bus %u passthrough set to %s" % (bus, passthrough_enabled))
 
 def write_file(interface, filename):
     first_timestamp = None
@@ -60,15 +63,15 @@ def parse_options():
     parser = argparse.ArgumentParser(description="Send control messages to an "
             "attached OpenXC vehicle interface", parents=[device_options()])
     parser.add_argument("command", type=str,
-            choices=['version', 'write', 'id'])
+            choices=['version', 'write', 'id', 'passthrough'])
     write_group = parser.add_mutually_exclusive_group()
     write_group.add_argument("--name", action="store", dest="write_name",
             help="name for message write request")
     write_group.add_argument("--id", action="store", dest="write_id",
             help="ID for raw message write request")
-    parser.add_argument("--bus", action="store", dest="write_bus",
+    parser.add_argument("--bus", action="store", dest="bus",
             default=1,
-            help="bus number for raw message write request")
+            help="CAN bus number for the control request")
     parser.add_argument("--value", action="store", dest="write_value",
             help="optional value for message write request")
     parser.add_argument("--event", action="store", dest="write_event",
@@ -79,6 +82,9 @@ def parse_options():
             dest="write_input_file",
             help="the path to a file with a list of raw or translated "
                     "messages to write to the selected vehicle interface")
+    parser.add_argument("--enabled", action="store", default=True,
+            dest="passthrough_enabled",
+            help="desired status of CAN message passthrough")
 
     return parser.parse_args()
 
@@ -95,6 +101,8 @@ def main():
         version(interface)
     elif arguments.command == "id":
         device_id(interface)
+    elif arguments.command == "passthrough":
+        passthrough(interface, int(arguments.bus), arguments.passthrough_enabled)
     elif arguments.command.startswith("write"):
         if arguments.command == "write":
             if arguments.write_name:
@@ -104,7 +112,7 @@ def main():
             elif arguments.write_id:
                 if not arguments.write_data:
                     sys.exit("%s requires an id and data" % arguments.command)
-                interface.write(bus=int(arguments.write_bus),
+                interface.write(bus=int(arguments.bus),
                         id=arguments.write_id,
                         data=arguments.write_data)
             elif arguments.write_input_file:
