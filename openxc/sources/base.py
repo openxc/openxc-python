@@ -12,6 +12,7 @@ from openxc.formats.json import JsonStreamer, JsonFormatter
 
 LOG = logging.getLogger(__name__)
 
+class MissingPayloadFormatError(Exception): pass
 
 class DataSource(threading.Thread):
     """Interface for all vehicle data sources. This inherits from Thread and
@@ -36,16 +37,47 @@ class DataSource(threading.Thread):
         self.callback = callback
         self.daemon = True
         self.running = True
+        self._streamer = None
+        self._formatter = None
+        self.format = format
 
-        self.streamer = None
-        if format == "json":
+        self.logger = SourceLogger(self, log_mode)
+
+    @property
+    def format(self):
+        return self._format
+
+    @format.setter
+    def format(self, value):
+        self._format = value
+        if value == "json":
             self.streamer = JsonStreamer()
             self.formatter = JsonFormatter
-        elif format == "binary":
+        elif value == "binary":
             self.streamer = BinaryStreamer()
             self.formatter = BinaryFormatter
 
-        self.logger = SourceLogger(self, log_mode)
+    @property
+    def streamer(self):
+        if self._streamer is None:
+            raise MissingPayloadFormatError("Unable to auto-detect payload "
+                "format, must specify manually with --format [json|binary]")
+        return self._streamer
+
+    @streamer.setter
+    def streamer(self, value):
+        self._streamer = value
+
+    @property
+    def formatter(self):
+        if self._formatter is None:
+            raise MissingPayloadFormatError("Unable to auto-detect payload "
+                "format, must specify manually with --format [json|binary]")
+        return _formatter
+
+    @formatter.setter
+    def formatter(self, value):
+        self._formatter = value
 
     def start(self):
         self.logger.start()
@@ -163,7 +195,9 @@ class BytestreamDataSource(DataSource):
                     LOG.warn("Can't read from data source -- stopping: %s", e)
                 break
 
-            if self.streamer is None:
+            try:
+                self.streamer
+            except MissingPayloadFormatError:
                 json_chars = ['\x00']
                 json_chars.extend(string.printable)
                 if all((char in json_chars for char in payload)):

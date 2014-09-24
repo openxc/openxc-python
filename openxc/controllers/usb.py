@@ -36,8 +36,6 @@ class UsbControllerMixin(Controller):
         bulk transfer.
         """
         self._prepare_response_receiver(request)
-        # TODO self.streamer may not exist if we haven't received any data, need
-        # to check first
         self.device.ctrl_transfer(0x40, self.COMPLEX_CONTROL_COMMAND, 0, 0,
                 self.streamer.serialize_for_stream(request))
         result = None
