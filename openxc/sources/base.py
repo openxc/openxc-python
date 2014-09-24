@@ -37,6 +37,7 @@ class DataSource(threading.Thread):
         self.daemon = True
         self.running = True
 
+        self.streamer = None
         if format == "json":
             self.streamer = JsonStreamer()
             self.formatter = JsonFormatter

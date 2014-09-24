@@ -55,7 +55,6 @@ def device_options():
             help="record logs to a file or stderr, if available from the interface")
     parser.add_argument("--format",
             action="store",
-            default="json",
             choices=["json", "binary"],
             dest="format",
             help="select the data format for sending and receiving with the VI")
