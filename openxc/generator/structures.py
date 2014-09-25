@@ -230,6 +230,7 @@ class CanBus(object):
             default_raw_can_mode=None,
             raw_can_mode=None,
             raw_writable=False,
+            loopback=False,
             **kwargs):
         self.name = name
         self.speed = speed
@@ -240,6 +241,7 @@ class CanBus(object):
             self.max_message_frequency = default_max_message_frequency
         self.raw_can_mode = raw_can_mode or default_raw_can_mode
         self.raw_writable = raw_writable
+        self.loopback = loopback
 
     def valid(self):
         return self.controller in self.VALID_BUS_ADDRESSES
@@ -279,13 +281,15 @@ class CanBus(object):
         maxMessageFrequency: {max_message_frequency},
         rawWritable: {raw_writable},
         passthroughCanMessages: {passthrough},
-        bypassFilters: {bypass_filters}
+        bypassFilters: {bypass_filters},
+        loopback: {loopback}
         }},"""
         return result.format(bus_speed=self.speed, controller=self.controller,
                 max_message_frequency=self.max_message_frequency,
                 raw_writable=str(self.raw_writable).lower(),
                 passthrough=str(self.passthrough).lower(),
-                bypass_filters=str(self.bypass_filters).lower())
+                bypass_filters=str(self.bypass_filters).lower(),
+                loopback=str(self.loopback).lower())
 
 
 class ConfigurationError(Exception):
