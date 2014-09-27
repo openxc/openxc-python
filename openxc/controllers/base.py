@@ -174,7 +174,7 @@ class Controller(object):
 
     @classmethod
     def _build_diagnostic_request(cls, message_id, mode, bus=None, pid=None,
-            frequency=None, payload=None):
+            frequency=None, payload=None, decoded_type=None):
         request = {
             'command': "diagnostic_request",
             'request': {
@@ -193,6 +193,8 @@ class Controller(object):
             request['request']['pid'] = pid
         if frequency is not None:
             request['request']['frequency'] = frequency
+        if decoded_type is not None:
+            request['request']['decoded_type'] = decoded_type
 
         return request
 
@@ -206,7 +208,8 @@ class Controller(object):
         return False
 
     def create_diagnostic_request(self, message_id, mode, bus=None, pid=None,
-            frequency=None, payload=None, wait_for_first_response=False):
+            frequency=None, payload=None, wait_for_first_response=False,
+            decoded_type=None):
         """Send a new diagnostic message request to the VI
 
         Required:
@@ -235,7 +238,7 @@ class Controller(object):
         """
 
         request = self._build_diagnostic_request(message_id, mode, bus, pid,
-                frequency, payload)
+                frequency, payload, decoded_type)
         request['action'] = 'add'
         return self.complex_request(request, wait_for_first_response)
 
