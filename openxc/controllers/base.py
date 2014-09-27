@@ -255,6 +255,19 @@ class Controller(object):
         responses = self.complex_request(request)
         return len(responses) > 0 and responses[0]['status']
 
+    def set_acceptance_filter_bypass(self, bus, bypass):
+        """Control the status of CAN acceptance filter for a bus.
+
+        Returns True if the command was successful.
+        """
+        request = {
+            "command": "af_bypass",
+            "bus": bus,
+            "bypass": bypass
+        }
+        responses = self.complex_request(request)
+        return len(responses) > 0 and responses[0]['status']
+
     def version(self):
         """Request a firmware version identifier from the VI.
         """

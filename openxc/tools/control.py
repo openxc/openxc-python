@@ -25,6 +25,14 @@ def passthrough(interface, bus, passthrough_enabled):
     if interface.set_passthrough(bus, passthrough_enabled):
         print("Bus %u passthrough set to %s" % (bus, passthrough_enabled))
 
+def af_bypass(interface, bus, bypass):
+    if interface.set_acceptance_filter_bypass(bus, bypass):
+        if bypass:
+            bypass_string = "bypassed"
+        else:
+            bypass_string = "enabled"
+        print("Bus %u AF is now %s" % (bus, bypass_string))
+
 def write_file(interface, filename):
     first_timestamp = None
     with open(filename, "r") as output_file:
