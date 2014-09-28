@@ -11,7 +11,7 @@ from google.protobuf.internal import encoder
 from openxc.formats.base import VehicleMessageStreamer
 from openxc import openxc_pb2
 
-class BinaryStreamer(VehicleMessageStreamer):
+class ProtobufStreamer(VehicleMessageStreamer):
     MAX_PROTOBUF_MESSAGE_LENGTH = 200
 
     def parse_next_message(self):
@@ -39,7 +39,7 @@ class BinaryStreamer(VehicleMessageStreamer):
                     message_length]
             remainder = self.message_buffer[message_start + message_length:]
 
-            message = BinaryFormatter.deserialize(message_data)
+            message = ProtobufFormatter.deserialize(message_data)
             if message is None:
                 self.message_buffer = self.message_buffer[1:]
 
@@ -47,12 +47,12 @@ class BinaryStreamer(VehicleMessageStreamer):
         return message
 
     def serialize_for_stream(self, message):
-        protobuf_message = BinaryFormatter.serialize(message)
+        protobuf_message = ProtobufFormatter.serialize(message)
         delimiter = encoder._VarintBytes(len(protobuf_message))
         return delimiter + protobuf_message
 
 
-class BinaryFormatter(object):
+class ProtobufFormatter(object):
     @classmethod
     def deserialize(cls, data):
         message = openxc_pb2.VehicleMessage()

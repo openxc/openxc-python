@@ -1,12 +1,12 @@
 import unittest
 
 from .streamer_test_utils import BaseStreamerTests, BaseFormatterTests
-from openxc.formats.binary import BinaryStreamer, BinaryFormatter
+from openxc.formats.binary import ProtobufStreamer, BinaryFormatter
 
-class BinaryStreamerTests(unittest.TestCase, BaseStreamerTests):
+class ProtobufStreamerTests(unittest.TestCase, BaseStreamerTests):
     def setUp(self):
-        super(BinaryStreamerTests, self).setUp()
-        self.streamer = BinaryStreamer()
+        super(ProtobufStreamerTests, self).setUp()
+        self.streamer = ProtobufStreamer()
 
 
 class BinaryFormatterTests(unittest.TestCase, BaseFormatterTests):

@@ -55,7 +55,7 @@ def device_options():
             help="record logs to a file or stderr, if available from the interface")
     parser.add_argument("--format",
             action="store",
-            choices=["json", "binary"],
+            choices=["json", "protobuf"],
             dest="format",
             help="select the data format for sending and receiving with the VI")
     return parser

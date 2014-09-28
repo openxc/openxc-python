@@ -7,7 +7,7 @@ import string
 import sys
 import datetime
 
-from openxc.formats.binary import BinaryStreamer, BinaryFormatter
+from openxc.formats.binary import ProtobufStreamer, ProtobufFormatter
 from openxc.formats.json import JsonStreamer, JsonFormatter
 
 LOG = logging.getLogger(__name__)
@@ -53,15 +53,18 @@ class DataSource(threading.Thread):
         if value == "json":
             self.streamer = JsonStreamer()
             self.formatter = JsonFormatter
-        elif value == "binary":
-            self.streamer = BinaryStreamer()
-            self.formatter = BinaryFormatter
+        elif value == "protobuf":
+            self.streamer = ProtobufStreamer()
+            self.formatter = ProtobufFormatter
+        else:
+            raise MissingPayloadFormatError("Unrecognized payload format: %s" %
+                    value)
 
     @property
     def streamer(self):
         if self._streamer is None:
             raise MissingPayloadFormatError("Unable to auto-detect payload "
-                "format, must specify manually with --format [json|binary]")
+                "format, must specify manually with --format [json|protobuf]")
         return self._streamer
 
     @streamer.setter
@@ -72,7 +75,7 @@ class DataSource(threading.Thread):
     def formatter(self):
         if self._formatter is None:
             raise MissingPayloadFormatError("Unable to auto-detect payload "
-                "format, must specify manually with --format [json|binary]")
+                "format, must specify manually with --format [json|protobuf]")
         return _formatter
 
     @formatter.setter
@@ -203,7 +206,7 @@ class BytestreamDataSource(DataSource):
                 if all((char in json_chars for char in payload)):
                     self.streamer = JsonStreamer()
                 else:
-                    self.streamer = BinaryStreamer()
+                    self.streamer = ProtobufStreamer()
             self.streamer.receive(payload)
 
             while True:
