@@ -23,7 +23,7 @@ class DataSource(threading.Thread):
     A data source requires a callback method to be specified. Whenever new data
     is received, it will pass it to that callback.
     """
-    def __init__(self, callback=None, log_mode=None, format=None):
+    def __init__(self, callback=None, log_mode=None, format="json"):
         """Construct a new DataSource.
 
         By default, DataSource threads are marked as ``daemon`` threads, so they
