@@ -126,7 +126,7 @@ class SourceLogger(threading.Thread):
         self.running = False
 
     def record(self, message):
-        if self.mode != "off" and len(message) > 0:
+        if self.mode is not None and self.mode != "off" and len(message) > 0:
             log_file = None
             if self.mode == "stderr":
                 log_file = sys.stderr
