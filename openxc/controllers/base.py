@@ -242,6 +242,10 @@ class Controller(object):
         request['action'] = 'add'
         return self.complex_request(request, wait_for_first_response)
 
+    def _check_command_response_status(self, request):
+        responses = self.complex_request(request)
+        return len(responses) > 0 and responses[0]['status']
+
     def set_passthrough(self, bus, enabled):
         """Control the status of CAN message passthrough for a bus.
 
@@ -252,8 +256,21 @@ class Controller(object):
             "bus": bus,
             "enabled": enabled
         }
-        responses = self.complex_request(request)
-        return len(responses) > 0 and responses[0]['status']
+        return self._check_command_response_status(request)
+
+    def set_payload_format(self, payload_format):
+        """Set the payload format for messages sent to and from the VI.
+
+        Returns True if the command was successful.
+        """
+        request = {
+            "command": "payload_format",
+            "format": payload_format
+        }
+        status = self._check_command_response_status(request)
+        if status:
+            self.format = payload_format
+        return status
 
     def set_acceptance_filter_bypass(self, bus, bypass):
         """Control the status of CAN acceptance filter for a bus.
@@ -265,8 +282,14 @@ class Controller(object):
             "bus": bus,
             "bypass": bypass
         }
+        return self._check_command_response_status(request)
+
+    def _check_command_response_message(self, request):
         responses = self.complex_request(request)
-        return len(responses) > 0 and responses[0]['status']
+        result = None
+        if len(responses) > 0:
+            result = responses[0].get('message')
+        return result
 
     def version(self):
         """Request a firmware version identifier from the VI.
@@ -274,11 +297,7 @@ class Controller(object):
         request = {
             "command": "version"
         }
-        responses = self.complex_request(request)
-        result = None
-        if len(responses) > 0:
-            result = responses[0].get('message')
-        return result
+        return self._check_command_response_message(request)
 
     def device_id(self):
         """Request the unique device ID of the attached VI.
@@ -286,11 +305,7 @@ class Controller(object):
         request = {
             "command": "device_id"
         }
-        responses = self.complex_request(request)
-        result = None
-        if len(responses) > 0:
-            result = responses[0].get('message')
-        return result
+        return self._check_command_response_message(request)
 
     def write(self, **kwargs):
         """Serialize a raw or translated write request and send it to the VI,
