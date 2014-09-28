@@ -79,6 +79,10 @@ class ProtobufFormatter(object):
             return openxc_pb2.ControlCommand.DIAGNOSTIC
         elif command_name == "passthrough":
             return openxc_pb2.ControlCommand.PASSTHROUGH
+        elif command_name == "af_bypass":
+            return openxc_pb2.ControlCommand.ACCEPTANCE_FILTER_BYPASS
+        elif command_name == "payload_format":
+            return openxc_pb2.ControlCommand.PAYLOAD_FORMAT
 
     @classmethod
     def _dict_to_protobuf(cls, data):
@@ -90,6 +94,14 @@ class ProtobufFormatter(object):
             if message.control_command.type == openxc_pb2.ControlCommand.PASSTHROUGH:
                 message.control_command.passthrough_mode_request.bus = data['bus']
                 message.control_command.passthrough_mode_request.enabled = data['enabled']
+            elif message.control_command.type == openxc_pb2.ControlCommand.ACCEPTANCE_FILTER_BYPASS:
+                message.control_command.acceptance_filter_bypass_command.bus = data['bus']
+                message.control_command.acceptance_filter_bypass_command.bypass = data['bypass']
+            elif message.control_command.type == openxc_pb2.ControlCommand.PAYLOAD_FORMAT:
+                if data['format'] == "json":
+                    message.control_command.payload_format_command.format = openxc_pb2.PayloadFormatCommand.JSON
+                elif data['format'] == "protobuf":
+                    message.control_command.payload_format_command.format = openxc_pb2.PayloadFormatCommand.PROTOBUF
             elif message.control_command.type == openxc_pb2.ControlCommand.DIAGNOSTIC:
                 request_command = message.control_command.diagnostic_request
                 action = data['action']
@@ -264,6 +276,16 @@ class ProtobufFormatter(object):
                     parsed_message['command'] = "passthrough"
                     parsed_message['bus'] = command.passthrough_mode_request.bus
                     parsed_message['enabled'] = command.passthrough_mode_request.enabled
+                elif command.type == openxc_pb2.ControlCommand.ACCEPTANCE_FILTER_BYPASS:
+                    parsed_message['command'] = "af_bypass"
+                    parsed_message['bus'] = command.acceptance_filter_bypass_command.bus
+                    parsed_message['bypass'] = command.acceptance_filter_bypass_command.bypass
+                elif command.type == openxc_pb2.ControlCommand.PAYLOAD_FORMAT:
+                    parsed_message['command'] = "payload_format"
+                    if command.payload_format_command.format == openxc_pb2.PayloadFormatCommand.JSON:
+                        parsed_message['format'] = "json"
+                    elif command.payload_format_command.format == openxc_pb2.PayloadFormatCommand.PROTOBUF:
+                        parsed_message['format'] = "protobuf"
             elif message.type == message.COMMAND_RESPONSE:
                 response = message.command_response
                 if response.type == openxc_pb2.ControlCommand.VERSION:
