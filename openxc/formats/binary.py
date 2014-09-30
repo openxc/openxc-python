@@ -296,6 +296,8 @@ class ProtobufFormatter(object):
                     parsed_message['command_response'] = "diagnostic_request"
                 elif response.type == openxc_pb2.ControlCommand.PASSTHROUGH:
                     parsed_message['command_response'] = "passthrough"
+                elif response.type == openxc_pb2.ControlCommand.PAYLOAD_FORMAT:
+                    parsed_message['command_response'] = "payload_format"
 
                 parsed_message['status'] = response.status
                 if response.HasField('message'):
