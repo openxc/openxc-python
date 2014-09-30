@@ -33,6 +33,10 @@ def af_bypass(interface, bus, bypass):
             bypass_string = "enabled"
         print("Bus %u AF is now %s" % (bus, bypass_string))
 
+def set_payload_format(interface, payload_format):
+    if interface.set_payload_format(payload_format):
+        print("Changed payload format to %s" % payload_format)
+
 def write_file(interface, filename):
     first_timestamp = None
     with open(filename, "r") as output_file:
@@ -90,10 +94,16 @@ def parse_options():
             dest="write_input_file",
             help="the path to a file with a list of raw or translated "
                     "messages to write to the selected vehicle interface")
-    parser.add_argument("--passthrough", action="store_true", default=True,
+    parser.add_argument("--passthrough", action="store_true", default=None,
             dest="passthrough_enabled")
-    parser.add_argument("--no-passthrough", action="store_false", default=True,
+    parser.add_argument("--no-passthrough", action="store_false", default=None,
             dest="passthrough_enabled")
+    parser.add_argument("--af-bypass", action="store_true", default=None,
+            dest="af_bypass")
+    parser.add_argument("--no-af-bypass", action="store_false", default=None,
+            dest="af_bypass")
+    parser.add_argument("--new-payload-format", action="store", default=None,
+            choices=['json', 'protobuf'], dest="new_payload_format")
 
     return parser.parse_args()
 
@@ -111,8 +121,12 @@ def main():
     elif arguments.command == "id":
         device_id(interface)
     elif arguments.command == "set":
-        # TODO eventually could support other config commands here
-        passthrough(interface, int(arguments.bus), arguments.passthrough_enabled)
+        if arguments.passthrough_enabled is not None:
+            passthrough(interface, int(arguments.bus), arguments.passthrough_enabled)
+        if arguments.af_bypass is not None:
+            af_bypass(interface, int(arguments.bus), arguments.af_bypass)
+        if arguments.new_payload_format is not None:
+            set_payload_format(interface, arguments.new_payload_format)
     elif arguments.command.startswith("write"):
         if arguments.command == "write":
             if arguments.write_name:
