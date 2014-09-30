@@ -284,6 +284,17 @@ class Controller(object):
         }
         return self._check_command_response_status(request)
 
+    def set_predefined_obd2_requests(self, enabled):
+        """Control if pre-defined OBD2 requests should be sent.
+
+        Returns True if the command was successful.
+        """
+        request = {
+            "command": "predefined_obd2",
+            "enabled": enabled
+        }
+        return self._check_command_response_status(request)
+
     def _check_command_response_message(self, request):
         responses = self.complex_request(request)
         result = None
