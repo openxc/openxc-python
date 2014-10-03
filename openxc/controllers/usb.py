@@ -27,9 +27,7 @@ class UsbControllerMixin(Controller):
                     self.out_endpoint)
             return 0
         else:
-            # See upstream issue in pyusb on why we have to manually encode
-            # here: https://github.com/walac/pyusb/issues/8
-            return self.out_endpoint.write(data.encode("utf8"))
+            return self.out_endpoint.write(data)
 
     def _send_complex_request(self, request):
         """Send a request via the USB control request endpoint, rather than as a

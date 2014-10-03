@@ -32,8 +32,8 @@ class JsonFormatter(object):
 
     @classmethod
     def deserialize(cls, message):
-        return json.loads(message.decode("utf-8"))
+        return json.loads(message.decode("utf8"))
 
     @classmethod
     def serialize(cls, data):
-        return json.dumps(data)
+        return json.dumps(data).encode("utf8")
