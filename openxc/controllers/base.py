@@ -286,8 +286,9 @@ class Controller(object):
             "format": payload_format
         }
         status = self._check_command_response_status(request)
-        if status:
-            self.format = payload_format
+        # Always change the format regardless because if it was already in the
+        # right format, the command will have failed.
+        self.format = payload_format
         return status
 
     def set_acceptance_filter_bypass(self, bus, bypass):
