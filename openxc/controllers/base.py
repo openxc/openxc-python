@@ -27,6 +27,9 @@ class ResponseReceiver(object):
     and the vehicle interface class puts newly received responses in the queues
     of ResponseReceivers as they arrive.
     """
+
+    COMMAND_RESPONSE_TIMEOUT_S = .3
+
     def __init__(self, queue, request, quit_after_first=True):
         """Construct a new ResponseReceiver.
 
@@ -50,9 +53,24 @@ class ResponseReceiver(object):
         """
         return True
 
-    def wait_for_command_response(self):
+    def wait_for_responses(self, request):
+        """Block the thread and wait for the response to the given request to
+        arrive from the VI. If no matching response is received in
+        COMMAND_RESPONSE_TIMEOUT_S seconds, returns anyway.
+        """
+
+        self.thread.join(self.COMMAND_RESPONSE_TIMEOUT_S)
+        self.running = False
+
+        return self.responses
+
+    def start(self):
+        self.thread = threading.Thread(target=self.handle_responses)
+        self.thread.start()
+
+    def handle_responses(self):
         """Block and wait for responses to this object's original request, or
-        until a timeout (Controller.COMMAND_RESPONSE_TIMEOUT_S).
+        until a timeout (self.COMMAND_RESPONSE_TIMEOUT_S).
 
         This function is handy to use as the target function for a thread.
 
@@ -62,7 +80,7 @@ class ResponseReceiver(object):
         while self.running:
             try:
                 response = self.queue.get(
-                        timeout=Controller.COMMAND_RESPONSE_TIMEOUT_S)
+                        timeout=self.COMMAND_RESPONSE_TIMEOUT_S)
                 if self._response_matches_request(response):
                     self.responses.append(response)
                     if self.quit_after_first:
@@ -123,35 +141,18 @@ class Controller(object):
     interface must define at least the ``write_bytes`` method.
     """
 
-    COMMAND_RESPONSE_TIMEOUT_S = .3
-
-    def _prepare_response_receiver(self, request):
+    def _prepare_response_receiver(self, request,
+            receiver_class=CommandResponseReceiver):
         queue = Queue()
 
         self.open_requests = getattr(self, 'open_requests', [])
         self.open_requests.append(queue)
 
-        if request['command'] == "diagnostic_request":
-            self.receiver = DiagnosticResponseReceiver(queue, request)
-        else:
-            self.receiver = CommandResponseReceiver(queue, request)
-
-        self.receiver_thread = threading.Thread(
-                target=self.receiver.wait_for_command_response)
-        self.receiver_thread.start()
+        receiver = receiver_class(queue, request)
+        receiver.start()
         # Give it a brief moment to get started so we make sure get the response
         time.sleep(.2)
-
-    def _wait_for_response(self, request):
-        """Block the thread and wait for the response to the given request to
-        arrive from the VI. If no matching response is received in
-        COMMAND_RESPONSE_TIMEOUT_S seconds, returns anyway.
-        """
-
-        self.receiver_thread.join(self.COMMAND_RESPONSE_TIMEOUT_S)
-        self.receiver.running = False
-
-        return self.receiver.responses
+        return receiver
 
     def complex_request(self, request, wait_for_first_response=True):
         """Send a compound command request to the interface over the normal data
@@ -164,13 +165,17 @@ class Controller(object):
             will send the command and return immediately and any response will
             be lost.
         """
-        self._prepare_response_receiver(request)
-        self.write_bytes(self.streamer.serialize_for_stream(request))
+        receiver = self._prepare_response_receiver(request,
+                receiver_class=CommandResponseReceiver)
+        self._send_complex_request(request)
 
         responses = []
         if wait_for_first_response:
-            responses = self._wait_for_response(request)
+            responses = receiver.wait_for_responses(request)
         return responses
+
+    def _send_complex_request(self, request):
+        self.write_bytes(self.streamer.serialize_for_stream(request))
 
     @classmethod
     def _build_diagnostic_request(cls, message_id, mode, bus=None, pid=None,
@@ -201,15 +206,11 @@ class Controller(object):
     def delete_diagnostic_request(self, message_id, mode, bus=None, pid=None):
         request = self._build_diagnostic_request(message_id, mode, bus, pid)
         request['action'] = 'cancel'
-        responses = self.complex_request(request)
-        if len(responses) > 0:
-            response = responses[0]
-            return response.get('status', False)
-        return False
+        return self._check_command_response_status(request)
 
     def create_diagnostic_request(self, message_id, mode, bus=None, pid=None,
-            frequency=None, payload=None, wait_for_first_response=False,
-            decoded_type=None):
+            frequency=None, payload=None, wait_for_ack=True,
+            wait_for_first_response=False, decoded_type=None):
         """Send a new diagnostic message request to the VI
 
         Required:
@@ -229,18 +230,35 @@ class Controller(object):
         payload - A bytearray to send as the request's optional payload. Only
             single frame diagnostic requests are supported by the VI firmware in
             the current version, so the payload has a maximum length of 6.
+        wait_for_ack - If True, will wait for an ACK of the command message.
         wait_for_first_response - If True, this function will block waiting for
-            a response to be received for the request. It will return either
-            after timing out or after 1 matching response is received - there
-            may be more responses to functional broadcast requests that arrive
-            after returning.
+            a diagnostic response to be received for the request. It will return
+            either after timing out or after 1 matching response is received -
+            there may be more responses to functional broadcast requests that
+            arrive after returning.
+
+        Returns a tuple of
+            ([list of ACK responses to create request],
+                [list of diagnostic responses received])
 
         """
 
         request = self._build_diagnostic_request(message_id, mode, bus, pid,
                 frequency, payload, decoded_type)
+
+        diag_response_receiver = None
+        if wait_for_first_response:
+            diag_response_receiver = self._prepare_response_receiver(request,
+                    DiagnosticResponseReceiver)
+
         request['action'] = 'add'
-        return self.complex_request(request, wait_for_first_response)
+        ack_responses = self.complex_request(request, wait_for_ack)
+
+        diag_responses = None
+        if diag_response_receiver is not None:
+            diag_responses = diag_response_receiver.wait_for_responses()
+
+        return ack_responses, diag_responses
 
     def _check_command_response_status(self, request):
         responses = self.complex_request(request)

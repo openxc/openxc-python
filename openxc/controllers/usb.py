@@ -31,17 +31,12 @@ class UsbControllerMixin(Controller):
             # here: https://github.com/walac/pyusb/issues/8
             return self.out_endpoint.write(data.encode("utf8"))
 
-    def complex_request(self, request, wait_for_first_response=True):
+    def _send_complex_request(self, request):
         """Send a request via the USB control request endpoint, rather than as a
         bulk transfer.
         """
-        self._prepare_response_receiver(request)
         self.device.ctrl_transfer(0x40, self.COMPLEX_CONTROL_COMMAND, 0, 0,
                 self.streamer.serialize_for_stream(request))
-        result = None
-        if wait_for_first_response:
-            result = self._wait_for_response(request)
-        return result
 
     def diagnostic_request(self, message_id, mode, bus=None, pid=None,
             frequency=None, payload=None, wait_for_first_response=False):
