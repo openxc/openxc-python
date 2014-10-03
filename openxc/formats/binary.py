@@ -11,6 +11,8 @@ from google.protobuf.internal import encoder
 from openxc.formats.base import VehicleMessageStreamer
 from openxc import openxc_pb2
 
+class UnrecognizedBinaryCommandError(Exception): pass
+
 class ProtobufStreamer(VehicleMessageStreamer):
     MAX_PROTOBUF_MESSAGE_LENGTH = 200
 
@@ -83,6 +85,10 @@ class ProtobufFormatter(object):
             return openxc_pb2.ControlCommand.ACCEPTANCE_FILTER_BYPASS
         elif command_name == "payload_format":
             return openxc_pb2.ControlCommand.PAYLOAD_FORMAT
+        elif command_name == "predefined_obd2":
+            return openxc_pb2.ControlCommand.PREDEFINED_OBD2_REQUESTS
+        else:
+            raise UnrecognizedBinaryCommandError(command_name)
 
     @classmethod
     def _dict_to_protobuf(cls, data):
@@ -97,6 +103,8 @@ class ProtobufFormatter(object):
             elif message.control_command.type == openxc_pb2.ControlCommand.ACCEPTANCE_FILTER_BYPASS:
                 message.control_command.acceptance_filter_bypass_command.bus = data['bus']
                 message.control_command.acceptance_filter_bypass_command.bypass = data['bypass']
+            elif message.control_command.type == openxc_pb2.ControlCommand.PREDEFINED_OBD2_REQUESTS:
+                message.control_command.predefined_obd2_requests_command.enabled = data['enabled']
             elif message.control_command.type == openxc_pb2.ControlCommand.PAYLOAD_FORMAT:
                 if data['format'] == "json":
                     message.control_command.payload_format_command.format = openxc_pb2.PayloadFormatCommand.JSON
@@ -276,6 +284,9 @@ class ProtobufFormatter(object):
                     parsed_message['command'] = "passthrough"
                     parsed_message['bus'] = command.passthrough_mode_request.bus
                     parsed_message['enabled'] = command.passthrough_mode_request.enabled
+                elif command.type == openxc_pb2.ControlCommand.PREDEFINED_OBD2_REQUESTS:
+                    parsed_message['command'] = "predefined_obd2"
+                    parsed_message['enabled'] = command.predefined_obd2_requests_command.enabled
                 elif command.type == openxc_pb2.ControlCommand.ACCEPTANCE_FILTER_BYPASS:
                     parsed_message['command'] = "af_bypass"
                     parsed_message['bus'] = command.acceptance_filter_bypass_command.bus
@@ -300,6 +311,10 @@ class ProtobufFormatter(object):
                     parsed_message['command_response'] = "payload_format"
                 elif response.type == openxc_pb2.ControlCommand.ACCEPTANCE_FILTER_BYPASS:
                     parsed_message['command_response'] = "af_bypass"
+                elif response.type == openxc_pb2.ControlCommand.PREDEFINED_OBD2_REQUESTS:
+                    parsed_message['command_response'] = "predefined_obd2"
+                else:
+                    raise UnrecognizedBinaryCommandError(response.type)
 
                 parsed_message['status'] = response.status
                 if response.HasField('message'):
