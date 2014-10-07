@@ -90,6 +90,9 @@ def parse_options():
             help="optional event for message write request")
     parser.add_argument("--data", action="store", dest="write_data",
             help="data for raw message write request")
+    parser.add_argument("--frame-format", action="store",
+            dest="write_frame_format",  choices=['standard', 'extended'],
+            help="explicit frame format for raw message write request")
     write_group.add_argument("-f", "--write-input-file", action="store",
             dest="write_input_file",
             help="the path to a file with a list of raw or translated "
@@ -138,7 +141,8 @@ def main():
                     sys.exit("%s requires an id and data" % arguments.command)
                 interface.write(bus=int(arguments.bus),
                         id=arguments.write_id,
-                        data=arguments.write_data)
+                        data=arguments.write_data,
+                        frame_format=arguments.frame_format)
             elif arguments.write_input_file:
                 write_file(interface, arguments.write_input_file)
             else:

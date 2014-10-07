@@ -342,11 +342,10 @@ class Controller(object):
         following the OpenXC message format.
         """
         if 'id' in kwargs and 'data' in kwargs:
-            result = self.write_raw(kwargs['id'], kwargs['data'],
-                    bus=kwargs.get('bus', None))
+            result = self.write_raw(kwargs['id'], kwargs['data'], **kwargs)
         else:
             result = self.write_translated(kwargs['name'], kwargs['value'],
-                    kwargs.get('event', None))
+                    **kwargs)
         return result
 
     def write_translated(self, name, value, event):
@@ -362,7 +361,7 @@ class Controller(object):
         assert bytes_written == len(message)
         return bytes_written
 
-    def write_raw(self, message_id, data, bus=None):
+    def write_raw(self, message_id, data, bus=None, frame_format=None):
         """Send a raw write request to the VI.
         """
         if not isinstance(message_id, numbers.Number):
@@ -373,6 +372,8 @@ class Controller(object):
         data = {'id': message_id, 'data': data}
         if bus is not None:
             data['bus'] = bus
+        if frame_format is not None:
+            data['frame_format'] = frame_format
         message = self.streamer.serialize_for_stream(data)
         bytes_written = self.write_bytes(message)
         assert bytes_written == len(message)
