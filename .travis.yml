@@ -5,6 +5,7 @@ python:
 before_install:
     - pip install pyserial
     - pip install coveralls
+install: pip install -q -e .
 script: python setup.py test
 after_success:
   - coverage run --source=openxc setup.py test
