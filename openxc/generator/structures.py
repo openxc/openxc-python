@@ -328,7 +328,7 @@ class Signal(object):
     def merge_signal(self, data):
         self.name = data.get('name', self.name)
         self.enabled = data.get('enabled', self.enabled)
-        self.generic_name = data.get('generic_name', self.generic_name)
+        self.generic_name = data.get('generic_name', self.name)
         self.bit_position = data.get('bit_position', self.bit_position)
         self.bit_size = data.get('bit_size', self.bit_size)
         self.factor = data.get('factor', self.factor)
