@@ -142,7 +142,7 @@ def main():
                 interface.write(bus=int(arguments.bus),
                         id=arguments.write_id,
                         data=arguments.write_data,
-                        frame_format=arguments.frame_format)
+                        frame_format=arguments.write_frame_format)
             elif arguments.write_input_file:
                 write_file(interface, arguments.write_input_file)
             else:
