@@ -342,13 +342,15 @@ class Controller(object):
         following the OpenXC message format.
         """
         if 'id' in kwargs and 'data' in kwargs:
-            result = self.write_raw(kwargs['id'], kwargs['data'], **kwargs)
+            result = self.write_raw(kwargs['id'], kwargs['data'],
+                    bus=kwargs.get('bus', None),
+                    frame_format=kwargs.get('frame_format', None))
         else:
             result = self.write_translated(kwargs['name'], kwargs['value'],
-                    **kwargs)
+                    event=kwargs.get('event', None))
         return result
 
-    def write_translated(self, name, value, event):
+    def write_translated(self, name, value, event=None):
         """Send a translated write request to the VI.
         """
         data = {'name': name}
