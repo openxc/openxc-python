@@ -14,6 +14,6 @@ class SerialDataSourceTests(unittest.TestCase):
             pass
 
         try:
-            s = SerialDataSource(callback)
+            s = SerialDataSource(callback=callback)
         except DataSourceError as e:
             pass
