@@ -8,6 +8,7 @@ from __future__ import absolute_import
 
 import argparse
 import time
+import logging
 
 from openxc.formats.json import JsonFormatter
 from .common import device_options, configure_logging, select_device
@@ -27,11 +28,11 @@ def parse_options():
 
 
 def main():
-    configure_logging()
+    configure_logging(logging.DEBUG)
     arguments = parse_options()
 
     source_class, source_kwargs = select_device(arguments)
-    source = source_class(receive, **source_kwargs)
+    source = source_class(callback=receive, **source_kwargs)
     source.start()
 
     while True:

@@ -36,6 +36,7 @@ setup(name='openxc',
     install_requires=install_reqs,
     extras_require = {
         'serial': ["pyserial"],
+        'bluetooth': ["pybluez"],
         'lxml': ["lxml"],
     },
     entry_points={

@@ -17,8 +17,7 @@ class TraceDataSource(BytestreamDataSource):
     http://openxcplatform.com/android/testing.html.
     """
 
-    def __init__(self, callback=None, filename=None, realtime=True, loop=True,
-            **kwargs):
+    def __init__(self, filename=None, realtime=True, loop=True, **kwargs):
         """Construct the source and attempt to open the trace file.
 
             filename - the full absolute path to the trace file
@@ -31,7 +30,7 @@ class TraceDataSource(BytestreamDataSource):
             loop - if ``True``, the trace file will be looped and will provide
             data until the process exist or the source is stopped.
         """
-        super(TraceDataSource, self).__init__(callback, **kwargs)
+        super(TraceDataSource, self).__init__(**kwargs)
         self.realtime = realtime
         self.loop = loop
         self.filename = filename

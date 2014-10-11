@@ -4,6 +4,7 @@ python:
   - "2.7"
 before_install:
     - pip install pyserial
+    - pip install pybluez
     - pip install coveralls
 install: pip install -q -e .
 script: python setup.py test

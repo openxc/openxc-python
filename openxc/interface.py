@@ -1,8 +1,9 @@
 """Combinations of DataSource with Controller types for duplex vehicle
 interfaces."""
-from .sources import UsbDataSource, SerialDataSource, NetworkDataSource
-from .controllers import UsbControllerMixin, SerialControllerMixin, \
-        NetworkControllerMixin
+from .sources import UsbDataSource, SerialDataSource, NetworkDataSource, \
+        BluetoothVehicleInterface
+from .controllers import UsbControllerMixin, SerialControllerMixin
+
 
 class UsbVehicleInterface(UsbDataSource, UsbControllerMixin):
     """This class is compatibile with an OpenXC vehicle interface vehicle interface
@@ -17,7 +18,7 @@ class SerialVehicleInterface(SerialDataSource, SerialControllerMixin):
     """
     pass
 
-class NetworkVehicleInterface(NetworkDataSource, NetworkControllerMixin):
+class NetworkVehicleInterface(NetworkDataSource):
     """This class is compatibile with an OpenXC vehicle interface vehicle interface
     connected via the network (e.g. Ethernet or Wi-Fi). It has full
     read support and limited write support (no control commands are supported).

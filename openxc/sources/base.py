@@ -169,8 +169,8 @@ class BytestreamDataSource(DataSource):
     Subclasses of this class need only to implement the ``read`` method.
     """
 
-    def __init__(self, callback=None, log_mode=None, **kwargs):
-        super(BytestreamDataSource, self).__init__(callback, log_mode, **kwargs)
+    def __init__(self, **kwargs):
+        super(BytestreamDataSource, self).__init__(**kwargs)
         self.bytes_received = 0
         self.corrupted_messages = 0
         self.running = True
