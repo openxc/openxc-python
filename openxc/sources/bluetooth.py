@@ -59,7 +59,8 @@ class BluetoothVehicleInterface(SocketDataSource):
         device_name = None
         for address in nearby_devices:
             device_name = bluetooth.lookup_name(address)
-            if device_name.startswith(self.OPENXC_DEVICE_NAME_PREFIX):
+            if (device_name is not None and
+                    device_name.startswith(self.OPENXC_DEVICE_NAME_PREFIX)):
                 self.address = address
                 break
 
