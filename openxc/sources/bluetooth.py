@@ -3,6 +3,7 @@ from __future__ import absolute_import
 
 import logging
 
+from openxc.controllers.base import Controller
 from .socket import SocketDataSource
 from .base import DataSourceError
 
@@ -15,7 +16,7 @@ except ImportError:
     bluetooth = None
 
 
-class BluetoothVehicleInterface(SocketDataSource):
+class BluetoothVehicleInterface(SocketDataSource, Controller):
     """A data source reading from a bluetooth device.
     """
 

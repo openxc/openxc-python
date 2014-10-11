@@ -2,7 +2,7 @@
 interfaces."""
 from .sources import UsbDataSource, SerialDataSource, NetworkDataSource, \
         BluetoothVehicleInterface
-from .controllers import UsbControllerMixin, SerialControllerMixin
+from .controllers import UsbControllerMixin, SerialControllerMixin, Controller
 
 
 class UsbVehicleInterface(UsbDataSource, UsbControllerMixin):
@@ -18,7 +18,7 @@ class SerialVehicleInterface(SerialDataSource, SerialControllerMixin):
     """
     pass
 
-class NetworkVehicleInterface(NetworkDataSource):
+class NetworkVehicleInterface(NetworkDataSource, Controller):
     """This class is compatibile with an OpenXC vehicle interface vehicle interface
     connected via the network (e.g. Ethernet or Wi-Fi). It has full
     read support and limited write support (no control commands are supported).
