@@ -1,8 +1,30 @@
 OpenXC Python Library Changelog
 ===============================
 
-v0.11.4-dev
+v0.12.0-dev
 -----------
+
+* Feature: Support scanning for Bluetooth devices when using Linux
+* Feature: Support connecting to Bluetooth VIs directly from the library in
+  Linux using BlueZ.
+* Feature: Support adding and cancelling diagnostic requests.
+* Feature: Read 'status' field in command responses.
+* Feature: Allow explicitly setting the payload format when sending and
+  receiving commands with a VI.
+* Feature: Support command to control status of CAN acceptance filter bypass.
+* Feature: Support controlling passthrough status of CAN buses in VI.
+* Feature: Support 'loopback' attribute of CAN buses in firmware config.
+* Feature: Support setting desired decoding type for diagnostic requests.
+* Feature: Support command to change payload format of VI.
+* Improvement: Better balance between big efficient reads and quick signal
+  responses when receiving via USB.
+* Improvement: Remove now unnecessary sleep from command line tools.
+* Improvement: Complete full support for protobuf message deserialization.
+* Improvement: Improve unit test coverage from 27% to 58%.
+* Fix: Use correct abbreviation for kilometer unit.
+* Fix: Remove deprecated signal attribute from example code.
+* Fix: Spool up message receivers before sending requests to make sure not to
+  miss responses.
 
 v0.11.3
 ----------
