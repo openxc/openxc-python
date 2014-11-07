@@ -3,6 +3,7 @@ from __future__ import absolute_import
 
 import binascii
 import numbers
+import logging
 
 import google.protobuf.message
 from google.protobuf.internal.decoder import _DecodeVarint
@@ -10,6 +11,8 @@ from google.protobuf.internal import encoder
 
 from openxc.formats.base import VehicleMessageStreamer
 from openxc import openxc_pb2
+
+LOG = logging.getLogger(__name__)
 
 class UnrecognizedBinaryCommandError(Exception): pass
 
