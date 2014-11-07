@@ -77,7 +77,7 @@ class BaseFormatterTests(object):
             "value": "up", "event": "pressed"})
 
     def test_can_message(self):
-        self._check_serialized_deserialize_equal({"bus": 1, "message_id": 1234,
+        self._check_serialized_deserialize_equal({"bus": 1, "id": 1234,
             "data": "0x12345678"})
 
     def test_diagnostic_request(self):
@@ -86,7 +86,7 @@ class BaseFormatterTests(object):
                     "action": "add",
                     "request": {
                         "bus": 1,
-                        "message_id": 1234,
+                        "id": 1234,
                         "mode": 1,
                         "pid": 5,
                         "payload": "0x1234",
@@ -98,7 +98,7 @@ class BaseFormatterTests(object):
 
     def test_diagnostic_response(self):
         self._check_serialized_deserialize_equal({"bus": 1,
-            "message_id": 1234,
+            "id": 1234,
             "mode": 1,
             "pid": 5,
             "success": True,
@@ -107,7 +107,7 @@ class BaseFormatterTests(object):
 
     def test_negative_diagnostic_response(self):
         self._check_serialized_deserialize_equal({"bus": 1,
-            "message_id": 1234,
+            "id": 1234,
             "mode": 1,
             "success": False,
             "negative_response_code": 17})
