@@ -150,7 +150,7 @@ class ProtobufFormatter(object):
                     message.can_message.frame_format = openxc_pb2.RawMessage.STANDARD
                 elif data['frame_format'] == "extended":
                     message.can_message.frame_format = openxc_pb2.RawMessage.EXTENDED
-            message.can_message.message_id = data['id']
+            message.can_message.id = data['id']
             message.can_message.data = binascii.unhexlify(data['data'].split('0x')[1])
         elif 'id' in data and 'bus' in data and 'mode' in data:
             message.type = openxc_pb2.VehicleMessage.DIAGNOSTIC
@@ -206,8 +206,8 @@ class ProtobufFormatter(object):
                 can_message = message.can_message
                 if can_message.HasField('bus'):
                     parsed_message['bus'] = can_message.bus
-                if can_message.HasField('message_id'):
-                    parsed_message['id'] = can_message.message_id
+                if can_message.HasField('id'):
+                    parsed_message['id'] = can_message.id
                 if can_message.HasField('data'):
                     parsed_message['data'] = "0x%s" % binascii.hexlify(can_message.data)
                 if can_message.HasField('frame_format'):
