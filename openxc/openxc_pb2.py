@@ -13,7 +13,7 @@ from google.protobuf import descriptor_pb2
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='openxc.proto',
   package='openxc',
-  serialized_pb='\n\x0copenxc.proto\x12\x06openxc\"\x94\x03\n\x0eVehicleMessage\x12)\n\x04type\x18\x01 \x01(\x0e\x32\x1b.openxc.VehicleMessage.Type\x12\'\n\x0braw_message\x18\x02 \x01(\x0b\x32\x12.openxc.RawMessage\x12\x35\n\x12translated_message\x18\x03 \x01(\x0b\x32\x19.openxc.TranslatedMessage\x12\x37\n\x13\x64iagnostic_response\x18\x04 \x01(\x0b\x32\x1a.openxc.DiagnosticResponse\x12/\n\x0f\x63ontrol_command\x18\x05 \x01(\x0b\x32\x16.openxc.ControlCommand\x12\x31\n\x10\x63ommand_response\x18\x06 \x01(\x0b\x32\x17.openxc.CommandResponse\"Z\n\x04Type\x12\x07\n\x03RAW\x10\x01\x12\x0e\n\nTRANSLATED\x10\x02\x12\x0e\n\nDIAGNOSTIC\x10\x03\x12\x13\n\x0f\x43ONTROL_COMMAND\x10\x04\x12\x14\n\x10\x43OMMAND_RESPONSE\x10\x05\"\x9c\x01\n\nRawMessage\x12\x0b\n\x03\x62us\x18\x01 \x01(\x05\x12\x12\n\nmessage_id\x18\x02 \x01(\r\x12\x0c\n\x04\x64\x61ta\x18\x03 \x01(\x0c\x12\x34\n\x0c\x66rame_format\x18\x04 \x01(\x0e\x32\x1e.openxc.RawMessage.FrameFormat\")\n\x0b\x46rameFormat\x12\x0c\n\x08STANDARD\x10\x01\x12\x0c\n\x08\x45XTENDED\x10\x02\"\xb8\x04\n\x0e\x43ontrolCommand\x12)\n\x04type\x18\x01 \x01(\x0e\x32\x1b.openxc.ControlCommand.Type\x12<\n\x12\x64iagnostic_request\x18\x02 \x01(\x0b\x32 .openxc.DiagnosticControlCommand\x12G\n\x18passthrough_mode_request\x18\x03 \x01(\x0b\x32%.openxc.PassthroughModeControlCommand\x12O\n acceptance_filter_bypass_command\x18\x04 \x01(\x0b\x32%.openxc.AcceptanceFilterBypassCommand\x12<\n\x16payload_format_command\x18\x05 \x01(\x0b\x32\x1c.openxc.PayloadFormatCommand\x12O\n predefined_obd2_requests_command\x18\x06 \x01(\x0b\x32%.openxc.PredefinedObd2RequestsCommand\"\x93\x01\n\x04Type\x12\x0b\n\x07VERSION\x10\x01\x12\r\n\tDEVICE_ID\x10\x02\x12\x0e\n\nDIAGNOSTIC\x10\x03\x12\x0f\n\x0bPASSTHROUGH\x10\x04\x12\x1c\n\x18\x41\x43\x43\x45PTANCE_FILTER_BYPASS\x10\x05\x12\x12\n\x0ePAYLOAD_FORMAT\x10\x06\x12\x1c\n\x18PREDEFINED_OBD2_REQUESTS\x10\x07\"\x9e\x01\n\x18\x44iagnosticControlCommand\x12*\n\x07request\x18\x01 \x01(\x0b\x32\x19.openxc.DiagnosticRequest\x12\x37\n\x06\x61\x63tion\x18\x02 \x01(\x0e\x32\'.openxc.DiagnosticControlCommand.Action\"\x1d\n\x06\x41\x63tion\x12\x07\n\x03\x41\x44\x44\x10\x01\x12\n\n\x06\x43\x41NCEL\x10\x02\"=\n\x1dPassthroughModeControlCommand\x12\x0b\n\x03\x62us\x18\x01 \x01(\x05\x12\x0f\n\x07\x65nabled\x18\x02 \x01(\x08\"<\n\x1d\x41\x63\x63\x65ptanceFilterBypassCommand\x12\x0b\n\x03\x62us\x18\x01 \x01(\x05\x12\x0e\n\x06\x62ypass\x18\x02 \x01(\x08\"{\n\x14PayloadFormatCommand\x12:\n\x06\x66ormat\x18\x01 \x01(\x0e\x32*.openxc.PayloadFormatCommand.PayloadFormat\"\'\n\rPayloadFormat\x12\x08\n\x04JSON\x10\x01\x12\x0c\n\x08PROTOBUF\x10\x02\"0\n\x1dPredefinedObd2RequestsCommand\x12\x0f\n\x07\x65nabled\x18\x01 \x01(\x08\"]\n\x0f\x43ommandResponse\x12)\n\x04type\x18\x01 \x01(\x0e\x32\x1b.openxc.ControlCommand.Type\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\x0e\n\x06status\x18\x03 \x01(\x08\"\xfd\x01\n\x11\x44iagnosticRequest\x12\x0b\n\x03\x62us\x18\x01 \x01(\x05\x12\x12\n\nmessage_id\x18\x02 \x01(\r\x12\x0c\n\x04mode\x18\x03 \x01(\r\x12\x0b\n\x03pid\x18\x04 \x01(\r\x12\x0f\n\x07payload\x18\x05 \x01(\x0c\x12\x1a\n\x12multiple_responses\x18\x06 \x01(\x08\x12\x11\n\tfrequency\x18\x07 \x01(\x01\x12\x0c\n\x04name\x18\x08 \x01(\t\x12;\n\x0c\x64\x65\x63oded_type\x18\t \x01(\x0e\x32%.openxc.DiagnosticRequest.DecodedType\"!\n\x0b\x44\x65\x63odedType\x12\x08\n\x04NONE\x10\x01\x12\x08\n\x04OBD2\x10\x02\"\xa1\x01\n\x12\x44iagnosticResponse\x12\x0b\n\x03\x62us\x18\x01 \x01(\x05\x12\x12\n\nmessage_id\x18\x02 \x01(\r\x12\x0c\n\x04mode\x18\x03 \x01(\r\x12\x0b\n\x03pid\x18\x04 \x01(\r\x12\x0f\n\x07success\x18\x05 \x01(\x08\x12\x1e\n\x16negative_response_code\x18\x06 \x01(\r\x12\x0f\n\x07payload\x18\x07 \x01(\x0c\x12\r\n\x05value\x18\x08 \x01(\x01\"\xa2\x01\n\x0c\x44ynamicField\x12\'\n\x04type\x18\x01 \x01(\x0e\x32\x19.openxc.DynamicField.Type\x12\x14\n\x0cstring_value\x18\x02 \x01(\t\x12\x15\n\rnumeric_value\x18\x03 \x01(\x01\x12\x15\n\rboolean_value\x18\x04 \x01(\x08\"%\n\x04Type\x12\n\n\x06STRING\x10\x01\x12\x07\n\x03NUM\x10\x02\x12\x08\n\x04\x42OOL\x10\x03\"\xf7\x01\n\x11TranslatedMessage\x12,\n\x04type\x18\x01 \x01(\x0e\x32\x1e.openxc.TranslatedMessage.Type\x12\x0c\n\x04name\x18\x02 \x01(\t\x12#\n\x05value\x18\x03 \x01(\x0b\x32\x14.openxc.DynamicField\x12#\n\x05\x65vent\x18\x04 \x01(\x0b\x32\x14.openxc.DynamicField\"\\\n\x04Type\x12\n\n\x06STRING\x10\x01\x12\x07\n\x03NUM\x10\x02\x12\x08\n\x04\x42OOL\x10\x03\x12\x12\n\x0e\x45VENTED_STRING\x10\x04\x12\x0f\n\x0b\x45VENTED_NUM\x10\x05\x12\x10\n\x0c\x45VENTED_BOOL\x10\x06\x42\x1c\n\ncom.openxcB\x0e\x42inaryMessages')
+  serialized_pb='\n\x0copenxc.proto\x12\x06openxc\"\x88\x03\n\x0eVehicleMessage\x12)\n\x04type\x18\x01 \x01(\x0e\x32\x1b.openxc.VehicleMessage.Type\x12\'\n\x0b\x63\x61n_message\x18\x02 \x01(\x0b\x32\x12.openxc.CanMessage\x12-\n\x0esimple_message\x18\x03 \x01(\x0b\x32\x15.openxc.SimpleMessage\x12\x37\n\x13\x64iagnostic_response\x18\x04 \x01(\x0b\x32\x1a.openxc.DiagnosticResponse\x12/\n\x0f\x63ontrol_command\x18\x05 \x01(\x0b\x32\x16.openxc.ControlCommand\x12\x31\n\x10\x63ommand_response\x18\x06 \x01(\x0b\x32\x17.openxc.CommandResponse\"V\n\x04Type\x12\x07\n\x03\x43\x41N\x10\x01\x12\n\n\x06SIMPLE\x10\x02\x12\x0e\n\nDIAGNOSTIC\x10\x03\x12\x13\n\x0f\x43ONTROL_COMMAND\x10\x04\x12\x14\n\x10\x43OMMAND_RESPONSE\x10\x05\"\x9c\x01\n\nCanMessage\x12\x0b\n\x03\x62us\x18\x01 \x01(\x05\x12\x12\n\nmessage_id\x18\x02 \x01(\r\x12\x0c\n\x04\x64\x61ta\x18\x03 \x01(\x0c\x12\x34\n\x0c\x66rame_format\x18\x04 \x01(\x0e\x32\x1e.openxc.CanMessage.FrameFormat\")\n\x0b\x46rameFormat\x12\x0c\n\x08STANDARD\x10\x01\x12\x0c\n\x08\x45XTENDED\x10\x02\"\xb8\x04\n\x0e\x43ontrolCommand\x12)\n\x04type\x18\x01 \x01(\x0e\x32\x1b.openxc.ControlCommand.Type\x12<\n\x12\x64iagnostic_request\x18\x02 \x01(\x0b\x32 .openxc.DiagnosticControlCommand\x12G\n\x18passthrough_mode_request\x18\x03 \x01(\x0b\x32%.openxc.PassthroughModeControlCommand\x12O\n acceptance_filter_bypass_command\x18\x04 \x01(\x0b\x32%.openxc.AcceptanceFilterBypassCommand\x12<\n\x16payload_format_command\x18\x05 \x01(\x0b\x32\x1c.openxc.PayloadFormatCommand\x12O\n predefined_obd2_requests_command\x18\x06 \x01(\x0b\x32%.openxc.PredefinedObd2RequestsCommand\"\x93\x01\n\x04Type\x12\x0b\n\x07VERSION\x10\x01\x12\r\n\tDEVICE_ID\x10\x02\x12\x0e\n\nDIAGNOSTIC\x10\x03\x12\x0f\n\x0bPASSTHROUGH\x10\x04\x12\x1c\n\x18\x41\x43\x43\x45PTANCE_FILTER_BYPASS\x10\x05\x12\x12\n\x0ePAYLOAD_FORMAT\x10\x06\x12\x1c\n\x18PREDEFINED_OBD2_REQUESTS\x10\x07\"\x9e\x01\n\x18\x44iagnosticControlCommand\x12*\n\x07request\x18\x01 \x01(\x0b\x32\x19.openxc.DiagnosticRequest\x12\x37\n\x06\x61\x63tion\x18\x02 \x01(\x0e\x32\'.openxc.DiagnosticControlCommand.Action\"\x1d\n\x06\x41\x63tion\x12\x07\n\x03\x41\x44\x44\x10\x01\x12\n\n\x06\x43\x41NCEL\x10\x02\"=\n\x1dPassthroughModeControlCommand\x12\x0b\n\x03\x62us\x18\x01 \x01(\x05\x12\x0f\n\x07\x65nabled\x18\x02 \x01(\x08\"<\n\x1d\x41\x63\x63\x65ptanceFilterBypassCommand\x12\x0b\n\x03\x62us\x18\x01 \x01(\x05\x12\x0e\n\x06\x62ypass\x18\x02 \x01(\x08\"{\n\x14PayloadFormatCommand\x12:\n\x06\x66ormat\x18\x01 \x01(\x0e\x32*.openxc.PayloadFormatCommand.PayloadFormat\"\'\n\rPayloadFormat\x12\x08\n\x04JSON\x10\x01\x12\x0c\n\x08PROTOBUF\x10\x02\"0\n\x1dPredefinedObd2RequestsCommand\x12\x0f\n\x07\x65nabled\x18\x01 \x01(\x08\"]\n\x0f\x43ommandResponse\x12)\n\x04type\x18\x01 \x01(\x0e\x32\x1b.openxc.ControlCommand.Type\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\x0e\n\x06status\x18\x03 \x01(\x08\"\xfd\x01\n\x11\x44iagnosticRequest\x12\x0b\n\x03\x62us\x18\x01 \x01(\x05\x12\x12\n\nmessage_id\x18\x02 \x01(\r\x12\x0c\n\x04mode\x18\x03 \x01(\r\x12\x0b\n\x03pid\x18\x04 \x01(\r\x12\x0f\n\x07payload\x18\x05 \x01(\x0c\x12\x1a\n\x12multiple_responses\x18\x06 \x01(\x08\x12\x11\n\tfrequency\x18\x07 \x01(\x01\x12\x0c\n\x04name\x18\x08 \x01(\t\x12;\n\x0c\x64\x65\x63oded_type\x18\t \x01(\x0e\x32%.openxc.DiagnosticRequest.DecodedType\"!\n\x0b\x44\x65\x63odedType\x12\x08\n\x04NONE\x10\x01\x12\x08\n\x04OBD2\x10\x02\"\xa1\x01\n\x12\x44iagnosticResponse\x12\x0b\n\x03\x62us\x18\x01 \x01(\x05\x12\x12\n\nmessage_id\x18\x02 \x01(\r\x12\x0c\n\x04mode\x18\x03 \x01(\r\x12\x0b\n\x03pid\x18\x04 \x01(\r\x12\x0f\n\x07success\x18\x05 \x01(\x08\x12\x1e\n\x16negative_response_code\x18\x06 \x01(\r\x12\x0f\n\x07payload\x18\x07 \x01(\x0c\x12\r\n\x05value\x18\x08 \x01(\x01\"\xa2\x01\n\x0c\x44ynamicField\x12\'\n\x04type\x18\x01 \x01(\x0e\x32\x19.openxc.DynamicField.Type\x12\x14\n\x0cstring_value\x18\x02 \x01(\t\x12\x15\n\rnumeric_value\x18\x03 \x01(\x01\x12\x15\n\rboolean_value\x18\x04 \x01(\x08\"%\n\x04Type\x12\n\n\x06STRING\x10\x01\x12\x07\n\x03NUM\x10\x02\x12\x08\n\x04\x42OOL\x10\x03\"g\n\rSimpleMessage\x12\x0c\n\x04name\x18\x01 \x01(\t\x12#\n\x05value\x18\x02 \x01(\x0b\x32\x14.openxc.DynamicField\x12#\n\x05\x65vent\x18\x03 \x01(\x0b\x32\x14.openxc.DynamicFieldB\x1c\n\ncom.openxcB\x0e\x42inaryMessages')
 
 
 
@@ -24,11 +24,11 @@ _VEHICLEMESSAGE_TYPE = _descriptor.EnumDescriptor(
   file=DESCRIPTOR,
   values=[
     _descriptor.EnumValueDescriptor(
-      name='RAW', index=0, number=1,
+      name='CAN', index=0, number=1,
       options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='TRANSLATED', index=1, number=2,
+      name='SIMPLE', index=1, number=2,
       options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
@@ -46,13 +46,13 @@ _VEHICLEMESSAGE_TYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=339,
-  serialized_end=429,
+  serialized_start=331,
+  serialized_end=417,
 )
 
-_RAWMESSAGE_FRAMEFORMAT = _descriptor.EnumDescriptor(
+_CANMESSAGE_FRAMEFORMAT = _descriptor.EnumDescriptor(
   name='FrameFormat',
-  full_name='openxc.RawMessage.FrameFormat',
+  full_name='openxc.CanMessage.FrameFormat',
   filename=None,
   file=DESCRIPTOR,
   values=[
@@ -67,8 +67,8 @@ _RAWMESSAGE_FRAMEFORMAT = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=547,
-  serialized_end=588,
+  serialized_start=535,
+  serialized_end=576,
 )
 
 _CONTROLCOMMAND_TYPE = _descriptor.EnumDescriptor(
@@ -108,8 +108,8 @@ _CONTROLCOMMAND_TYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=1012,
-  serialized_end=1159,
+  serialized_start=1000,
+  serialized_end=1147,
 )
 
 _DIAGNOSTICCONTROLCOMMAND_ACTION = _descriptor.EnumDescriptor(
@@ -129,8 +129,8 @@ _DIAGNOSTICCONTROLCOMMAND_ACTION = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=1291,
-  serialized_end=1320,
+  serialized_start=1279,
+  serialized_end=1308,
 )
 
 _PAYLOADFORMATCOMMAND_PAYLOADFORMAT = _descriptor.EnumDescriptor(
@@ -150,8 +150,8 @@ _PAYLOADFORMATCOMMAND_PAYLOADFORMAT = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=1531,
-  serialized_end=1570,
+  serialized_start=1519,
+  serialized_end=1558,
 )
 
 _DIAGNOSTICREQUEST_DECODEDTYPE = _descriptor.EnumDescriptor(
@@ -171,8 +171,8 @@ _DIAGNOSTICREQUEST_DECODEDTYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=1938,
-  serialized_end=1971,
+  serialized_start=1926,
+  serialized_end=1959,
 )
 
 _DYNAMICFIELD_TYPE = _descriptor.EnumDescriptor(
@@ -196,45 +196,8 @@ _DYNAMICFIELD_TYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=2263,
-  serialized_end=2300,
-)
-
-_TRANSLATEDMESSAGE_TYPE = _descriptor.EnumDescriptor(
-  name='Type',
-  full_name='openxc.TranslatedMessage.Type',
-  filename=None,
-  file=DESCRIPTOR,
-  values=[
-    _descriptor.EnumValueDescriptor(
-      name='STRING', index=0, number=1,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='NUM', index=1, number=2,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='BOOL', index=2, number=3,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='EVENTED_STRING', index=3, number=4,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='EVENTED_NUM', index=4, number=5,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='EVENTED_BOOL', index=5, number=6,
-      options=None,
-      type=None),
-  ],
-  containing_type=None,
-  options=None,
-  serialized_start=2458,
-  serialized_end=2550,
+  serialized_start=2251,
+  serialized_end=2288,
 )
 
 
@@ -253,14 +216,14 @@ _VEHICLEMESSAGE = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='raw_message', full_name='openxc.VehicleMessage.raw_message', index=1,
+      name='can_message', full_name='openxc.VehicleMessage.can_message', index=1,
       number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='translated_message', full_name='openxc.VehicleMessage.translated_message', index=2,
+      name='simple_message', full_name='openxc.VehicleMessage.simple_message', index=2,
       number=3, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
@@ -298,40 +261,40 @@ _VEHICLEMESSAGE = _descriptor.Descriptor(
   is_extendable=False,
   extension_ranges=[],
   serialized_start=25,
-  serialized_end=429,
+  serialized_end=417,
 )
 
 
-_RAWMESSAGE = _descriptor.Descriptor(
-  name='RawMessage',
-  full_name='openxc.RawMessage',
+_CANMESSAGE = _descriptor.Descriptor(
+  name='CanMessage',
+  full_name='openxc.CanMessage',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='bus', full_name='openxc.RawMessage.bus', index=0,
+      name='bus', full_name='openxc.CanMessage.bus', index=0,
       number=1, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='message_id', full_name='openxc.RawMessage.message_id', index=1,
+      name='message_id', full_name='openxc.CanMessage.message_id', index=1,
       number=2, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='data', full_name='openxc.RawMessage.data', index=2,
+      name='data', full_name='openxc.CanMessage.data', index=2,
       number=3, type=12, cpp_type=9, label=1,
       has_default_value=False, default_value="",
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='frame_format', full_name='openxc.RawMessage.frame_format', index=3,
+      name='frame_format', full_name='openxc.CanMessage.frame_format', index=3,
       number=4, type=14, cpp_type=8, label=1,
       has_default_value=False, default_value=1,
       message_type=None, enum_type=None, containing_type=None,
@@ -342,13 +305,13 @@ _RAWMESSAGE = _descriptor.Descriptor(
   ],
   nested_types=[],
   enum_types=[
-    _RAWMESSAGE_FRAMEFORMAT,
+    _CANMESSAGE_FRAMEFORMAT,
   ],
   options=None,
   is_extendable=False,
   extension_ranges=[],
-  serialized_start=432,
-  serialized_end=588,
+  serialized_start=420,
+  serialized_end=576,
 )
 
 
@@ -411,8 +374,8 @@ _CONTROLCOMMAND = _descriptor.Descriptor(
   options=None,
   is_extendable=False,
   extension_ranges=[],
-  serialized_start=591,
-  serialized_end=1159,
+  serialized_start=579,
+  serialized_end=1147,
 )
 
 
@@ -447,8 +410,8 @@ _DIAGNOSTICCONTROLCOMMAND = _descriptor.Descriptor(
   options=None,
   is_extendable=False,
   extension_ranges=[],
-  serialized_start=1162,
-  serialized_end=1320,
+  serialized_start=1150,
+  serialized_end=1308,
 )
 
 
@@ -482,8 +445,8 @@ _PASSTHROUGHMODECONTROLCOMMAND = _descriptor.Descriptor(
   options=None,
   is_extendable=False,
   extension_ranges=[],
-  serialized_start=1322,
-  serialized_end=1383,
+  serialized_start=1310,
+  serialized_end=1371,
 )
 
 
@@ -517,8 +480,8 @@ _ACCEPTANCEFILTERBYPASSCOMMAND = _descriptor.Descriptor(
   options=None,
   is_extendable=False,
   extension_ranges=[],
-  serialized_start=1385,
-  serialized_end=1445,
+  serialized_start=1373,
+  serialized_end=1433,
 )
 
 
@@ -546,8 +509,8 @@ _PAYLOADFORMATCOMMAND = _descriptor.Descriptor(
   options=None,
   is_extendable=False,
   extension_ranges=[],
-  serialized_start=1447,
-  serialized_end=1570,
+  serialized_start=1435,
+  serialized_end=1558,
 )
 
 
@@ -574,8 +537,8 @@ _PREDEFINEDOBD2REQUESTSCOMMAND = _descriptor.Descriptor(
   options=None,
   is_extendable=False,
   extension_ranges=[],
-  serialized_start=1572,
-  serialized_end=1620,
+  serialized_start=1560,
+  serialized_end=1608,
 )
 
 
@@ -616,8 +579,8 @@ _COMMANDRESPONSE = _descriptor.Descriptor(
   options=None,
   is_extendable=False,
   extension_ranges=[],
-  serialized_start=1622,
-  serialized_end=1715,
+  serialized_start=1610,
+  serialized_end=1703,
 )
 
 
@@ -701,8 +664,8 @@ _DIAGNOSTICREQUEST = _descriptor.Descriptor(
   options=None,
   is_extendable=False,
   extension_ranges=[],
-  serialized_start=1718,
-  serialized_end=1971,
+  serialized_start=1706,
+  serialized_end=1959,
 )
 
 
@@ -778,8 +741,8 @@ _DIAGNOSTICRESPONSE = _descriptor.Descriptor(
   options=None,
   is_extendable=False,
   extension_ranges=[],
-  serialized_start=1974,
-  serialized_end=2135,
+  serialized_start=1962,
+  serialized_end=2123,
 )
 
 
@@ -828,42 +791,35 @@ _DYNAMICFIELD = _descriptor.Descriptor(
   options=None,
   is_extendable=False,
   extension_ranges=[],
-  serialized_start=2138,
-  serialized_end=2300,
+  serialized_start=2126,
+  serialized_end=2288,
 )
 
 
-_TRANSLATEDMESSAGE = _descriptor.Descriptor(
-  name='TranslatedMessage',
-  full_name='openxc.TranslatedMessage',
+_SIMPLEMESSAGE = _descriptor.Descriptor(
+  name='SimpleMessage',
+  full_name='openxc.SimpleMessage',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='type', full_name='openxc.TranslatedMessage.type', index=0,
-      number=1, type=14, cpp_type=8, label=1,
-      has_default_value=False, default_value=1,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='name', full_name='openxc.TranslatedMessage.name', index=1,
-      number=2, type=9, cpp_type=9, label=1,
+      name='name', full_name='openxc.SimpleMessage.name', index=0,
+      number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=unicode("", "utf-8"),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='value', full_name='openxc.TranslatedMessage.value', index=2,
-      number=3, type=11, cpp_type=10, label=1,
+      name='value', full_name='openxc.SimpleMessage.value', index=1,
+      number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='event', full_name='openxc.TranslatedMessage.event', index=3,
-      number=4, type=11, cpp_type=10, label=1,
+      name='event', full_name='openxc.SimpleMessage.event', index=2,
+      number=3, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -873,24 +829,23 @@ _TRANSLATEDMESSAGE = _descriptor.Descriptor(
   ],
   nested_types=[],
   enum_types=[
-    _TRANSLATEDMESSAGE_TYPE,
   ],
   options=None,
   is_extendable=False,
   extension_ranges=[],
-  serialized_start=2303,
-  serialized_end=2550,
+  serialized_start=2290,
+  serialized_end=2393,
 )
 
 _VEHICLEMESSAGE.fields_by_name['type'].enum_type = _VEHICLEMESSAGE_TYPE
-_VEHICLEMESSAGE.fields_by_name['raw_message'].message_type = _RAWMESSAGE
-_VEHICLEMESSAGE.fields_by_name['translated_message'].message_type = _TRANSLATEDMESSAGE
+_VEHICLEMESSAGE.fields_by_name['can_message'].message_type = _CANMESSAGE
+_VEHICLEMESSAGE.fields_by_name['simple_message'].message_type = _SIMPLEMESSAGE
 _VEHICLEMESSAGE.fields_by_name['diagnostic_response'].message_type = _DIAGNOSTICRESPONSE
 _VEHICLEMESSAGE.fields_by_name['control_command'].message_type = _CONTROLCOMMAND
 _VEHICLEMESSAGE.fields_by_name['command_response'].message_type = _COMMANDRESPONSE
 _VEHICLEMESSAGE_TYPE.containing_type = _VEHICLEMESSAGE;
-_RAWMESSAGE.fields_by_name['frame_format'].enum_type = _RAWMESSAGE_FRAMEFORMAT
-_RAWMESSAGE_FRAMEFORMAT.containing_type = _RAWMESSAGE;
+_CANMESSAGE.fields_by_name['frame_format'].enum_type = _CANMESSAGE_FRAMEFORMAT
+_CANMESSAGE_FRAMEFORMAT.containing_type = _CANMESSAGE;
 _CONTROLCOMMAND.fields_by_name['type'].enum_type = _CONTROLCOMMAND_TYPE
 _CONTROLCOMMAND.fields_by_name['diagnostic_request'].message_type = _DIAGNOSTICCONTROLCOMMAND
 _CONTROLCOMMAND.fields_by_name['passthrough_mode_request'].message_type = _PASSTHROUGHMODECONTROLCOMMAND
@@ -908,12 +863,10 @@ _DIAGNOSTICREQUEST.fields_by_name['decoded_type'].enum_type = _DIAGNOSTICREQUEST
 _DIAGNOSTICREQUEST_DECODEDTYPE.containing_type = _DIAGNOSTICREQUEST;
 _DYNAMICFIELD.fields_by_name['type'].enum_type = _DYNAMICFIELD_TYPE
 _DYNAMICFIELD_TYPE.containing_type = _DYNAMICFIELD;
-_TRANSLATEDMESSAGE.fields_by_name['type'].enum_type = _TRANSLATEDMESSAGE_TYPE
-_TRANSLATEDMESSAGE.fields_by_name['value'].message_type = _DYNAMICFIELD
-_TRANSLATEDMESSAGE.fields_by_name['event'].message_type = _DYNAMICFIELD
-_TRANSLATEDMESSAGE_TYPE.containing_type = _TRANSLATEDMESSAGE;
+_SIMPLEMESSAGE.fields_by_name['value'].message_type = _DYNAMICFIELD
+_SIMPLEMESSAGE.fields_by_name['event'].message_type = _DYNAMICFIELD
 DESCRIPTOR.message_types_by_name['VehicleMessage'] = _VEHICLEMESSAGE
-DESCRIPTOR.message_types_by_name['RawMessage'] = _RAWMESSAGE
+DESCRIPTOR.message_types_by_name['CanMessage'] = _CANMESSAGE
 DESCRIPTOR.message_types_by_name['ControlCommand'] = _CONTROLCOMMAND
 DESCRIPTOR.message_types_by_name['DiagnosticControlCommand'] = _DIAGNOSTICCONTROLCOMMAND
 DESCRIPTOR.message_types_by_name['PassthroughModeControlCommand'] = _PASSTHROUGHMODECONTROLCOMMAND
@@ -924,7 +877,7 @@ DESCRIPTOR.message_types_by_name['CommandResponse'] = _COMMANDRESPONSE
 DESCRIPTOR.message_types_by_name['DiagnosticRequest'] = _DIAGNOSTICREQUEST
 DESCRIPTOR.message_types_by_name['DiagnosticResponse'] = _DIAGNOSTICRESPONSE
 DESCRIPTOR.message_types_by_name['DynamicField'] = _DYNAMICFIELD
-DESCRIPTOR.message_types_by_name['TranslatedMessage'] = _TRANSLATEDMESSAGE
+DESCRIPTOR.message_types_by_name['SimpleMessage'] = _SIMPLEMESSAGE
 
 class VehicleMessage(_message.Message):
   __metaclass__ = _reflection.GeneratedProtocolMessageType
@@ -932,11 +885,11 @@ class VehicleMessage(_message.Message):
 
   # @@protoc_insertion_point(class_scope:openxc.VehicleMessage)
 
-class RawMessage(_message.Message):
+class CanMessage(_message.Message):
   __metaclass__ = _reflection.GeneratedProtocolMessageType
-  DESCRIPTOR = _RAWMESSAGE
+  DESCRIPTOR = _CANMESSAGE
 
-  # @@protoc_insertion_point(class_scope:openxc.RawMessage)
+  # @@protoc_insertion_point(class_scope:openxc.CanMessage)
 
 class ControlCommand(_message.Message):
   __metaclass__ = _reflection.GeneratedProtocolMessageType
@@ -998,11 +951,11 @@ class DynamicField(_message.Message):
 
   # @@protoc_insertion_point(class_scope:openxc.DynamicField)
 
-class TranslatedMessage(_message.Message):
+class SimpleMessage(_message.Message):
   __metaclass__ = _reflection.GeneratedProtocolMessageType
-  DESCRIPTOR = _TRANSLATEDMESSAGE
+  DESCRIPTOR = _SIMPLEMESSAGE
 
-  # @@protoc_insertion_point(class_scope:openxc.TranslatedMessage)
+  # @@protoc_insertion_point(class_scope:openxc.SimpleMessage)
 
 
 DESCRIPTOR.has_options = True

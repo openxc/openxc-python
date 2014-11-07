@@ -142,16 +142,16 @@ class ProtobufFormatter(object):
                 message.command_response.message = data['message']
             message.command_response.status = data['status']
         elif 'id' in data and 'data' in data:
-            message.type = openxc_pb2.VehicleMessage.RAW
+            message.type = openxc_pb2.VehicleMessage.CAN
             if 'bus' in data:
-                message.raw_message.bus = data['bus']
+                message.can_message.bus = data['bus']
             if 'frame_format' in data:
                 if data['frame_format'] == "standard":
-                    message.raw_message.frame_format = openxc_pb2.RawMessage.STANDARD
+                    message.can_message.frame_format = openxc_pb2.RawMessage.STANDARD
                 elif data['frame_format'] == "extended":
-                    message.raw_message.frame_format = openxc_pb2.RawMessage.EXTENDED
-            message.raw_message.message_id = data['id']
-            message.raw_message.data = binascii.unhexlify(data['data'].split('0x')[1])
+                    message.can_message.frame_format = openxc_pb2.RawMessage.EXTENDED
+            message.can_message.message_id = data['id']
+            message.can_message.data = binascii.unhexlify(data['data'].split('0x')[1])
         elif 'id' in data and 'bus' in data and 'mode' in data:
             message.type = openxc_pb2.VehicleMessage.DIAGNOSTIC
             response = message.diagnostic_response
@@ -169,21 +169,18 @@ class ProtobufFormatter(object):
             if 'payload' in data:
                 response.payload = binascii.unhexlify(data['payload'].split('0x')[1])
         elif 'name' in data and 'value' in data:
-            message.type = openxc_pb2.VehicleMessage.TRANSLATED
-            message.translated_message.name = data['name']
+            message.type = openxc_pb2.VehicleMessage.SIMPLE
+            message.simple_message.name = data['name']
             value = data['value']
             if isinstance(value, bool):
-                message.translated_message.type = openxc_pb2.TranslatedMessage.BOOL
-                message.translated_message.value.type = openxc_pb2.DynamicField.BOOL
-                message.translated_message.value.boolean_value = value
+                message.simple_message.value.type = openxc_pb2.DynamicField.BOOL
+                message.simple_message.value.boolean_value = value
             elif isinstance(value, str):
-                message.translated_message.type = openxc_pb2.TranslatedMessage.STRING
-                message.translated_message.value.type = openxc_pb2.DynamicField.STRING
-                message.translated_message.value.string_value = value
+                message.simple_message.value.type = openxc_pb2.DynamicField.STRING
+                message.simple_message.value.string_value = value
             elif isinstance(value, numbers.Number):
-                message.translated_message.type = openxc_pb2.TranslatedMessage.NUM
-                message.translated_message.value.type = openxc_pb2.DynamicField.NUM
-                message.translated_message.value.numeric_value = value
+                message.simple_message.value.type = openxc_pb2.DynamicField.NUM
+                message.simple_message.value.numeric_value = value
 
             if 'event' in data:
                 event = data['event']
@@ -191,35 +188,32 @@ class ProtobufFormatter(object):
                 # when https://github.com/openxc/openxc-message-format/issues/19
                 # is resolved
                 if isinstance(event, bool):
-                    message.translated_message.type = openxc_pb2.TranslatedMessage.EVENTED_BOOL
-                    message.translated_message.event.type = openxc_pb2.DynamicField.BOOL
-                    message.translated_message.event.boolean_value = event
+                    message.simple_message.event.type = openxc_pb2.DynamicField.BOOL
+                    message.simple_message.event.boolean_value = event
                 elif isinstance(event, str):
-                    message.translated_message.type = openxc_pb2.TranslatedMessage.EVENTED_STRING
-                    message.translated_message.event.type = openxc_pb2.DynamicField.STRING
-                    message.translated_message.event.string_value = event
+                    message.simple_message.event.type = openxc_pb2.DynamicField.STRING
+                    message.simple_message.event.string_value = event
                 elif isinstance(event, numbers.Number):
-                    message.translated_message.type = openxc_pb2.TranslatedMessage.EVENTED_NUM
-                    message.translated_message.event.type = openxc_pb2.DynamicField.NUM
-                    message.translated_message.event.numeric_value = event
+                    message.simple_message.event.type = openxc_pb2.DynamicField.NUM
+                    message.simple_message.event.numeric_value = event
         return message
 
     @classmethod
     def _protobuf_to_dict(cls, message):
         parsed_message = {}
         if message is not None:
-            if message.type == message.RAW and message.HasField('raw_message'):
-                raw_message = message.raw_message
-                if raw_message.HasField('bus'):
-                    parsed_message['bus'] = raw_message.bus
-                if raw_message.HasField('message_id'):
-                    parsed_message['id'] = raw_message.message_id
-                if raw_message.HasField('data'):
-                    parsed_message['data'] = "0x%s" % binascii.hexlify(raw_message.data)
-                if raw_message.HasField('frame_format'):
-                    if raw_message.frame_format == openxc_pb2.RawMessage.STANDARD:
+            if message.type == message.CAN and message.HasField('can_message'):
+                can_message = message.can_message
+                if can_message.HasField('bus'):
+                    parsed_message['bus'] = can_message.bus
+                if can_message.HasField('message_id'):
+                    parsed_message['id'] = can_message.message_id
+                if can_message.HasField('data'):
+                    parsed_message['data'] = "0x%s" % binascii.hexlify(can_message.data)
+                if can_message.HasField('frame_format'):
+                    if can_message.frame_format == openxc_pb2.RawMessage.STANDARD:
                         parsed_message['frame_format'] = "standard"
-                    elif raw_message.frame_format == openxc_pb2.RawMessage.EXTENDED:
+                    elif can_message.frame_format == openxc_pb2.RawMessage.EXTENDED:
                         parsed_message['frame_format'] = "extended"
             elif message.type == message.DIAGNOSTIC:
                 diagnostic_message = message.diagnostic_response
@@ -239,11 +233,11 @@ class ProtobufFormatter(object):
                     parsed_message['negative_response_code'] = diagnostic_message.negative_response_code
                 if diagnostic_message.HasField('payload'):
                     parsed_message['payload'] = "0x%s" % binascii.hexlify(diagnostic_message.payload)
-            elif message.type == message.TRANSLATED:
-                translated_message = message.translated_message
-                parsed_message['name'] = translated_message.name
-                if translated_message.HasField('event'):
-                    event = translated_message.event
+            elif message.type == message.SIMPLE:
+                simple_message = message.simple_message
+                parsed_message['name'] = simple_message.name
+                if simple_message.HasField('event'):
+                    event = simple_message.event
                     if event.HasField('numeric_value'):
                         parsed_message['event'] = event.numeric_value
                     elif event.HasField('boolean_value'):
@@ -251,8 +245,8 @@ class ProtobufFormatter(object):
                     elif event.HasField('string_value'):
                         parsed_message['event'] = event.string_value
 
-                if translated_message.HasField('value'):
-                    value = translated_message.value
+                if simple_message.HasField('value'):
+                    value = simple_message.value
                     if value.HasField('numeric_value'):
                         parsed_message['value'] = value.numeric_value
                     elif value.HasField('boolean_value'):
