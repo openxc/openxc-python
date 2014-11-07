@@ -183,7 +183,7 @@ class Controller(object):
         request = {
             'command': "diagnostic_request",
             'request': {
-                'id': message_id,
+                'message_id': message_id,
                 'mode': mode
             }
         }
@@ -342,7 +342,7 @@ class Controller(object):
         following the OpenXC message format.
         """
         if 'id' in kwargs and 'data' in kwargs:
-            result = self.write_raw(kwargs['id'], kwargs['data'],
+            result = self.write_can(kwargs['id'], kwargs['data'],
                     bus=kwargs.get('bus', None),
                     frame_format=kwargs.get('frame_format', None))
         else:
@@ -363,7 +363,7 @@ class Controller(object):
         assert bytes_written == len(message)
         return bytes_written
 
-    def write_raw(self, message_id, data, bus=None, frame_format=None):
+    def write_can(self, message_id, data, bus=None, frame_format=None):
         """Send a raw write request to the VI.
         """
         if not isinstance(message_id, numbers.Number):
@@ -371,7 +371,7 @@ class Controller(object):
                 message_id = int(message_id, 0)
             except ValueError:
                 raise ValueError("ID must be numerical")
-        data = {'id': message_id, 'data': data}
+        data = {'message_id': message_id, 'data': data}
         if bus is not None:
             data['bus'] = bus
         if frame_format is not None:

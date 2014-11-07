@@ -123,7 +123,7 @@ class ProtobufFormatter(object):
                 request = request_command.request
                 request_data = data['request']
                 request.bus = request_data['bus']
-                request.message_id = request_data['id']
+                request.message_id = request_data['message_id']
                 request.mode = request_data['mode']
                 if 'frequency' in request_data:
                     request.frequency = request_data['frequency']
@@ -141,7 +141,7 @@ class ProtobufFormatter(object):
             if 'message' in data:
                 message.command_response.message = data['message']
             message.command_response.status = data['status']
-        elif 'id' in data and 'data' in data:
+        elif 'message_id' in data and 'data' in data:
             message.type = openxc_pb2.VehicleMessage.CAN
             if 'bus' in data:
                 message.can_message.bus = data['bus']
@@ -150,13 +150,13 @@ class ProtobufFormatter(object):
                     message.can_message.frame_format = openxc_pb2.RawMessage.STANDARD
                 elif data['frame_format'] == "extended":
                     message.can_message.frame_format = openxc_pb2.RawMessage.EXTENDED
-            message.can_message.message_id = data['id']
+            message.can_message.message_id = data['message_id']
             message.can_message.data = binascii.unhexlify(data['data'].split('0x')[1])
-        elif 'id' in data and 'bus' in data and 'mode' in data:
+        elif 'message_id' in data and 'bus' in data and 'mode' in data:
             message.type = openxc_pb2.VehicleMessage.DIAGNOSTIC
             response = message.diagnostic_response
             response.bus = data['bus']
-            response.message_id = data['id']
+            response.message_id = data['message_id']
             response.mode = data['mode']
             if 'pid' in data:
                 response.pid = data['pid']
@@ -207,7 +207,7 @@ class ProtobufFormatter(object):
                 if can_message.HasField('bus'):
                     parsed_message['bus'] = can_message.bus
                 if can_message.HasField('message_id'):
-                    parsed_message['id'] = can_message.message_id
+                    parsed_message['message_id'] = can_message.message_id
                 if can_message.HasField('data'):
                     parsed_message['data'] = "0x%s" % binascii.hexlify(can_message.data)
                 if can_message.HasField('frame_format'):
@@ -220,7 +220,7 @@ class ProtobufFormatter(object):
                 if diagnostic_message.HasField('bus'):
                     parsed_message['bus'] = diagnostic_message.bus
                 if diagnostic_message.HasField('message_id'):
-                    parsed_message['id'] = diagnostic_message.message_id
+                    parsed_message['message_id'] = diagnostic_message.message_id
                 if diagnostic_message.HasField('mode'):
                     parsed_message['mode'] = diagnostic_message.mode
                 if diagnostic_message.HasField('pid'):
@@ -273,7 +273,7 @@ class ProtobufFormatter(object):
                         parsed_message['action'] = "cancel"
 
                     request = command.diagnostic_request.request
-                    parsed_message['request']['id'] = request.message_id
+                    parsed_message['request']['message_id'] = request.message_id
                     parsed_message['request']['bus'] = request.bus
                     parsed_message['request']['mode'] = request.mode
 
