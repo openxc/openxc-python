@@ -64,7 +64,6 @@ def device_options():
             help="record logs to a file or stderr, if available from the interface")
     parser.add_argument("--format",
             action="store",
-            default="json",
             choices=["json", "protobuf"],
             dest="format",
             help="select the data format for sending and receiving with the VI")
@@ -96,5 +95,5 @@ def select_device(arguments):
                 product_id=arguments.usb_product)
 
     source_kwargs['log_mode'] = arguments.log_mode
-    source_kwargs['format'] = arguments.format
+    source_kwargs['payload_format'] = arguments.format
     return source_class, source_kwargs

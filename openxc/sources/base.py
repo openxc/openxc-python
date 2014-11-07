@@ -23,7 +23,7 @@ class DataSource(threading.Thread):
     A data source requires a callback method to be specified. Whenever new data
     is received, it will pass it to that callback.
     """
-    def __init__(self, callback=None, log_mode=None, format="json"):
+    def __init__(self, callback=None, log_mode=None, payload_format=None):
         """Construct a new DataSource.
 
         By default, DataSource threads are marked as ``daemon`` threads, so they
@@ -39,7 +39,7 @@ class DataSource(threading.Thread):
         self.running = True
         self._streamer = None
         self._formatter = None
-        self.format = format
+        self.format = payload_format
 
         self.logger = SourceLogger(self, log_mode)
 
@@ -56,9 +56,6 @@ class DataSource(threading.Thread):
         elif value == "protobuf":
             self.streamer = ProtobufStreamer()
             self.formatter = ProtobufFormatter
-        else:
-            raise MissingPayloadFormatError("Unrecognized payload format: %s" %
-                    value)
 
     @property
     def streamer(self):
@@ -204,9 +201,9 @@ class BytestreamDataSource(DataSource):
                 json_chars = ['\x00']
                 json_chars.extend(string.printable)
                 if all((char in json_chars for char in payload)):
-                    self.streamer = JsonStreamer()
+                    self.format = "json"
                 else:
-                    self.streamer = ProtobufStreamer()
+                    self.format = "protobuf"
             self.streamer.receive(payload)
 
             while True:
