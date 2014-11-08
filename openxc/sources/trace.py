@@ -49,7 +49,6 @@ class TraceDataSource(BytestreamDataSource):
                 if message is None:
                     continue
 
-                self.bytes_received += len(line)
                 if not self._validate(message):
                     continue
                 timestamp = message.get('timestamp', None)

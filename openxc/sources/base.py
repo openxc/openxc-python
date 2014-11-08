@@ -73,11 +73,15 @@ class DataSource(threading.Thread):
         if self._formatter is None:
             raise MissingPayloadFormatError("Unable to auto-detect payload "
                 "format, must specify manually with --format [json|protobuf]")
-        return _formatter
+        return self._formatter
 
     @formatter.setter
     def formatter(self, value):
         self._formatter = value
+
+    @property
+    def bytes_received(self):
+        return self.streamer.bytes_received
 
     def start(self):
         self.logger.start()
@@ -168,7 +172,6 @@ class BytestreamDataSource(DataSource):
 
     def __init__(self, **kwargs):
         super(BytestreamDataSource, self).__init__(**kwargs)
-        self.bytes_received = 0
         self.corrupted_messages = 0
         self.running = True
 
