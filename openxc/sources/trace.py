@@ -34,40 +34,13 @@ class TraceDataSource(BytestreamDataSource):
         self.realtime = realtime
         self.loop = loop
         self.filename = filename
-
-    def run(self):
-        while True:
-            self._reopen_file()
-            starting_time = time.time()
-
-            while True:
-                line = self.read()
-                if line == '':
-                    break
-
-                message = JsonFormatter.deserialize(line)
-                if message is None:
-                    continue
-
-                if not self._validate(message):
-                    continue
-                timestamp = message.get('timestamp', None)
-                if self.realtime and timestamp is not None:
-                    self._store_timestamp(timestamp)
-                    self._wait(starting_time, self.first_timestamp, timestamp)
-                if self.callback is not None:
-                    self.callback(message)
-
-            self.trace_file.close()
-            self.trace_file = None
-
-            if not self.loop:
-                break
+        self._reopen_file()
 
     def _reopen_file(self):
         if getattr(self, 'trace_file', None) is not None:
             self.trace_file.close()
         self.trace_file = self._open_file(self.filename)
+        self.starting_time = time.time()
 
     def _store_timestamp(self, timestamp):
         """If not already saved, cache the first timestamp in the active trace
@@ -80,7 +53,21 @@ class TraceDataSource(BytestreamDataSource):
 
     def read(self):
         """Read a line of data from the input source at a time."""
-        return self.trace_file.readline()
+        line = self.trace_file.readline()
+        if line == '':
+            if self.loop:
+                self._reopen_file()
+            else:
+                self.trace_file.close()
+                self.trace_file = None
+                raise DataSourceError()
+
+        message = JsonFormatter.deserialize(line)
+        timestamp = message.get('timestamp', None)
+        if self.realtime and timestamp is not None:
+            self._store_timestamp(timestamp)
+            self._wait(self.starting_time, self.first_timestamp, timestamp)
+        return line + "\x00"
 
     @staticmethod
     def _open_file(filename):
@@ -108,16 +95,3 @@ class TraceDataSource(BytestreamDataSource):
         """
         target_time = starting_time + (timestamp - first_timestamp)
         time.sleep(max(target_time - time.time(), 0))
-
-    @staticmethod
-    def _validate(message):
-        """Confirm the validitiy of a given dict as an OpenXC message.
-
-        Returns:
-            ``True`` if the message contains at least a ``name`` and ``value``.
-        """
-        valid = False
-        if(('name' in message and 'value' in message) or
-                ('id' in message and 'data' in message)):
-            valid = True
-        return valid
