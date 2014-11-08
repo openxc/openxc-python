@@ -24,7 +24,7 @@ class UsbDataSource(BytestreamDataSource):
     DEFAULT_READ_TIMEOUT = 200
 
     DEFAULT_INTERFACE_NUMBER = 0
-    TRANSLATED_IN_ENDPOINT = 2
+    VEHICLE_DATA_IN_ENDPOINT = 2
     LOG_IN_ENDPOINT = 11
 
     def __init__(self, vendor_id=None, product_id=None, **kwargs):
@@ -69,7 +69,7 @@ class UsbDataSource(BytestreamDataSource):
         raise DataSourceError("No USB vehicle interface detected - is one plugged in?")
 
     def read(self, timeout=None):
-        return self._read(self.TRANSLATED_IN_ENDPOINT, timeout)
+        return self._read(self.VEHICLE_DATA_IN_ENDPOINT, timeout)
 
     def read_logs(self, timeout=None):
         return self._read(self.LOG_IN_ENDPOINT, timeout, 64)
