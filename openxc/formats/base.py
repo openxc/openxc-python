@@ -5,5 +5,6 @@ class VehicleMessageStreamer(object):
     def receive(self, payload):
         if not isinstance(payload, bytes):
             payload = payload.encode("utf-8")
-        self.message_buffer += payload
-        self.bytes_received += len(payload)
+        if len(payload) > 0:
+            self.message_buffer += payload
+            self.bytes_received += len(payload)
