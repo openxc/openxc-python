@@ -53,7 +53,7 @@ class ResponseReceiver(object):
         """
         return True
 
-    def wait_for_responses(self, request):
+    def wait_for_responses(self):
         """Block the thread and wait for the response to the given request to
         arrive from the VI. If no matching response is received in
         COMMAND_RESPONSE_TIMEOUT_S seconds, returns anyway.
@@ -108,6 +108,8 @@ class DiagnosticResponseReceiver(ResponseReceiver):
     def __init__(self, queue, request):
         super(DiagnosticResponseReceiver, self).__init__(queue, request,
                 quit_after_first=False)
+        # Make sure to key off of the diagnostic request, not the command to
+        # create the request
         self.diagnostic_request = request['request']
 
     def _response_matches_request(self, response):
@@ -171,7 +173,7 @@ class Controller(object):
 
         responses = []
         if wait_for_first_response:
-            responses = receiver.wait_for_responses(request)
+            responses = receiver.wait_for_responses()
         return responses
 
     def _send_complex_request(self, request):
@@ -248,8 +250,8 @@ class Controller(object):
 
         diag_response_receiver = None
         if wait_for_first_response:
-            diag_response_receiver = self._prepare_response_receiver(request,
-                    DiagnosticResponseReceiver)
+            diag_response_receiver = self._prepare_response_receiver(
+                    request, DiagnosticResponseReceiver)
 
         request['action'] = 'add'
         ack_responses = self.complex_request(request, wait_for_ack)

@@ -36,15 +36,6 @@ class UsbControllerMixin(Controller):
         self.device.ctrl_transfer(0x40, self.COMPLEX_CONTROL_COMMAND, 0, 0,
                 self.streamer.serialize_for_stream(request))
 
-    def diagnostic_request(self, message_id, mode, bus=None, pid=None,
-            frequency=None, payload=None, wait_for_first_response=False):
-        """Send a new diagnostic request to the VI with a USB control request.
-        """
-        return self.complex_request(
-                self._build_diagnostic_request(message_id, mode, bus, pid,
-                    frequency, payload),
-                wait_for_first_response=wait_for_first_response)
-
     @property
     def out_endpoint(self):
         """Open a reference to the USB device's only OUT endpoint. This method

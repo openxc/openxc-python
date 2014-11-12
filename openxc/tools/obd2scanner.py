@@ -17,7 +17,7 @@ def scan(controller, bus=None):
     # what the vehicle reports that it *should* support.
     print("Beginning sequential scan of all OBD-II PIDs")
     for pid in range(0, 0x88):
-        response = controller.diagnostic_request(0x7df, mode=0x1, bus=bus,
+        response = controller.create_diagnostic_request(0x7df, mode=0x1, bus=bus,
                 wait_for_first_response=True, pid=pid)
         if response is not None:
             print("PID 0x%x responded with: %s" % (pid, response))
