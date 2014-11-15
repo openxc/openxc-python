@@ -139,6 +139,9 @@ def main():
             elif arguments.write_id:
                 if not arguments.write_data:
                     sys.exit("%s requires an id and data" % arguments.command)
+                # TODO we should use unhexlify as with the diagnostic command
+                # payloads so we can standardize the API and not deal with hex
+                # strings in code
                 interface.write(bus=int(arguments.bus),
                         id=arguments.write_id,
                         data=arguments.write_data,

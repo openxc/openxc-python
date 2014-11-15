@@ -31,5 +31,6 @@ For general documentation on the OpenXC platform, visit the main `OpenXC site`_.
 
     installation
     tools/tools
+    example
     api/api
     contributing

@@ -6,7 +6,7 @@
 one-time diagnostic message requests through a vehicle interface.
 
 Perform a single diagnostic request
-=================================
+===================================
 
 This example will add a new one-time diagnostic request - it will be sent
 once, and any respones will be printed to the terminal via stdout. The

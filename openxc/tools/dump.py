@@ -34,7 +34,5 @@ def main():
     source_class, source_kwargs = select_device(arguments)
     source = source_class(callback=receive, **source_kwargs)
     source.start()
-
-    while True:
-        import time
-        time.sleep(5)
+    # TODO test this, I'd prefer it to the sleep loop
+    source.join()
