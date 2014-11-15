@@ -4,8 +4,8 @@
 
 :program:`openxc-dump` is a command-line tool to view the raw data stream from
 an attached vehicle interface or trace file. It attempts to read OpenXC messages
-from the interface specified at the command line (USB, serial or a trace file)
-and prints each message received to ``stdout``.
+from the interface specified at the command line (USB, Bluetooth (Linux), serial
+a trace file) and prints each message received to ``stdout``.
 
 Basic use
 =========
@@ -29,7 +29,7 @@ Use a custom USB device:
 
     $ openxc-dump --usb-vendor 4424
 
-Use a a vehicle interface connected via serial instead of USB:
+Use a vehicle interface connected via serial instead of USB:
 
 .. code-block:: bash
 
@@ -37,6 +37,17 @@ Use a a vehicle interface connected via serial instead of USB:
 
 The ``serial-device`` option is only required if the virtual COM port is
 different than the default ``/dev/ttyUSB0``.
+
+Use a VI with a Bluetooth adapter (this is only supported when connecting from
+Linux at the moment):
+
+.. code-block:: bash
+
+    $ openxc-dump --bluetooth
+
+This will scan and discover for an OpenXC VI, connect and start streaming the
+data. If you know the MAC address, you can also provide that explicitly  with
+the ``--bluetooth-address`` flag.
 
 Play back a trace file in real-time:
 
