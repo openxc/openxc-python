@@ -8,8 +8,6 @@ to an attached vehicle interface.
 Basic use
 =========
 
-:program:`openxc-control` provides three control commands:
-
 --------
 version
 --------
@@ -24,20 +22,6 @@ translator:
 .. note::
 
     The ``version`` command is not supported by the trace file interface.
-
---------
-reset
---------
-
-Reset and re-initialize the attached vehicle interface.
-
-.. code-block:: bash
-
-    $ openxc-control reset
-
-.. note::
-
-    The ``reset`` command is not supported by the trace file interface.
 
 ------
 write
