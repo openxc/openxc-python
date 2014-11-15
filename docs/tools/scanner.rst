@@ -1,6 +1,6 @@
-========================================
-``openxc-scanner`` options and arguments
-========================================
+========================================================================
+``openxc-scanner`` - scanner for determining support diagnostic requests
+========================================================================
 
 :program:`openxc-scanner` is a is a rudimentary diagnostic scanner that can give
 you a high level view of the what message IDs are used by modules on a vehicle

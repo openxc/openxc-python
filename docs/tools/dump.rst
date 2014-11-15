@@ -1,6 +1,6 @@
-=====================================
-``openxc-dump`` options and arguments
-=====================================
+==============================================================
+``openxc-dump`` - view the unfiltered stream of data from a VI
+==============================================================
 
 :program:`openxc-dump` is a command-line tool to view the raw data stream from
 an attached vehicle interface or trace file. It attempts to read OpenXC messages

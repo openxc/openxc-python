@@ -1,6 +1,6 @@
-============================================
-``openxc-trace-split`` options and arguments
-============================================
+============================================================================
+``openxc-trace-split`` - split merged OpenXC trace files into separate trips
+============================================================================
 
 :program:`openxc-trace-split` is a command-line tool to re-split a collection of
 previously recorded OpenXC trace files by different units of time.

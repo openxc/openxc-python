@@ -1,6 +1,6 @@
-============================================
-``openxc-obd2scanner`` options and arguments
-============================================
+==================================================================
+``openxc-obd2scanner`` - detect OBD-II PIDs supported by a vehicle
+==================================================================
 
 :program:`openxc-obd2scanner` is a simple and quick tool to check what OBD-II
 PIDs a vehicle actually supports. It sequentially scans all valid PIDs and

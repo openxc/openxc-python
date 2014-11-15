@@ -1,6 +1,6 @@
-========================================
-``openxc-diag`` options and arguments
-========================================
+=============================================================
+``openxc-diag`` - Send and receive OBD-II diagnostic messages
+=============================================================
 
 :program:`openxc-diag` is a command-line tool for adding new recurring or
 one-time diagnostic message requests through a vehicle interface.

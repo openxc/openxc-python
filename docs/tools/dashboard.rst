@@ -1,6 +1,6 @@
-==========================================
-``openxc-dashboard`` options and arguments
-==========================================
+====================================================================
+``openxc-dashboard`` - an ncurses UI to view data received from a VI
+====================================================================
 
 :program:`openxc-dashboard` is a command-line tool that displays the current
 values of all OpenXC messages simultaneously. The dashboard uses ``curses`` to

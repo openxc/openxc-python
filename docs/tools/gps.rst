@@ -1,6 +1,6 @@
-=====================================
-``openxc-gps`` options and arguments
-=====================================
+============================================================
+``openxc-gps`` - convert a vehicle data stream to GPX format
+============================================================
 
 :program:`openxc-gps` is a command-line tool to convert a raw OpenXC data stream
 that includes GPS information (namely latitude and longitude) into one of a few
