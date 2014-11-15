@@ -48,15 +48,8 @@ Play back a trace file in real-time:
 Command-line options
 ====================
 
-A quick overview of all possible command line options can be found via
+An overview of all possible command line options can be found via
 ``--help``.
-
-.. cmdoption:: --corrupted
-
-    Dump unparseable messages (assumed to be corrupted) in addition to valid
-    messages.
-
-.. include:: ../_shared/common_cmdoptions.rst
 
 Traces
 =======

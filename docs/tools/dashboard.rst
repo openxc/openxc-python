@@ -70,11 +70,8 @@ Play back a trace file in real-time:
 
     $ openxc-dashboard --trace monday-trace.json
 
-
 Command-line options
 ====================
 
-A quick overview of all possible command line options can be found via
+An overview of all possible command line options can be found via
 ``--help``.
-
-.. include:: ../_shared/common_cmdoptions.rst

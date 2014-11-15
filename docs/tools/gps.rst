@@ -29,12 +29,5 @@ all defaults, and printing to `stdout`):
 Command-line options
 ====================
 
-A quick overview of all possible command line options can be found via
+An overview of all possible command line options can be found via
 ``--help``.
-
-.. cmdoption:: --format <format>
-
-    Selected the desired outupt format. Currently only "gpx" is supported, so
-    this is the default choice.
-
-.. include:: ../_shared/common_cmdoptions.rst

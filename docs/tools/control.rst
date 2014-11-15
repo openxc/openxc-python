@@ -47,22 +47,5 @@ Send a request to the vehicle interface to write a message back to the CAN bus. 
 Command-line options
 ====================
 
-A quick overview of all possible command line options can be found via
+An overview of all possible command line options can be found via
 ``--help``.
-
-.. cmdoption:: --name <name>
-
-    The name of a message to write to the vehicle interface. This is required when
-    the ``write`` command is used, in addition to ``--value``
-
-.. cmdoption:: --value <value>
-
-    The value of a message to write to the vehicle interface. This is required when
-    the ``write`` command is used, in addition to ``--name``.
-
-.. cmdoption:: --file <input_file>
-
-    The path to a file of OpenXC JSON messages to write to the vehicle interface.
-    The messages should be separated by newlines
-
-.. include:: ../_shared/common_cmdoptions.rst
