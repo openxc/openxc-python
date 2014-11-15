@@ -1,7 +1,7 @@
 OpenXC Python Library Changelog
 ===============================
 
-v0.12.0-dev
+v0.12.0
 -----------
 
 * Feature: Support scanning for Bluetooth devices when using Linux
