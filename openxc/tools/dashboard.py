@@ -97,7 +97,7 @@ class DataPoint(object):
                 result = ""
                 for item, value in enumerate(self.measurement_type.states):
                     # TODO missing keys here?
-                    result += "%s: %s " % (value, self.events.get(item, "?"))
+                    result += "%s: %s " % (value, self.events.get(value, "?"))
                 value = result
 
             value_color = curses.color_pair(2)
