@@ -5,6 +5,7 @@ python:
 before_install:
     - sudo apt-get update -qq
     - sudo apt-get install python-bluetooth -qq -y
+    - if [[ $TRAVIS_PYTHON_VERSION = '2.6' ]]; then pip install importlib; fi
     - pip install pyserial
     - pip install coveralls
 install: pip install -q -e .
