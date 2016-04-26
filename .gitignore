@@ -16,3 +16,4 @@ env
 coverage.xml
 diffcover.html
 htmlcov
+*~
