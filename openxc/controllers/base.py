@@ -306,7 +306,19 @@ class Controller(object):
         status = self._check_command_response_status(request)
         return status
 		
-		
+    def modem_configuration(self, host, port):
+        """Set the host:port for the Cellular device to send data to.
+
+        Returns True if the command was successful.
+        """
+        request = {
+            "command": "modem_configuration",
+            "host": host,
+            "port": port
+        }
+        status = self._check_command_response_status(request)
+        return status
+
     def set_acceptance_filter_bypass(self, bus, bypass):
         """Control the status of CAN acceptance filter for a bus.
 

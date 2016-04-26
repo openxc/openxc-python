@@ -118,9 +118,12 @@ def parse_options():
             dest="af_bypass")
     parser.add_argument("--new-payload-format", action="store", default=None,
             choices=['json', 'protobuf'], dest="new_payload_format")
-    parser.add_argument("--time",
-            action="store",default=None,
+    parser.add_argument("--time", action="store",default=None,
             dest="unix_time")
+    parser.add_argument("--host", action="store", default=None,
+            dest="host")
+    parser.add_argument("--port", action="store", default=80,
+            dest="port")
     return parser.parse_args()
 
 
@@ -147,6 +150,8 @@ def main():
             set_payload_format(interface, arguments.new_payload_format)
         if arguments.unix_time is not None:
             set_rtc_time(interface, int(arguments.unix_time))
+        if arguments.host is not None:
+            modem_configuration(interface, host, port)
     elif arguments.command.startswith("write"):
         if arguments.command == "write":
             if arguments.write_name:
