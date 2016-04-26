@@ -1,6 +1,11 @@
 OpenXC Python Library Changelog
 ===============================
 
+v0.13.0
+----------
+
+* Feature: Support for new C5 Cellular, SD, and RTC commands
+
 v0.12.0
 -----------
 
