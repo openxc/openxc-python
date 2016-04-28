@@ -48,6 +48,10 @@ def set_rtc_time(interface, unix_time):
     if interface.rtc_configuration(unix_time):
         print("Time set to %d" % unix_time)
 
+def modem_configuration(interface, host, port):
+    if interface.modem_configuration(host, port):
+        print("host set to %s:%s" %(host, port))
+
 def write_file(interface, filename):
     first_timestamp = None
     with open(filename, "r") as output_file:
