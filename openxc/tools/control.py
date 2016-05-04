@@ -18,6 +18,13 @@ from .common import device_options, configure_logging, select_device
 def version(interface):
     print("Device is running version %s" % interface.version())
 
+def sd_mount_status(interface):
+    result = interface.sd_mount_status()
+    if(result == 1):
+        print("SD card mount status: true")
+    else:
+        print("SD card mount status: false")		
+
 def device_id(interface):
     print("Device ID is %s" % interface.device_id())
 
@@ -36,6 +43,14 @@ def af_bypass(interface, bus, bypass):
 def set_payload_format(interface, payload_format):
     if interface.set_payload_format(payload_format):
         print("Changed payload format to %s" % payload_format)
+
+def set_rtc_time(interface, unix_time):
+    if interface.rtc_configuration(unix_time):
+        print("Time set to %d" % unix_time)
+
+def modem_configuration(interface, host, port):
+    if interface.modem_configuration(host, port):
+        print("host set to %s:%s" %(host, port))
 
 def write_file(interface, filename):
     first_timestamp = None
@@ -75,7 +90,7 @@ def parse_options():
     parser = argparse.ArgumentParser(description="Send control messages to an "
             "attached OpenXC vehicle interface", parents=[device_options()])
     parser.add_argument("command", type=str,
-            choices=['version', 'write', 'id', 'set'])
+            choices=['version', 'write', 'id', 'set', 'sd_mount_status'])
     write_group = parser.add_mutually_exclusive_group()
     write_group.add_argument("--name", action="store", dest="write_name",
             help="name for message write request")
@@ -107,7 +122,12 @@ def parse_options():
             dest="af_bypass")
     parser.add_argument("--new-payload-format", action="store", default=None,
             choices=['json', 'protobuf'], dest="new_payload_format")
-
+    parser.add_argument("--time", action="store",default=None,
+            dest="unix_time")
+    parser.add_argument("--host", action="store", default=None,
+            dest="host")
+    parser.add_argument("--port", action="store", default=80,
+            dest="port")
     return parser.parse_args()
 
 
@@ -121,6 +141,8 @@ def main():
 
     if arguments.command == "version":
         version(interface)
+    elif arguments.command == "sd_mount_status":
+        sd_mount_status(interface)
     elif arguments.command == "id":
         device_id(interface)
     elif arguments.command == "set":
@@ -130,6 +152,10 @@ def main():
             af_bypass(interface, int(arguments.bus), arguments.af_bypass)
         if arguments.new_payload_format is not None:
             set_payload_format(interface, arguments.new_payload_format)
+        if arguments.unix_time is not None:
+            set_rtc_time(interface, int(arguments.unix_time))
+        if arguments.host is not None:
+            modem_configuration(interface, host, port)
     elif arguments.command.startswith("write"):
         if arguments.command == "write":
             if arguments.write_name:

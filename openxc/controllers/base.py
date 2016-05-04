@@ -293,6 +293,32 @@ class Controller(object):
         self.format = payload_format
         return status
 
+		
+    def rtc_configuration(self, unix_time):
+        """Set the Unix time if RTC is supported on the device.
+
+        Returns True if the command was successful.
+        """
+        request = {
+            "command": "rtc_configuration",
+            "unix_time": unix_time
+        }
+        status = self._check_command_response_status(request)
+        return status
+		
+    def modem_configuration(self, host, port):
+        """Set the host:port for the Cellular device to send data to.
+
+        Returns True if the command was successful.
+        """
+        request = {
+            "command": "modem_configuration",
+            "host": host,
+            "port": port
+        }
+        status = self._check_command_response_status(request)
+        return status
+
     def set_acceptance_filter_bypass(self, bus, bypass):
         """Control the status of CAN acceptance filter for a bus.
 
@@ -331,6 +357,18 @@ class Controller(object):
         }
         return self._check_command_response_message(request)
 
+    def sd_mount_status(self):
+        """Request for SD Mount status if available.
+        """
+        request = {
+            "command": "sd_mount_status"
+        }
+        responses = self.complex_request(request)
+        result = None
+        if len(responses) > 0:
+            result = responses[0].get('status')
+        return result
+		
     def device_id(self):
         """Request the unique device ID of the attached VI.
         """
