@@ -60,6 +60,21 @@ Change the payload format to Protocol Buffers, then back to JSON:
     $ openxc-control set --new-payload-format json
     $ openxc-control set --new-payload-format protobuf
 
+Change the time for the RTC unit on the C5 devices:
+
+.. code-block:: bash
+
+    $ openxc-control set --time 1461545558
+
+Set the host and port for the C5 Cellular device
+
+.. code-block:: bash
+
+    $ openxc-control set --host www.server.com --port 80
+
+This will return true when successful. If host is supplied, but not port, 
+port will default to 80.
+
 ------
 write
 ------
@@ -95,6 +110,21 @@ a message with a lower ID using the extended frame format, you can use the
     The vehicle interface must be running firmware that supports CAN writes, and
     must allow writing the specific message that you request with
     ``openxc-control``.
+
+
+---------------
+sd_mount_status
+---------------
+
+This queries the device to see if the SD card is mounted correctly. 
+
+.. code-block:: bash
+
+    $ openxc-control sd_mount_status 
+
+This will return 'True' if the SD card is available for writing. Otherwise, it will return 'False'.
+
+
 
 Command-line options
 ====================
