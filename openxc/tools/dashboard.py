@@ -193,6 +193,10 @@ def run_dashboard(window, source_class, source_kwargs):
             dashboard.scroll_down(25)
         elif c == curses.KEY_PPAGE:
             dashboard.scroll_up(25)
+        elif c == 3:    # Control-C
+            break       # Stop on Control-C
+        elif c == 27:   # ESC
+            break       # Stop on ESC
 
 
 

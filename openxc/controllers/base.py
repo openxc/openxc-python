@@ -98,6 +98,9 @@ class CommandResponseReceiver(ResponseReceiver):
         """Return true if the 'command' field in the response matches the
         original request.
         """
+        if 'modem_command' in self.request :
+            return response.get('modem_command_response', None) == self.request['modem_command']
+
         return response.get('command_response', None) == self.request['command']
 
 class DiagnosticResponseReceiver(ResponseReceiver):
@@ -336,6 +339,38 @@ class Controller(object):
         """
         request = {
             "command": "device_id"
+        }
+        return self._check_command_response_message(request)
+
+    def modem_version(self):
+        """Request a firmware version identifier from the modem.
+        """
+        request = {
+            "modem_command": "version"
+        }
+        return self._check_command_response_message(request)
+
+    def modem_device_id(self):
+        """Request the unique device ID of the attached modem.
+        """
+        request = {
+            "modem_command": "device_id"
+        }
+        return self._check_command_response_message(request)
+
+    def modem_diag_enable(self):
+        """Request the modem enable diagnostics mode.
+        """
+        request = {
+            "modem_command": "diagnostics_enable"
+        }
+        return self._check_command_response_message(request)
+
+    def modem_diag_disable(self):
+        """Request the modem disable diagnostics mode.
+        """
+        request = {
+            "modem_command": "diagnostics_disable"
         }
         return self._check_command_response_message(request)
 

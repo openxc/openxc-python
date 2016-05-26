@@ -97,7 +97,12 @@ class Measurement(AgingData):
             args.append(data['data'])
             # TODO grab bus
         else:
-            measurement_class = cls._class_from_name(data['name'])
+            if 'modem_label' in data:
+                measurement_class = Measurement
+                data['name'] = data['modem_label']
+                data['value'] = data['modem_value']
+            else:
+                measurement_class = cls._class_from_name(data['name'])
             if measurement_class == Measurement:
                 args.append(data['name'])
             args.append(data['value'])

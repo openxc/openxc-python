@@ -67,6 +67,11 @@ def device_options():
             choices=["json", "protobuf"],
             dest="format",
             help="select the data format for sending and receiving with the VI")
+    parser.add_argument("--modem",
+            action="store_true",
+            dest="modem",
+            default=False,
+            help="receive diagnostic messages from attached modem")
     return parser
 
 

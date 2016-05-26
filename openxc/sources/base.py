@@ -179,6 +179,7 @@ class BytestreamDataSource(DataSource):
         if not hasattr(message, '__iter__'):
             return False
         if not ('name' in message and 'value' in message or
+                    ('modem_label' in message and 'modem_value' in message) or
                     ('id' in message and 'data' in message) or
                     ('id' in message and 'bus' in message) or
                     'command_response' in message):

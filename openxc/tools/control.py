@@ -21,6 +21,20 @@ def version(interface):
 def device_id(interface):
     print("Device ID is %s" % interface.device_id())
 
+def modem_version(interface):
+    print("Modem is running version %s" % interface.modem_version())
+
+def modem_device_id(interface):
+    print("Modem Device ID is %s" % interface.modem_device_id())
+
+def modem_diag_enable(interface):
+    interface.modem_diag_enable()
+    print("Modem Diagnostics Enabled")
+
+def modem_diag_disable(interface):
+    interface.modem_diag_disable()
+    print("Modem Diagnostics Disabled")
+
 def passthrough(interface, bus, passthrough_enabled):
     if interface.set_passthrough(bus, passthrough_enabled):
         print("Bus %u passthrough set to %s" % (bus, passthrough_enabled))
@@ -75,7 +89,7 @@ def parse_options():
     parser = argparse.ArgumentParser(description="Send control messages to an "
             "attached OpenXC vehicle interface", parents=[device_options()])
     parser.add_argument("command", type=str,
-            choices=['version', 'write', 'id', 'set'])
+            choices=['version', 'write', 'id', 'set', 'modem_version', 'modem_id', 'modem_diag_enable', 'modem_diag_disable'])
     write_group = parser.add_mutually_exclusive_group()
     write_group.add_argument("--name", action="store", dest="write_name",
             help="name for message write request")
@@ -123,6 +137,14 @@ def main():
         version(interface)
     elif arguments.command == "id":
         device_id(interface)
+    elif arguments.command == "modem_version":
+        modem_version(interface)
+    elif arguments.command == "modem_id":
+        modem_device_id(interface)
+    elif arguments.command == "modem_diag_enable":
+        modem_diag_enable(interface)
+    elif arguments.command == "modem_diag_disable":
+        modem_diag_disable(interface)
     elif arguments.command == "set":
         if arguments.passthrough_enabled is not None:
             passthrough(interface, int(arguments.bus), arguments.passthrough_enabled)

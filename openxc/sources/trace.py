@@ -57,6 +57,7 @@ class TraceDataSource(BytestreamDataSource):
         if line == '':
             if self.loop:
                 self._reopen_file()
+                line = self.trace_file.readline() # read in first line after reopen
             else:
                 self.trace_file.close()
                 self.trace_file = None

@@ -89,7 +89,10 @@ class Vehicle(object):
                 sink.start()
 
     def _receive(self, message, **kwargs):
-        name = message.get('name', 'can_message')
+        if 'modem_label' in message:
+            name = message['modem_label']
+        else:
+            name = message.get('name', 'can_message')
         self.measurements[name] = message
 
         for sink in self.sinks:
