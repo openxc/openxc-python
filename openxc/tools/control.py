@@ -17,6 +17,9 @@ from .common import device_options, configure_logging, select_device
 
 def version(interface):
     print("Device is running version %s" % interface.version())
+    
+def platform(interface):
+    print("Device is a %s" % interface.platform())
 
 def sd_mount_status(interface):
     result = interface.sd_mount_status()
@@ -90,7 +93,7 @@ def parse_options():
     parser = argparse.ArgumentParser(description="Send control messages to an "
             "attached OpenXC vehicle interface", parents=[device_options()])
     parser.add_argument("command", type=str,
-            choices=['version', 'write', 'id', 'set', 'sd_mount_status'])
+            choices=['version', 'platform', 'write', 'id', 'set', 'sd_mount_status'])
     write_group = parser.add_mutually_exclusive_group()
     write_group.add_argument("--name", action="store", dest="write_name",
             help="name for message write request")
@@ -141,6 +144,8 @@ def main():
 
     if arguments.command == "version":
         version(interface)
+    elif arguments.command == "platform":
+        platform(interface)
     elif arguments.command == "sd_mount_status":
         sd_mount_status(interface)
     elif arguments.command == "id":
