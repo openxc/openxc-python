@@ -48,7 +48,7 @@ class BluetoothVehicleInterface(SocketDataSource, Controller):
             try:
                 self.socket.connect((self.address, port))
             except IOError as e:
-                LOG.warn("Unable to connect to %s" % self.address, e)
+                LOG.warning("Unable to connect to %s" % self.address, e)
             else:
                 LOG.info("Opened bluetooth device at %s", port)
                 connected = True

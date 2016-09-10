@@ -24,10 +24,6 @@ class DiagnosticMessage(object):
         self.id = kwargs['id']
 
         self.bus_name = kwargs['bus']
-        if not isinstance(self.bus_name, unicode):
-            raise ConfigurationError("Bus name must be name of bus in "
-                    "config, was '%s'" % self.bus_name)
-
         self.bus = self.message_set.lookup_bus_index(self.bus_name)
         if self.bus is None:
             raise ConfigurationError("Unable to find bus with name '%s'"

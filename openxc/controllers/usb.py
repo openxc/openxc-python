@@ -23,8 +23,8 @@ class UsbControllerMixin(Controller):
 
     def write_bytes(self, data):
         if self.out_endpoint is None:
-            LOG.warn("Can't write \"%s\" to USB, OUT endpoint is %x", data,
-                    self.out_endpoint)
+            LOG.warning("Can't write \"%s\" to USB, OUT endpoint is %x", data,
+                        self.out_endpoint)
             return 0
         else:
             return self.out_endpoint.write(data)

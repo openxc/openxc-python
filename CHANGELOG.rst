@@ -5,6 +5,7 @@ v0.14.0-dev
 ----------
 
 * Remove support for Python 2.6
+* Restore support for Python 3.x (3.5 specifically)
 
 v0.13.0
 ----------

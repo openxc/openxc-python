@@ -11,7 +11,7 @@ LOG = logging.getLogger(__name__)
 
 class UploaderSink(QueuedSink):
     """Uploads all incoming vehicle data to a remote web application via HTTP.
-    
+
     TODO document service side format
     """
     UPLOAD_BATCH_SIZE = 25
@@ -39,8 +39,8 @@ class UploaderSink(QueuedSink):
             response = requests.post(url, data=payload)
 
             if response.status_code != requests.codes.created:
-                LOG.warn("Unable to upload %d records, received %d status "
-                        "from %s", len(records), response.status_code, url)
+                LOG.warning("Unable to upload %d records, received %d status "
+                            "from %s", len(records), response.status_code, url)
             else:
                 LOG.debug("Uploaded %d records (status %d)", len(records),
                         response.status_code)

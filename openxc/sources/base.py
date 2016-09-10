@@ -149,7 +149,7 @@ class SourceLogger(threading.Thread):
                 message_buffer += self.source.read_logs()
             except DataSourceError as e:
                 if self.running:
-                    LOG.warn("Can't read logs from data source -- stopping: %s", e)
+                    LOG.warning("Can't read logs from data source -- stopping: %s", e)
                 break
             except NotImplementedError as e:
                 LOG.info("%s doesn't support logging" % self)
@@ -195,7 +195,7 @@ class BytestreamDataSource(DataSource):
                 payload = self.read()
             except DataSourceError as e:
                 if self.running:
-                    LOG.warn("Can't read from data source -- stopping: %s", e)
+                    LOG.warning("Can't read from data source -- stopping: %s", e)
                 break
 
             try:

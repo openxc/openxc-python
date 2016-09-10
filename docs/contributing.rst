@@ -10,7 +10,7 @@ Test Suite
 ----------
 
 The ``openxc-python`` repository contains a test suite that can be run with the
-``tox`` tool, which attemps to run the test suite in Python 2.7. If
+``tox`` tool, which attemps to run the test suite in Python 2.7 and 3.5. If
 you wish to just run the test suite in your primary Python version, run
 
 .. code-block:: sh

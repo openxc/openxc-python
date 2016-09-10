@@ -64,4 +64,4 @@ class MeasurementNotifierSink(QueuedSink):
                     self.callback(measurement, **kwargs)
                     self.queue.task_done()
                 except UnrecognizedMeasurementError as e:
-                    LOG.warn(e)
+                    LOG.warning(e)

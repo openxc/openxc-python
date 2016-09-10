@@ -62,7 +62,7 @@ class UsbDataSource(BytestreamDataSource):
             try:
                 self.device.set_configuration()
             except usb.core.USBError as e:
-                LOG.warn("Skipping USB device: %s", e)
+                LOG.warning("Skipping USB device: %s", e)
             else:
                 return
 
