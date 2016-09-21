@@ -356,6 +356,14 @@ class Controller(object):
             "command": "version"
         }
         return self._check_command_response_message(request)
+        
+    def platform(self):
+        """Request the VI platform.
+        """
+        request = {
+            "command": "platform"
+        }
+        return self._check_command_response_message(request)
 
     def sd_mount_status(self):
         """Request for SD Mount status if available.
