@@ -1,0 +1,18 @@
+def handleSteeringWheelMessage(message, data):
+    return ''
+
+def handleInvertedSteeringWheel(signal, value):
+    return sendJSONMessage(signal['generic_name'], str(value * -1))
+
+
+def initializeMyStuff():
+    return
+
+def initializeOtherStuff():
+    return
+
+def myLooper():
+    #this function will be called once each time through the main loop, after
+    #all CAN message processing has been completed
+    return
+
