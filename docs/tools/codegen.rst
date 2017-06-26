@@ -1,5 +1,5 @@
 =============================================
-Vehicle Interface Firmware Configuration Tool
+openxc-generate-firmware-code
 =============================================
 
 The `OpenXC vehicle interface

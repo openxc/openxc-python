@@ -70,7 +70,7 @@ Set the host and port for the C5 Cellular device
 
 .. code-block:: bash
 
-    $ openxc-control set --host www.server.com --port 80
+    $ openxc-control set --network-host www.server.com --port 80
 
 This will return true when successful. If host is supplied, but not port, 
 port will default to 80.
