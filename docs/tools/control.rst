@@ -86,7 +86,7 @@ Set the host and port for the C5 Cellular device
 
     $ openxc-control set --network-host www.server.com --port 80
 
-This will return true when successful. If host is supplied, but not port,
+This will return true when successful. If network-host is supplied, but not port,
 port will default to 80.
 
 ------
