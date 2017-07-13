@@ -32,9 +32,9 @@ the Bluetooth module.
 
     $ openxc-control id
 
----
+---------
 platform
----
+---------
 
 Print the hardware platform of the vehicle interface.
 
