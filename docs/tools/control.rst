@@ -38,9 +38,9 @@ platform
 
 Print the hardware platform of the vehicle interface.
 
-  .. code-block:: bash
+.. code-block:: bash
 
-      $ openxc-control platform
+    $ openxc-control platform
 
 Supported platforms include ``CHIPKIT``, ``BLUEBOARD``, ``FORDBOARD``, ``CROSSCHASM_C5``, ``CROSSCHASM_C5_BT``, ``CROSSCHASM_C5_BLE``, and ``CROSSCHASM_C5_CELLULAR``
 
