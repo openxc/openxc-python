@@ -19,7 +19,7 @@ translator:
 
     $ openxc-control version
 
-An example response may be ``v7.2.1 (default)``, where the ``(default)`` vehicle description tag can be modified in the JSON file. See the ``passthrough`` example in [Low-level CAN Features](http://vi-firmware.openxcplatform.com/en/master/advanced/lowlevel.html).
+An example response may be ``v7.2.1 (default)``, where the ``default`` vehicle description tag can be modified in the JSON file. See the ``passthrough`` example in `Low-level CAN Features <http://vi-firmware.openxcplatform.com/en/master/advanced/lowlevel.html>`_.
 
 ---
 id
