@@ -12,15 +12,17 @@ Basic use
 version
 --------
 
-Print the current firmware version and vehicle description of the attached CAN
+Print the current firmware version and firmware description of the attached CAN
 translator:
 
 .. code-block:: bash
 
     $ openxc-control version
 
-An example response is ``v7.2.1 (default)``, where the ``default`` vehicle description can be modified in the JSON file.
-See ``passthrough`` in `Low-level CAN Features <http://vi-firmware.openxcplatform.com/en/master/advanced/lowlevel.html>`_.
+An example response is ``v7.2.1 (default)``, where the ``default`` firmware 
+description can be modified in the JSON file via the ``"name"`` entry.
+The example in `Low-level CAN Features <http://vi-firmware.openxcplatform.com/en/master/advanced/lowlevel.html>`_.
+would return a value of ``passthrough``.
 
 ---
 id
