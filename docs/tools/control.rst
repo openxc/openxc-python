@@ -21,7 +21,7 @@ translator:
 
 An example response is ``v7.2.1 (default)``, where the ``default`` firmware 
 description can be modified in the JSON file via the ``"name"`` entry.
-The example in `Low-level CAN Features <http://vi-firmware.openxcplatform.com/en/master/advanced/lowlevel.html>`_.
+The first example in `Low-level CAN Features <http://vi-firmware.openxcplatform.com/en/master/advanced/lowlevel.html>`_ 
 would return a value of ``passthrough``.
 
 ---
