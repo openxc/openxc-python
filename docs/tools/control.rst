@@ -12,12 +12,17 @@ Basic use
 version
 --------
 
-Print the current firmware version and vehicle platform of the attached CAN
+Print the current firmware version and firmware description of the attached CAN
 translator:
 
 .. code-block:: bash
 
     $ openxc-control version
+
+An example response is ``v7.2.1 (default)``, where the ``default`` firmware 
+description can be modified in the JSON file via the ``"name"`` entry.
+The first example in `Low-level CAN Features <http://vi-firmware.openxcplatform.com/en/master/advanced/lowlevel.html>`_ 
+would return a value of ``passthrough``.
 
 ---
 id
@@ -29,6 +34,18 @@ the Bluetooth module.
 .. code-block:: bash
 
     $ openxc-control id
+
+---------
+platform
+---------
+
+Print the hardware platform of the vehicle interface.
+
+.. code-block:: bash
+
+    $ openxc-control platform
+
+Supported platforms include ``CHIPKIT``, ``BLUEBOARD``, ``FORDBOARD``, ``CROSSCHASM_C5``, ``CROSSCHASM_C5_BT``, ``CROSSCHASM_C5_BLE``, and ``CROSSCHASM_C5_CELLULAR``
 
 ---
 set
@@ -70,9 +87,9 @@ Set the host and port for the C5 Cellular device
 
 .. code-block:: bash
 
-    $ openxc-control set --host www.server.com --port 80
+    $ openxc-control set --network-host www.server.com --port 80
 
-This will return true when successful. If host is supplied, but not port, 
+This will return true when successful. If network-host is supplied, but not port,
 port will default to 80.
 
 ------
@@ -116,11 +133,11 @@ a message with a lower ID using the extended frame format, you can use the
 sd_mount_status
 ---------------
 
-This queries the device to see if the SD card is mounted correctly. 
+This queries the device to see if the SD card is mounted correctly.
 
 .. code-block:: bash
 
-    $ openxc-control sd_mount_status 
+    $ openxc-control sd_mount_status
 
 This will return 'True' if the SD card is available for writing. Otherwise, it will return 'False'.
 
