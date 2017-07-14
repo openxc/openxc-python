@@ -124,7 +124,7 @@ class SourceLogger(threading.Thread):
         if self.mode == "file":
             filename = "openxc-logs-%s.txt" % datetime.datetime.now().strftime(
                     self.FILENAME_TEMPLATE)
-            self.file = open(filename, 'wa')
+            self.file = open(filename, 'w')
 
     def stop(self):
         self.running = False
