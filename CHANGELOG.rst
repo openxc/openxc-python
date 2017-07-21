@@ -4,7 +4,11 @@ OpenXC Python Library Changelog
 v0.14.0-dev
 ----------
 
-* Remove support for Python 2.6
+* Fix: Remove support for Python 2.6
+* Fix: Diagnostic response cleanup
+* Feature: Add "platform" command support
+* Fix: Documentation improvements
+* Fix: openxc-dump command file access
 
 v0.13.0
 ----------
