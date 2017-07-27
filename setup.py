@@ -35,7 +35,7 @@ setup(name='openxc',
     tests_require=['nose'],
     install_requires=install_reqs,
     extras_require = {
-        'serial': ["pyserial"],
+        'serial': ["pyserial==3.1.1"],
         'bluetooth': ["pybluez"],
         'lxml': ["lxml"],
     },

@@ -1,5 +1,5 @@
 =============================================
-Vehicle Interface Firmware Configuration Tool
+``openxc-generate-firmware-code`` - configure CAN messages, signals and buses
 =============================================
 
 The `OpenXC vehicle interface

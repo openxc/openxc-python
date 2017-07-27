@@ -12,6 +12,7 @@ explicitly set the protocol buffers:
 
     $ openxc-control set --bus 1 --passthrough --format protobuf
 
+The following links describe the available openxc-python commands.
 
 .. toctree::
     :maxdepth: 1

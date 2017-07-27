@@ -5,7 +5,7 @@ Install Python and Pip
 ----------------------
 
 This library (obviously) requires a Python language runtime - the OpenXC library
-currently works with Python 2.6 and 2.7, but not Python 3.x.
+currently works with Python 2.7, but not Python 3.x.
 
 - **Mac OS X and Linux**
 
