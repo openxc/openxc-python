@@ -13,7 +13,7 @@ long_description = open('README.rst').read()
 
 install_reqs = ['pyusb==1.0.0a3', 'units >= 0.5', 'argparse', 'requests==2.20.0',
         'protobuf==2.6.1']
-if "win" in sys.platform:
+if sys.platform == 'win32':
     install_reqs.append('windows-curses >= 1.1')
 
 setup(name='openxc',
