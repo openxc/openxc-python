@@ -12,7 +12,7 @@ except ImportError:
 long_description = open('README.rst').read()
 
 install_reqs = ['pyusb==1.0.0a3', 'units >= 0.5', 'argparse', 'requests==2.20.0',
-        'protobuf==3.9.1']
+        'python3-protobuf==2.5.0']
 if sys.platform == 'win32':
     install_reqs.append('windows-curses >= 1.1')
 
