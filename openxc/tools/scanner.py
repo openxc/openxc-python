@@ -5,7 +5,7 @@ program.
 `main` is executed when ``openxc-scanner`` is run, and all other callables in this
 module are internal only.
 """
-from __future__ import absolute_import
+
 
 import argparse
 from collections import defaultdict
@@ -21,7 +21,7 @@ def scan(controller, bus=None, message_id=None):
         message_ids.append(message_id)
     else:
         # using 11-bit IDs
-        message_ids = range(0, 0x7ff + 1)
+        message_ids = list(range(0, 0x7ff + 1))
 
     print("Sending tester present message to find valid modules arb IDs")
     active_modules = set()
@@ -30,7 +30,7 @@ def scan(controller, bus=None, message_id=None):
                 bus=bus, wait_for_first_response=True,
                 payload=TESTER_PRESENT_PAYLOAD)
         if response is not None:
-            print("0x%x responded to tester present: %s" % (arb_id, response))
+            print(("0x%x responded to tester present: %s" % (arb_id, response)))
             active_modules.add(arb_id)
 
     # Scan for active services on each active module by sending blank requests
@@ -43,14 +43,14 @@ def scan(controller, bus=None, message_id=None):
         # TODO don't really care about response, but need to wait before sending
         # the next request or we will get a pipe error on USB
 
-        print("Scanning services on 0x%x" % active_module)
+        print(("Scanning services on 0x%x" % active_module))
         for mode in range(1, 0xff):
             # TODO should we be sending blank requests to each mode, or should
             # we send tester present with the service ID specified?
             response = controller.create_diagnostic_request(active_module, mode, bus=bus,
                     wait_for_first_response=True)
             if response is not None:
-                print("0x%x responded on service 0x%x" % (active_module, mode))
+                print(("0x%x responded on service 0x%x" % (active_module, mode)))
                 # TODO make sure response isn't negative
                 active_modes[active_module].append(mode)
 
@@ -60,7 +60,7 @@ def scan(controller, bus=None, message_id=None):
     # Scan for what each mode can do and what data it can return by fuzzing the
     # payloads
     print("Fuzzing the valid modes on acitve modules to see what happens")
-    for arb_id, active_modes in active_modes.iteritems():
+    for arb_id, active_modes in active_modes.items():
         controller.create_diagnostic_request(arb_id, TESTER_PRESENT_MODE, bus=bus,
                 frequency=1, payload=TESTER_PRESENT_PAYLOAD)
 
@@ -72,7 +72,7 @@ def scan(controller, bus=None, message_id=None):
                 if response is not None:
                     # TODO make sure response isn't negative
                     # TODO print out something?
-                    print("0x%x responded to mode 0x%x request with payload 0x%x with: %s" % (arb_id, mode, payload, response))
+                    print(("0x%x responded to mode 0x%x request with payload 0x%x with: %s" % (arb_id, mode, payload, response)))
 
         controller.create_diagnostic_request(arb_id, TESTER_PRESENT_MODE, bus=bus,
                 frequency=0)

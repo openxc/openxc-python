@@ -7,10 +7,10 @@ import openxc.units as units
 from .utils import Range, AgingData
 
 try:
-    unicode
+    str
 except NameError:
     # Python 3
-    basestring = unicode = str
+    str = str = str
 
 
 def all_measurements():
@@ -165,7 +165,7 @@ class StatefulMeasurement(NamedMeasurement):
     """Must have a class-level ``states`` member that defines a set of valid
     string states for this measurement's value.
     """
-    DATA_TYPE = unicode
+    DATA_TYPE = str
     states = None
 
     def valid_state(self):
@@ -183,7 +183,7 @@ class BooleanMeasurement(NamedMeasurement):
 
 
 class EventedMeasurement(StatefulMeasurement):
-    DATA_TYPE = unicode
+    DATA_TYPE = str
 
 
 class PercentageMeasurement(NumericMeasurement):

@@ -1,7 +1,7 @@
 language: python
 dist: xenial
 python:
-  - "2.7"
+  - "3.6.7"
 before_install:
     - sudo apt-get update -qq
     - sudo apt-get install python-bluetooth -qq -y

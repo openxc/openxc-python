@@ -1,5 +1,5 @@
 """A USB vehicle interface data source."""
-from __future__ import absolute_import
+
 
 import logging
 import usb.core

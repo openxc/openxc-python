@@ -1,5 +1,5 @@
 """Controller implementation for an OpenXC USB device."""
-from __future__ import absolute_import
+
 
 import logging
 import usb.core

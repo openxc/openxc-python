@@ -719,7 +719,7 @@ _NETWORKDATASETTINGS = descriptor.Descriptor(
     descriptor.FieldDescriptor(
       name='APN', full_name='openxc.NetworkDataSettings.APN', index=0,
       number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=unicode("", "utf-8"),
+      has_default_value=False, default_value=str("", "utf-8"),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
@@ -747,7 +747,7 @@ _SERVERCONNECTSETTINGS = descriptor.Descriptor(
     descriptor.FieldDescriptor(
       name='host', full_name='openxc.ServerConnectSettings.host', index=0,
       number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=unicode("", "utf-8"),
+      has_default_value=False, default_value=str("", "utf-8"),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
@@ -859,7 +859,7 @@ _COMMANDRESPONSE = descriptor.Descriptor(
     descriptor.FieldDescriptor(
       name='message', full_name='openxc.CommandResponse.message', index=1,
       number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=unicode("", "utf-8"),
+      has_default_value=False, default_value=str("", "utf-8"),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
@@ -943,7 +943,7 @@ _DIAGNOSTICREQUEST = descriptor.Descriptor(
     descriptor.FieldDescriptor(
       name='name', full_name='openxc.DiagnosticRequest.name', index=7,
       number=8, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=unicode("", "utf-8"),
+      has_default_value=False, default_value=str("", "utf-8"),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
@@ -1063,7 +1063,7 @@ _DYNAMICFIELD = descriptor.Descriptor(
     descriptor.FieldDescriptor(
       name='string_value', full_name='openxc.DynamicField.string_value', index=1,
       number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=unicode("", "utf-8"),
+      has_default_value=False, default_value=str("", "utf-8"),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
@@ -1106,7 +1106,7 @@ _SIMPLEMESSAGE = descriptor.Descriptor(
     descriptor.FieldDescriptor(
       name='name', full_name='openxc.SimpleMessage.name', index=0,
       number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=unicode("", "utf-8"),
+      has_default_value=False, default_value=str("", "utf-8"),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
@@ -1195,59 +1195,48 @@ DESCRIPTOR.message_types_by_name['DiagnosticResponse'] = _DIAGNOSTICRESPONSE
 DESCRIPTOR.message_types_by_name['DynamicField'] = _DYNAMICFIELD
 DESCRIPTOR.message_types_by_name['SimpleMessage'] = _SIMPLEMESSAGE
 
-class VehicleMessage(message.Message):
-  __metaclass__ = reflection.GeneratedProtocolMessageType
+class VehicleMessage(message.Message, metaclass=reflection.GeneratedProtocolMessageType):
   DESCRIPTOR = _VEHICLEMESSAGE
   
   # @@protoc_insertion_point(class_scope:openxc.VehicleMessage)
 
-class CanMessage(message.Message):
-  __metaclass__ = reflection.GeneratedProtocolMessageType
+class CanMessage(message.Message, metaclass=reflection.GeneratedProtocolMessageType):
   DESCRIPTOR = _CANMESSAGE
   
   # @@protoc_insertion_point(class_scope:openxc.CanMessage)
 
-class ControlCommand(message.Message):
-  __metaclass__ = reflection.GeneratedProtocolMessageType
+class ControlCommand(message.Message, metaclass=reflection.GeneratedProtocolMessageType):
   DESCRIPTOR = _CONTROLCOMMAND
   
   # @@protoc_insertion_point(class_scope:openxc.ControlCommand)
 
-class DiagnosticControlCommand(message.Message):
-  __metaclass__ = reflection.GeneratedProtocolMessageType
+class DiagnosticControlCommand(message.Message, metaclass=reflection.GeneratedProtocolMessageType):
   DESCRIPTOR = _DIAGNOSTICCONTROLCOMMAND
   
   # @@protoc_insertion_point(class_scope:openxc.DiagnosticControlCommand)
 
-class PassthroughModeControlCommand(message.Message):
-  __metaclass__ = reflection.GeneratedProtocolMessageType
+class PassthroughModeControlCommand(message.Message, metaclass=reflection.GeneratedProtocolMessageType):
   DESCRIPTOR = _PASSTHROUGHMODECONTROLCOMMAND
   
   # @@protoc_insertion_point(class_scope:openxc.PassthroughModeControlCommand)
 
-class AcceptanceFilterBypassCommand(message.Message):
-  __metaclass__ = reflection.GeneratedProtocolMessageType
+class AcceptanceFilterBypassCommand(message.Message, metaclass=reflection.GeneratedProtocolMessageType):
   DESCRIPTOR = _ACCEPTANCEFILTERBYPASSCOMMAND
   
   # @@protoc_insertion_point(class_scope:openxc.AcceptanceFilterBypassCommand)
 
-class PayloadFormatCommand(message.Message):
-  __metaclass__ = reflection.GeneratedProtocolMessageType
+class PayloadFormatCommand(message.Message, metaclass=reflection.GeneratedProtocolMessageType):
   DESCRIPTOR = _PAYLOADFORMATCOMMAND
   
   # @@protoc_insertion_point(class_scope:openxc.PayloadFormatCommand)
 
-class PredefinedObd2RequestsCommand(message.Message):
-  __metaclass__ = reflection.GeneratedProtocolMessageType
+class PredefinedObd2RequestsCommand(message.Message, metaclass=reflection.GeneratedProtocolMessageType):
   DESCRIPTOR = _PREDEFINEDOBD2REQUESTSCOMMAND
   
   # @@protoc_insertion_point(class_scope:openxc.PredefinedObd2RequestsCommand)
 
-class NetworkOperatorSettings(message.Message):
-  __metaclass__ = reflection.GeneratedProtocolMessageType
-  
-  class NetworkDescriptor(message.Message):
-    __metaclass__ = reflection.GeneratedProtocolMessageType
+class NetworkOperatorSettings(message.Message, metaclass=reflection.GeneratedProtocolMessageType):
+  class NetworkDescriptor(message.Message, metaclass=reflection.GeneratedProtocolMessageType):
     DESCRIPTOR = _NETWORKOPERATORSETTINGS_NETWORKDESCRIPTOR
     
     # @@protoc_insertion_point(class_scope:openxc.NetworkOperatorSettings.NetworkDescriptor)
@@ -1255,56 +1244,47 @@ class NetworkOperatorSettings(message.Message):
   
   # @@protoc_insertion_point(class_scope:openxc.NetworkOperatorSettings)
 
-class NetworkDataSettings(message.Message):
-  __metaclass__ = reflection.GeneratedProtocolMessageType
+class NetworkDataSettings(message.Message, metaclass=reflection.GeneratedProtocolMessageType):
   DESCRIPTOR = _NETWORKDATASETTINGS
   
   # @@protoc_insertion_point(class_scope:openxc.NetworkDataSettings)
 
-class ServerConnectSettings(message.Message):
-  __metaclass__ = reflection.GeneratedProtocolMessageType
+class ServerConnectSettings(message.Message, metaclass=reflection.GeneratedProtocolMessageType):
   DESCRIPTOR = _SERVERCONNECTSETTINGS
   
   # @@protoc_insertion_point(class_scope:openxc.ServerConnectSettings)
 
-class ModemConfigurationCommand(message.Message):
-  __metaclass__ = reflection.GeneratedProtocolMessageType
+class ModemConfigurationCommand(message.Message, metaclass=reflection.GeneratedProtocolMessageType):
   DESCRIPTOR = _MODEMCONFIGURATIONCOMMAND
   
   # @@protoc_insertion_point(class_scope:openxc.ModemConfigurationCommand)
 
-class RTCConfigurationCommand(message.Message):
-  __metaclass__ = reflection.GeneratedProtocolMessageType
+class RTCConfigurationCommand(message.Message, metaclass=reflection.GeneratedProtocolMessageType):
   DESCRIPTOR = _RTCCONFIGURATIONCOMMAND
   
   # @@protoc_insertion_point(class_scope:openxc.RTCConfigurationCommand)
 
-class CommandResponse(message.Message):
-  __metaclass__ = reflection.GeneratedProtocolMessageType
+class CommandResponse(message.Message, metaclass=reflection.GeneratedProtocolMessageType):
   DESCRIPTOR = _COMMANDRESPONSE
   
   # @@protoc_insertion_point(class_scope:openxc.CommandResponse)
 
-class DiagnosticRequest(message.Message):
-  __metaclass__ = reflection.GeneratedProtocolMessageType
+class DiagnosticRequest(message.Message, metaclass=reflection.GeneratedProtocolMessageType):
   DESCRIPTOR = _DIAGNOSTICREQUEST
   
   # @@protoc_insertion_point(class_scope:openxc.DiagnosticRequest)
 
-class DiagnosticResponse(message.Message):
-  __metaclass__ = reflection.GeneratedProtocolMessageType
+class DiagnosticResponse(message.Message, metaclass=reflection.GeneratedProtocolMessageType):
   DESCRIPTOR = _DIAGNOSTICRESPONSE
   
   # @@protoc_insertion_point(class_scope:openxc.DiagnosticResponse)
 
-class DynamicField(message.Message):
-  __metaclass__ = reflection.GeneratedProtocolMessageType
+class DynamicField(message.Message, metaclass=reflection.GeneratedProtocolMessageType):
   DESCRIPTOR = _DYNAMICFIELD
   
   # @@protoc_insertion_point(class_scope:openxc.DynamicField)
 
-class SimpleMessage(message.Message):
-  __metaclass__ = reflection.GeneratedProtocolMessageType
+class SimpleMessage(message.Message, metaclass=reflection.GeneratedProtocolMessageType):
   DESCRIPTOR = _SIMPLEMESSAGE
   
   # @@protoc_insertion_point(class_scope:openxc.SimpleMessage)

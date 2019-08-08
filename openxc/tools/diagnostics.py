@@ -5,7 +5,7 @@ program.
 `main` is executed when ``openxc-diag`` is run, and all other callables in
 this module are internal only.
 """
-from __future__ import absolute_import
+
 
 import binascii
 import argparse
@@ -52,9 +52,9 @@ def diagnostic_request(arguments, controller):
                     diagMsgReqKeys = ['mode', 'bus', 'id', 'success']
                     indices = [i for i, s in enumerate(response) if all(x in s for x in diagMsgReqKeys)]
                     if indices:
-                        print("Response: %s" % response[indices[0]])
+                        print(("Response: %s" % response[indices[0]]))
                 else:
-                    print("Response: %s" % response)
+                    print(("Response: %s" % response))
     elif arguments.command == "cancel":
         if controller.delete_diagnostic_request(message, mode, bus=bus,
                 pid=pid):

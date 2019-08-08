@@ -3,7 +3,7 @@ This modules contains the logic to parse and validate JSON files in the OpenXC
 message set format.
 """
 
-from __future__ import print_function
+
 from collections import defaultdict
 import operator
 import logging
@@ -26,7 +26,7 @@ class MessageSet(object):
         self.extra_sources = set()
 
     def valid_buses(self):
-        valid_buses = [bus for bus in self.buses.values() if bus.valid()]
+        valid_buses = [bus for bus in list(self.buses.values()) if bus.valid()]
         return sorted(valid_buses, key=operator.attrgetter('controller'))
 
     def active_diagnostic_messages(self):
@@ -40,12 +40,12 @@ class MessageSet(object):
             yield message
 
     def active_messages(self):
-        for bus in self.buses.values():
+        for bus in list(self.buses.values()):
             for message in bus.active_messages():
                 yield message
 
     def all_messages(self):
-        for bus in self.buses.values():
+        for bus in list(self.buses.values()):
             for message in bus.sorted_messages():
                 yield message
 
@@ -94,7 +94,7 @@ class MessageSet(object):
         if name is not None:
             return self.buses.get(name, None)
         else:
-            for bus in self.buses.values():
+            for bus in list(self.buses.values()):
                 if bus.controller == controller:
                     return bus
 
@@ -141,7 +141,7 @@ class JsonMessageSet(MessageSet):
 
         # TODO could we parse the top level config file as if it were a mapping
         # and avoid duplicating this code?
-        for message_id, message in data.get('messages', {}).items():
+        for message_id, message in list(data.get('messages', {}).items()):
             message['id'] = message_id
             mapping_config['messages'].append(message)
 
@@ -167,7 +167,7 @@ class JsonMessageSet(MessageSet):
     @classmethod
     def _parse_buses(cls, data):
         buses = {}
-        for bus_name, bus_data in data.get('buses', {}).items():
+        for bus_name, bus_data in list(data.get('buses', {}).items()):
             buses[bus_name] = CanBus(name=bus_name,
                     default_raw_can_mode=data.get('raw_can_mode', "off"),
                     default_max_message_frequency=data.get('max_message_frequency', 0),
@@ -254,15 +254,15 @@ class JsonMessageSet(MessageSet):
                     LOG.warning("The bit number inversion setting is undefined "
                             "for the mapping '%s', but it " % mapping['mapping'] +
                             "is database-backed - assuming inverted")
-                    for message in messages.values():
+                    for message in list(messages.values()):
                         message.setdefault('bit_numbering_inverted',
                                 True)
 
-            for message_id, message in messages.items():
+            for message_id, message in list(messages.items()):
                 message['id'] = message_id
                 message.setdefault('bus', bus_name)
                 message.setdefault('enabled', mapping_enabled)
-            all_messages.extend(messages.values())
+            all_messages.extend(list(messages.values()))
 
         return {'messages': all_messages,
                 'commands': all_commands,

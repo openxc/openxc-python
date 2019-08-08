@@ -7,8 +7,8 @@ import threading
 import binascii
 
 try:
-    from Queue import Queue
-    from Queue import Empty
+    from queue import Queue
+    from queue import Empty
 except ImportError:
     # Python 3
     from queue import Queue

@@ -5,7 +5,7 @@ program.
 `main` is executed when ``openxc-control`` is run, and all other callables in
 this module are internal only.
 """
-from __future__ import absolute_import
+
 
 import argparse
 import sys
@@ -16,10 +16,10 @@ from .common import device_options, configure_logging, select_device
 
 
 def version(interface):
-    print("Device is running version %s" % interface.version())
+    print(("Device is running version %s" % interface.version()))
     
 def platform(interface):
-    print("Device is a %s" % interface.platform())
+    print(("Device is a %s" % interface.platform()))
 
 def sd_mount_status(interface):
     result = interface.sd_mount_status()
@@ -29,11 +29,11 @@ def sd_mount_status(interface):
         print("SD card mount status: false")		
 
 def device_id(interface):
-    print("Device ID is %s" % interface.device_id())
+    print(("Device ID is %s" % interface.device_id()))
 
 def passthrough(interface, bus, passthrough_enabled):
     if interface.set_passthrough(bus, passthrough_enabled):
-        print("Bus %u passthrough set to %s" % (bus, passthrough_enabled))
+        print(("Bus %u passthrough set to %s" % (bus, passthrough_enabled)))
 
 def af_bypass(interface, bus, bypass):
     if interface.set_acceptance_filter_bypass(bus, bypass):
@@ -41,19 +41,19 @@ def af_bypass(interface, bus, bypass):
             bypass_string = "bypassed"
         else:
             bypass_string = "enabled"
-        print("Bus %u AF is now %s" % (bus, bypass_string))
+        print(("Bus %u AF is now %s" % (bus, bypass_string)))
 
 def set_payload_format(interface, payload_format):
     if interface.set_payload_format(payload_format):
-        print("Changed payload format to %s" % payload_format)
+        print(("Changed payload format to %s" % payload_format))
 
 def set_rtc_time(interface, unix_time):
     if interface.rtc_configuration(unix_time):
-        print("Time set to %d" % unix_time)
+        print(("Time set to %d" % unix_time))
 
 def modem_configuration(interface, host, port):
     if interface.modem_configuration(host, port):
-        print("host set to %s:%s" %(host, port))
+        print(("host set to %s:%s" %(host, port)))
 
 def write_file(interface, filename):
     first_timestamp = None
@@ -83,10 +83,10 @@ def write_file(interface, filename):
 
                 message_count += 1
                 interface.write(**parsed_message)
-        print("%d lines sent" % message_count)
+        print(("%d lines sent" % message_count))
         if corrupt_entries > 0:
-            print("%d invalid lines in the data file were not sent" %
-                    corrupt_entries)
+            print(("%d invalid lines in the data file were not sent" %
+                    corrupt_entries))
 
 
 def parse_options():
@@ -182,4 +182,4 @@ def main():
             else:
                 sys.exit("%s requires a signal name, message ID or filename" % arguments.command)
     else:
-        print("Unrecognized command \"%s\"" % arguments.command)
+        print(("Unrecognized command \"%s\"" % arguments.command))

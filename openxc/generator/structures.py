@@ -24,7 +24,7 @@ class DiagnosticMessage(object):
         self.id = kwargs['id']
 
         self.bus_name = kwargs['bus']
-        if not isinstance(self.bus_name, unicode):
+        if not isinstance(self.bus_name, str):
             raise ConfigurationError("Bus name must be name of bus in "
                     "config, was '%s'" % self.bus_name)
 
@@ -145,9 +145,9 @@ class Message(object):
             self.merge_signals(data['signals'])
 
     def merge_signals(self, data):
-        for signal_name, signal_data in data.items():
+        for signal_name, signal_data in list(data.items()):
             states = []
-            for name, raw_matches in signal_data.get('states', {}).items():
+            for name, raw_matches in list(signal_data.get('states', {}).items()):
                 for raw_match in raw_matches:
                     states.append(SignalState(raw_match, name))
             signal_data.pop('states', None)
@@ -178,7 +178,7 @@ class Message(object):
             yield signal
 
     def enabled_signals(self):
-        for signal in self.signals.values():
+        for signal in list(self.signals.values()):
             if signal.enabled:
                 yield signal
 
@@ -193,7 +193,7 @@ class Message(object):
     def to_dict(self):
         return {"name": self.name,
                 "signals": dict((key, value.to_dict())
-                    for key, value in self.signals.items())}
+                    for key, value in list(self.signals.items()))}
 
     def __str__(self):
         bus_index = self.message_set.lookup_bus_index(self.bus_name)
@@ -257,7 +257,7 @@ class CanBus(object):
                 yield signal
 
     def sorted_messages(self):
-        for message in sorted(self.messages.values(),
+        for message in sorted(list(self.messages.values()),
                 key=operator.attrgetter('id')):
             yield message
 

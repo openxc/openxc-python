@@ -5,7 +5,7 @@ program.
 `main` is executed when ``openxc-obd2scanner`` is run, and all other callables in this
 module are internal only.
 """
-from __future__ import absolute_import
+
 
 import argparse
 
@@ -20,9 +20,9 @@ def scan(controller, bus=None):
         response = controller.create_diagnostic_request(0x7df, mode=0x1, bus=bus,
                 wait_for_first_response=True, pid=pid)
         if response is not None:
-            print("PID 0x%x responded with: %s" % (pid, response))
+            print(("PID 0x%x responded with: %s" % (pid, response)))
         else:
-            print("PID 0x%x did not respond" % pid)
+            print(("PID 0x%x did not respond" % pid))
 
 def parse_options():
     parser = argparse.ArgumentParser(description="Send requests for all "

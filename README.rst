@@ -21,7 +21,7 @@ OpenXC for Python
     :target: http://python.openxcplatform.com
     :alt: Documentation Status
 
-The OpenXC Python library (for Python 2.7) provides an interface to
+The OpenXC Python library (for Python 3.6.7) provides an interface to
 vehicle data from the OpenXC Platform. The primary platform for OpenXC
 applications is Android, but for prototyping and testing, often it is
 preferrable to use a low-overhead environment like Python when developing.
