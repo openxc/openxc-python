@@ -1,6 +1,12 @@
 OpenXC Python Library Changelog
 ===============================
 
+v0.15.0
+----------
+
+* Fix: Install curses on windows
+* Fix: Multiple dependencies updated due to vulnerabilities
+
 v0.14.0
 ----------
 
