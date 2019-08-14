@@ -1,7 +1,7 @@
 OpenXC Python Library Changelog
 ===============================
 
-v0.14.0-dev
+v0.14.0
 ----------
 
 * Fix: Remove support for Python 2.6
