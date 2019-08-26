@@ -3,7 +3,7 @@ dist: xenial
 python:
   - "3.6.7"
 before_install:
-    - sudo apt-get update -qq -o Acquire::https::No-Cache=True -o Acquire::http::No-Cache=True update
+    - sudo apt-get update -qq
     - sudo apt-get install python-bluetooth -qq -y
     - pip install pyserial==3.1.1
     - pip install coveralls
