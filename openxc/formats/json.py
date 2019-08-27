@@ -36,7 +36,7 @@ class JsonFormatter(object):
 
     @classmethod
     def serialize(cls, data):
-        return json.dumps(data)
+        return json.dumps(data).encode("utf8")
 
     @classmethod
     def _validate(cls, message):
