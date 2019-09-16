@@ -203,7 +203,7 @@ class BytestreamDataSource(DataSource):
             except MissingPayloadFormatError:
                 json_chars = ['\x00']
                 json_chars.extend(string.printable)
-                if all((chr(char) in json_chars for char in payload)):
+                if all((char in json_chars for char in payload)):
                     self.format = "json"
                 else:
                     self.format = "protobuf"
