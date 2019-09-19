@@ -30,6 +30,13 @@ In addition to a port of the Android library API, the package also contains a
 number of command-line tools for connecting to the CAN translator and
 manipulating previously recorded vehicle data.
 
+To package run "setup.py sdist bdist_wheel"
+to push to pypi run "python -m twine upload dist/*"
+Version files:
+	CHANGELOG.rst
+	README.rst
+	openxc/version.py
+	docs/index.rst
 
 License
 =======
