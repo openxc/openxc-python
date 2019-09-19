@@ -4,7 +4,7 @@ messages.
 from .base import DataSink
 
 try:
-    from Queue import Queue
+    from queue import Queue
 except ImportError:
     # Python 3
     from queue import Queue

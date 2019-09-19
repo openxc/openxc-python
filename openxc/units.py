@@ -1,5 +1,5 @@
 """Define the scalar units used by vehicle measurements."""
-from __future__ import absolute_import
+
 
 import sys
 from units import unit, scaled_unit, named_unit

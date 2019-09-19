@@ -1,5 +1,5 @@
 """Controller implementation for a virtual serial device."""
-from __future__ import absolute_import
+
 import time
 
 from .base import Controller

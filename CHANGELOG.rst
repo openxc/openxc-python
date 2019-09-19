@@ -1,8 +1,11 @@
 OpenXC Python Library Changelog
 ===============================
 
-v0.15.0-dev
+v1.0.0
 ----------
+* Remove python 2.7 support
+* Add python 3.6 support
+* Known Issue: Tool openxc-dashboard does not display correctly in windows
 
 v0.15.0
 ----------

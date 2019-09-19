@@ -11,7 +11,7 @@ class Network(object):
     def __init__(self, database_name, tree, all_messages):
         self.messages = {}
 
-        for message_id, message in all_messages.items():
+        for message_id, message in list(all_messages.items()):
             numeric_message_id = int(message_id, 0)
             query = "./Node/TxMessage[ID=\"0x%s\"]"
             # Search for both lower and upper case hex
@@ -47,7 +47,7 @@ class XMLBackedMessage(Message):
         message.string_id = string_message_id
         message.id = int(node.find("ID").text, 0)
 
-        for signal_name, mapped_signal in mapped_signals.iteritems():
+        for signal_name, mapped_signal in mapped_signals.items():
             mapped_signal_node = node.find("Signal[Name=\"%s\"]" % signal_name)
             if mapped_signal_node is not None:
                 signal = XMLBackedSignal.from_xml_node(mapped_signal_node)

@@ -40,8 +40,8 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'OpenXC for Python'
-copyright = u'2017, Ford Motor Company'
+project = 'OpenXC for Python'
+copyright = '2017, Ford Motor Company'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -196,8 +196,8 @@ latex_elements = {
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
-  ('index', 'OpenXCforPython.tex', u'OpenXC for Python Documentation',
-   u'Christopher Peplin', 'manual'),
+  ('index', 'OpenXCforPython.tex', 'OpenXC for Python Documentation',
+   'Christopher Peplin', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
@@ -226,8 +226,8 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', 'openxcforpython', u'OpenXC for Python Documentation',
-     [u'Christopher Peplin'], 1)
+    ('index', 'openxcforpython', 'OpenXC for Python Documentation',
+     ['Christopher Peplin'], 1)
 ]
 
 # If true, show URL addresses after external links.
@@ -240,8 +240,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  ('index', 'OpenXCforPython', u'OpenXC for Python Documentation',
-   u'Christopher Peplin', 'OpenXCforPython', 'One line description of project.',
+  ('index', 'OpenXCforPython', 'OpenXC for Python Documentation',
+   'Christopher Peplin', 'OpenXCforPython', 'One line description of project.',
    'Miscellaneous'),
 ]
 

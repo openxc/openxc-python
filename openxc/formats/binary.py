@@ -1,5 +1,5 @@
 """Binary (Protobuf) formatting utilities."""
-from __future__ import absolute_import
+
 
 import binascii
 import numbers
@@ -68,6 +68,7 @@ class ProtobufFormatter(object):
         except UnicodeDecodeError as e:
             LOG.warn("Unable to parse protobuf: %s", e)
         else:
+            #return type(cls._protobuf_to_dict(message)['payload'])
             return cls._protobuf_to_dict(message)
 
     @classmethod
@@ -209,7 +210,7 @@ class ProtobufFormatter(object):
                 if can_message.HasField('id'):
                     parsed_message['id'] = can_message.id
                 if can_message.HasField('data'):
-                    parsed_message['data'] = "0x%s" % binascii.hexlify(can_message.data)
+                    parsed_message['data'] = "0x%s" % binascii.hexlify(can_message.data).decode("ascii")
                 if can_message.HasField('frame_format'):
                     if can_message.frame_format == openxc_pb2.RawMessage.STANDARD:
                         parsed_message['frame_format'] = "standard"
@@ -232,7 +233,7 @@ class ProtobufFormatter(object):
                 if diagnostic_message.HasField('negative_response_code'):
                     parsed_message['negative_response_code'] = diagnostic_message.negative_response_code
                 if diagnostic_message.HasField('payload'):
-                    parsed_message['payload'] = "0x%s" % binascii.hexlify(diagnostic_message.payload)
+                    parsed_message['payload'] = "0x%s" % binascii.hexlify(diagnostic_message.payload).decode("ascii")
             elif message.type == message.SIMPLE:
                 simple_message = message.simple_message
                 parsed_message['name'] = simple_message.name
@@ -286,7 +287,7 @@ class ProtobufFormatter(object):
                     if request.HasField('pid'):
                         parsed_message['request']['pid'] = request.pid
                     if request.HasField('payload'):
-                        parsed_message['request']['payload'] = "0x%s" % binascii.hexlify(request.payload)
+                        parsed_message['request']['payload'] = "0x%s" % binascii.hexlify(request.payload).decode("ascii")
                 elif command.type == openxc_pb2.ControlCommand.PASSTHROUGH:
                     parsed_message['command'] = "passthrough"
                     parsed_message['bus'] = command.passthrough_mode_request.bus

@@ -1,6 +1,6 @@
 """A data source for reading from pre-recorded OpenXC trace files."""
 
-from __future__ import absolute_import
+
 
 import logging
 import time

@@ -5,20 +5,20 @@ Install Python and Pip
 ----------------------
 
 This library (obviously) requires a Python language runtime - the OpenXC library
-currently works with Python 2.7, but not Python 3.x.
+supports python 3.x only, for python 2.x support use version 0.15.0.
 
 - **Mac OS X and Linux**
 
    Mac OS X and most Linux distributions already have a compatible Python
    installed. Run ``python --version`` from a terminal to check - you need a
-   2.7.x version, such as 2.7.8.
+   3.6.x version, such as 3.6.8.
 
 - **Windows**
 
-   #. Download and run the `Python 2.7.x MSI installer <https://www.python.org/downloads/release/python-2716/>`_.
+   #. Download and run the `Python 3.6.x MSI installer <https://www.python.org/downloads/>`_.
       Make sure to select to option to ``Add python.exe to Path``.
    #. Add the Python Scripts directory your PATH:
-      ``PATH=%PATH%;c:\Python27\Scripts``. If you aren't sure how to edit your
+      ``PATH=%PATH%;C:\Users\%username%\AppData\Local\Programs\Python\Python36-32\Scripts``. If you aren't sure how to edit your
       ``PATH``, see `this guide for all versions of Windows
       <https://www.java.com/en/download/help/path.xml>`_. Log out and back in for
       the change to take effect.
