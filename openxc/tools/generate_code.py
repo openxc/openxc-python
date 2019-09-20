@@ -8,7 +8,7 @@ configuration files may be found, it parses the mappings, validates them, and
 prints the resulting source to stdout.
 """
 
-from __future__ import print_function
+
 import sys
 import argparse
 import logging

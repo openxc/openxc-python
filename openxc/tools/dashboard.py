@@ -4,8 +4,8 @@ program.
 `main` is executed when ``openxc-dashboard`` is run, and all other callables in
 this module are internal only.
 """
-from __future__ import absolute_import
-from __future__ import division
+
+
 
 import argparse
 import curses
@@ -18,10 +18,10 @@ from openxc.vehicle import Vehicle
 from openxc.measurements import EventedMeasurement, Measurement
 
 try:
-    unicode
+    str
 except NameError:
     # Python 3
-    basestring = unicode = str
+    str = str = str
 
 
 # timedelta.total_seconds() is only in 2.7, so we backport it here for 2.6
@@ -144,7 +144,7 @@ class Dashboard(object):
         self.screen_lock.acquire()
         self.window.erase()
         max_rows = self.window.getmaxyx()[0] - 4
-        for row, element in enumerate(sorted(self.elements.values(),
+        for row, element in enumerate(sorted(list(self.elements.values()),
                 key=lambda elt: elt.current_data.name)[self.scroll_position:]):
             if row > max_rows:
                 break

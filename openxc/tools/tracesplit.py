@@ -5,7 +5,7 @@ program.
 `main` is executed when ``openxc-trace-split`` is run, and all other callables
 in this module are internal only.
 """
-from __future__ import absolute_import
+
 
 import argparse
 import datetime
@@ -93,7 +93,7 @@ def main():
     else:
         splitter = TimeSplitter(arguments.split)
 
-    for key, split in splitter.split(arguments.files).items():
+    for key, split in list(splitter.split(arguments.files).items()):
         with open("%s.json" % key, 'w') as output_file:
             for record in split:
                 output_file.write(JsonFormatter.serialize(record) + "\n")

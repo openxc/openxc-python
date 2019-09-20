@@ -1,4 +1,4 @@
-from __future__ import with_statement
+
 
 import os
 from fabric.api import *
@@ -63,7 +63,7 @@ def compare_versions(x, y):
 
 def make_tag():
     if confirm(yellow("Tag this release?"), default=True):
-        print(green("The last 5 tags were: "))
+        print((green("The last 5 tags were: ")))
         tags = local('git tag | tail -n 20', capture=True)
         pp(sorted(tags.split('\n'), compare_versions, reverse=True))
         prompt("New release tag in the format vX.Y[.Z]?", 'tag',
@@ -74,7 +74,7 @@ def make_tag():
         local('git fetch --tags origin', capture=True)
     else:
         env.tag = latest_git_tag()
-        print(green("Using latest tag %(tag)s" % env))
+        print((green("Using latest tag %(tag)s" % env)))
     return env.tag
 
 @task

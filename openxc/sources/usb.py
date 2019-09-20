@@ -1,5 +1,5 @@
 """A USB vehicle interface data source."""
-from __future__ import absolute_import
+
 
 import logging
 import usb.core
@@ -82,9 +82,9 @@ class UsbDataSource(BytestreamDataSource):
             read_size=DEFAULT_READ_REQUEST_SIZE):
         timeout = timeout or self.DEFAULT_READ_TIMEOUT
         try:
-            return self.device.read(0x80 + endpoint_address,
+            return str(self.device.read(0x80 + endpoint_address,
                     read_size, self.DEFAULT_INTERFACE_NUMBER, timeout
-                    ).tostring()
+                    ),'utf-8')
         except (usb.core.USBError, AttributeError) as e:
             if e.errno == 110:
                 # Timeout, it may just not be sending

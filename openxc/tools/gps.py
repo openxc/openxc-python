@@ -4,7 +4,7 @@ This module contains the methods for the ``openxc-gps`` command line program.
 `main` is executed when ``openxc-gps`` is run, and all other callables in this
 module are internal only.
 """
-from __future__ import absolute_import
+
 
 import argparse
 from xml.etree import ElementTree as ET
@@ -60,4 +60,4 @@ def main():
     source.start()
     source.join()
 
-    print(transcoder.output().decode("utf-8"))
+    print((transcoder.output().decode("utf-8")))
