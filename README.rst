@@ -2,7 +2,7 @@
 OpenXC for Python
 ===============================================
 
-.. image:: /docs/_static/logo.png
+.. image:: https://github.com/openxc/openxc-python/raw/master/docs/_static/logo.png
 
 :Version: 1.0.0
 :Web: http://openxcplatform.com
@@ -30,16 +30,9 @@ In addition to a port of the Android library API, the package also contains a
 number of command-line tools for connecting to the CAN translator and
 manipulating previously recorded vehicle data.
 
-To package run "setup.py sdist bdist_wheel"
-to push to pypi run "python -m twine upload dist/*"
-Version files:
-	CHANGELOG.rst
-	README.rst
-	openxc/version.py
-	docs/index.rst
 
 License
-=======
+========
 
 Copyright (c) 2012-2017 Ford Motor Company
 
