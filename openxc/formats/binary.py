@@ -289,7 +289,7 @@ class ProtobufFormatter(object):
                         parsed_message['request']['frequency'] = request.frequency
                     if request.name:
                         parsed_message['request']['name'] = request.name
-                    if request.multiple_responses:
+                    if request.multiple_responses != None:
                         parsed_message['request']['multiple_responses'] = request.multiple_responses
                     if request.pid:
                         parsed_message['request']['pid'] = request.pid
