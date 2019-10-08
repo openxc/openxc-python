@@ -12,9 +12,7 @@ except ImportError:
 long_description = open('README.rst').read()
 
 install_reqs = ['pyusb==1.0.0a3', 'units >= 0.5', 'argparse', 'requests==2.20.0',
-        'protobuf==3.9.1']
-if sys.platform == 'win32':
-    install_reqs.append('windows-curses >= 1.1')
+        'protobuf==3.9.1', 'windows-curses >= 1.1;platform_system=="Windows"']
 
 setup(name='openxc',
     version=get_version(),
