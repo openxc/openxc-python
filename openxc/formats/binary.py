@@ -231,7 +231,7 @@ class ProtobufFormatter(object):
                 if diagnostic_message.success != None:
                     parsed_message['success'] = diagnostic_message.success
                 if diagnostic_message.HasField('value'):
-				    if len(str(diagnostic_message.value.boolean_value)) > 0:
+                    if len(str(diagnostic_message.value.boolean_value)) > 0:
                         parsed_message['value'] = diagnostic_message.value.boolean_value
                     if len(str(diagnostic_message.value.numeric_value)) > 0:
                         parsed_message['value'] = diagnostic_message.value.numeric_value
