@@ -207,54 +207,59 @@ class ProtobufFormatter(object):
         if message is not None:
             if message.type == message.CAN and message.can_message:
                 can_message = message.can_message
-                if 'bus' in can_message:
+                if can_message.bus:
                     parsed_message['bus'] = can_message.bus
-                if 'id' in can_message:
+                if can_message.id:
                     parsed_message['id'] = can_message.id
-                if 'data' in can_message:
+                if can_message.data:
                     parsed_message['data'] = "0x%s" % binascii.hexlify(can_message.data).decode("ascii")
-                if 'frame_format' in can_message:
+                if can_message.frame_format:
                     if can_message.frame_format == openxc_pb2.RawMessage.STANDARD:
                         parsed_message['frame_format'] = "standard"
                     elif can_message.frame_format == openxc_pb2.RawMessage.EXTENDED:
                         parsed_message['frame_format'] = "extended"
             elif message.type == message.DIAGNOSTIC:
                 diagnostic_message = message.diagnostic_response
-                if 'bus' in diagnostic_message:
+                if diagnostic_message.bus:
                     parsed_message['bus'] = diagnostic_message.bus
-                if 'message_id' in diagnostic_message:
+                if diagnostic_message.message_id:
                     parsed_message['id'] = diagnostic_message.message_id
-                if 'mode' in diagnostic_message:
+                if diagnostic_message.mode:
                     parsed_message['mode'] = diagnostic_message.mode
-                if 'pid' in diagnostic_message:
+                if diagnostic_message.pid:
                     parsed_message['pid'] = diagnostic_message.pid
-                if 'success' in diagnostic_message:
+                if diagnostic_message.success != None:
                     parsed_message['success'] = diagnostic_message.success
-                if 'value' in diagnostic_message:
-                    parsed_message['value'] = diagnostic_message.value
-                if 'negative_response_code' in diagnostic_message:
+                if diagnostic_message.HasField('value'):
+                    if len(str(diagnostic_message.value.numeric_value)) > 0:
+                        parsed_message['value'] = diagnostic_message.value.numeric_value
+                    if len(diagnostic_message.value.string_value) > 0:
+                        parsed_message['value'] = diagnostic_message.value.string_value
+                    if len(str(diagnostic_message.value.boolean_value)) > 0:
+                        parsed_message['value'] = diagnostic_message.value.boolean_value
+                if diagnostic_message.negative_response_code:
                     parsed_message['negative_response_code'] = diagnostic_message.negative_response_code
-                if 'payload' in diagnostic_message:
+                if diagnostic_message.payload:
                     parsed_message['payload'] = "0x%s" % binascii.hexlify(diagnostic_message.payload).decode("ascii")
             elif message.type == message.SIMPLE:
                 simple_message = message.simple_message
                 parsed_message['name'] = simple_message.name
-                if 'event' in simple_message:
+                if simple_message.event:
                     event = simple_message.event
-                    if 'numeric_value' in event:
+                    if event.numeric_value:
                         parsed_message['event'] = event.numeric_value
-                    elif 'boolean_value' in event:
+                    elif event.boolean_value:
                         parsed_message['event'] = event.boolean_value
-                    elif 'string_value' in event:
+                    elif event.string_value:
                         parsed_message['event'] = event.string_value
 
-                if 'value' in simple_message:
+                if simple_message.value:
                     value = simple_message.value
-                    if 'numeric_value' in value:
+                    if value.numeric_value:
                         parsed_message['value'] = value.numeric_value
-                    elif 'boolean_value' in value:
+                    elif value.boolean_value:
                         parsed_message['value'] = value.boolean_value
-                    elif 'string_value' in value:
+                    elif value.string_value:
                         parsed_message['value'] = value.string_value
                     else:
                         parsed_message = None
@@ -280,15 +285,15 @@ class ProtobufFormatter(object):
                     parsed_message['request']['bus'] = request.bus
                     parsed_message['request']['mode'] = request.mode
 
-                    if 'frequency' in request:
+                    if request.frequency:
                         parsed_message['request']['frequency'] = request.frequency
-                    if 'name' in request:
+                    if request.name:
                         parsed_message['request']['name'] = request.name
-                    if 'multiple_responses' in request:
+                    if request.multiple_responses:
                         parsed_message['request']['multiple_responses'] = request.multiple_responses
-                    if 'pid' in request:
+                    if request.pid:
                         parsed_message['request']['pid'] = request.pid
-                    if 'payload' in request:
+                    if request.payload:
                         parsed_message['request']['payload'] = "0x%s" % binascii.hexlify(request.payload).decode("ascii")
                 elif command.type == openxc_pb2.ControlCommand.PASSTHROUGH:
                     parsed_message['command'] = "passthrough"
@@ -327,7 +332,7 @@ class ProtobufFormatter(object):
                     raise UnrecognizedBinaryCommandError(response.type)
 
                 parsed_message['status'] = response.status
-                if 'message' in response:
+                if response.message:
                     parsed_message['message'] = response.message
             else:
                 parsed_message = None
