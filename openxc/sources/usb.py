@@ -84,7 +84,7 @@ class UsbDataSource(BytestreamDataSource):
         try:
             return str(self.device.read(0x80 + endpoint_address,
                     read_size, self.DEFAULT_INTERFACE_NUMBER, timeout
-                    ),'utf-8')
+                    ),'ISO-8859-1')
         except (usb.core.USBError, AttributeError) as e:
             if e.errno == 110:
                 # Timeout, it may just not be sending
