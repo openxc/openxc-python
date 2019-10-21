@@ -1,6 +1,7 @@
 import operator
 import math
 from collections import defaultdict
+from openxc.utils import fatal_error
 
 import logging
 
