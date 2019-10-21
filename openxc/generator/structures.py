@@ -1,6 +1,5 @@
 import operator
 import math
-import dir
 from collections import defaultdict
 
 import logging
