@@ -1,5 +1,6 @@
 import operator
 import math
+import dir
 from collections import defaultdict
 
 import logging
@@ -352,6 +353,14 @@ class Signal(object):
             LOG.warning("The 'send_frequency' attribute in the signal " +
                     "%s is deprecated and has no effect " % self.generic_name +
                     " - see the replacement, max_frequency")
+
+       signal_attributes = dir(Signal)
+       data_attributes = list(data.keys())
+       extra_attributes = []
+
+         for attribute in set(data_attributes).symmetric_difference(set(signal_attributes)):
+             extra_attributes.append(attribute)
+         LOG.warning('Signal attributes not recognized: ', extra_attributes)
 
     @property
     def decoder(self):
