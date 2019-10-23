@@ -2,18 +2,17 @@
     "messages": {
         "0x128": {
             "name": "ECM_z_5D2",
+            "handlers": ["handleInvertedSteeringWheel","ignoreHandler","handleSteeringWheelMessage"],
             "signals": {
                 "StrAnglAct": {
                     "generic_name": "SteeringWheelAngle",
                     "bit_position": 52,
                     "bit_size": 12,
                     "factor": 0.15392,
-                    "offset": 0,
-                    "handlers": ["handleInvertedSteeringWheel"]
+                    "offset": 0
                 },
                 "StrAnglSign": {
                     "generic_name": "steering_angle_sign",
-                    "handlers": ["ignoreHandler"],
                     "bit_position": 52,
                     "bit_size": 12
                 },
@@ -36,21 +35,19 @@
                         "NEUTRAL": [6]}
                  },
                 "StrAnglErr": {
-                    "handlers": ["ignoreHandler"],
                     "generic_name": "steering_wheel_angle_error",
                     "bit_position": 44,
                     "bit_size": 12
                 }
-            },
-            "handlers": ["handleSteeringWheelMessage"]
+            }
         },
         "0x49": {
             "name": "BrkSt",
+            "handlers": ["booleanHandler"],
             "signals": {
                 "BrakePedalPosition": {
                     "generic_name": "brake_pedal_status",
                     "send_same": false,
-                    "handlers": ["booleanHandler"],
                     "bit_position": 0,
                     "bit_size": 0
                 }
@@ -61,7 +58,6 @@
             "signals": {
                 "TurnSignalLeft": {
                     "generic_name": "turn_signal_left",
-                    "handlers": ["booleanHandler"],
                     "bit_position": 0,
                     "bit_size": 0,
                     "writable": true,
@@ -69,7 +65,6 @@
                 },
                 "TurnSignalRight": {
                     "generic_name": "turn_signal_right",
-                    "handlers": ["booleanHandler"],
                     "bit_position": 1,
                     "bit_size": 0,
                     "writable": true,
