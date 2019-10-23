@@ -9,17 +9,20 @@
                     "bit_size": 12,
                     "factor": 0.15392,
                     "offset": 0,
-                    "handlers": ["handleInvertedSteeringWheel"],
+                    "handlers": ["handleInvertedSteeringWheel"]
+                },
                 "StrAnglSign": {
                     "generic_name": "steering_angle_sign",
                     "handlers": ["ignoreHandler"],
                     "bit_position": 52,
-                    "bit_size": 12},
+                    "bit_size": 12
+                },
                 "EngSpd": {
                     "generic_name": "engine_speed",
                     "max_frequency": 5,
                     "bit_position": 12,
-                    "bit_size": 8},
+                    "bit_size": 8
+                },
                 "GrshftPos": {
                     "generic_name": "GearshiftPosition",
                     "bit_position": 41,
@@ -31,7 +34,7 @@
                         "FOURTH": [4],
                         "REVERSE": [5],
                         "NEUTRAL": [6]}
-                    },
+                 },
                 "StrAnglErr": {
                     "handlers": ["ignoreHandler"],
                     "generic_name": "steering_wheel_angle_error",
