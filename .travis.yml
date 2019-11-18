@@ -12,3 +12,7 @@ script: python setup.py test
 after_success:
   - coverage run --source=openxc setup.py test
   - coveralls
+deploy:
+  provider: pypi
+  user: "__token__"
+  password: "$PYPI_PASSWORD"
