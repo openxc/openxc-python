@@ -16,6 +16,6 @@ deploy:
   provider: pypi
   server: https://test.pypi.org/legacy/
   user: "__token__"
-  password: "pypi-AgENdGVzdC5weXBpLm9yZwIkMmU2YTdiOWYtMGMzOC00OTY1LTgxYjItMWEzY2M2MjQyZDg1AAIleyJwZXJtaXNzaW9ucyI6ICJ1c2VyIiwgInZlcnNpb24iOiAxfQAABiCin-LheY5ZIhBODVnZEorzIlP5W45FX0lM4FjteHO8zw"
+  password: $PYPI_PASSWORD
   on:
     all_branches: true
