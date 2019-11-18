@@ -6,12 +6,13 @@ this module are internal only.
 """
 
 import argparse
+import threading
+import logging
 from flask import Flask
 from flask import render_template
 from flask_socketio import SocketIO
+
 from openxc.interface import UsbVehicleInterface
-import threading
-import logging
 
 log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)
@@ -44,8 +45,4 @@ def parse_options():
 def main():
     socketio.start_background_task(vehicle_data_thread)
     print("View the dashboard at http://127.0.0.1:5000")
-    app.run()
-
-if __name__ == '__main__':
-    socketio.start_background_task(vehicle_data_thread)
     app.run()

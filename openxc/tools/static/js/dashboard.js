@@ -20,7 +20,7 @@ $(document).ready(function() {
         }
 
         updateDataPoint(dataPoints[msg.name], msg);
-        updateDisplay(msg.name, msg.value);
+        updateDisplay(dataPoints[msg.name]);
 
         if (cb)
             cb();
@@ -28,32 +28,60 @@ $(document).ready(function() {
 });
 
 function addToDisplay(msgName) {
-	$('<div/>', {
-		id: msgName
-	}).appendTo('#log');
+	// Insert new rows alphabetically
+	var added = false;
+	$('#log tr').each(function() {
+		if (msgName < $(this).children('td:eq(0)').text()) {
+			$('<tr/>', {
+				id: msgName
+			}).insertBefore($(this));
+			added = true;
+			return false;
+		}
+	});
 
-	$('<span/>', {
+	if (!added) {
+		$('<tr/>', {
+			id: msgName
+		}).appendTo('#log');
+	}
+
+	$('<td/>', {
 		id: msgName + '_label',
-		text: msgName + ': '
+		text: msgName
 	}).appendTo('#' + msgName);
 
-	$('<span/>', {
+	$('<td/>', {
 		id: msgName + '_value'
+	}).appendTo('#' + msgName);
+
+	$('<td/>', {
+		id: msgName + '_num',
+		class: 'metric'
+	}).appendTo('#' + msgName);
+
+	$('<td/>', {
+		id: msgName + '_freq',
+		class: 'metric'
 	}).appendTo('#' + msgName);
 }
 
-function updateDisplay(msgName, msgValue) {
-	if (!($('#' + msgName).length > 0)) {
-		addToDisplay(msgName);
+function updateDisplay(dataPoint) {
+	msg = dataPoint.current_data
+	
+	if (!($('#' + msg.name).length > 0)) {
+		addToDisplay(msg.name);
 	}
 
-    $('#' + msgName + '_value').text(msgValue);
+    $('#' + msg.name + '_value').text(msg.value);
+    $('#' + msg.name + '_num').text(dataPoint.messages_received);
+    $('#' + msg.name + '_freq').text(Math.ceil(1 / dataPoint.average_time_since_update));
 }
 
 function updateDataPoint(dataPoint, measurement) {
 	dataPoint.messages_received++;
 	dataPoint.current_data = measurement;
-	let update_time = (new Date()).getTime();
+	let update_time = (new Date()).getTime() / 1000;
 
 	if (dataPoint.last_update_time !== undefined) {
 		dataPoint.average_time_since_update = 

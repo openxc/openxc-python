@@ -5,9 +5,18 @@
     <script src="{{url_for('static', filename='js/jquery-3.4.1.slim.min.js')}}"></script>
     <script src="{{url_for('static', filename='js/socket.io.slim.js')}}"></script>
     <script src="{{url_for('static', filename='js/dashboard.js')}}"></script>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/dashboard.css')}}">
 </head>
 <body>
-    <h2>Receive:</h2>
-    <div id="log"></div>
+    <table id="log">
+        <caption>OpenXC Dashboard</caption>
+        <tr>
+            <th>Signal Name</th>
+            <th>Value</th>
+            <th># Received</th>
+            <th>Freq. (Hz)</th>
+        </tr>
+    </table>
+    </div>
 </body>
 </html>

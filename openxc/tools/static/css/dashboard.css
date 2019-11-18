@@ -1,0 +1,12 @@
+caption {
+	font-size: 1.5em;
+}
+
+table, th, td {
+  text-align: left;
+  border-spacing: 8px 1px;
+}
+
+.metric {
+	text-align: right;
+}
