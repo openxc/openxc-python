@@ -161,9 +161,6 @@ class Message(object):
                     states.append(SignalState(raw_match, name))
             signal_data.pop('states', None)
 
-            if signal_name in self.signals:
-                fatal_error('ERROR: Signal %s in %s has more than one definition' % (signal_name, self.name))
-
             signal = self.signals[signal_name]
             signal.name = signal_name
             signal.message_set = self.message_set
@@ -172,7 +169,6 @@ class Message(object):
             # obvious clean solution to it at the moment
             signal.states = states
             signal.merge_signal(signal_data)
-
 
     def validate(self):
         if self.bus_name is None:
