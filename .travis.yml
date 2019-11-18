@@ -15,6 +15,6 @@ after_success:
 deploy:
   provider: pypi
   user: "__token__"
-  password: "$PYPI_PASSWORD"
+  password: $PYPI_PASSWORD
   on:
     all_branches: true
