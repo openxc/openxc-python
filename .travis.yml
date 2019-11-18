@@ -16,6 +16,5 @@ deploy:
   provider: pypi
   user: "__token__"
   password: "$PYPI_PASSWORD"
-on:
-  tags: true
-  all_branches: true
+  on:
+    all_branches: true
