@@ -103,6 +103,14 @@ class Message(object):
     def merge_message(self, data):
         self.bus_name = self.bus_name or data.get('bus', None)
 
+        message_attributes = dir(self)
+        message_attributes = [a.replace('bus_name', 'bus') for a in message_attributes]
+        data_attributes = list(data.keys())
+        extra_attributes = set(data_attributes) - set(message_attributes)
+
+        if extra_attributes:
+            fatal_error('ERROR: Message %s has unrecognized attributes: %s' % (data.get('id'), ', '.join(extra_attributes)))
+
         if getattr(self, 'message_set'):
             self.bus = self.message_set.lookup_bus(name=self.bus_name)
             if not self.bus.valid():
@@ -153,6 +161,9 @@ class Message(object):
                     states.append(SignalState(raw_match, name))
             signal_data.pop('states', None)
 
+            if self.signals[signal_name]:
+                fatal_error('ERROR: Signal %s in %s has more than one definition' % (signal_name, self.name))
+
             signal = self.signals[signal_name]
             signal.name = signal_name
             signal.message_set = self.message_set
@@ -161,6 +172,7 @@ class Message(object):
             # obvious clean solution to it at the moment
             signal.states = states
             signal.merge_signal(signal_data)
+
 
     def validate(self):
         if self.bus_name is None:
