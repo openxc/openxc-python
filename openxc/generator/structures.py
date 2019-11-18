@@ -1,6 +1,7 @@
 import operator
 import math
 from collections import defaultdict
+from openxc.utils import fatal_error
 
 import logging
 
@@ -352,6 +353,14 @@ class Signal(object):
             LOG.warning("The 'send_frequency' attribute in the signal " +
                     "%s is deprecated and has no effect " % self.generic_name +
                     " - see the replacement, max_frequency")
+
+        signal_attributes = dir(self)
+        data_attributes = list(data.keys())
+        extra_attributes = set(data_attributes) - set(signal_attributes)
+
+        if extra_attributes:
+           fatal_error('ERROR: Signal %s in %s has unrecognized attributes: %s' % (self.name, self.message.name, ', '.join(extra_attributes)))
+        
 
     @property
     def decoder(self):

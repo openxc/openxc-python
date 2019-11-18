@@ -2,7 +2,7 @@
 OpenXC for Python
 ===============================================
 
-.. image:: https://github.com/openxc/openxc-python/raw/TravisPypi/docs/_static/logo.png
+.. image:: https://github.com/openxc/openxc-python/raw/master/docs/_static/logo.png
 
 :Version: 1.0.0
 :Web: http://openxcplatform.com
@@ -40,7 +40,7 @@ Version files:
 - docs/index.rst
 
 License
-=======
+========
 
 Copyright (c) 2012-2017 Ford Motor Company
 
