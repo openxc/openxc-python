@@ -45,3 +45,7 @@ def main():
     socketio.start_background_task(vehicle_data_thread)
     print("View the dashboard at http://127.0.0.1:5000")
     app.run()
+
+if __name__ == '__main__':
+    socketio.start_background_task(vehicle_data_thread)
+    app.run()

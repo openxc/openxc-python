@@ -2,21 +2,9 @@
 <html>
 <head>
     <title>Flask-SocketIO Test</title>
-    <script src="//code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
-    <script type="text/javascript" charset="utf-8">
-        $(document).ready(function() {
-            namespace = '';
-            var socket = io(namespace);
-            socket.on('vehicle data', function(msg, cb) {
-                console.log(msg);
-                $('#log').append('<br>' + $('<div/>').text('Received : ' + JSON.stringify(msg)).html());
-                if (cb)
-                    cb();
-            });
-
-        });
-    </script>
+    <script src="{{url_for('static', filename='js/jquery-3.4.1.slim.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/socket.io.slim.js')}}"></script>
+    <script src="{{url_for('static', filename='js/dashboard.js')}}"></script>
 </head>
 <body>
     <h2>Receive:</h2>
