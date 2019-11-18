@@ -2,7 +2,7 @@
 OpenXC for Python
 ===============================================
 
-.. image:: /docs/_static/logo.png
+.. image:: https://github.com/openxc/openxc-python/raw/TravisPypi/docs/_static/logo.png
 
 :Version: 1.0.0
 :Web: http://openxcplatform.com
