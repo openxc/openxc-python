@@ -14,7 +14,7 @@ after_success:
   - coveralls
 deploy:
   provider: pypi
-  server: https://test.pypi.org
+  server: https://test.pypi.org/openxc
   user: "__token__"
   password: $PYPI_PASSWORD
   on:
