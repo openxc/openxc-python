@@ -14,7 +14,7 @@ after_success:
   - coveralls
 deploy:
   provider: pypi
-  server: https://test.pypi.org/legacy/
+  server: https://test.pypi.org/
   user: "__token__"
   password: "AgENdGVzdC5weXBpLm9yZwIkMDNiZDRkZjktYWFjYi00ODk5LThlMjktZWRmODljYjdjZDY0AAI3eyJwZXJtaXNzaW9ucyI6IHsicHJvamVjdHMiOiBbIm9wZW54YyJdfSwgInZlcnNpb24iOiAxfQAABiCTWq8FC8zwVyoNsHqCx182ivnqu9edr03cr7ui6ywhrw"
   on:
