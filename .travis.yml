@@ -14,7 +14,7 @@ after_success:
   - coveralls
 before_deploy:
   - cd ..
-  - tar -zcf ${REPO}-${TRAVIS_TAG}-${TRAVIS_BUILD_NUMBER}-SourceCode.tar.gz ${REPO}
+  - tar -zcf $REPO-$TRAVIS_TAG-$TRAVIS_BUILD_NUMBER-SourceCode.tar.gz $REPO
   - zip -r ${REPO}-${TRAVIS_TAG}-${TRAVIS_BUILD_NUMBER}-SourceCode.zip ${REPO}
 deploy:
   provider: pypi
