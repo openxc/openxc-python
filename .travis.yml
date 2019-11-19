@@ -15,7 +15,7 @@ after_success:
 before_deploy:
   - cd ..
   - tar -zcf SourceCode.tar.gz openxc-python
-  - zip -r ${REPO}-${TRAVIS_TAG}-${TRAVIS_BUILD_NUMBER}-SourceCode.zip ${REPO}
+  - zip -r SourceCode.zip openxc-python
 deploy:
   provider: pypi
   server: https://pypi.org/legacy/
