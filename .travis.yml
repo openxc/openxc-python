@@ -15,8 +15,8 @@ after_success:
 before_deploy:
   - cd ..
   - mkdir upload
-  - tar -zcf SourceCode.tar.gz upload/openxc-python
-  - zip -r SourceCode.zip upload/openxc-python
+  - tar -zcf upload/SourceCode.tar.gz openxc-python
+  - zip -r upload/SourceCode.zip openxc-python
 deploy:
   - provider: release
     api_key:
