@@ -14,13 +14,22 @@ after_success:
   - coveralls
 before_deploy:
   - cd ..
-  - tar -zcf SourceCode.tar.gz openxc-python
-  - zip -r SourceCode.zip openxc-python
+  - mkdir upload
+  - tar -zcf SourceCode.tar.gz upload/openxc-python
+  - zip -r SourceCode.zip upload/openxc-python
 deploy:
-  provider: pypi
-  server: https://pypi.org/legacy/
-  user: "__token__"
-  password: $PYPI_PASSWORD
-  on:
-    all_branches: true
+  - provider: release
+    api_key:
+      secure: $GITHUBAPI
+    file_glob: true
+    file: upload/*
+    skip_cleanup: true
+    on:
+      tags: true
+  - provider: pypi
+    server: https://pypi.org/legacy/
+    user: "__token__"
+    password: $PYPI_PASSWORD
+    on:
+      all_branches: true
 
