@@ -22,4 +22,5 @@ deploy:
   user: "__token__"
   password: $PYPI_PASSWORD
   on:
-    branch: master
+    all_branches: true
+
