@@ -89,7 +89,7 @@ def find_file(filename, search_paths):
     fatal_error("Unable to find '%s' in search paths (%s)" % (
             filename, search_paths))
 
-# https://stackoverflow.com/a/14902564
+
 def dict_raise_on_duplicates(ordered_pairs):
     """Reject duplicate keys."""
     d = {}
