@@ -90,10 +90,20 @@ def find_file(filename, search_paths):
             filename, search_paths))
 
 
+def dict_raise_on_duplicates(ordered_pairs):
+    """Reject duplicate keys."""
+    d = {}
+    for k, v in ordered_pairs:
+        if k in d:
+           raise ValueError("duplicate key: %r" % (k,))
+        else:
+           d[k] = v
+    return d
+
 def load_json_from_search_path(filename, search_paths):
     with open(find_file(filename, search_paths)) as json_file:
         try:
-            data = json.load(json_file)
+            data = json.load(json_file, object_pairs_hook=dict_raise_on_duplicates)
         except ValueError as e:
             fatal_error("%s does not contain valid JSON: \n%s\n" %
                     (filename, e))
