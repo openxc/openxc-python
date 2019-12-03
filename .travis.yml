@@ -14,7 +14,6 @@ after_success:
   - coveralls
 deploy:
   provider: pypi
-  server: https://pypi.org/legacy/
   user: "__token__"
   password: $PYPI_PASSWORD
   on:
