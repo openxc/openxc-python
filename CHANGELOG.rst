@@ -1,6 +1,10 @@
 OpenXC Python Library Changelog
 ===============================
 
+v1.1.1
+----------
+* Fix: Fixed Pip included files
+
 v1.1.0
 ----------
 * Feature: Generate firmware now checks for duplicate entries in json and for improperly used keys and unrecognised attributes.
