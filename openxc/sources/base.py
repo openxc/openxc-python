@@ -156,7 +156,7 @@ class SourceLogger(threading.Thread):
                 break
 
             while True:
-                if "\x00" not in message_buffer:
+                if b"\x00" not in message_buffer:
                     break
                 record, _, remainder = message_buffer.partition(b"\x00")
                 self.record(record)
@@ -191,6 +191,7 @@ class BytestreamDataSource(DataSource):
         off to the callback if one is set.
         """
         while self.running:
+            payload = b""
             try:
                 payload = self.read()
             except DataSourceError as e:

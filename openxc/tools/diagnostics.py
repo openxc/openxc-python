@@ -76,6 +76,7 @@ def parse_options():
     parser.add_argument("--pid", help="Parameter ID (e.g. for Mode 1 request")
     parser.add_argument("--payload", help="A byte array as a hex string to send as payload, e.g. 0x123")
     parser.add_argument("--frequency", help="Frequency (Hz) to repeat this request. If omitted or 0, it will be a one-time request.")
+    parser.set_defaults(format="json")
 
     return parser.parse_args()
 

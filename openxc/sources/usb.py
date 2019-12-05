@@ -86,7 +86,11 @@ class UsbDataSource(BytestreamDataSource):
                     read_size, self.DEFAULT_INTERFACE_NUMBER, timeout
                     ),'utf-8')
         except (usb.core.USBError, AttributeError) as e:
-            if e.errno == 110:
+            # timeout error codes:
+            #   libusb0: -116
+            #   libusb1: -7
+            #   openusb: -62
+            if e.backend_error_code in [-116, -7, -62]:
                 # Timeout, it may just not be sending
-                return ""
+                return b""
             raise DataSourceError("USB device couldn't be read", e)
