@@ -1,6 +1,7 @@
 import operator
 import math
 from collections import defaultdict
+from openxc.utils import fatal_error
 
 import logging
 
@@ -101,6 +102,14 @@ class Message(object):
 
     def merge_message(self, data):
         self.bus_name = self.bus_name or data.get('bus', None)
+
+        message_attributes = dir(self)
+        message_attributes = [a.replace('bus_name', 'bus') for a in message_attributes]
+        data_attributes = list(data.keys())
+        extra_attributes = set(data_attributes) - set(message_attributes)
+
+        if extra_attributes:
+            fatal_error('ERROR: Message %s has unrecognized attributes: %s' % (data.get('id'), ', '.join(extra_attributes)))
 
         if getattr(self, 'message_set'):
             self.bus = self.message_set.lookup_bus(name=self.bus_name)
@@ -352,6 +361,14 @@ class Signal(object):
             LOG.warning("The 'send_frequency' attribute in the signal " +
                     "%s is deprecated and has no effect " % self.generic_name +
                     " - see the replacement, max_frequency")
+
+        signal_attributes = dir(self)
+        data_attributes = list(data.keys())
+        extra_attributes = set(data_attributes) - set(signal_attributes)
+
+        if extra_attributes:
+           fatal_error('ERROR: Signal %s in %s has unrecognized attributes: %s' % (self.name, self.message.name, ', '.join(extra_attributes)))
+        
 
     @property
     def decoder(self):
