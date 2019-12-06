@@ -22,6 +22,9 @@ class UsbDataSource(BytestreamDataSource):
     # throughput if the READ_REQUEST_SIZE is higher, but this delay has to be
     # low enough that a single request isn't held back too long.
     DEFAULT_READ_TIMEOUT = 200
+    LIBUSB0_TIMEOUT_CODE = -116
+    LIBUSB1_TIMEOUT_CODE = -7
+    OPENUSB_TIMEOUT_CODE = -62
 
     DEFAULT_INTERFACE_NUMBER = 0
     VEHICLE_DATA_IN_ENDPOINT = 2
@@ -83,14 +86,9 @@ class UsbDataSource(BytestreamDataSource):
         timeout = timeout or self.DEFAULT_READ_TIMEOUT
         try:
             return str(self.device.read(0x80 + endpoint_address,
-                    read_size, self.DEFAULT_INTERFACE_NUMBER, timeout
-                    ),'utf-8')
+                    read_size, self.DEFAULT_INTERFACE_NUMBER, timeout))
         except (usb.core.USBError, AttributeError) as e:
-            # timeout error codes:
-            #   libusb0: -116
-            #   libusb1: -7
-            #   openusb: -62
-            if e.backend_error_code in [-116, -7, -62]:
+            if e.backend_error_code in [self.LIBUSB0_TIMEOUT_CODE, self.LIBUSB1_TIMEOUT_CODE, self.OPENUSB_TIMEOUT_CODE]:
                 # Timeout, it may just not be sending
-                return b""
+                return ""
             raise DataSourceError("USB device couldn't be read", e)

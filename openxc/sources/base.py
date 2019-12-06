@@ -146,7 +146,7 @@ class SourceLogger(threading.Thread):
         message_buffer = b""
         while self.running:
             try:
-                message_buffer += self.source.read_logs()
+                message_buffer += self.source.read_logs().encode('utf-8')
             except DataSourceError as e:
                 if self.running:
                     LOG.warn("Can't read logs from data source -- stopping: %s", e)
@@ -191,7 +191,7 @@ class BytestreamDataSource(DataSource):
         off to the callback if one is set.
         """
         while self.running:
-            payload = b""
+            #payload = b""
             try:
                 payload = self.read()
             except DataSourceError as e:
@@ -224,7 +224,7 @@ class BytestreamDataSource(DataSource):
                 self._receive_command_response(message)
 
     def _receive_command_response(self, message):
-        # TODO the controller/source are getting a litlte mixed up since the
+        # TODO the controller/source are getting a little mixed up since the
         # controller now needs to receive responses from the soruce side, maybe
         # just mix them again. the only exception to being both is a trace
         # source, and we can just leave the controller methods on that
