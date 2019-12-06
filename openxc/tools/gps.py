@@ -54,7 +54,6 @@ def main():
     arguments = parse_options()
 
     transcoder = GPXTranscoder()
-
     source = TraceDataSource(transcoder.receive, filename=arguments.trace_file,
             loop=False, realtime=False)
     source.start()
