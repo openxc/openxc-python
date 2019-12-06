@@ -158,7 +158,7 @@ class SourceLogger(threading.Thread):
             while True:
                 if "\x00" not in message_buffer:
                     break
-                record, _, remainder = message_buffer.partition(b"\x00")
+                record, _, remainder = message_buffer.partition("\x00")
                 self.record(record)
                 message_buffer = remainder
 
