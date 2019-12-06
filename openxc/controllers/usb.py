@@ -27,8 +27,7 @@ class UsbControllerMixin(Controller):
                     self.out_endpoint)
             return 0
         else:
-            ret = self.out_endpoint.write(data)
-            return ret
+            return self.out_endpoint.write(data)
 
     def _send_complex_request(self, request):
         """Send a request via the USB control request endpoint, rather than as a

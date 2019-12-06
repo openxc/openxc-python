@@ -143,10 +143,10 @@ class SourceLogger(threading.Thread):
         message from the buffer of bytes. When a message is parsed, passes it
         off to the callback if one is set.
         """
-        message_buffer = b""
+        message_buffer = ""
         while self.running:
             try:
-                message_buffer += self.source.read_logs().encode('utf-8')
+                message_buffer += self.source.read_logs()
             except DataSourceError as e:
                 if self.running:
                     LOG.warn("Can't read logs from data source -- stopping: %s", e)
@@ -156,7 +156,7 @@ class SourceLogger(threading.Thread):
                 break
 
             while True:
-                if b"\x00" not in message_buffer:
+                if "\x00" not in message_buffer:
                     break
                 record, _, remainder = message_buffer.partition(b"\x00")
                 self.record(record)
@@ -191,7 +191,7 @@ class BytestreamDataSource(DataSource):
         off to the callback if one is set.
         """
         while self.running:
-            #payload = b""
+            payload = ""
             try:
                 payload = self.read()
             except DataSourceError as e:
