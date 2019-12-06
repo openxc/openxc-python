@@ -1,6 +1,17 @@
 OpenXC Python Library Changelog
 ===============================
 
+v1.1.1
+----------
+* Fix: Fixed Pip included files
+
+v1.1.0
+----------
+* Feature: Generate firmware now checks for duplicate entries in json and for improperly used keys and unrecognised attributes.
+* Feature: openxc-dashboad has been updated from a command line tool to a web server and webpage.
+* Fix: Requiring windows curses on non windows system
+* Fix: Various Python 3 bugs
+
 v1.0.0
 ----------
 * Remove python 2.7 support

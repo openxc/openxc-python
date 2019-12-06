@@ -2,9 +2,9 @@
 OpenXC for Python
 ===================
 
-.. image:: /_static/logo.png
+.. image:: https://github.com/openxc/openxc-python/raw/master/docs/_static/logo.png
 
-:Version: 1.0.0
+:Version: 1.1.1
 :Web: http://openxcplatform.com
 :Download: http://pypi.python.org/pypi/openxc/
 :Documentation: http://python.openxcplatform.com

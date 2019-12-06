@@ -13,8 +13,6 @@ long_description = open('README.rst').read()
 
 install_reqs = ['pyusb==1.0.0a3', 'units >= 0.5', 'argparse', 'requests==2.20.0',
         'protobuf==3.9.1']
-if sys.platform == 'win32':
-    install_reqs.append('windows-curses >= 1.1')
 
 setup(name='openxc',
     version=get_version(),
@@ -33,7 +31,7 @@ setup(name='openxc',
     ],
     url='http://github.com/openxc/openxc-python',
     packages=find_packages(exclude=["tests", "tests.*"]),
-    package_data={'openxc': ['generator/signals.cpp*']},
+    package_data={'openxc': ['generator/signals.cpp*', 'tools/templates/dashboard.html*']},
     test_suite='nose.collector',
     tests_require=['nose'],
     install_requires=install_reqs,
