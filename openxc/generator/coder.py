@@ -231,7 +231,7 @@ class CodeGenerator(object):
         lines = []
         lines.append("const int MAX_SIGNAL_COUNT = %d;" %
                 self._max_signal_count())
-        lines.append("CanSignal SIGNALS[][MAX_SIGNAL_COUNT] = {")
+        lines.append("const CanSignal SIGNALS[][MAX_SIGNAL_COUNT] __attribute__ ((section(\".rodata._ZL7SIGNALS\"))) = {")
 
         def block(message_set):
             lines = []
@@ -322,8 +322,8 @@ class CodeGenerator(object):
                             line += ("can::read::translateSignal("
                                         "&SIGNALS[%d][%d], message, " %
                                         (message_set.index, signal.array_index))
-                            line += ("SIGNALS[%d], getSignalCount(), pipeline); // %s" % (
-                                message_set.index, signal.name))
+                            line += ("SIGNALS[%d], SIGNAL_MANAGERS[%d], getSignalCount(), pipeline); // %s" % (
+                                message_set.index, message_set.index, signal.name))
                             lines.append(line)
                         lines.append(" " * 16 + "break;")
                 lines.append(" " * 12 + "}")

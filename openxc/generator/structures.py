@@ -487,7 +487,7 @@ class Signal(object):
         return inverted_index
 
     def __str__(self):
-        result =  ("{message: &CAN_MESSAGES[%d][%d], genericName: \"%s\", bitPosition: %s, bitSize: %d, factor: %f, offset: %f, minValue: %f, maxValue: %f, frequencyClock: {%f}, sendSame: %s, forceSendChanged: %s, " % (
+        result =  ("{message: &CAN_MESSAGES[%d][%d], genericName: \"%s\", bitPosition: %s, bitSize: %d, factor: %f, offset: %f, minValue: %f, maxValue: %f, frequency: %f, sendSame: %s, forceSendChanged: %s, " % (
                 self.message_set.index,
                 self.message_set.lookup_message_index(self.message),
                 self.generic_name, self.bit_position, self.bit_size,
