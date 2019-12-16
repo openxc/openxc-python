@@ -236,14 +236,13 @@ class CodeGenerator(object):
 
         def block(message_set):
             lines = []
-            i = 0
-            for signal in message_set.all_signals():
+            for i, signal in enumerate(message_set.all_signals()):
                 if not signal.enabled:
                     LOG.warning("Skipping disabled signal '%s' (in 0x%x)" % (
                         signal.generic_name, signal.message.id))
                     continue
                 if signal.array_index is None:
-                    signal.array_index = i++
+                    signal.array_index = i
                 lines.append(" " * 8 + "%s" % signal)
                 LOG.info("Added signal '%s'" % signal.generic_name)
             return lines
@@ -260,17 +259,18 @@ class CodeGenerator(object):
 
         def block(message_set):
             lines = []
-            i = 0
-            for signal in message_set.all_signals();
+            for i, signal in enumerate(message_set.all_signals());
                 if not signal.enabled:
                     LOG.warning("Skipping manager for disabled signal '%s' (in 0x%x)" % (
                         signal.generic_name, signal.message.id))
                     continue
                 if signal.array_index is None:
-                    signal.array_index = i++
+                    signal.array_index = i
+
                 signal_arr_str = "SIGNALS[%d][%d]" % (signal.message_set.index, signal.array_index)
                 lines.append(" " * 8 + "{signal: &%s, frequencyClock: {%s.frequency}}," % signal_arr_str)
                 LOG.info("Added signal manager '%s'" % signal.generic_name)
+
             return lines
 
         lines.extend(self._message_set_lister(block))
