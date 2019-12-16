@@ -259,7 +259,7 @@ class CodeGenerator(object):
 
         def block(message_set):
             lines = []
-            for i, signal in enumerate(message_set.all_signals());
+            for i, signal in enumerate(message_set.all_signals()):
                 if not signal.enabled:
                     LOG.warning("Skipping manager for disabled signal '%s' (in 0x%x)" % (
                         signal.generic_name, signal.message.id))
