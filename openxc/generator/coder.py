@@ -241,7 +241,7 @@ class CodeGenerator(object):
                     LOG.warning("Skipping disabled signal '%s' (in 0x%x)" % (
                         signal.generic_name, signal.message.id))
                     continue
-                if signal.array_index is None:
+                if not hasattr(signal, "array_index") or signal.array_index is None:
                     signal.array_index = i
                 lines.append(" " * 8 + "%s" % signal)
                 LOG.info("Added signal '%s'" % signal.generic_name)
@@ -264,11 +264,11 @@ class CodeGenerator(object):
                     LOG.warning("Skipping manager for disabled signal '%s' (in 0x%x)" % (
                         signal.generic_name, signal.message.id))
                     continue
-                if signal.array_index is None:
+                if not hasattr(signal, "array_index") or signal.array_index is None:
                     signal.array_index = i
 
                 signal_arr_str = "SIGNALS[%d][%d]" % (signal.message_set.index, signal.array_index)
-                lines.append(" " * 8 + "{signal: &%s, frequencyClock: {%s.frequency}}," % signal_arr_str)
+                lines.append(" " * 8 + "{signal: &%s, frequencyClock: {%s.frequency}}," % (signal_arr_str, signal_arr_str))
                 LOG.info("Added signal manager '%s'" % signal.generic_name)
 
             return lines
@@ -340,9 +340,11 @@ class CodeGenerator(object):
                         lines.append(" " * 12 + "case 0x%x: // %s" % (message.id,
                                 message.name))
                         for handler in message.handlers:
-                            lines.append(" " * 16 + "%s(message, SIGNALS[%d], " % (
-                                handler, message_set.index) +
-                                    "getSignalCount(), pipeline);")
+                            lines.append(" " * 16 + "%s(SIGNALS[%d], SIGNALS[%d], " % (
+                                handler, message_set.index, message_set.index) +
+                                    "SIGNAL_MANAGERS[%d], SIGNAL_MANAGERS[%d], " % (
+                                        message_set.index, message_set.index) +
+                                    "getSignalCount(), message, pipeline);")
                         for signal in message.active_signals():
                             line = " " * 16
                             line += ("can::read::translateSignal("
