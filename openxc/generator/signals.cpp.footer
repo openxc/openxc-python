@@ -18,6 +18,10 @@ const CanSignal* openxc::signals::getSignals() {
     return SIGNALS[getActiveMessageSet()->index];
 }
 
+SignalManager* openxc::signals::getSignalManagers() {
+    return SIGNAL_MANAGERS[getActiveMessageSet()->index];
+}
+
 int openxc::signals::getSignalCount() {
     return getActiveMessageSet()->signalCount;
 }
