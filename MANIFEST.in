@@ -5,7 +5,7 @@ include openxc/generator/signals.cpp.footer
 include openxc/generator/signals.cpp.header
 include openxc/tools/templates/dashboard.html
 include openxc/tools/static/css/dashboard.css
-include openxc/tools/static/js/jquery-3.4.1.slim.min.js
+include openxc/tools/static/js/jquery-3.4.1.min.js
 include openxc/tools/static/js/dashboard.js
 include openxc/tools/static/js/socket.io.slim.js
 include openxc/tools/static/js/jquery.color-2.1.2.min.js
