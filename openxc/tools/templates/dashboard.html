@@ -1,22 +1,45 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-    <title>Flask-SocketIO Test</title>
-    <script src="{{url_for('static', filename='js/jquery-3.4.1.slim.min.js')}}"></script>
+    <title>OpenXC Dashboard</title>
+    <script src="{{url_for('static', filename='js/jquery-3.4.1.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/jquery.color-2.1.2.min.js')}}"></script>
     <script src="{{url_for('static', filename='js/socket.io.slim.js')}}"></script>
     <script src="{{url_for('static', filename='js/dashboard.js')}}"></script>
     <link rel="stylesheet" href="{{url_for('static', filename='css/dashboard.css')}}">
 </head>
 <body>
-    <table id="log">
-        <caption>OpenXC Dashboard</caption>
-        <tr>
-            <th>Signal Name</th>
-            <th>Value</th>
-            <th># Received</th>
-            <th>Freq. (Hz)</th>
-        </tr>
-    </table>
+    <div id="page-contents">
+        <div>
+            <table id="log">
+                <caption>OpenXC Dashboard</caption>
+                <tr>
+                    <th>Signal Name</th>
+                    <th>Value</th>
+                    <th># Received</th>
+                    <th>Freq. (Hz)</th>
+                </tr>
+            </table>
+        </div>
+        <div>
+            <h2>Settings</h2>
+            <form id="dashboardSettingsForm" name="dashboardSettings" onsubmit="return saveSettings(event);">
+                <p>Highlight Duration (ms)</p>
+                <ul>
+                    <li>
+                        <label for="justChangedHighlightDuration">Just changed: </label>
+                        <input id="justChangedHighlightDuration" type="number" value="2000" required="true">
+                        <span id="justChangedHighlightDuration_error" class="error"></span>
+                    </li>
+                    <li>
+                        <label for="recentlyChangedHighlightDuration" style="margin-left: 3%">Recently changed: </label>
+                        <input id="recentlyChangedHighlightDuration" type="number" value="10000" required="true">
+                        <span id="recentlyChangedHighlightDuration_error" class="error"></span>
+                    </li>
+                </ul>
+                <input id="dashboardSettingsSubmitBtn" type="submit" value="Update" onclick="return validateSettingsForm();">
+            </form>
+        </div>
     </div>
 </body>
 </html>
