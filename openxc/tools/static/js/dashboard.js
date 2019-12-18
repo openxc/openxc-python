@@ -10,6 +10,9 @@ $(document).ready(function() {
                 msg.name = 'Raw-' + msg.bus + '-0x' + msg.id.toString(16);
                 msg.value = msg.data;
 	}	
+	if (msg.hasOwnProperty('event')){
+                msg.value = msg.value + '_' + msg.event
+        }
         if (!(msg.name in dataPoints)) {
         	dataPoints[msg.name] = {
         		current_data: undefined,
