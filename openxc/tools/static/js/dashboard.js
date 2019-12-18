@@ -6,6 +6,15 @@ $(document).ready(function() {
     socket.on('vehicle data', function(msg, cb) {
         // console.log(msg);
         
+        if (!msg.hasOwnProperty('name')) {
+                msg.name = 'Raw-' + msg.bus + '-0x' + msg.id.toString(16);
+                msg.value = msg.data;
+	}	
+	    
+	if (msg.hasOwnProperty('event')) {
+                msg.value = msg.value + ': ' + msg.event
+        }
+	    
         if (!(msg.name in dataPoints)) {
         	dataPoints[msg.name] = {
         		current_data: undefined,
