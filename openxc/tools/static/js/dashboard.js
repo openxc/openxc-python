@@ -11,7 +11,7 @@ $(document).ready(function() {
                 msg.value = msg.data;
 	}	
 	if (msg.hasOwnProperty('event')){
-                msg.value = msg.value + '_' + msg.event
+                msg.value = msg.value + ': ' + msg.event
         }
         if (!(msg.name in dataPoints)) {
         	dataPoints[msg.name] = {
