@@ -1,5 +1,37 @@
+#page-contents {
+	display: flex;
+	justify-content: space-evenly;
+	height: 100%;
+	margin-top: 3%;
+}
+
+form {
+	display: table;
+}
+
+.error {
+	color: red;
+	display: block;
+	font-size: 0.85em;
+	font-style: italic;
+}
+
+form li {
+	list-style-type: none;
+	display: table-row;
+}
+
+form label, input {
+	display: table-cell;
+}
+
+#dashboardSettingsSubmitBtn {
+	margin-left: 9%;
+}
+
 caption {
 	font-size: 1.5em;
+	margin-bottom: 4.5%;
 }
 
 table, th, td {
