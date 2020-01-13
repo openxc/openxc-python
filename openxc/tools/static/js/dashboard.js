@@ -3,6 +3,7 @@ let dataPoints = {};
 /* --- Dashboard parameters ------- */
 let justChangedHighlightDuration;
 let recentlyChangedHighlightDuration;
+let diagnosticCount = 0;
 /* --- End dashboard parameters --- */
 
 $(document).ready(function() {
@@ -13,34 +14,43 @@ $(document).ready(function() {
     socket.on('vehicle data', function(msg, cb) {
         // console.log(msg);
 
-        
-    if (!msg.hasOwnProperty('name')) {
-        msg.name = 'Raw-' + msg.bus + '-0x' + msg.id.toString(16);
-        msg.value = msg.data;
-    }	
-	    
-	if (msg.hasOwnProperty('event')) {
-                msg.value = msg.value + ': ' + msg.event
-        }
-	    
-        if (!(msg.name in dataPoints)) {
-        	dataPoints[msg.name] = {
-        		current_data: undefined,
-        		events: {},
-        		messages_received: 0,
-        		measurement_type: undefined,
-        		min: undefined,
-        		max: undefined,
-        		last_update_time: undefined,
-        		average_time_since_update: undefined
-        	};
-        }
-
-        updateDataPoint(dataPoints[msg.name], msg);
-        updateDisplay(dataPoints[msg.name]);
-
-        if (cb)
-            cb();
+		if (!msg.hasOwnProperty('command_response')) {
+			if (msg.hasOwnProperty('success')) {
+				// Using the 'success' property to identify a diagnostic response
+				diagnosticCount++;
+				let diagnosticName = 'diagnostic_' + diagnosticCount;
+				addDiagnosticResponse(diagnosticName, msg);
+			} else {
+				if (!msg.hasOwnProperty('name')) {
+					msg.name = 'Raw-' + msg.bus + '-0x' + msg.id.toString(16);
+					msg.value = msg.data;
+				}	
+				
+				if (msg.hasOwnProperty('event')) {
+						msg.value = msg.value + ': ' + msg.event
+				}
+				
+				if (!(msg.name in dataPoints)) {
+					dataPoints[msg.name] = {
+						current_data: undefined,
+						events: {},
+						messages_received: 0,
+						measurement_type: undefined,
+						min: undefined,
+						max: undefined,
+						last_update_time: undefined,
+						average_time_since_update: undefined
+					};
+				}
+		
+				updateDataPoint(dataPoints[msg.name], msg);
+				updateDisplay(dataPoints[msg.name]);
+		
+				if (cb) {
+					cb();
+				}
+			}
+		}
     });
 });
 
@@ -169,4 +179,52 @@ function calculateAverageTimeSinceUpdate(updateTime, dataPoint) {
 	return (dataPoint.average_time_since_update === undefined) 
 		? time_since_update
 		: (0.1 * time_since_update) + (0.9 * dataPoint.average_time_since_update);
+}
+
+function addDiagnosticResponse(name, message) {
+	$('<tr/>', {
+		id: name
+	}).appendTo('#diagnostic');
+	
+	$('<td/>', {
+		id: name + '_bus',
+		text: message.bus
+	}).appendTo('#' + name);
+
+	$('<td/>', {
+		id: name + '_id',
+		text: message.id
+	}).appendTo('#' + name);
+
+	$('<td/>', {
+		id: name + '_mode',
+		text: message.mode
+	}).appendTo('#' + name);
+
+	$('<td/>', {
+		id: name + '_pid',
+		text: message.pid
+	}).appendTo('#' + name);
+
+	$('<td/>', {
+		id: name + '_success',
+		text: message.success
+	}).appendTo('#' + name);
+
+	$('<td/>', {
+		id: name + '_payload',
+		text: message.payload
+	}).appendTo('#' + name);
+
+	$('<td/>', {
+		id: name + '_value',
+		text: message.value
+	}).appendTo('#' + name);
+
+	if (msg.success == false) {
+		$('<td/>', {
+			id: name + '_neg_resp_code',
+			text: message.negative_response_code
+		}).appendTo('#' + name);
+	}
 }
