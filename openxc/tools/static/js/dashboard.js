@@ -221,7 +221,7 @@ function addDiagnosticResponse(name, message) {
 		text: message.value
 	}).appendTo('#' + name);
 
-	if (msg.success == false) {
+	if (message.success == false) {
 		$('<td/>', {
 			id: name + '_neg_resp_code',
 			text: message.negative_response_code
