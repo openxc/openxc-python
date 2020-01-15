@@ -4,21 +4,26 @@
     <title>OpenXC Dashboard</title>
     <script src="{{url_for('static', filename='js/jquery-3.4.1.min.js')}}"></script>
     <script src="{{url_for('static', filename='js/jquery.color-2.1.2.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/dataTables.min.js')}}"></script>
     <script src="{{url_for('static', filename='js/socket.io.slim.js')}}"></script>
     <script src="{{url_for('static', filename='js/dashboard.js')}}"></script>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/dataTables.min.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename='css/dashboard.css')}}">
 </head>
 <body>
     <div id="page-contents">
         <div>
+            <h1 style="font-size: 180%; text-align: center;">OpenXC Dashboard</h1>
             <table id="log">
-                <caption>OpenXC Dashboard</caption>
+                <thead>
                 <tr>
                     <th>Signal Name</th>
                     <th>Value</th>
                     <th># Received</th>
                     <th>Freq. (Hz)</th>
                 </tr>
+                </thead>
+                <tbody id="messages"></tbody>
             </table>
         </div>
         <div>

@@ -7,6 +7,15 @@ let diagnosticCount = 0;
 /* --- End dashboard parameters --- */
 
 $(document).ready(function() {
+    var data_table = $('#log').DataTable({
+        "createdRow": function ( row, data, index ) {
+            $('td', row).eq(0).attr('id', `${data[0]}_label`);
+            $('td', row).eq(1).attr('id', `${data[0]}_value`);
+            $('td', row).eq(2).attr('id', `${data[0]}_num`);
+            $('td', row).eq(3).attr('id', `${data[0]}_freq`);
+        }
+    });
+
 	updateDashboardParameters();
 
     namespace = '';
@@ -41,6 +50,16 @@ $(document).ready(function() {
 						last_update_time: undefined,
 						average_time_since_update: undefined
 					};
+
+                    data_table.row.add([
+                        msg.name,
+                        msg.value,
+                        0,
+                        0
+                    ]).draw();
+
+                    var id = data_table.row(this).id();
+                    console.log(id);
 				}
 		
 				updateDataPoint(dataPoints[msg.name], msg);
@@ -64,51 +83,8 @@ function saveSettings(e) {
 	updateDashboardParameters();
 }
 
-function addToDisplay(msgName) {
-	// Insert new rows alphabetically
-	var added = false;
-	$('#log tr').each(function() {
-		if (msgName < $(this).children('td:eq(0)').text()) {
-			$('<tr/>', {
-				id: msgName
-			}).insertBefore($(this));
-			added = true;
-			return false;
-		}
-	});
-
-	if (!added) {
-		$('<tr/>', {
-			id: msgName
-		}).appendTo('#log');
-	}
-
-	$('<td/>', {
-		id: msgName + '_label',
-		text: msgName
-	}).appendTo('#' + msgName);
-
-	$('<td/>', {
-		id: msgName + '_value'
-	}).appendTo('#' + msgName);
-
-	$('<td/>', {
-		id: msgName + '_num',
-		class: 'metric'
-	}).appendTo('#' + msgName);
-
-	$('<td/>', {
-		id: msgName + '_freq',
-		class: 'metric'
-	}).appendTo('#' + msgName);
-}
-
 function updateDisplay(dataPoint) {
 	msg = dataPoint.current_data
-	
-	if (!($('#' + msg.name).length > 0)) {
-		addToDisplay(msg.name);
-	}
 
     $('#' + msg.name + '_value').text(msg.value);
     highlightCell('#' + msg.name + '_value');
