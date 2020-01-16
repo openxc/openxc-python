@@ -8,7 +8,27 @@ import logging
 from openxc.utils import find_file
 
 LOG = logging.getLogger(__name__)
-
+STANDARD_SIGNALS = [
+    ('steering_wheel_angle','None'),
+    ('torque_at_transmission','None'),
+    ('engine_speed','None'),
+    ('vehicle_speed','None'),
+    ('accelerator_pedal_position','None'),
+    ('parking_brake_status','booleanDecoder'),
+    ('brake_pedal_status','booleanDecoder'),
+    ('transmission_gear_position','stateDecoder'),
+    ('odometer','None'),
+    ('ignition_status','stateDecoder'),
+    ('fuel_level','None'),
+    ('fuel_consumed_since_restart','None'),
+    ('door_status',''),
+    ('headlamp_status','booleanDecoder'),
+    ('high_beam_status','booleanDecoder'),
+    ('windshield_wiper_status','booleanDecoder'),
+    ('latitude','None'),
+    ('longitude','None'),
+    ('button_event','None',)
+    ]
 
 class CodeGenerator(object):
     """This class is used to build an implementation of the signals.h functions
@@ -99,6 +119,14 @@ class CodeGenerator(object):
 
         def block(message_set):
             lines = []
+            for signal in message_set.enabled_signals():
+                for standardSignal in STANDARD_SIGNALS:
+                    if signal.generic_name == standardSignal[0]:
+                        STANDARD_SIGNALS.remove(standardSignal)
+                        if signal.decoder != standardSignal[1] and standardSignal[1] != 'None':
+                            LOG.warning('Standard Signal %s type mismatch %s != %s',signal.generic_name,signal.decoder,standardSignal[1])
+            for standardSignal in STANDARD_SIGNALS:
+                LOG.warning('Standard Signal %s Not Defined', standardSignal[0])
             for message_index, message in enumerate(message_set.all_messages()):
                 if not message.active:
                     msg = "Skipping disabled message 0x%x" % message.id
