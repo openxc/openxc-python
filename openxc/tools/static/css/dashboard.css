@@ -35,10 +35,24 @@ caption {
 }
 
 table, th, td {
-  text-align: left;
-  border-spacing: 8px 1px;
+	text-align: left;
+	border-spacing: 8px 1px;
 }
 
 .metric {
 	text-align: right;
+}
+
+th:hover {
+	cursor: pointer;
+	background-color: #AAA;
+}
+
+table, th, td {
+	border: 1px solid black;
+}
+
+table {
+	padding-top: 2%;
+	padding-bottom: 2%;
 }
