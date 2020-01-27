@@ -8,7 +8,7 @@ v2.0.0
 * Feature: Add dashboard on message change highlighting.
 * Feature: Add column sorting and filtering on dashboard.
 * Feature: Add more verbosity to libusb errors.
-* Fix: Fix more python 3 byte bugs.
+* Fix: Fix more python 3 migration byte bugs.
 
 v1.1.1
 ----------
