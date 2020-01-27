@@ -4,7 +4,7 @@ OpenXC Python Library Changelog
 v2.0.0
 ----------
 * Known Issue: OpenXC python must be used with firmware 8.0.0 or greater.
-* Feature: openxc-generate-firmware-code generator now generates in a more memory efficent way.
+* Feature: openxc-generate-firmware-code generator now generates signals.cpp in a more memory efficent way.
 * Feature: Add dashboard on message change highlighting.
 * Feature: Add column sorting and filtering on dashboard.
 * Feature: Add more verbosity to libusb errors.
