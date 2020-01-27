@@ -4,7 +4,7 @@ OpenXC for Python
 
 .. image:: https://github.com/openxc/openxc-python/raw/master/docs/_static/logo.png
 
-:Version: 1.1.1
+:Version: 2.0.0
 :Web: http://openxcplatform.com
 :Download: http://pypi.python.org/pypi/openxc/
 :Documentation: http://python.openxcplatform.com
@@ -29,6 +29,8 @@ preferrable to use a low-overhead environment like Python when developing.
 In addition to a port of the Android library API, the package also contains a
 number of command-line tools for connecting to the CAN translator and
 manipulating previously recorded vehicle data.
+
+Due to changes in signals.cpp openxc-python Version 2.0.0 must be used with vi-firmware 8.0.0 or greater. 
 
 To package run "setup.py sdist bdist_wheel"
 to push to pypi run "python -m twine upload dist/\*"
