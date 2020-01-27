@@ -16,6 +16,7 @@
 namespace can = openxc::can;
 
 using openxc::util::log::debug;
+using openxc::util::time::FrequencyClock;
 using openxc::pipeline::Pipeline;
 using openxc::config::getConfiguration;
 using openxc::can::read::booleanDecoder;

@@ -131,6 +131,7 @@ def parse_options():
             dest="host")
     parser.add_argument("--port", action="store", default=80,
             dest="port")
+    parser.set_defaults(format="json")
     return parser.parse_args()
 
 

@@ -28,7 +28,7 @@ class ResponseReceiver(object):
     of ResponseReceivers as they arrive.
     """
 
-    COMMAND_RESPONSE_TIMEOUT_S = .5
+    COMMAND_RESPONSE_TIMEOUT_S = 0.5
 
     def __init__(self, queue, request, quit_after_first=True):
         """Construct a new ResponseReceiver.
