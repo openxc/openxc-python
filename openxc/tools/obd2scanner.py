@@ -17,9 +17,9 @@ def scan(controller, bus=None):
     # TODO could read the response from the "PIDs supported" requests to see
     # what the vehicle reports that it *should* support.
     print("Beginning sequential scan of all OBD-II PIDs")
-    for pid in range(0xd0ff, 0xd101):
-        response = controller.create_diagnostic_request(0x7d0, mode=0x22, bus=bus,
-                wait_for_first_response=True, pid=pid)
+    for pid in range(0, 0x88):
+            response = controller.create_diagnostic_request(0x7df, mode=0x1, bus=bus,
+                    wait_for_first_response=True, pid=pid)
         if response is not None:
             no_response = True
             for item in response[1]:
