@@ -10,6 +10,7 @@ module are internal only.
 import argparse
 
 from .common import device_options, configure_logging, select_device
+import json
 
 def scan(controller, bus=None):
 
@@ -17,12 +18,18 @@ def scan(controller, bus=None):
     # what the vehicle reports that it *should* support.
     print("Beginning sequential scan of all OBD-II PIDs")
     for pid in range(0, 0x88):
-        response = controller.create_diagnostic_request(0x7df, mode=0x1, bus=bus,
-                wait_for_first_response=True, pid=pid)
+            response = controller.create_diagnostic_request(0x7df, mode=0x1, bus=bus,
+                    wait_for_first_response=True, pid=pid)
         if response is not None:
-            print(("PID 0x%x responded with: %s" % (pid, response)))
-        else:
-            print(("PID 0x%x did not respond" % pid))
+            no_response = True
+            for item in response[1]:
+                if 'success' in item:
+                    no_response = False
+                    print(("PID 0x%x responded with: %s" % (pid, item)))
+
+            if (no_response == True):
+                print(("PID 0x%x did not respond" % pid))
+
 
 def parse_options():
     parser = argparse.ArgumentParser(description="Send requests for all "
