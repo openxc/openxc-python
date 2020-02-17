@@ -91,6 +91,8 @@ class ProtobufFormatter(object):
             return openxc_pb2.ControlCommand.PAYLOAD_FORMAT
         elif command_name == "predefined_obd2":
             return openxc_pb2.ControlCommand.PREDEFINED_OBD2_REQUESTS
+        elif command_name == "platform":
+            return openxc_pb2.ControlCommand.PLATFORM
         else:
             raise UnrecognizedBinaryCommandError(command_name)
 
@@ -321,6 +323,8 @@ class ProtobufFormatter(object):
                     parsed_message['command_response'] = "af_bypass"
                 elif response.type == openxc_pb2.ControlCommand.PREDEFINED_OBD2_REQUESTS:
                     parsed_message['command_response'] = "predefined_obd2"
+                elif response.type == openxc_pb2.ControlCommand.PLATFORM:
+                    parsed_message['command_response'] = "platform"
                 else:
                     raise UnrecognizedBinaryCommandError(response.type)
 
