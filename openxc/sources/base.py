@@ -39,7 +39,7 @@ class DataSource(threading.Thread):
         self.running = True
         self._streamer = None
         self._formatter = None
-        self.format = payload_format
+        self._format = payload_format
 
         self.logger = SourceLogger(self, log_mode)
 
