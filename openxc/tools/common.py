@@ -48,14 +48,6 @@ def device_options():
             action="store",
             dest="baudrate",
             help="baudrate for serial-connected VI")
-    parser.add_argument("--network-host",
-            action="store",
-            dest="network_host",
-            help="host for networked VI")
-    parser.add_argument("--network-port",
-            action="store",
-            dest="network_port",
-            help="network port for networked VI")
     parser.add_argument("--log-mode",
             action="store",
             default="off",
@@ -82,10 +74,6 @@ def select_device(arguments):
     elif arguments.trace_file:
         source_class = TraceDataSource
         source_kwargs = dict(filename=arguments.trace_file)
-    elif arguments.use_network:
-        source_class = NetworkVehicleInterface
-        source_kwargs = dict(host=arguments.network_host,
-                port=arguments.network_port)
     elif arguments.use_bluetooth:
         source_class = BluetoothVehicleInterface
         source_kwargs = dict(address=arguments.bluetooth_address)
