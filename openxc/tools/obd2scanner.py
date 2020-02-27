@@ -6,7 +6,7 @@ program.
 module are internal only.
 """
 
-
+import sys
 import argparse
 
 from .common import device_options, configure_logging, select_device
@@ -24,11 +24,11 @@ def scan(controller, bus=None):
             for item in response[1]:
                 if 'success' in item:
                     no_response = False
-                    print(("PID 0x%x responded with: %s" % (pid, item)))
+                    print("PID 0x%x responded with: %s" % (pid, item))
 
             if (no_response == True):
-                print(("PID 0x%x did not respond" % pid))
-
+                print("PID 0x%x did not respond" % pid)
+        sys.stdout.flush()
 
 def parse_options():
     parser = argparse.ArgumentParser(description="Send requests for all "
