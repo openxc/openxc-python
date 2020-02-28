@@ -6,7 +6,7 @@ import logging
 
 from openxc.sources.trace import TraceDataSource
 from openxc.interface import SerialVehicleInterface, UsbVehicleInterface, \
-        NetworkVehicleInterface, BluetoothVehicleInterface
+         BluetoothVehicleInterface
 
 
 def device_options():

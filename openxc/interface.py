@@ -17,3 +17,7 @@ class SerialVehicleInterface(SerialDataSource, SerialControllerMixin):
     read support and limited write support (no control commands are supported).
     """
     pass
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
