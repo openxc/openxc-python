@@ -161,7 +161,7 @@ def main():
         if arguments.unix_time is not None:
             set_rtc_time(interface, int(arguments.unix_time))
         if arguments.host is not None:
-            modem_configuration(interface, host, port)
+            modem_configuration(interface, arguments.host, arguments.port)
     elif arguments.command.startswith("write"):
         if arguments.command == "write":
             if arguments.write_name:

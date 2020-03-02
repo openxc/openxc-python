@@ -18,9 +18,4 @@ class SerialVehicleInterface(SerialDataSource, SerialControllerMixin):
     """
     pass
 
-class NetworkVehicleInterface(NetworkDataSource, Controller):
-    """This class is compatibile with an OpenXC vehicle interface vehicle interface
-    connected via the network (e.g. Ethernet or Wi-Fi). It has full
-    read support and limited write support (no control commands are supported).
-    """
-    pass
+
