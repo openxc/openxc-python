@@ -6,6 +6,9 @@ let recentlyChangedHighlightDuration;
 let diagnosticCount = 0;
 /* --- End dashboard parameters --- */
 
+var valueChangedTimer;
+var valueRecentlyChangedTimer;
+
 $(document).ready(function() {
 	updateDashboardParameters();
 	searchTable()
@@ -34,7 +37,7 @@ $(document).ready(function() {
 	});
 
 
-	namespace = '';
+	var namespace = '';
 	var socket = io(namespace);
 	socket.on('vehicle data', function(msg, cb) {
 		// console.log(msg);
@@ -90,12 +93,9 @@ function saveSettings(e) {
 }
 
 function addToDisplay(msgName) {
-	var added = false;
-	if (!added) {
-		$('<tr/>', {
-			id: msgName
-		}).appendTo('#log');
-	}
+	$('<tr/>', {
+		id: msgName
+	}).appendTo('#log');
 
 	$('<td/>', {
 		id: msgName + '_label',
@@ -118,7 +118,7 @@ function addToDisplay(msgName) {
 }
 
 function updateDisplay(dataPoint) {
-	msg = dataPoint.current_data
+	var msg = dataPoint.current_data
 
 	if (!($('#' + msg.name).length > 0)) {
 		addToDisplay(msg.name);

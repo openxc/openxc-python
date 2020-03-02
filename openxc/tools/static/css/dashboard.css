@@ -37,6 +37,7 @@ caption {
 table, th, td {
 	text-align: left;
 	border-spacing: 8px 1px;
+	border: 1px solid black;
 }
 
 .metric {
@@ -46,10 +47,6 @@ table, th, td {
 th:hover {
 	cursor: pointer;
 	background-color: #AAA;
-}
-
-table, th, td {
-	border: 1px solid black;
 }
 
 table {
