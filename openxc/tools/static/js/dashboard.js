@@ -120,7 +120,7 @@ function addToDisplay(msgName) {
 function updateDisplay(dataPoint) {
 	var msg = dataPoint.current_data
 
-	if (!($('#' + msg.name).length > 0)) {
+	if ($('#' + msg.name).length <= 0) {
 		addToDisplay(msg.name);
 	}
 
