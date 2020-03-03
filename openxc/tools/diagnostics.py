@@ -49,8 +49,8 @@ def diagnostic_request(arguments, controller):
                     # Stripping all of the unnesseary data we get after sending a diag request in python
                     # Just like in enabler, it's a diag response if it contains the keys "mode", "bus", 
                     # "id", and "success". 
-                    diagMsgReqKeys = ['mode', 'bus', 'id', 'success']
-                    indices = [i for i, s in enumerate(response) if all(x in s for x in diagMsgReqKeys)]
+                    diag_mgs_req_keys = ['mode', 'bus', 'id', 'success']
+                    indices = [i for i, s in enumerate(response) if all(x in s for x in diag_mgs_req_keys)]
                     if indices:
                         print(("Response: %s" % response[indices[0]]))
                 else:

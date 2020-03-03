@@ -68,7 +68,6 @@ class ProtobufFormatter(object):
         except UnicodeDecodeError as e:
             LOG.warn("Unable to parse protobuf: %s", e)
         else:
-            #return type(cls._protobuf_to_dict(message)['payload'])
             return cls._protobuf_to_dict(message)
 
     @classmethod
