@@ -162,25 +162,24 @@ def main():
             set_rtc_time(interface, int(arguments.unix_time))
         if arguments.host is not None:
             modem_configuration(interface, arguments.host, arguments.port)
-    elif arguments.command.startswith("write"):
-        if arguments.command == "write":
-            if arguments.write_name:
-                interface.write(name=arguments.write_name,
-                        value=arguments.write_value,
-                        event=arguments.write_event)
-            elif arguments.write_id:
-                if not arguments.write_data:
-                    sys.exit("%s requires an id and data" % arguments.command)
-                # TODO we should use unhexlify as with the diagnostic command
-                # payloads so we can standardize the API and not deal with hex
-                # strings in code
-                interface.write(bus=int(arguments.bus),
-                        id=arguments.write_id,
-                        data=arguments.write_data,
-                        frame_format=arguments.write_frame_format)
-            elif arguments.write_input_file:
-                write_file(interface, arguments.write_input_file)
-            else:
-                sys.exit("%s requires a signal name, message ID or filename" % arguments.command)
+    elif arguments.command == "write":
+        if arguments.write_name:
+            interface.write(name=arguments.write_name,
+                    value=arguments.write_value,
+                    event=arguments.write_event)
+        elif arguments.write_id:
+            if not arguments.write_data:
+                sys.exit("%s requires an id and data" % arguments.command)
+            # TODO we should use unhexlify as with the diagnostic command
+            # payloads so we can standardize the API and not deal with hex
+            # strings in code
+            interface.write(bus=int(arguments.bus),
+                    id=arguments.write_id,
+                    data=arguments.write_data,
+                    frame_format=arguments.write_frame_format)
+        elif arguments.write_input_file:
+            write_file(interface, arguments.write_input_file)
+        else:
+            sys.exit("%s requires a signal name, message ID or filename" % arguments.command)
     else:
         print(("Unrecognized command \"%s\"" % arguments.command))
