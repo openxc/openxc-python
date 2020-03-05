@@ -96,45 +96,65 @@ class ProtobufFormatter(object):
             raise UnrecognizedBinaryCommandError(command_name)
 
     @classmethod
+    def _handle_passthrough_control_command(cls, data, message):
+        message.control_command.passthrough_mode_request.bus = data['bus']
+        message.control_command.passthrough_mode_request.enabled = data['enabled']
+
+    @classmethod
+    def _handle_acceptance_filter_bypass_control_command(cls, data, message):
+        message.control_command.acceptance_filter_bypass_command.bus = data['bus']
+        message.control_command.acceptance_filter_bypass_command.bypass = data['bypass']
+
+    @classmethod
+    def _handle_predefined_obd2_requests_control_command(cls, data, message):
+        message.control_command.predefined_obd2_requests_command.enabled = data['enabled']
+
+    @classmethod
+    def _handle_payload_format_control_command(cls, data, message):
+        if data['format'] == "json":
+            message.control_command.payload_format_command.format = openxc_pb2.PayloadFormatCommand.JSON
+        elif data['format'] == "protobuf":
+            message.control_command.payload_format_command.format = openxc_pb2.PayloadFormatCommand.PROTOBUF
+
+    @classmethod
+    def _handle_diagnostic_control_command(cls, data, message):
+        request_command = message.control_command.diagnostic_request
+        action = data['action']
+        if action == "add":
+            request_command.action = openxc_pb2.DiagnosticControlCommand.ADD
+        elif action == "cancel":
+            request_command.action = openxc_pb2.DiagnosticControlCommand.CANCEL
+        request = request_command.request
+        request_data = data['request']
+        request.bus = request_data['bus']
+        request.message_id = request_data['id']
+        request.mode = request_data['mode']
+        if 'frequency' in request_data:
+            request.frequency = request_data['frequency']
+        if 'name' in request_data:
+            request.name = request_data['name']
+        if 'multiple_responses' in request_data:
+            request.multiple_responses = request_data['multiple_responses']
+        if 'pid' in request_data:
+            request.pid = request_data['pid']
+        if 'payload' in request_data:
+            request.payload = binascii.unhexlify(request_data['payload'].split('0x')[1])
+
+    @classmethod
     def _build_control_command_message(cls, data, message):
         command_name = data['command']
         message.type = openxc_pb2.VehicleMessage.CONTROL_COMMAND
         message.control_command.type = cls._command_string_to_protobuf(command_name)
         if message.control_command.type == openxc_pb2.ControlCommand.PASSTHROUGH:
-            message.control_command.passthrough_mode_request.bus = data['bus']
-            message.control_command.passthrough_mode_request.enabled = data['enabled']
+            cls._handle_passthrough_control_command(data, message)
         elif message.control_command.type == openxc_pb2.ControlCommand.ACCEPTANCE_FILTER_BYPASS:
-            message.control_command.acceptance_filter_bypass_command.bus = data['bus']
-            message.control_command.acceptance_filter_bypass_command.bypass = data['bypass']
+            cls._handle_acceptance_filter_bypass_control_command(data, message)
         elif message.control_command.type == openxc_pb2.ControlCommand.PREDEFINED_OBD2_REQUESTS:
-            message.control_command.predefined_obd2_requests_command.enabled = data['enabled']
+            cls._handle_predefined_obd2_requests_control_command(data, message)
         elif message.control_command.type == openxc_pb2.ControlCommand.PAYLOAD_FORMAT:
-            if data['format'] == "json":
-                message.control_command.payload_format_command.format = openxc_pb2.PayloadFormatCommand.JSON
-            elif data['format'] == "protobuf":
-                message.control_command.payload_format_command.format = openxc_pb2.PayloadFormatCommand.PROTOBUF
+            cls._handle_payload_format_control_command(data, message)
         elif message.control_command.type == openxc_pb2.ControlCommand.DIAGNOSTIC:
-            request_command = message.control_command.diagnostic_request
-            action = data['action']
-            if action == "add":
-                request_command.action = openxc_pb2.DiagnosticControlCommand.ADD
-            elif action == "cancel":
-                request_command.action = openxc_pb2.DiagnosticControlCommand.CANCEL
-            request = request_command.request
-            request_data = data['request']
-            request.bus = request_data['bus']
-            request.message_id = request_data['id']
-            request.mode = request_data['mode']
-            if 'frequency' in request_data:
-                request.frequency = request_data['frequency']
-            if 'name' in request_data:
-                request.name = request_data['name']
-            if 'multiple_responses' in request_data:
-                request.multiple_responses = request_data['multiple_responses']
-            if 'pid' in request_data:
-                request.pid = request_data['pid']
-            if 'payload' in request_data:
-                request.payload = binascii.unhexlify(request_data['payload'].split('0x')[1])
+            cls._handle_diagnostic_control_command(data, message)
 
     @classmethod
     def _build_command_response_message(cls, data, message):
