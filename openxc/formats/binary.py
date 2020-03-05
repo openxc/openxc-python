@@ -96,28 +96,28 @@ class ProtobufFormatter(object):
             raise UnrecognizedBinaryCommandError(command_name)
 
     @classmethod
-    def _handle_passthrough_control_command(cls, data, message):
+    def _handle_passthrough_cc_message(cls, data, message):
         message.control_command.passthrough_mode_request.bus = data['bus']
         message.control_command.passthrough_mode_request.enabled = data['enabled']
 
     @classmethod
-    def _handle_acceptance_filter_bypass_control_command(cls, data, message):
+    def _handle_acceptance_filter_bypass_cc_message(cls, data, message):
         message.control_command.acceptance_filter_bypass_command.bus = data['bus']
         message.control_command.acceptance_filter_bypass_command.bypass = data['bypass']
 
     @classmethod
-    def _handle_predefined_obd2_requests_control_command(cls, data, message):
+    def _handle_predefined_obd2_requests_cc_message(cls, data, message):
         message.control_command.predefined_obd2_requests_command.enabled = data['enabled']
 
     @classmethod
-    def _handle_payload_format_control_command(cls, data, message):
+    def _handle_payload_format_cc_message(cls, data, message):
         if data['format'] == "json":
             message.control_command.payload_format_command.format = openxc_pb2.PayloadFormatCommand.JSON
         elif data['format'] == "protobuf":
             message.control_command.payload_format_command.format = openxc_pb2.PayloadFormatCommand.PROTOBUF
 
     @classmethod
-    def _handle_diagnostic_control_command(cls, data, message):
+    def _handle_diagnostic_cc_message(cls, data, message):
         request_command = message.control_command.diagnostic_request
         action = data['action']
         if action == "add":
