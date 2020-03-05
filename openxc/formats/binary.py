@@ -151,9 +151,9 @@ class ProtobufFormatter(object):
             message.can_message.bus = data['bus']
         if 'frame_format' in data:
             if data['frame_format'] == "standard":
-                message.can_message.frame_format = openxc_pb2.RawMessage.STANDARD
+                message.can_message.frame_format = openxc_pb2.CanMessage.STANDARD
             elif data['frame_format'] == "extended":
-                message.can_message.frame_format = openxc_pb2.RawMessage.EXTENDED
+                message.can_message.frame_format = openxc_pb2.CanMessage.EXTENDED
         message.can_message.id = data['id']
         message.can_message.data = binascii.unhexlify(data['data'].split('0x')[1])
 
@@ -233,9 +233,9 @@ class ProtobufFormatter(object):
                 if can_message.HasField('data'):
                     parsed_message['data'] = "0x%s" % binascii.hexlify(can_message.data).decode("ascii")
                 if can_message.HasField('frame_format'):
-                    if can_message.frame_format == openxc_pb2.RawMessage.STANDARD:
+                    if can_message.frame_format == openxc_pb2.CanMessage.STANDARD:
                         parsed_message['frame_format'] = "standard"
-                    elif can_message.frame_format == openxc_pb2.RawMessage.EXTENDED:
+                    elif can_message.frame_format == openxc_pb2.CanMessage.EXTENDED:
                         parsed_message['frame_format'] = "extended"
             elif message.type == message.DIAGNOSTIC:
                 diagnostic_message = message.diagnostic_response
