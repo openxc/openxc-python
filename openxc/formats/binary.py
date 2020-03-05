@@ -302,6 +302,57 @@ class ProtobufFormatter(object):
             parsed_message = None
 
     @classmethod
+    def _handle_diagnostic_cc_parsed_message(cls, command, parsed_message):
+        parsed_message['command'] = "diagnostic_request"
+        parsed_message['request'] = {}
+        action = command.diagnostic_request.action
+        if action == openxc_pb2.DiagnosticControlCommand.ADD:
+            parsed_message['action'] = "add"
+        elif action == openxc_pb2.DiagnosticControlCommand.CANCEL:
+            parsed_message['action'] = "cancel"
+
+        request = command.diagnostic_request.request
+        parsed_message['request']['id'] = request.message_id
+        parsed_message['request']['bus'] = request.bus
+        parsed_message['request']['mode'] = request.mode
+
+        if request.HasField('frequency'):
+            parsed_message['request']['frequency'] = request.frequency
+        if request.HasField('name'):
+            parsed_message['request']['name'] = request.name
+        if request.HasField('multiple_responses'):
+            parsed_message['request']['multiple_responses'] = request.multiple_responses
+        if request.HasField('pid'):
+            parsed_message['request']['pid'] = request.pid
+        if request.HasField('payload'):
+            parsed_message['request']['payload'] = "0x%s" % binascii.hexlify(request.payload).decode("ascii")
+
+    @classmethod
+    def _handle_passthrough_cc_parsed_message(cls, command, parsed_message):
+        parsed_message['command'] = "passthrough"
+        parsed_message['bus'] = command.passthrough_mode_request.bus
+        parsed_message['enabled'] = command.passthrough_mode_request.enabled
+
+    @classmethod
+    def _handle_predefined_obd2_requests_cc_parsed_message(cls, command, parsed_message):
+        parsed_message['command'] = "predefined_obd2"
+        parsed_message['enabled'] = command.predefined_obd2_requests_command.enabled
+        
+    @classmethod
+    def _handle_acceptance_filter_bypass_cc_parsed_message(cls, command, parsed_message):
+        parsed_message['command'] = "af_bypass"
+        parsed_message['bus'] = command.acceptance_filter_bypass_command.bus
+        parsed_message['bypass'] = command.acceptance_filter_bypass_command.bypass
+        
+    @classmethod
+    def _handle_payload_format_cc_parsed_message(cls, command, parsed_message):
+        parsed_message['command'] = "payload_format"
+        if command.payload_format_command.format == openxc_pb2.PayloadFormatCommand.JSON:
+            parsed_message['format'] = "json"
+        elif command.payload_format_command.format == openxc_pb2.PayloadFormatCommand.PROTOBUF:
+            parsed_message['format'] = "protobuf"
+
+    @classmethod
     def _build_control_command_parsed_message(cls, message, parsed_message):
         command = message.control_command
         if command.type == openxc_pb2.ControlCommand.VERSION:
@@ -309,46 +360,15 @@ class ProtobufFormatter(object):
         elif command.type == openxc_pb2.ControlCommand.DEVICE_ID:
             parsed_message['command'] = "device_id"
         elif command.type == openxc_pb2.ControlCommand.DIAGNOSTIC:
-            parsed_message['command'] = "diagnostic_request"
-            parsed_message['request'] = {}
-            action = command.diagnostic_request.action
-            if action == openxc_pb2.DiagnosticControlCommand.ADD:
-                parsed_message['action'] = "add"
-            elif action == openxc_pb2.DiagnosticControlCommand.CANCEL:
-                parsed_message['action'] = "cancel"
-
-            request = command.diagnostic_request.request
-            parsed_message['request']['id'] = request.message_id
-            parsed_message['request']['bus'] = request.bus
-            parsed_message['request']['mode'] = request.mode
-
-            if request.HasField('frequency'):
-                parsed_message['request']['frequency'] = request.frequency
-            if request.HasField('name'):
-                parsed_message['request']['name'] = request.name
-            if request.HasField('multiple_responses'):
-                parsed_message['request']['multiple_responses'] = request.multiple_responses
-            if request.HasField('pid'):
-                parsed_message['request']['pid'] = request.pid
-            if request.HasField('payload'):
-                parsed_message['request']['payload'] = "0x%s" % binascii.hexlify(request.payload).decode("ascii")
+            cls._handle_diagnostic_cc_parsed_message(command, parsed_message)
         elif command.type == openxc_pb2.ControlCommand.PASSTHROUGH:
-            parsed_message['command'] = "passthrough"
-            parsed_message['bus'] = command.passthrough_mode_request.bus
-            parsed_message['enabled'] = command.passthrough_mode_request.enabled
+            cls._handle_passthrough_cc_parsed_message(command, parsed_message)
         elif command.type == openxc_pb2.ControlCommand.PREDEFINED_OBD2_REQUESTS:
-            parsed_message['command'] = "predefined_obd2"
-            parsed_message['enabled'] = command.predefined_obd2_requests_command.enabled
+            cls._handle_passthrough_cc_parsed_message(command, parsed_message)
         elif command.type == openxc_pb2.ControlCommand.ACCEPTANCE_FILTER_BYPASS:
-            parsed_message['command'] = "af_bypass"
-            parsed_message['bus'] = command.acceptance_filter_bypass_command.bus
-            parsed_message['bypass'] = command.acceptance_filter_bypass_command.bypass
+            cls._handle_acceptance_filter_bypass_cc_parsed_message(command, parsed_message)
         elif command.type == openxc_pb2.ControlCommand.PAYLOAD_FORMAT:
-            parsed_message['command'] = "payload_format"
-            if command.payload_format_command.format == openxc_pb2.PayloadFormatCommand.JSON:
-                parsed_message['format'] = "json"
-            elif command.payload_format_command.format == openxc_pb2.PayloadFormatCommand.PROTOBUF:
-                parsed_message['format'] = "protobuf"
+            cls._handle_payload_format_cc_parsed_message(command, parsed_message)
 
     @classmethod
     def _build_command_response_parsed_message(cls, message, parsed_message):
