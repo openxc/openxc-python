@@ -134,6 +134,37 @@ def parse_options():
     parser.set_defaults(format="json")
     return parser.parse_args()
 
+def handle_set_command(arguments, interface):
+    if arguments.passthrough_enabled is not None:
+        passthrough(interface, int(arguments.bus), arguments.passthrough_enabled)
+    if arguments.af_bypass is not None:
+        af_bypass(interface, int(arguments.bus), arguments.af_bypass)
+    if arguments.new_payload_format is not None:
+        set_payload_format(interface, arguments.new_payload_format)
+    if arguments.unix_time is not None:
+        set_rtc_time(interface, int(arguments.unix_time))
+    if arguments.host is not None:
+        modem_configuration(interface, arguments.host, arguments.port)
+
+def handle_write_command(arguments, interface):
+    if arguments.write_name:
+        interface.write(name=arguments.write_name,
+                value=arguments.write_value,
+                event=arguments.write_event)
+    elif arguments.write_id:
+        if not arguments.write_data:
+            sys.exit("%s requires an id and data" % arguments.command)
+        # TODO we should use unhexlify as with the diagnostic command
+        # payloads so we can standardize the API and not deal with hex
+        # strings in code
+        interface.write(bus=int(arguments.bus),
+                id=arguments.write_id,
+                data=arguments.write_data,
+                frame_format=arguments.write_frame_format)
+    elif arguments.write_input_file:
+        write_file(interface, arguments.write_input_file)
+    else:
+        sys.exit("%s requires a signal name, message ID or filename" % arguments.command)
 
 def main():
     configure_logging()
@@ -152,34 +183,8 @@ def main():
     elif arguments.command == "id":
         device_id(interface)
     elif arguments.command == "set":
-        if arguments.passthrough_enabled is not None:
-            passthrough(interface, int(arguments.bus), arguments.passthrough_enabled)
-        if arguments.af_bypass is not None:
-            af_bypass(interface, int(arguments.bus), arguments.af_bypass)
-        if arguments.new_payload_format is not None:
-            set_payload_format(interface, arguments.new_payload_format)
-        if arguments.unix_time is not None:
-            set_rtc_time(interface, int(arguments.unix_time))
-        if arguments.host is not None:
-            modem_configuration(interface, arguments.host, arguments.port)
+        handle_set_command(arguments, interface)
     elif arguments.command == "write":
-        if arguments.write_name:
-            interface.write(name=arguments.write_name,
-                    value=arguments.write_value,
-                    event=arguments.write_event)
-        elif arguments.write_id:
-            if not arguments.write_data:
-                sys.exit("%s requires an id and data" % arguments.command)
-            # TODO we should use unhexlify as with the diagnostic command
-            # payloads so we can standardize the API and not deal with hex
-            # strings in code
-            interface.write(bus=int(arguments.bus),
-                    id=arguments.write_id,
-                    data=arguments.write_data,
-                    frame_format=arguments.write_frame_format)
-        elif arguments.write_input_file:
-            write_file(interface, arguments.write_input_file)
-        else:
-            sys.exit("%s requires a signal name, message ID or filename" % arguments.command)
+        handle_write_command(arguments, interface)
     else:
         print(("Unrecognized command \"%s\"" % arguments.command))
