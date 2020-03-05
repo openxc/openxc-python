@@ -146,15 +146,15 @@ class ProtobufFormatter(object):
         message.type = openxc_pb2.VehicleMessage.CONTROL_COMMAND
         message.control_command.type = cls._command_string_to_protobuf(command_name)
         if message.control_command.type == openxc_pb2.ControlCommand.PASSTHROUGH:
-            cls._handle_passthrough_control_command(data, message)
+            cls._handle_passthrough_cc_message(data, message)
         elif message.control_command.type == openxc_pb2.ControlCommand.ACCEPTANCE_FILTER_BYPASS:
-            cls._handle_acceptance_filter_bypass_control_command(data, message)
+            cls._handle_acceptance_filter_bypass_cc_message(data, message)
         elif message.control_command.type == openxc_pb2.ControlCommand.PREDEFINED_OBD2_REQUESTS:
-            cls._handle_predefined_obd2_requests_control_command(data, message)
+            cls._handle_predefined_obd2_requests_cc_message(data, message)
         elif message.control_command.type == openxc_pb2.ControlCommand.PAYLOAD_FORMAT:
-            cls._handle_payload_format_control_command(data, message)
+            cls._handle_payload_format_cc_message(data, message)
         elif message.control_command.type == openxc_pb2.ControlCommand.DIAGNOSTIC:
-            cls._handle_diagnostic_control_command(data, message)
+            cls._handle_diagnostic_cc_message(data, message)
 
     @classmethod
     def _build_command_response_message(cls, data, message):
