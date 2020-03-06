@@ -100,17 +100,7 @@ class Message(object):
                 value = int(value, 0)
             self._id = value
 
-    def merge_message(self, data):
-        self.bus_name = self.bus_name or data.get('bus', None)
-
-        message_attributes = dir(self)
-        message_attributes = [a.replace('bus_name', 'bus') for a in message_attributes]
-        data_attributes = list(data.keys())
-        extra_attributes = set(data_attributes) - set(message_attributes)
-
-        if extra_attributes:
-            fatal_error('ERROR: Message %s has unrecognized attributes: %s' % (data.get('id'), ', '.join(extra_attributes)))
-
+    def validate_bus(self):
         if getattr(self, 'message_set'):
             self.bus = self.message_set.lookup_bus(name=self.bus_name)
             if not self.bus.valid():
@@ -122,6 +112,19 @@ class Message(object):
                 else:
                     msg = "Bus '%s' is disabled" % self.bus_name
                 LOG.warning("%s - message 0x%x will be disabled" % (msg, self.id))
+
+    def merge_message(self, data):
+        self.bus_name = self.bus_name or data.get('bus', None)
+
+        message_attributes = dir(self)
+        message_attributes = [a.replace('bus_name', 'bus') for a in message_attributes]
+        data_attributes = list(data.keys())
+        extra_attributes = set(data_attributes) - set(message_attributes)
+
+        if extra_attributes:
+            fatal_error('ERROR: Message %s has unrecognized attributes: %s' % (data.get('id'), ', '.join(extra_attributes)))
+
+        self.validate_bus()
 
         self.id = self.id or data.get('id')
         self.name = self.name or data.get('name', None)
