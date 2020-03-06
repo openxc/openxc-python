@@ -185,6 +185,20 @@ class BytestreamDataSource(DataSource):
             return False
         return True
 
+    def parse_messages(self):
+        while True:
+            message = self.streamer.parse_next_message()
+            if message is None:
+                break
+
+            if not self._message_valid(message):
+                self.corrupted_messages += 1
+                break
+
+            if self.callback is not None:
+                self.callback(message)
+            self._receive_command_response(message)
+
     def run(self):
         """Continuously read data from the source and attempt to parse a valid
         message from the buffer of bytes. When a message is parsed, passes it
@@ -210,18 +224,7 @@ class BytestreamDataSource(DataSource):
                     self.format = "protobuf"
             self.streamer.receive(payload)
 
-            while True:
-                message = self.streamer.parse_next_message()
-                if message is None:
-                    break
-
-                if not self._message_valid(message):
-                    self.corrupted_messages += 1
-                    break
-
-                if self.callback is not None:
-                    self.callback(message)
-                self._receive_command_response(message)
+            self.parse_messages()
 
     def _receive_command_response(self, message):
         # TODO the controller/source are getting a little mixed up since the
