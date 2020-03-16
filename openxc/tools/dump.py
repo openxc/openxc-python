@@ -13,6 +13,9 @@ import logging
 from openxc.formats.json import JsonFormatter
 from .common import device_options, configure_logging, select_device
 
+import functools
+print = functools.partial(print, flush=True)
+
 def receive(message, **kwargs):
     message['timestamp'] = time.time()
     print((JsonFormatter.serialize(message)))

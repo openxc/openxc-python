@@ -12,6 +12,9 @@ import argparse
 from .common import device_options, configure_logging, select_device
 import json
 
+import functools
+print = functools.partial(print, flush=True)
+
 def scan(controller, bus=None):
 
     # TODO could read the response from the "PIDs supported" requests to see
@@ -28,7 +31,6 @@ def scan(controller, bus=None):
 
             if (no_response == True):
                 print("PID 0x%x did not respond" % pid)
-        sys.stdout.flush()
 
 def parse_options():
     parser = argparse.ArgumentParser(description="Send requests for all "
