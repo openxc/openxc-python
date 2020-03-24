@@ -12,6 +12,9 @@ from collections import defaultdict
 
 from .common import device_options, configure_logging, select_device
 
+import functools
+print = functools.partial(print, flush=True)
+
 TESTER_PRESENT_MODE = 0x3e
 TESTER_PRESENT_PAYLOAD = bytearray([0])
 

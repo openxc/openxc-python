@@ -33,6 +33,7 @@ class UsbControllerMixin(Controller):
         """Send a request via the USB control request endpoint, rather than as a
         bulk transfer.
         """
+        # LOG.warn("DEBUG STUFF ________________ " + str(self.streamer.serialize_for_stream(request)))
         self.device.ctrl_transfer(0x40, self.COMPLEX_CONTROL_COMMAND, 0, 0,
                 self.streamer.serialize_for_stream(request))
 
