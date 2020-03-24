@@ -129,6 +129,8 @@ def parse_options():
             dest="unix_time")
     parser.add_argument("--host", action="store", default=None,
             dest="host")
+    parser.add_argument("--network-host", action="store", default=None,
+            dest="network_host")
     parser.add_argument("--port", action="store", default=80,
             dest="port")
     parser.set_defaults(format="json")
@@ -143,8 +145,8 @@ def handle_set_command(arguments, interface):
         set_payload_format(interface, arguments.new_payload_format)
     if arguments.unix_time is not None:
         set_rtc_time(interface, int(arguments.unix_time))
-    if arguments.host is not None:
-        modem_configuration(interface, arguments.host, arguments.port)
+    if arguments.network_host is not None:
+        modem_configuration(interface, arguments.network_host, arguments.port)
 
 def handle_write_command(arguments, interface):
     if arguments.write_name:
