@@ -9,6 +9,7 @@ module are internal only.
 import argparse
 import time
 import logging
+import sys
 
 from openxc.formats.json import JsonFormatter
 from .common import device_options, configure_logging, select_device
@@ -31,11 +32,14 @@ def parse_options():
 
 
 def main():
-    configure_logging(logging.DEBUG)
-    arguments = parse_options()
-
-    source_class, source_kwargs = select_device(arguments)
-    source = source_class(callback=receive, **source_kwargs)
-    source.start()
-    # TODO test this, I'd prefer it to the sleep loop
-    source.join()
+    try:
+        configure_logging(logging.DEBUG)
+        arguments = parse_options()
+        source_class, source_kwargs = select_device(arguments)
+        source = source_class(callback=receive, **source_kwargs)
+        source.start()
+        # TODO test this, I'd prefer it to the sleep loop
+        while(True):
+            source.join(0.1)
+    except KeyboardInterrupt:
+        sys.exit(0)
