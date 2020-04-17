@@ -6,7 +6,7 @@ program.
 module are internal only.
 """
 
-
+import sys
 import argparse
 from collections import defaultdict
 
@@ -98,11 +98,14 @@ def parse_options():
 
 
 def main():
-    configure_logging()
-    arguments = parse_options()
+    try:
+        configure_logging()
+        arguments = parse_options()
 
-    controller_class, controller_kwargs = select_device(arguments)
-    controller = controller_class(**controller_kwargs)
-    controller.start()
-
-    scan(controller, arguments.bus, arguments.message_id)
+        controller_class, controller_kwargs = select_device(arguments)
+        controller = controller_class(**controller_kwargs)
+        controller.start()
+        while(True):
+            scan(controller, arguments.bus, arguments.message_id)
+    except KeyboardInterrupt:
+        sys.exit(0)
