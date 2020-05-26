@@ -174,9 +174,6 @@ class DiagnosticResponseReceiver(ResponseReceiver):
             return True
         return False
         
-    def _return_frame(self, response):
-        return response['payload'][8:]
-        
     def _return_final(self, response):
         if response['frame'] == -1:
             return True
