@@ -36,6 +36,7 @@ class ResponseReceiver(object):
         queue - A multithreading queue that this receiver will pull potential responses from.
         request - The request we are trying to match up with a response.
         """
+        self.diag_dict = {}
         self.request = request
         self.queue = queue
         self.responses = []
@@ -82,12 +83,44 @@ class ResponseReceiver(object):
                 response = self.queue.get(
                         timeout=self.COMMAND_RESPONSE_TIMEOUT_S)
                 if self._response_matches_request(response):
+                    if type(self) == DiagnosticResponseReceiver:
+                        if self._response_is_multiframe(response):
+                            if response['message_id'] in self.diag_dict:
+                                self.diag_dict[response['message_id']].addFrame(response)
+                            else:
+                                self.diag_dict[response['message_id']] = MultiframeDiagnosticMessage(response)
+                            if self._return_final(response):
+                                self.responses.append(self.diag_dict[response['message_id']].getResponse())
+                                self.diag_dict.pop(response['message_id'])
                     self.responses.append(response)
                     if self.quit_after_first:
                         self.running = False
                 self.queue.task_done()
             except Empty:
                 break
+                
+class MultiframeDiagnosticMessage:
+    def __init__(self, response):
+        self.message_id = response['message_id'] - 16
+        self.mode = response['mode']
+        self.bus = response['bus']
+        self.pid = response['pid']
+        self.payload = '0x' + response['payload'][8:]
+        
+    def addFrame(self, response):
+        self.payload += response['payload'][8:]
+        
+    def getResponse(self):
+        request = {
+            'timestamp': 0,
+            'bus': self.bus,
+            'id': self.message_id,
+            'mode': self.mode,
+            'success': True,
+            'pid': self.pid,
+            'payload': self.payload
+        }
+        return request
 
 class CommandResponseReceiver(ResponseReceiver):
     """A receiver that matches the 'command' field in responses to the
@@ -104,7 +137,7 @@ class DiagnosticResponseReceiver(ResponseReceiver):
     """A receiver that matches the bus, ID, mode and PID from a
     diagnostic request to an incoming response.
     """
-
+    
     def __init__(self, queue, request):
         super(DiagnosticResponseReceiver, self).__init__(queue, request,
                 quit_after_first=False)
@@ -135,7 +168,16 @@ class DiagnosticResponseReceiver(ResponseReceiver):
             return False
 
         return response.get('mode', None) == self.diagnostic_request['mode']
-
+        
+    def _response_is_multiframe(self, response):
+        if 'frame' in response:
+            return True
+        return False
+        
+    def _return_final(self, response):
+        if response['frame'] == -1:
+            return True
+        return False
 
 class Controller(object):
     """A Controller is a physical vehicle interface that accepts commands to be
@@ -175,7 +217,7 @@ class Controller(object):
         if wait_for_first_response:
             responses = receiver.wait_for_responses()
         return responses
-
+        
     def _send_complex_request(self, request):
         self.write_bytes(self.streamer.serialize_for_stream(request))
 
