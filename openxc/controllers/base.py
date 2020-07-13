@@ -427,6 +427,14 @@ class Controller(object):
         }
         return self._check_command_response_message(request)
 
+    def get_vin(self):
+        """Request vehicle VIN
+        """
+        request = {
+            "command": "get_vin"
+        }
+        return self._check_command_response_message(request)
+
     def write(self, **kwargs):
         """Serialize a raw or translated write request and send it to the VI,
         following the OpenXC message format.

@@ -31,6 +31,9 @@ def sd_mount_status(interface):
 def device_id(interface):
     print(("Device ID is %s" % interface.device_id()))
 
+def get_vin(interface):
+    print(("Vehicle VIN is %s" % interface.get_vin()))
+
 def passthrough(interface, bus, passthrough_enabled):
     if interface.set_passthrough(bus, passthrough_enabled):
         print(("Bus %u passthrough set to %s" % (bus, passthrough_enabled)))
