@@ -96,7 +96,7 @@ def parse_options():
     parser = argparse.ArgumentParser(description="Send control messages to an "
             "attached OpenXC vehicle interface", parents=[device_options()])
     parser.add_argument("command", type=str,
-            choices=['version', 'platform', 'write', 'id', 'set', 'sd_mount_status'])
+            choices=['version', 'platform', 'write', 'id', 'set', 'sd_mount_status', 'get_vin'])
     write_group = parser.add_mutually_exclusive_group()
     write_group.add_argument("--name", action="store", dest="write_name",
             help="name for message write request")
@@ -187,6 +187,8 @@ def main():
         sd_mount_status(interface)
     elif arguments.command == "id":
         device_id(interface)
+    elif arguments.command == "get_vin":
+        get_vin(interface)
     elif arguments.command == "set":
         handle_set_command(arguments, interface)
     elif arguments.command == "write":
