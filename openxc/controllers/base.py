@@ -85,13 +85,13 @@ class ResponseReceiver(object):
                 if self._response_matches_request(response):
                     if type(self) == DiagnosticResponseReceiver:
                         if self._response_is_multiframe(response):
-                            if response['message_id'] in self.diag_dict:
-                                self.diag_dict[response['message_id']].addFrame(response)
+                            if response['id'] in self.diag_dict:
+                                self.diag_dict[response['id']].addFrame(response)
                             else:
-                                self.diag_dict[response['message_id']] = MultiframeDiagnosticMessage(response)
+                                self.diag_dict[response['id']] = MultiframeDiagnosticMessage(response)
                             if self._return_final(response):
-                                self.responses.append(self.diag_dict[response['message_id']].getResponse())
-                                self.diag_dict.pop(response['message_id'])
+                                self.responses.append(self.diag_dict[response['id']].getResponse())
+                                self.diag_dict.pop(response['id'])
                     self.responses.append(response)
                     if self.quit_after_first:
                         self.running = False
@@ -101,7 +101,7 @@ class ResponseReceiver(object):
                 
 class MultiframeDiagnosticMessage:
     def __init__(self, response):
-        self.message_id = response['message_id'] - 16
+        self.id = response['id'] - 16
         self.mode = response['mode']
         self.bus = response['bus']
         self.pid = response['pid']
@@ -114,7 +114,7 @@ class MultiframeDiagnosticMessage:
         request = {
             'timestamp': 0,
             'bus': self.bus,
-            'id': self.message_id,
+            'id': self.id,
             'mode': self.mode,
             'success': True,
             'pid': self.pid,
@@ -222,12 +222,12 @@ class Controller(object):
         self.write_bytes(self.streamer.serialize_for_stream(request))
 
     @classmethod
-    def _build_diagnostic_request(cls, message_id, mode, bus=None, pid=None,
+    def _build_diagnostic_request(cls, id, mode, bus=None, pid=None,
             frequency=None, payload=None, decoded_type=None):
         request = {
             'command': "diagnostic_request",
             'request': {
-                'id': message_id,
+                'id': id,
                 'mode': mode
             }
         }
@@ -247,19 +247,19 @@ class Controller(object):
 
         return request
 
-    def delete_diagnostic_request(self, message_id, mode, bus=None, pid=None):
-        request = self._build_diagnostic_request(message_id, mode, bus, pid)
+    def delete_diagnostic_request(self, id, mode, bus=None, pid=None):
+        request = self._build_diagnostic_request(id, mode, bus, pid)
         request['action'] = 'cancel'
         return self._check_command_response_status(request)
 
-    def create_diagnostic_request(self, message_id, mode, bus=None, pid=None,
+    def create_diagnostic_request(self, id, mode, bus=None, pid=None,
             frequency=None, payload=None, wait_for_ack=True,
             wait_for_first_response=False, decoded_type=None):
         """Send a new diagnostic message request to the VI
 
         Required:
 
-        message_id - The message ID (arbitration ID) for the request.
+        id - The message ID (arbitration ID) for the request.
         mode - the diagnostic mode (or service).
 
         Optional:
@@ -287,7 +287,7 @@ class Controller(object):
 
         """
 
-        request = self._build_diagnostic_request(message_id, mode, bus, pid,
+        request = self._build_diagnostic_request(id, mode, bus, pid,
                 frequency, payload, decoded_type)
 
         diag_response_receiver = None
@@ -453,15 +453,15 @@ class Controller(object):
         assert bytes_written == len(message)
         return bytes_written
 
-    def write_raw(self, message_id, data, bus=None, frame_format=None):
+    def write_raw(self, id, data, bus=None, frame_format=None):
         """Send a raw write request to the VI.
         """
-        if not isinstance(message_id, numbers.Number):
+        if not isinstance(id, numbers.Number):
             try:
-                message_id = int(message_id, 0)
+                id = int(id, 0)
             except ValueError:
                 raise ValueError("ID must be numerical")
-        data = {'id': message_id, 'data': data}
+        data = {'id': id, 'data': data}
         if bus is not None:
             data['bus'] = bus
         if frame_format is not None:
