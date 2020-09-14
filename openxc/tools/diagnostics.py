@@ -13,6 +13,23 @@ import time
 
 from .common import device_options, configure_logging, select_device
 
+def print_diagnostic_response(responses):
+    for response in responses:
+        # After sending a diagnostic request, it will return with a signal message saying if the
+        # request was recieved. After that it used to show about 30 vehicle messages (rpm, speed, etc)
+        # with the actual diagnostic response mixed in. So, if the response length is more than
+        # 1, it's the response, if its less (only 1) it's the recieved message.
+        if len(response) > 1:
+            # Stripping all of the unnesseary data we get after sending a diag request in python
+            # Just like in enabler, it's a diag response if it contains the keys "mode", "bus", 
+            # "id", and "success". 
+            diag_mgs_req_keys = ['mode', 'bus', 'id', 'success']
+            indices = [i for i, s in enumerate(response) if all(x in s for x in diag_mgs_req_keys)]
+            if indices:
+                print(("Response: %s" % response[indices[0]]))
+        else:
+            print(("Response: %s" % response))
+
 def diagnostic_request(arguments, controller):
     message = int(arguments.message, 0)
     mode = int(arguments.mode, 0)
@@ -40,21 +57,7 @@ def diagnostic_request(arguments, controller):
         if len(responses) == 0:
             print("No response received before timeout")
         else: 
-            for response in responses:
-                # After sending a diagnostic request, it will return with a signal message saying if the
-                # request was recieved. After that it used to show about 30 vehicle messages (rpm, speed, etc)
-                # with the actual diagnostic response mixed in. So, if the response length is more than
-                # 1, it's the response, if its less (only 1) it's the recieved message.
-                if len(response) > 1:
-                    # Stripping all of the unnesseary data we get after sending a diag request in python
-                    # Just like in enabler, it's a diag response if it contains the keys "mode", "bus", 
-                    # "id", and "success". 
-                    diagMsgReqKeys = ['mode', 'bus', 'id', 'success']
-                    indices = [i for i, s in enumerate(response) if all(x in s for x in diagMsgReqKeys)]
-                    if indices:
-                        print(("Response: %s" % response[indices[0]]))
-                else:
-                    print(("Response: %s" % response))
+            print_diagnostic_response(responses)
     elif arguments.command == "cancel":
         if controller.delete_diagnostic_request(message, mode, bus=bus,
                 pid=pid):

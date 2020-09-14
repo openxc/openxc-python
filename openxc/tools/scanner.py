@@ -6,24 +6,19 @@ program.
 module are internal only.
 """
 
-
+import sys
 import argparse
 from collections import defaultdict
 
 from .common import device_options, configure_logging, select_device
 
+import functools
+print = functools.partial(print, flush=True)
+
 TESTER_PRESENT_MODE = 0x3e
 TESTER_PRESENT_PAYLOAD = bytearray([0])
 
-def scan(controller, bus=None, message_id=None):
-    message_ids = []
-    if message_id is not None:
-        message_ids.append(message_id)
-    else:
-        # using 11-bit IDs
-        message_ids = list(range(0, 0x7ff + 1))
-
-    print("Sending tester present message to find valid modules arb IDs")
+def find_active_modules(controller, bus, message_ids):
     active_modules = set()
     for arb_id in message_ids:
         response = controller.create_diagnostic_request(arb_id, TESTER_PRESENT_MODE,
@@ -32,9 +27,9 @@ def scan(controller, bus=None, message_id=None):
         if response is not None:
             print(("0x%x responded to tester present: %s" % (arb_id, response)))
             active_modules.add(arb_id)
+    return active_modules
 
-    # Scan for active services on each active module by sending blank requests
-    print("Scanning for services on active modules")
+def find_active_modes(controller, bus, active_modules):
     active_modes = defaultdict(list)
     for active_module in active_modules:
         controller.create_diagnostic_request(active_module, TESTER_PRESENT_MODE,
@@ -56,6 +51,22 @@ def scan(controller, bus=None, message_id=None):
 
         controller.create_diagnostic_request(active_module, TESTER_PRESENT_MODE, bus=bus,
                 frequency=0)
+    return active_modes
+
+def scan(controller, bus=None, message_id=None):
+    message_ids = []
+    if message_id is not None:
+        message_ids.append(message_id)
+    else:
+        # using 11-bit IDs
+        message_ids = list(range(0, 0x7ff + 1))
+
+    print("Sending tester present message to find valid modules arb IDs")
+    active_modules = find_active_modules(controller, bus, message_ids)
+
+    # Scan for active services on each active module by sending blank requests
+    print("Scanning for services on active modules")
+    active_modes = find_active_modes(controller, bus, active_modules)
 
     # Scan for what each mode can do and what data it can return by fuzzing the
     # payloads
@@ -87,11 +98,14 @@ def parse_options():
 
 
 def main():
-    configure_logging()
-    arguments = parse_options()
+    try:
+        configure_logging()
+        arguments = parse_options()
 
-    controller_class, controller_kwargs = select_device(arguments)
-    controller = controller_class(**controller_kwargs)
-    controller.start()
-
-    scan(controller, arguments.bus, arguments.message_id)
+        controller_class, controller_kwargs = select_device(arguments)
+        controller = controller_class(**controller_kwargs)
+        controller.start()
+        while(True):
+            scan(controller, arguments.bus, arguments.message_id)
+    except KeyboardInterrupt:
+        sys.exit(0)
