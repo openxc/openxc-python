@@ -30,7 +30,8 @@ In addition to a port of the Android library API, the package also contains a
 number of command-line tools for connecting to the CAN translator and
 manipulating previously recorded vehicle data.
 
-Due to changes in signals.cpp openxc-python Version 2.1.0 must be used with vi-firmware 8.1.0 or greater. 
+Due to changes in signals.cpp openxc-python Version 2.0.0 must be used with vi-firmware 8.0.0 or greater. 
+Due to changes with large diagnostic responses Version 2.1.0 must be used with vi-firmware 8.1.0 or greater.
 
 To package run "setup.py sdist bdist_wheel"
 to push to pypi run "python -m twine upload dist/\*"
@@ -44,6 +45,6 @@ Version files:
 License
 ========
 
-Copyright (c) 2012-2017 Ford Motor Company
+Copyright (c) 2012-2020 Ford Motor Company
 
 Licensed under the BSD license.
