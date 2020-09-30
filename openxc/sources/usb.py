@@ -1,9 +1,10 @@
 """A USB vehicle interface data source."""
 
-
+import os
 import logging
 import usb.core
 import usb.util
+from usb.backend import libusb0
 
 from .base import BytestreamDataSource, DataSourceError
 
@@ -58,8 +59,14 @@ class UsbDataSource(BytestreamDataSource):
             product_id = int(product_id, 0)
         self.product_id = product_id or self.DEFAULT_PRODUCT_ID
 
-        devices = usb.core.find(find_all=True, idVendor=self.vendor_id,
+        if os.name == 'nt':
+            be = libusb0.get_backend()
+            devices = usb.core.find(backend=be, find_all=True, idVendor=self.vendor_id,
                 idProduct=self.product_id)
+        else:
+            devices = usb.core.find(find_all=True, idVendor=self.vendor_id,
+                idProduct=self.product_id)
+                
         for device in devices:
             self.device = device
             try:
