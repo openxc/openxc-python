@@ -126,7 +126,8 @@ class ProtobufFormatter(object):
             request_command.action = openxc_pb2.DiagnosticControlCommand.CANCEL
         request = request_command.request
         request_data = data['request']
-        request.bus = request_data['bus']
+        if 'bus' in request_data:
+            request.bus = request_data['bus']
         request.message_id = request_data['id']
         request.mode = request_data['mode']
         if 'frequency' in request_data:
@@ -243,63 +244,56 @@ class ProtobufFormatter(object):
     @classmethod
     def _build_can_parsed_message(cls, message, parsed_message):
         can_message = message.can_message
-        if can_message.HasField('bus'):
+        if can_message.bus != 0:
             parsed_message['bus'] = can_message.bus
-        if can_message.HasField('id'):
+        if can_message.id != 0:
             parsed_message['id'] = can_message.id
-        if can_message.HasField('data'):
+        if len(binascii.hexlify(can_message.data).decode("ascii")) > 0:
             parsed_message['data'] = "0x%s" % binascii.hexlify(can_message.data).decode("ascii")
-        if can_message.HasField('frame_format'):
-            if can_message.frame_format == openxc_pb2.CanMessage.STANDARD:
-                parsed_message['frame_format'] = "standard"
-            elif can_message.frame_format == openxc_pb2.CanMessage.EXTENDED:
-                parsed_message['frame_format'] = "extended"
+        if can_message.frame_format == openxc_pb2.CanMessage.STANDARD:
+            parsed_message['frame_format'] = "standard"
+        elif can_message.frame_format == openxc_pb2.CanMessage.EXTENDED:
+            parsed_message['frame_format'] = "extended"
 
     @classmethod
     def _build_diagnostic_parsed_message(cls, message, parsed_message):
         diagnostic_message = message.diagnostic_response
-        if diagnostic_message.HasField('bus'):
+        if diagnostic_message.bus != 0:
             parsed_message['bus'] = diagnostic_message.bus
-        if diagnostic_message.HasField('message_id'):
+        if diagnostic_message.message_id !=0:
             parsed_message['id'] = diagnostic_message.message_id
-        if diagnostic_message.HasField('mode'):
+        if diagnostic_message.mode != 0:
             parsed_message['mode'] = diagnostic_message.mode
-        if diagnostic_message.HasField('pid'):
+        if diagnostic_message.pid != 0:
             parsed_message['pid'] = diagnostic_message.pid
-        if diagnostic_message.HasField('success'):
-            parsed_message['success'] = diagnostic_message.success
-        if diagnostic_message.HasField('value'):
+        parsed_message['success'] = diagnostic_message.success
+        if diagnostic_message.value.type != openxc_pb2.DynamicField.UNUSED:     ##GJA
             parsed_message['value'] = diagnostic_message.value
-        if diagnostic_message.HasField('negative_response_code'):
+        if diagnostic_message.negative_response_code !=0:
             parsed_message['negative_response_code'] = diagnostic_message.negative_response_code
-        if diagnostic_message.HasField('payload'):
+        if len(binascii.hexlify(diagnostic_message.payload).decode("ascii")) > 0:
             parsed_message['payload'] = "0x%s" % binascii.hexlify(diagnostic_message.payload).decode("ascii")
 
     @classmethod
     def _build_simple_parsed_message(cls, message, parsed_message):
         simple_message = message.simple_message
         parsed_message['name'] = simple_message.name
-        if simple_message.HasField('event'):
-            event = simple_message.event
-            if event.HasField('numeric_value'):
-                parsed_message['event'] = event.numeric_value
-            elif event.HasField('boolean_value'):
-                parsed_message['event'] = event.boolean_value
-            elif event.HasField('string_value'):
-                parsed_message['event'] = event.string_value
-
-        if simple_message.HasField('value'):
-            value = simple_message.value
-            if value.HasField('numeric_value'):
-                parsed_message['value'] = value.numeric_value
-            elif value.HasField('boolean_value'):
-                parsed_message['value'] = value.boolean_value
-            elif value.HasField('string_value'):
-                parsed_message['value'] = value.string_value
-            else:
-                parsed_message = None
+        event = simple_message.event
+        if (len(event.string_value) > 0):
+            parsed_message['event'] = event.string_value
+        elif event.numeric_value != 0:
+            parsed_message['event'] = event.numeric_value
         else:
-            parsed_message = None
+            parsed_message['event'] = event.boolean_value
+
+        value = simple_message.value
+        if (len(value.string_value) > 0):
+            parsed_message['value'] = value.string_value
+        elif value.numeric_value != 0:
+            parsed_message['value'] = value.numeric_value
+        else:
+            parsed_message['value'] = value.boolean_value
+
 
     @classmethod
     def _handle_diagnostic_cc_parsed_message(cls, command, parsed_message):
@@ -316,16 +310,16 @@ class ProtobufFormatter(object):
         parsed_message['request']['bus'] = request.bus
         parsed_message['request']['mode'] = request.mode
 
-        if request.HasField('frequency'):
+        if rrequest.frequency != 0:
             parsed_message['request']['frequency'] = request.frequency
-        if request.HasField('name'):
+        if len(request.name) > 0:
             parsed_message['request']['name'] = request.name
-        if request.HasField('multiple_responses'):
-            parsed_message['request']['multiple_responses'] = request.multiple_responses
-        if request.HasField('pid'):
+        parsed_message['request']['multiple_responses'] = request.multiple_responses
+        if request.pid != 0:
             parsed_message['request']['pid'] = request.pid
-        if request.HasField('payload'):
+        if len(binascii.hexlify(request.payload).decode("ascii")) > 0:
             parsed_message['request']['payload'] = "0x%s" % binascii.hexlify(request.payload).decode("ascii")
+        print("Finished _handle_diagnostic_cc_parsed_message")
 
     @classmethod
     def _handle_passthrough_cc_parsed_message(cls, command, parsed_message):
@@ -393,14 +387,14 @@ class ProtobufFormatter(object):
             raise UnrecognizedBinaryCommandError(response.type)
 
         parsed_message['status'] = response.status
-        if response.HasField('message'):
+        if len(response.message) > 0:
             parsed_message['message'] = response.message
 
     @classmethod
     def _protobuf_to_dict(cls, message):
         parsed_message = {}
         if message is not None:
-            if message.type == message.CAN and message.HasField('can_message'):
+            if message.type == message.CAN:
                 cls._build_can_parsed_message(message, parsed_message)
             elif message.type == message.DIAGNOSTIC:
                 cls._build_diagnostic_parsed_message(message, parsed_message)
