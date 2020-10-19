@@ -52,7 +52,7 @@ class BaseFormatterTests(object):
         eq_(deserialized, self.formatter.deserialize(serialized))
 
     def test_simple_vehicle_message(self):
-        self._check_serialized_deserialize_equal({'name': "foo", 'value': 42})
+	    self._check_serialized_deserialize_equal({'name': "foo", 'event': False, 'value': 42})
 
     def test_command(self):
         self._check_serialized_deserialize_equal({'command': "version"})
