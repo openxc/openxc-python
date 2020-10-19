@@ -97,13 +97,14 @@ class BaseFormatterTests(object):
                 })
 
     def test_diagnostic_response(self):
-        self._check_serialized_deserialize_equal({"bus": 1,
+        self._check_serialized_deserialize_equal(
+            {"bus": 1,
             "id": 1234,
             "mode": 1,
             "pid": 5,
             "success": True,
-            "payload": "0x1234",
-            "value": 4660})
+            "payload": "0x1234"
+            })
 
     def test_negative_diagnostic_response(self):
         self._check_serialized_deserialize_equal({"bus": 1,

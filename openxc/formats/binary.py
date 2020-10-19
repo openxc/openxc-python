@@ -310,7 +310,7 @@ class ProtobufFormatter(object):
         parsed_message['request']['bus'] = request.bus
         parsed_message['request']['mode'] = request.mode
 
-        if rrequest.frequency != 0:
+        if request.frequency != 0:
             parsed_message['request']['frequency'] = request.frequency
         if len(request.name) > 0:
             parsed_message['request']['name'] = request.name
