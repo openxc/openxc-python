@@ -30,9 +30,6 @@ class ProtobufStreamer(VehicleMessageStreamer):
         # 3. if it worked, great, we're oriented in the stream - continue
         # 4. if either couldn't be parsed, skip to the next byte and repeat
         while message is None and len(self.message_buffer) > 1:
-            ##print(self.message_buffer)
-            if (b"8a" in self.message_buffer):
-                print("8a found")
             message_length, message_start = _DecodeVarint(self.message_buffer, 0)
             # sanity check to make sure we didn't parse some huge number that's
             # clearly not the length prefix
