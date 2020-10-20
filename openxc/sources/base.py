@@ -209,7 +209,10 @@ class BytestreamDataSource(DataSource):
             payloadsave = ""
             try:
                 payload = self.read()
-                payloadsave = str(payload, "cp437", "ignore")
+                try:
+                    payloadsave = str(payload, "cp437", "ignore")
+                except:
+                    payloadsave = ""
             except DataSourceError as e:
                 if self.running:
                     LOG.warn("Can't read from data source -- stopping: %s", e)
