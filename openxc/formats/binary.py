@@ -30,6 +30,9 @@ class ProtobufStreamer(VehicleMessageStreamer):
         # 3. if it worked, great, we're oriented in the stream - continue
         # 4. if either couldn't be parsed, skip to the next byte and repeat
         while message is None and len(self.message_buffer) > 1:
+            ##print(self.message_buffer)
+            if (b"8a" in self.message_buffer):
+                print("8a found")
             message_length, message_start = _DecodeVarint(self.message_buffer, 0)
             # sanity check to make sure we didn't parse some huge number that's
             # clearly not the length prefix
@@ -185,6 +188,10 @@ class ProtobufFormatter(object):
         response.bus = data['bus']
         response.message_id = data['id']
         response.mode = data['mode']
+        if 'total_size' in data:
+            response.total_size = data['total_size']
+        if 'frame' in data:
+            response.frame = data['frame']
         if 'pid' in data:
             response.pid = data['pid']
         if 'success' in data:
@@ -260,12 +267,13 @@ class ProtobufFormatter(object):
         diagnostic_message = message.diagnostic_response
         if diagnostic_message.bus != 0:
             parsed_message['bus'] = diagnostic_message.bus
-        if diagnostic_message.message_id !=0:
+        if diagnostic_message.message_id != 0:
             parsed_message['id'] = diagnostic_message.message_id
-        if diagnostic_message.mode != 0:
-            parsed_message['mode'] = diagnostic_message.mode
-        if diagnostic_message.pid != 0:
-            parsed_message['pid'] = diagnostic_message.pid
+        parsed_message['mode'] = diagnostic_message.mode
+        parsed_message['pid'] = diagnostic_message.pid
+        if diagnostic_message.total_size != 0:
+            parsed_message['total_size'] = diagnostic_message.total_size
+        parsed_message['frame'] = diagnostic_message.frame
         parsed_message['success'] = diagnostic_message.success
         if diagnostic_message.value.type != openxc_pb2.DynamicField.UNUSED:     ##GJA
             parsed_message['value'] = diagnostic_message.value
