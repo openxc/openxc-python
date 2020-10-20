@@ -102,6 +102,7 @@ class BaseFormatterTests(object):
             "id": 1234,
             "mode": 1,
             "pid": 5,
+            "frame": 0,
             "success": True,
             "payload": "0x1234"
             })
@@ -109,6 +110,7 @@ class BaseFormatterTests(object):
     def test_negative_diagnostic_response(self):
         self._check_serialized_deserialize_equal({"bus": 1,
             "id": 1234,
+            "pid": 0,
             "mode": 1,
             "success": False,
             "negative_response_code": 17})
