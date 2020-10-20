@@ -90,7 +90,10 @@ class ResponseReceiver(object):
                             else:
                                 self.diag_dict[response['id']] = MultiframeDiagnosticMessage(response)
                             if self._return_final(response):
-                                self.responses.append(self.diag_dict[response['id']].getResponse())
+                                save = self.responses.pop()
+                                dentry = self.diag_dict[response['id']].getResponse()  # DO NOT REMOVE This MUST be saved to a local variable to prevent deallocation
+                                self.responses.append(dentry)                          # DO NOT REMOVE This MUST be saved to a local variable to prevent deallocation
+                                self.responses.append(save)
                                 self.diag_dict.pop(response['id'])
                     self.responses.append(response)
                     if self.quit_after_first:
@@ -101,14 +104,14 @@ class ResponseReceiver(object):
                 
 class MultiframeDiagnosticMessage:
     def __init__(self, response):
-        self.id = response['id'] - 16
+        self.id = response['id']
         self.mode = response['mode']
         self.bus = response['bus']
         self.pid = response['pid']
         self.payload = '0x' + response['payload'][8:]
         
     def addFrame(self, response):
-        self.payload += response['payload'][8:]
+        self.payload += response['payload'][2:]
         
     def getResponse(self):
         request = {
@@ -132,6 +135,7 @@ class CommandResponseReceiver(ResponseReceiver):
         original request.
         """
         return response.get('command_response', None) == self.request['command']
+        ##return True
 
 class DiagnosticResponseReceiver(ResponseReceiver):
     """A receiver that matches the bus, ID, mode and PID from a
@@ -170,8 +174,12 @@ class DiagnosticResponseReceiver(ResponseReceiver):
         return response.get('mode', None) == self.diagnostic_request['mode']
         
     def _response_is_multiframe(self, response):
-        if 'frame' in response:
-            return True
+        #if 'frame' in response:
+        #    return True
+        print(response)
+        if 'total_size' in response.keys():
+            if response["total_size"] > 0:
+                return True
         return False
         
     def _return_final(self, response):

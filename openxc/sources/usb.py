@@ -93,7 +93,8 @@ class UsbDataSource(BytestreamDataSource):
         timeout = timeout or self.DEFAULT_READ_TIMEOUT
         try:
             raw_binary = self.device.read(0x80 + endpoint_address,read_size, self.DEFAULT_INTERFACE_NUMBER, timeout)
-            return str(raw_binary, 'utf-8', 'ignore')   #  Formerly - Causes byte tranlation str(temp, 'ISO-8859-1')
+            return raw_binary
+
         except (usb.core.USBError, AttributeError) as e:
             if e.backend_error_code in [self.LIBUSB0_TIMEOUT_CODE, self.LIBUSB1_TIMEOUT_CODE, self.OPENUSB_TIMEOUT_CODE]:
                 # Timeout, it may just not be sending
