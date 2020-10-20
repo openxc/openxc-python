@@ -111,6 +111,7 @@ class BaseFormatterTests(object):
         self._check_serialized_deserialize_equal({"bus": 1,
             "id": 1234,
             "pid": 0,
+            "frame": 0,
             "mode": 1,
             "success": False,
             "negative_response_code": 17})
