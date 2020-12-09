@@ -83,8 +83,7 @@ class ResponseReceiver(object):
                 response = self.queue.get(
                         timeout=self.COMMAND_RESPONSE_TIMEOUT_S)
                 if self._response_matches_request(response):
-                    if type(self) == DiagnosticResponseReceiver:
-                        if self._response_is_multiframe(response):
+                    if type(self) == DiagnosticResponseReceiver and self._response_is_multiframe(response):
                             if response['id'] in self.diag_dict:
                                 self.diag_dict[response['id']].addFrame(response)
                             else:
@@ -135,7 +134,6 @@ class CommandResponseReceiver(ResponseReceiver):
         original request.
         """
         return response.get('command_response', None) == self.request['command']
-        ##return True
 
 class DiagnosticResponseReceiver(ResponseReceiver):
     """A receiver that matches the bus, ID, mode and PID from a
@@ -174,11 +172,8 @@ class DiagnosticResponseReceiver(ResponseReceiver):
         return response.get('mode', None) == self.diagnostic_request['mode']
         
     def _response_is_multiframe(self, response):
-        #if 'frame' in response:
-        #    return True
         print(response)
-        if 'total_size' in response.keys():
-            if response["total_size"] > 0:
+        if 'total_size' in response.keys() and response["total_size"] > 0:
                 return True
         return False
         
