@@ -3,7 +3,7 @@
 
 name: Python package
 
-on: [ push, pull_request ]
+on: [ pull_request ]
 
 jobs:
   build:
@@ -29,3 +29,4 @@ jobs:
     - name: Test
       run: |
         python setup.py test
+
