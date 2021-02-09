@@ -11,8 +11,8 @@ OpenXC for Python
 :Source: http://github.com/openxc/openxc-python/
 :Keywords: vehicle, openxc, python
 
-.. image:: https://travis-ci.org/openxc/openxc-python.svg?branch=master
-    :target: https://travis-ci.org/openxc/openxc-python
+.. image:: https://github.com/openxc/openxc-python/workflows/Test%20Open%20XC%20Pyton/badge.svg
+    :target: https://github.com/openxc/openxc-python/actions?query=workflow%3A%22Test+Open+XC+Pyton%22
 
 .. image:: https://coveralls.io/repos/openxc/openxc-python/badge.png?branch=master
     :target: https://coveralls.io/r/openxc/openxc-python?branch=master
