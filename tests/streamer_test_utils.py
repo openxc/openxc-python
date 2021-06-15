@@ -52,7 +52,7 @@ class BaseFormatterTests(object):
         eq_(deserialized, self.formatter.deserialize(serialized))
 
     def test_simple_vehicle_message(self):
-        self._check_serialized_deserialize_equal({'name': "foo", 'value': 42})
+	    self._check_serialized_deserialize_equal({'name': "foo", 'event': False, 'value': 42})
 
     def test_command(self):
         self._check_serialized_deserialize_equal({'command': "version"})
@@ -97,17 +97,21 @@ class BaseFormatterTests(object):
                 })
 
     def test_diagnostic_response(self):
-        self._check_serialized_deserialize_equal({"bus": 1,
+        self._check_serialized_deserialize_equal(
+            {"bus": 1,
             "id": 1234,
             "mode": 1,
             "pid": 5,
+            "frame": 0,
             "success": True,
-            "payload": "0x1234",
-            "value": 4660})
+            "payload": "0x1234"
+            })
 
     def test_negative_diagnostic_response(self):
         self._check_serialized_deserialize_equal({"bus": 1,
             "id": 1234,
+            "pid": 0,
+            "frame": 0,
             "mode": 1,
             "success": False,
             "negative_response_code": 17})

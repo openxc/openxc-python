@@ -1,6 +1,14 @@
 OpenXC Python Library Changelog
 ===============================
 
+v2.1.0
+----------
+* SonarQube integration
+* Fix: Modem configuration for c5 cellar build now properly sets baud rate
+* Fix: Protobuf general improvements
+* Keyboard interupt via <ctrl>c added to openxc-dump and Obd2 Scanner
+* Stitching Feature, large messages are now packaged and sent in smaller chunks from the vi
+
 v2.0.0
 ----------
 * Known Issue: OpenXC python must be used with firmware 8.0.0 or greater.
