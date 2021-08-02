@@ -40,6 +40,7 @@ class DataSource(threading.Thread):
         self._streamer = None
         self._formatter = None
         self._format = payload_format
+        self.format = payload_format  # Added 7/30/2021 to fix protobuf streaming out
 
         self.logger = SourceLogger(self, log_mode)
 
