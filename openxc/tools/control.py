@@ -179,6 +179,8 @@ def main():
     interface = interface_class(**interface_kwargs)
     interface.start()
 
+    handle_set_command(arguments, interface)
+
     if arguments.command == "version":
         version(interface)
     elif arguments.command == "platform":
