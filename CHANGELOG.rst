@@ -1,6 +1,16 @@
 OpenXC Python Library Changelog
 ===============================
 
+v2.2.0
+----------
+* Improvements to usb traffic handling
+* Updated message format based upton the protobuf file
+* Improved memory management for protobuf
+* SonarQube updates
+* Github actions updated,travis decommissioned
+* Support for the new get_vin command
+   openxc-control get_vin
+
 v2.1.0
 ----------
 * SonarQube integration
