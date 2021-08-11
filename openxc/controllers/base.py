@@ -83,14 +83,16 @@ class ResponseReceiver(object):
                 response = self.queue.get(
                         timeout=self.COMMAND_RESPONSE_TIMEOUT_S)
                 if self._response_matches_request(response):
-                    if type(self) == DiagnosticResponseReceiver:
-                        if self._response_is_multiframe(response):
+                    if type(self) == DiagnosticResponseReceiver and self._response_is_multiframe(response):
                             if response['id'] in self.diag_dict:
                                 self.diag_dict[response['id']].addFrame(response)
                             else:
                                 self.diag_dict[response['id']] = MultiframeDiagnosticMessage(response)
                             if self._return_final(response):
-                                self.responses.append(self.diag_dict[response['id']].getResponse())
+                                save = self.responses.pop()
+                                dentry = self.diag_dict[response['id']].getResponse()  # DO NOT REMOVE This MUST be saved to a local variable to prevent deallocation
+                                self.responses.append(dentry)                          # DO NOT REMOVE This MUST be saved to a local variable to prevent deallocation
+                                self.responses.append(save)
                                 self.diag_dict.pop(response['id'])
                     self.responses.append(response)
                     if self.quit_after_first:
@@ -101,14 +103,14 @@ class ResponseReceiver(object):
                 
 class MultiframeDiagnosticMessage:
     def __init__(self, response):
-        self.id = response['id'] - 16
+        self.id = response['id']
         self.mode = response['mode']
         self.bus = response['bus']
         self.pid = response['pid']
         self.payload = '0x' + response['payload'][8:]
         
     def addFrame(self, response):
-        self.payload += response['payload'][8:]
+        self.payload += response['payload'][2:]
         
     def getResponse(self):
         request = {
@@ -170,8 +172,9 @@ class DiagnosticResponseReceiver(ResponseReceiver):
         return response.get('mode', None) == self.diagnostic_request['mode']
         
     def _response_is_multiframe(self, response):
-        if 'frame' in response:
-            return True
+        print(response)
+        if 'total_size' in response.keys() and response["total_size"] > 0:
+                return True
         return False
         
     def _return_final(self, response):
@@ -424,6 +427,14 @@ class Controller(object):
         """
         request = {
             "command": "device_id"
+        }
+        return self._check_command_response_message(request)
+
+    def get_vin(self):
+        """Request vehicle VIN
+        """
+        request = {
+            "command": "get_vin"
         }
         return self._check_command_response_message(request)
 

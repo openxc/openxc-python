@@ -31,6 +31,9 @@ def sd_mount_status(interface):
 def device_id(interface):
     print(("Device ID is %s" % interface.device_id()))
 
+def get_vin(interface):
+    print(("Vehicle VIN is %s" % interface.get_vin()))
+
 def passthrough(interface, bus, passthrough_enabled):
     if interface.set_passthrough(bus, passthrough_enabled):
         print(("Bus %u passthrough set to %s" % (bus, passthrough_enabled)))
@@ -93,7 +96,7 @@ def parse_options():
     parser = argparse.ArgumentParser(description="Send control messages to an "
             "attached OpenXC vehicle interface", parents=[device_options()])
     parser.add_argument("command", type=str,
-            choices=['version', 'platform', 'write', 'id', 'set', 'sd_mount_status'])
+            choices=['version', 'platform', 'write', 'id', 'set', 'sd_mount_status', 'get_vin'])
     write_group = parser.add_mutually_exclusive_group()
     write_group.add_argument("--name", action="store", dest="write_name",
             help="name for message write request")
@@ -176,6 +179,8 @@ def main():
     interface = interface_class(**interface_kwargs)
     interface.start()
 
+    handle_set_command(arguments, interface)
+
     if arguments.command == "version":
         version(interface)
     elif arguments.command == "platform":
@@ -184,6 +189,8 @@ def main():
         sd_mount_status(interface)
     elif arguments.command == "id":
         device_id(interface)
+    elif arguments.command == "get_vin":
+        get_vin(interface)
     elif arguments.command == "set":
         handle_set_command(arguments, interface)
     elif arguments.command == "write":

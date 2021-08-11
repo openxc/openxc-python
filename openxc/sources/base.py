@@ -40,6 +40,7 @@ class DataSource(threading.Thread):
         self._streamer = None
         self._formatter = None
         self._format = payload_format
+        self.format = payload_format  # Added 7/30/2021 to fix protobuf streaming out
 
         self.logger = SourceLogger(self, log_mode)
 
@@ -206,8 +207,13 @@ class BytestreamDataSource(DataSource):
         """
         while self.running:
             payload = ""
+            payloadsave = ""
             try:
                 payload = self.read()
+                try:
+                    payloadsave = str(payload, "cp437", "ignore")
+                except:
+                    payloadsave = ""
             except DataSourceError as e:
                 if self.running:
                     LOG.warn("Can't read from data source -- stopping: %s", e)
@@ -218,12 +224,11 @@ class BytestreamDataSource(DataSource):
             except MissingPayloadFormatError:
                 json_chars = ['\x00']
                 json_chars.extend(string.printable)
-                if all((char in json_chars for char in payload)):
+                if all((char in json_chars for char in payloadsave)):
                     self.format = "json"
                 else:
                     self.format = "protobuf"
             self.streamer.receive(payload)
-
             self.parse_messages()
 
     def _receive_command_response(self, message):

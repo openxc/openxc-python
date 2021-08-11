@@ -1,9 +1,10 @@
 """A USB vehicle interface data source."""
 
-
+import os
 import logging
 import usb.core
 import usb.util
+from usb.backend import libusb0
 
 from .base import BytestreamDataSource, DataSourceError
 
@@ -58,8 +59,14 @@ class UsbDataSource(BytestreamDataSource):
             product_id = int(product_id, 0)
         self.product_id = product_id or self.DEFAULT_PRODUCT_ID
 
-        devices = usb.core.find(find_all=True, idVendor=self.vendor_id,
+        if os.name == 'nt':
+            be = libusb0.get_backend()
+            devices = usb.core.find(backend=be, find_all=True, idVendor=self.vendor_id,
                 idProduct=self.product_id)
+        else:
+            devices = usb.core.find(find_all=True, idVendor=self.vendor_id,
+                idProduct=self.product_id)
+                
         for device in devices:
             self.device = device
             try:
@@ -86,7 +93,8 @@ class UsbDataSource(BytestreamDataSource):
         timeout = timeout or self.DEFAULT_READ_TIMEOUT
         try:
             raw_binary = self.device.read(0x80 + endpoint_address,read_size, self.DEFAULT_INTERFACE_NUMBER, timeout)
-            return str(raw_binary, 'utf-8', 'ignore')   #  Formerly - Causes byte tranlation str(temp, 'ISO-8859-1')
+            return raw_binary
+
         except (usb.core.USBError, AttributeError) as e:
             if e.backend_error_code in [self.LIBUSB0_TIMEOUT_CODE, self.LIBUSB1_TIMEOUT_CODE, self.OPENUSB_TIMEOUT_CODE]:
                 # Timeout, it may just not be sending

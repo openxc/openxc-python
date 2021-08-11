@@ -67,7 +67,7 @@ class TraceDataSource(BytestreamDataSource):
         if self.realtime and timestamp is not None:
             self._store_timestamp(timestamp)
             self._wait(self.starting_time, self.first_timestamp, timestamp)
-        return line + "\x00"
+        return (line + "\x00").encode("cp437")
 
     @staticmethod
     def _open_file(filename):
