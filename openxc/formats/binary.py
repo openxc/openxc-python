@@ -19,6 +19,17 @@ class UnrecognizedBinaryCommandError(Exception): pass
 class ProtobufStreamer(VehicleMessageStreamer):
     MAX_PROTOBUF_MESSAGE_LENGTH = 200
 
+    def is_sync_message(self, message_length):
+        #\x07SYNCMSG     7,83,89
+        if (message_length == 7) and (self.message_buffer[1] == ord('S')) and \
+           (self.message_buffer[2] == ord('Y')) and (self.message_buffer[3] == ord('N')) and \
+           (self.message_buffer[4] == ord('C')) and (self.message_buffer[5] == ord('M')) and \
+           (self.message_buffer[6] == ord('S')) and (self.message_buffer[7] == ord('G')):
+            self.message_buffer = self.message_buffer[8:]
+            #print("SYNCMSG")
+            return 1
+        return 0
+
     def parse_next_message(self):
         message = None
         remainder = self.message_buffer
@@ -44,6 +55,8 @@ class ProtobufStreamer(VehicleMessageStreamer):
                     message_length]
             remainder = self.message_buffer[message_start + message_length:]
 
+            self.is_sync_message(message_length)
+
             message = ProtobufFormatter.deserialize(message_data)
             if message is None:
                 self.message_buffer = self.message_buffer[1:]
@@ -55,7 +68,6 @@ class ProtobufStreamer(VehicleMessageStreamer):
         protobuf_message = ProtobufFormatter.serialize(message)
         delimiter = encoder._VarintBytes(len(protobuf_message))
         return delimiter + protobuf_message
-
 
 class ProtobufFormatter(object):
     @classmethod
